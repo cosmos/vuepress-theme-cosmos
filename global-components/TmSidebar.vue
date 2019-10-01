@@ -13,12 +13,14 @@
               a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
               router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
             div(v-if="active(section)")
-              router-link(:to="item.path" tag="div" v-if="item.path" v-for="item in sortBy(section.children, ['frontmatter.order'])" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
-      .footer
-        a(href="https://cosmos.network").footer__item
-          svg(width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg").footer__item__icon
-            path(d="M7 1.5L1.5 7L7 12.5" stroke="#161931" stroke-width="1.5" stroke-linecap="round")
-          .footer__item__text Back to Cosmos
+              div(v-for="item in sortBy(section.children, ['frontmatter.order'])")
+                router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
+                router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
+      //- .footer
+      //-   a(href="https://cosmos.network").footer__item
+      //-     svg(width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg").footer__item__icon
+      //-       path(d="M7 1.5L1.5 7L7 12.5" stroke="#161931" stroke-width="1.5" stroke-linecap="round")
+      //-     .footer__item__text Back to Cosmos
 </template>
 
 <style lang="stylus" scoped>
@@ -143,7 +145,7 @@ export default {
       return this.$themeConfig.logo;
     },
     sidebar() {
-      return this.value
+      return this.value;
       // return [
       //   { title: "Reference", children: this.value },
       //   ...(this.$themeConfig.sidebar || [])
@@ -185,7 +187,14 @@ export default {
       return (
         section.children &&
         find(section.children, item => {
-          return item.path == this.$page.path || item.path == this.$route.path;
+          return (
+            item.path == this.$page.path ||
+            item.path == this.$route.path ||
+            (item &&
+              item.children &&
+              (this.indexFile(item) && this.indexFile(item).path) ==
+                this.$page.path)
+          );
         })
       );
     },
@@ -195,6 +204,7 @@ export default {
       const index = this.indexFile(section);
       if (index) return index.path;
       if (children[0].path) return children[0].path;
+      if (this.indexFile(children[0])) return this.indexFile(children[0]).path;
       return "";
     },
     indexFile(section) {
