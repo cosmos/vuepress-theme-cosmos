@@ -44,7 +44,7 @@
       margin-bottom 0
 
   a
-    color var(--color-accent)
+    color $accentColor
     text-decoration none
 
   h1

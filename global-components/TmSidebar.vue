@@ -71,6 +71,7 @@
         left 0
         height 1rem
         width 1rem
+        fill red
         background url('./images/bullet-hex-blue.svg') no-repeat top left
 
   &__title
