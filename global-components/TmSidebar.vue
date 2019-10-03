@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .container
-      div
+      .main
         router-link(to="/")
           img(:src="$withBase(logo)" v-if="logo")
           div(v-else).logo Documentation
@@ -16,27 +16,25 @@
               div(v-for="item in sortBy(section.children, ['frontmatter.order'])")
                 router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
                 router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
-      //- .footer
-      //-   a(href="https://cosmos.network").footer__item
-      //-     svg(width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg").footer__item__icon
-      //-       path(d="M7 1.5L1.5 7L7 12.5" stroke="#161931" stroke-width="1.5" stroke-linecap="round")
-      //-     .footer__item__text Back to Cosmos
+      .footer
+        a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+          component(:is="`tm-logo-${product.label}`").footer__item__icon
+          div.footer__item__title {{product.name}}
 </template>
 
 <style lang="stylus" scoped>
+.main
+  margin-bottom 50px
+  padding 0 2rem 2rem
+
 .logo
   margin-top 2rem
   font-weight 600
 
 .container
-  padding 0 2rem 2rem
-  height 100%
+  height 100vh
   overflow-y scroll
   position relative
-  display flex
-  flex-direction column
-  justify-content space-between
-  align-items flex-start
 
 .title
   font-size 0.75rem
@@ -108,22 +106,32 @@
       background url('./images/icon-outbound.svg') no-repeat top left
 
 .footer
-  margin-top 1.5rem
+  overflow-x scroll
+  padding-top 1rem
+  padding-bottom 1rem
   background-color var(--sidebar-bg)
+  position fixed
+  bottom 0
+  width var(--sidebar-width)
+  display flex
+  padding-left .75rem
+  padding-right .75rem
 
   &__item
-    color #161931
-    text-transform uppercase
-    font-size 0.875rem
+    flex-grow 1
+    padding-left 1rem
+    padding-right 1rem
     display flex
     align-items center
-    box-shadow inset 0 0 0 2px rgba(140, 145, 177, 0.32)
-    padding 0.75rem 1rem
-    border-radius 0.25rem
-    font-weight 500
+    flex-direction column
+    fill rgba(14, 33, 37, 0.26)
 
-    &__icon
-      margin-right 1rem
+    &:hover
+      fill var(--color)
+
+    &__title
+      text-align center
+      font-size .625rem
 </style>
 
 <script>
@@ -139,6 +147,36 @@ import {
 
 export default {
   props: ["value"],
+  data: function() {
+    return {
+      products: [
+        {
+          label: "sdk",
+          name: "Cosmos SDK",
+          url: "https://cosmos.network/docs/",
+          color: "#5064FB"
+        },
+        {
+          label: "ibc",
+          name: "IBC Protocol",
+          url: "https://cosmos.network/docs/spec/ibc/",
+          color: "#E6900A"
+        },
+        {
+          label: "hub",
+          name: "Cosmos Hub",
+          url: "https://hub.cosmos.network/",
+          color: "#BA3FD9"
+        },
+        {
+          label: "core",
+          name: "Tendermint Core",
+          url: "https://cosmos.network/docs/spec/ibc/",
+          color: "#00BB00"
+        }
+      ]
+    };
+  },
   computed: {
     logo() {
       return this.$themeConfig.logo;
@@ -222,22 +260,22 @@ export default {
     },
     title(section) {
       const index = this.indexFile(section);
-      if (
-        index &&
-        index.frontmatter &&
-        index.frontmatter.parent &&
-        index.frontmatter.parent.title
-      ) {
-        return index.frontmatter.parent.title;
-      } else {
-        return index.title;
-      }
-      // if (index) {
-      //   const frontmatter =
-      //     index.frontmatter.parent && index.frontmatter.parent.title;
-      //   return frontmatter ? frontmatter : index.title;
+      // if (
+      //   index &&
+      //   index.frontmatter &&
+      //   index.frontmatter.parent &&
+      //   index.frontmatter.parent.title
+      // ) {
+      //   return index.frontmatter.parent.title;
+      // } else {
+      //   return section.title;
       // }
-      // return section.title;
+      if (index) {
+        const frontmatter =
+          index.frontmatter.parent && index.frontmatter.parent.title;
+        return frontmatter ? frontmatter : index.title;
+      }
+      return section.title;
     },
     sortBy
   }
