@@ -27,13 +27,7 @@
 .sidebar__container
   overflow-y scroll
   z-index 10000
-  position fixed
-  top 0
-  left 0
-  height 100vh
-  width var(--sidebar-width)
   pointer-events none
-  -webkit-overflow-scrolling touch
   transition background-color 0.5s
 
 .sidebar
@@ -43,7 +37,7 @@
   position absolute
   left 0
   top 0
-  height 100vh
+  bottom 0
   overflow-y scroll
   overflow-x hidden
   z-index 1000
@@ -52,6 +46,12 @@
 
 .content
   margin-left var(--sidebar-width)
+  position absolute
+  right 0
+  left 0
+  top 0
+  bottom 0
+  overflow-y scroll
 
 .topbar
   margin-left 4rem
@@ -75,15 +75,9 @@
       display none
 
 .aside
-  padding-top var(--topbar-height)
+  margin-top var(--topbar-height)
   pointer-events initial
   background white
-  position fixed
-  right 0
-  overflow-y scroll
-  top 0
-  bottom 0
-  width var(--sidebar-width)
   padding-left 1rem
   padding-right 1rem
 

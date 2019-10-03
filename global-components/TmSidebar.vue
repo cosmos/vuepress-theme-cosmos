@@ -8,7 +8,7 @@
         tm-search
         div(v-for="group in sidebar")
           .title {{group.title}}
-          .section(v-for="section in sortGroup(group.children)")
+          .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
             .section__title
               a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
               router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
@@ -24,7 +24,6 @@
 </template>
 
 <style lang="stylus" scoped>
-
 .logo
   margin-top 2rem
   font-weight 600
@@ -71,7 +70,6 @@
         left 0
         height 1rem
         width 1rem
-        fill red
         background url('./images/bullet-hex-blue.svg') no-repeat top left
 
   &__title
@@ -174,6 +172,12 @@ export default {
     }
   },
   methods: {
+    showSection(section) {
+      const index = this.indexFile(section);
+      const parent = index && index.frontmatter.parent;
+      const order = parent && parent.order;
+      return order !== false;
+    },
     sortGroup(group) {
       return sortBy(group, section => {
         const index = this.indexFile(section);
@@ -218,12 +222,22 @@ export default {
     },
     title(section) {
       const index = this.indexFile(section);
-      if (index) {
-        const frontmatter =
-          index.frontmatter.parent && index.frontmatter.parent.title;
-        return frontmatter ? frontmatter : index.title;
+      if (
+        index &&
+        index.frontmatter &&
+        index.frontmatter.parent &&
+        index.frontmatter.parent.title
+      ) {
+        return index.frontmatter.parent.title;
+      } else {
+        return index.title;
       }
-      return section.title;
+      // if (index) {
+      //   const frontmatter =
+      //     index.frontmatter.parent && index.frontmatter.parent.title;
+      //   return frontmatter ? frontmatter : index.title;
+      // }
+      // return section.title;
     },
     sortBy
   }
