@@ -30,8 +30,9 @@
       max-width initial
 
 /deep/
-  img
-    max-width 100%
+  .content__container
+    img 
+      max-width 100%
 
   .term
     text-decoration underline
