@@ -156,12 +156,12 @@ export default {
           url: "https://cosmos.network/docs/",
           color: "#5064FB"
         },
-        {
-          label: "ibc",
-          name: "IBC Protocol",
-          url: "https://cosmos.network/docs/spec/ibc/",
-          color: "#E6900A"
-        },
+        // {
+        //   label: "ibc",
+        //   name: "IBC Protocol",
+        //   url: "https://cosmos.network/docs/spec/ibc/",
+        //   color: "#E6900A"
+        // },
         {
           label: "hub",
           name: "Cosmos Hub",
