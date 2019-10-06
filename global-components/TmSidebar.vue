@@ -1,30 +1,30 @@
 <template lang="pug">
   div
     .container
-      .main
-        router-link(to="/")
-          img(:src="$withBase(logo)" v-if="logo")
-          div(v-else).logo Documentation
-        tm-search
-        div(v-for="group in sidebar")
-          .title {{group.title}}
-          .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
-            .section__title
-              a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
-              router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
-            div(v-if="active(section)")
-              div(v-for="item in sortBy(section.children, ['frontmatter.order'])")
-                router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
-                router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
-      .footer
-        a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
-          component(:is="`tm-logo-${product.label}`").footer__item__icon
-          div.footer__item__title {{product.name}}
+      .wrapper
+        .main
+          router-link(to="/")
+            img(:src="$withBase(logo)" v-if="logo")
+            div(v-else).logo Documentation
+          tm-search
+          div(v-for="group in sidebar")
+            .title {{group.title}}
+            .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
+              .section__title
+                a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
+                router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
+              div(v-if="active(section)")
+                div(v-for="item in sortBy(section.children, ['frontmatter.order'])")
+                  router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
+                  router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
+        .footer
+          a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+            component(:is="`tm-logo-${product.label}`").footer__item__icon
+            div.footer__item__title {{product.name}}
 </template>
 
 <style lang="stylus" scoped>
 .main
-  margin-bottom 50px
   padding 0 2rem 2rem
 
 .logo
@@ -33,8 +33,16 @@
 
 .container
   height 100vh
-  overflow-y scroll
   position relative
+
+.wrapper
+  height calc(100vh - var(--sidebar-footer-height))
+  position relative
+  overflow-y scroll
+  background linear-gradient(rgba(255,255,255,0), var(--sidebar-bg) 70%) 0 100%, linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.05)) 0 100%
+  background-repeat no-repeat
+  background-size 100% 40px, 100% 14px
+  background-attachment local, scroll
 
 .title
   font-size 0.75rem
@@ -106,6 +114,7 @@
       background url('./images/icon-outbound.svg') no-repeat top left
 
 .footer
+  height var(--sidebar-footer-height)
   overflow-x scroll
   padding-top 1rem
   padding-bottom 1rem
@@ -116,6 +125,8 @@
   display flex
   padding-left .75rem
   padding-right .75rem
+  align-items center
+  overflow-y hidden
 
   &__item
     flex-grow 1
