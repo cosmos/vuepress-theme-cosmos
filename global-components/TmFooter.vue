@@ -71,7 +71,7 @@
       margin-bottom 0.5rem
 
 .container
-  background-color #161931
+  background-color var(--background)
   color white
   padding-top 3.5rem
   padding-bottom 3.5rem

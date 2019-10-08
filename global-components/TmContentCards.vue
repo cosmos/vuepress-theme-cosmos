@@ -4,7 +4,7 @@
       .title Contents
       router-link(v-for="card in cards" :to="card.path" tag="a").card
         .card__title {{card.title}}
-        .card__description {{card.frontmatter.description}}
+        .card__description(v-if="card.frontmatter.description") {{card.frontmatter.description}}
         svg(width="12" height="20" viewBox="0 0 12 20" fill="none" xmlns="http://www.w3.org/2000/svg").card__icon
           path(d="M1.5 1.75L9.75 10L1.5 18.25" stroke="#A2A3AD" stroke-width="2" stroke-linecap="round")
 </template>
@@ -30,10 +30,10 @@
   &__title
     color #161931
     font-size 1.25rem
-    margin-bottom .75rem
     font-weight 600
 
   &__description
+    margin-top .75rem
     font-size .875rem
     line-height 20px
 
@@ -47,7 +47,9 @@
 export default {
   computed: {
     cards() {
-      return this.$site.pages.filter(page => page.path.match(this.$page.path));
+      return this.$site.pages
+        .filter(page => page.path.match(this.$page.path))
+        .filter(page => page.path != this.$page.path);
     }
   }
 };

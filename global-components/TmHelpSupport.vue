@@ -18,13 +18,13 @@
             .links__item__title Found an Issue?
             .links__item__desc Help us improve this page by suggesting edits on GitHub.
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item__button
-            img(src="./images/icon-edit.svg" alt="Edit").links__item__button__icon
-            span Edit this page
+            tm-icon-edit.links__item__button__icon
+            a(:href="editLink" target="_blank") Edit this page
 </template>
 
 <style lang="stylus" scoped>
 a
-  color var(--color-accent)
+  color var(--accent-color)
 
 strong
   font-weight 500
@@ -67,7 +67,7 @@ strong
       line-height 1.25rem
 
     &__indicator
-      box-shadow inset 4px 0 0 var(--color-accent)
+      box-shadow inset 4px 0 0 var(--accent-color)
       padding-top 0.5rem
       padding-bottom 0.5rem
       padding-left 1rem

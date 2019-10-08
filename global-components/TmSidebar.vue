@@ -12,6 +12,7 @@
             .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
               .section__title
                 a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
+                a.section__outbound(v-if="section.path && section.static" :href="section.path" target="_blank") {{section.title}}
                 router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
               div(v-if="active(section)")
                 div(v-for="item in showChildren(section.children)")
@@ -230,6 +231,7 @@ export default {
       return sortBy(children, ["frontmatter.order"]);
     },
     showSection(section) {
+      if (section.path) return section.path;
       const index = this.indexFile(section);
       const parent = index && index.frontmatter.parent;
       const order = parent && parent.order;
@@ -261,6 +263,7 @@ export default {
       );
     },
     url(section) {
+      if (section.path) return section.path;
       const children = section.children;
       if (!children) return "";
       const index = this.indexFile(section);
