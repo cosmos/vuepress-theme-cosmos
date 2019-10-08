@@ -267,8 +267,9 @@ export default {
       if (index && index.frontmatter.order != false) return index.path;
       const childrenSorted = sortBy(omit(children, this.indexFile(children)), [
         "frontmatter.order"
-      ]).filter(child => child.frontmatter.order != false);
-      if (childrenSorted[0].path) return childrenSorted[0].path;
+      ]).filter(child => child.frontmatter && child.frontmatter.order != false);
+      if (childrenSorted[0] && childrenSorted[0].path)
+        return childrenSorted[0].path;
       if (this.indexFile(children[0])) return this.indexFile(children[0]).path;
       return "";
     },
