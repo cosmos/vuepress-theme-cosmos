@@ -4,6 +4,7 @@
       .content(:class="{noAside}")
         .content__container(:class="{noAside}")
           slot(name="content")
+          tm-content-cards(v-if="$frontmatter.cards")
 </template>
 
 <style lang="stylus" scoped>
