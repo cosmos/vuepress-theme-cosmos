@@ -14,7 +14,7 @@
                 a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
                 router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
               div(v-if="active(section)")
-                div(v-for="item in sortBy(section.children, ['frontmatter.order'])")
+                div(v-for="item in showChildren(section.children)")
                   router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
                   router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
         .footer
@@ -221,6 +221,12 @@ export default {
     }
   },
   methods: {
+    showChildren(childrenList) {
+      const children = childrenList.filter(
+        child => child.frontmatter.order != false
+      );
+      return sortBy(children, ["frontmatter.order"]);
+    },
     showSection(section) {
       const index = this.indexFile(section);
       const parent = index && index.frontmatter.parent;
@@ -256,7 +262,7 @@ export default {
       const children = section.children;
       if (!children) return "";
       const index = this.indexFile(section);
-      if (index) return index.path;
+      if (index && index.frontmatter.order != false) return index.path;
       if (children[0].path) return children[0].path;
       if (this.indexFile(children[0])) return this.indexFile(children[0]).path;
       return "";
