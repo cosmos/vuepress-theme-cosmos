@@ -224,7 +224,7 @@ export default {
   methods: {
     showChildren(childrenList) {
       const children = childrenList.filter(
-        child => child.frontmatter.order !== false
+        child => child.frontmatter && child.frontmatter.order !== false
       );
       return sortBy(children, ["frontmatter.order"]);
     },
