@@ -223,9 +223,10 @@ export default {
   },
   methods: {
     showChildren(childrenList) {
-      const children = childrenList.filter(
-        child => child.frontmatter && child.frontmatter.order !== false
-      );
+      const children = childrenList.filter(child => {
+        if (child.frontmatter) return child.frontmatter.order !== false;
+        if (child.children) return true;
+      });
       return sortBy(children, ["frontmatter.order"]);
     },
     showSection(section) {
