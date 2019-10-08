@@ -153,7 +153,8 @@ import {
   isArray,
   sortBy,
   last,
-  find
+  find,
+  omit
 } from "lodash";
 
 export default {
@@ -223,7 +224,7 @@ export default {
   methods: {
     showChildren(childrenList) {
       const children = childrenList.filter(
-        child => child.frontmatter.order != false
+        child => child.frontmatter.order !== false
       );
       return sortBy(children, ["frontmatter.order"]);
     },
@@ -263,7 +264,10 @@ export default {
       if (!children) return "";
       const index = this.indexFile(section);
       if (index && index.frontmatter.order != false) return index.path;
-      if (children[0].path) return children[0].path;
+      const childrenSorted = sortBy(omit(children, this.indexFile(children)), [
+        "frontmatter.order"
+      ]).filter(child => child.frontmatter.order != false);
+      if (childrenSorted[0].path) return childrenSorted[0].path;
       if (this.indexFile(children[0])) return this.indexFile(children[0]).path;
       return "";
     },
