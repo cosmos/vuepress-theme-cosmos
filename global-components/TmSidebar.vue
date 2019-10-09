@@ -6,8 +6,13 @@
           router-link(to="/")
             img(:src="$withBase(logo)" v-if="logo")
             div(v-else).logo Documentation
-          tm-search
-          div(v-for="group in sidebar")
+          tm-search(v-model="search.query")
+          div(v-if="search.query")
+            .title Search results
+            .section(v-for="item in searchResults")
+              .section__title
+                router-link(:to="item.path" v-if="item.path" tag="a").section__inactive {{item.title}}
+          div(v-for="group in sidebar" v-if="!search.query")
             .title {{group.title}}
             .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
               .section__title
@@ -78,6 +83,7 @@
         height 1rem
         width 1rem
         background url('./images/bullet-hex-blue.svg') no-repeat top left
+        fill red
 
   &__title
     font-weight 500
@@ -162,6 +168,9 @@ export default {
   props: ["value"],
   data: function() {
     return {
+      search: {
+        query: null
+      },
       products: [
         {
           label: "sdk",
@@ -191,6 +200,14 @@ export default {
     };
   },
   computed: {
+    searchResults() {
+      return this.$site.pages.filter(page => {
+        return (
+          page.title &&
+          page.title.toLowerCase().match(this.search.query.toLowerCase())
+        );
+      });
+    },
     logo() {
       return this.$themeConfig.logo;
     },

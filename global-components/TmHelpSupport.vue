@@ -1,19 +1,14 @@
 <template lang="pug">
   div
-    .container
-      .title Help &amp; Support
-      .links
-        .links__item
+    .container(v-if="$themeConfig && $themeConfig.gutter")
+      .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
+      .links(v-if="$themeConfig.gutter.children")
+        .links__item(v-for="item in $themeConfig.gutter.children")
           div
-            .links__item__title Riot Chat
-            .links__item__desc #[a(href="https://riot.im/app/#/room/#cosmos-sdk:matrix.org" target="_blank" rel="noreferrer noopener") Chat with Cosmos developers] on Riot Chat.
-          .links__item__indicator #[strong 500+] people chatting now
-        .links__item
-          div
-            .links__item__title SDK Developer Forum
-            .links__item__desc #[a(href="https://forum.cosmos.network/c/cosmos-sdk" target="_blank" rel="noreferrer noopener") Join the SDK Developer Forum] to learn more.
-          .links__item__indicator #[strong 1000+] active developers
-        .links__item.links__item__featured
+            .links__item__title(v-if="item.title") {{item.title}}
+            .links__item__desc {{item.text}}
+          .links__item__indicator {{item.highlighted}}
+        .links__item.links__item__featured(v-if="$themeConfig.gutter.editLink")
           div
             .links__item__title Found an Issue?
             .links__item__desc Help us improve this page by suggesting edits on GitHub.
@@ -41,7 +36,7 @@ strong
 
 .links
   display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+  grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
 
   &__item
     margin-right 2rem

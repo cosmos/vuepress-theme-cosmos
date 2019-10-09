@@ -1,50 +1,33 @@
 <template lang="pug">
   div
-    //- search-box.search
+    .container
+      .search
+        input(placeholder="Search" @input="$emit('input', $event.target.value)").search__input
 </template>
 
 <style lang="stylus" scoped>
+.container
+  margin-top 2rem
+  margin-bottom 2rem
+
 .search
-  z-index 10000
+  &__input
+    border 1px solid rgba(176, 180, 207, 0.09)
+    font-family inherit
+    font-size inherit
+    padding .5rem 1.5rem
+    width 100%
+    background rgba(176, 180, 207, 0.09)
+    border-radius 10000px
+    outline none
 
-/deep/
-  .search-box
-    margin-top 1.5rem
-    margin-bottom 1rem
-    margin-right 0
-    position relative
-
-    & input
-      width 100%
-      background-color rgba(0, 0, 0, 0.02)
-      margin 0
-
-      &:focus
-        border-color rgba(0, 0, 0, 0.2)
-        background-color white
-
-  .suggestions
-    position absolute
-    left 0
-    margin-top 1rem
-    font-size 0.75rem
-    width 230px
-    margin-bottom 2rem
-    box-shadow 0 5px 10px 0 rgba(0, 0, 0, 0.05)
-
-  input
-    left 0
+    &:focus
+      border 1px solid #66A1FF
+      background white
 </style>
 
 <script>
-// import SearchBox from "@vuepress/plugin-search";
-
-// export default {
-//   components: { SearchBox },
-//   mounted() {
-//     document
-//       .querySelector(".search-box input")
-//       .setAttribute("placeholder", "Search");
-//   }
-// };
+export default {
+  props: ["value"]
+};
 </script>

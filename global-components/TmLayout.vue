@@ -75,7 +75,7 @@
       display none
 
 .aside
-  padding-top var(--topbar-height)
+  margin-top var(--topbar-height)
   pointer-events initial
   background white
   position fixed
