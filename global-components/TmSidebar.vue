@@ -11,7 +11,7 @@
             .title Search results
             .section(v-for="item in searchResults")
               .section__title
-                router-link(:to="item.path" v-if="item.path" tag="a").section__inactive {{item.title}}
+                router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
           div(v-for="group in sidebar" v-if="!search.query")
             .title {{group.title}}
             .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
@@ -202,9 +202,14 @@ export default {
   computed: {
     searchResults() {
       return this.$site.pages.filter(page => {
+        const headers = page.headers ? page.headers.map(h => h.title) : [];
+        const title = page.title;
         return (
-          page.title &&
-          page.title.toLowerCase().match(this.search.query.toLowerCase())
+          title &&
+          [title, ...headers]
+            .join(" ")
+            .toLowerCase()
+            .match(this.search.query.toLowerCase())
         );
       });
     },
