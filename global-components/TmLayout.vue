@@ -213,10 +213,11 @@ export default {
         });
       };
       tree = toArray(tree);
-      return [
-        { title: "Reference", children: tree },
-        ...(this.$themeConfig.sidebar || [])
-      ];
+      const autoSidebar =
+        this.$themeConfig.autoSidebar == false
+          ? {}
+          : { title: "Reference", children: tree };
+      return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
     }
   },
   props: {
