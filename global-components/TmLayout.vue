@@ -2,7 +2,7 @@
   div
     .container
       .sidebar__container(:class="{sidebarVisible}" @click.self="sidebarVisible = false")
-        tm-sidebar(:class="{sidebarVisible}" :value="tree").sidebar.sidebar__hidden
+        tm-sidebar(:class="{sidebarVisible}" :value="tree" :tree="directoryTree").sidebar.sidebar__hidden
       .content(:class="{sidebarVisible}")
         .topbar
           svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" @click="sidebarVisible = !sidebarVisible").topbar__menu__button
@@ -177,7 +177,7 @@ export default {
         this.$site.locales && Object.entries(this.$site.locales).length > 1
       );
     },
-    tree() {
+    directoryTree() {
       const files = this.$site.pages;
       const langDirs = Object.keys(this.$site.locales || {}).map(e =>
         e.replace(/\//g, "")
@@ -213,10 +213,13 @@ export default {
         });
       };
       tree = toArray(tree);
+      return tree;
+    },
+    tree() {
       const autoSidebar =
         this.$themeConfig.autoSidebar == false
           ? {}
-          : { title: "Reference", children: tree };
+          : { title: "Reference", children: this.directoryTree };
       return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
     }
   },

@@ -14,13 +14,12 @@
                 router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
           div(v-for="group in sidebar" v-if="!search.query")
             .title {{group.title}}
-            .section(v-for="section in sortGroup(group.children)" v-if="showSection(section)")
+            .section(v-for="section in groupSort(group.children)" v-if="sectionShow(section)")
               .section__title
-                a.section__outbound(v-if="outboundUrl(section.path)" :href="section.path" target="_blank") {{section.title}}
-                a.section__outbound(v-if="section.path && section.static" :href="section.path" target="_blank") {{section.title}}
-                router-link(v-else :to="url(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
+                a.section__outbound(v-if="outboundUrl(section)" :href="section.path" target="_blank") {{section.title}}
+                router-link(v-else :to="sectionUrl(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
               div(v-if="active(section)")
-                div(v-for="item in showChildren(section.children)")
+                div(v-for="item in sectionChildren(section)")
                   router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
                   router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
         .footer
@@ -165,7 +164,7 @@ import {
 } from "lodash";
 
 export default {
-  props: ["value"],
+  props: ["value", "tree"],
   data: function() {
     return {
       search: {
@@ -193,7 +192,7 @@ export default {
         {
           label: "core",
           name: "Tendermint Core",
-          url: "https://cosmos.network/docs/spec/ibc/",
+          url: "https://tendermint.com/docs/",
           color: "#00BB00"
         }
       ]
@@ -218,58 +217,45 @@ export default {
     },
     sidebar() {
       return this.value;
-      // return [
-      //   { title: "Reference", children: this.value },
-      //   ...(this.$themeConfig.sidebar || [])
-      // ];
-      // return this.$themeConfig.sidebar.map(item => {
-      //   if (isString(item)) {
-      //     return {
-      //       title: item,
-      //       path: item
-      //     };
-      //   }
-      //   if (isPlainObject(item)) {
-      //     return {
-      //       title: item.title,
-      //       children: item.children
-      //     };
-      //   }
-      //   if (isArray(item)) {
-      //     return {
-      //       url: item[0],
-      //       title: item[1] || item[0]
-      //     };
-      //   }
-      // });
     }
   },
   methods: {
-    showChildren(childrenList) {
-      const children = childrenList.filter(child => {
-        if (child.frontmatter) return child.frontmatter.order !== false;
-        if (child.children) return true;
-      });
+    sectionChildren(section) {
+      let children;
+      if (!section.children) {
+        children = this.$site.pages.filter(page => {
+          return (
+            page.path.match(section.path) &&
+            page.path.split("/").length == section.path.split("/").length
+          );
+        });
+      } else {
+        children = section.children.filter(child => {
+          if (child.frontmatter) return child.frontmatter.order !== false;
+          if (child.children) return true;
+        });
+      }
       return sortBy(children, ["frontmatter.order"]);
     },
-    showSection(section) {
+    sectionShow(section) {
       if (section.path) return section.path;
       const index = this.indexFile(section);
       const parent = index && index.frontmatter.parent;
       const order = parent && parent.order;
       return order !== false;
     },
-    sortGroup(group) {
+    groupSort(group) {
       return sortBy(group, section => {
         const index = this.indexFile(section);
         if (index && index.frontmatter.parent)
           return index.frontmatter.parent.order;
       });
     },
-    outboundUrl(url) {
-      return /^[a-z]+:/i.test(url);
+    outboundUrl(section) {
+      return /^[a-z]+:/i.test(section.path) || (section.path && section.static);
     },
     active(section) {
+      if (!section.children) return this.$route.path.match(section.path);
       return (
         section.children &&
         find(section.children, item => {
@@ -284,7 +270,7 @@ export default {
         })
       );
     },
-    url(section) {
+    sectionUrl(section) {
       if (section.path) return section.path;
       const children = section.children;
       if (!children) return "";
@@ -308,16 +294,6 @@ export default {
     },
     title(section) {
       const index = this.indexFile(section);
-      // if (
-      //   index &&
-      //   index.frontmatter &&
-      //   index.frontmatter.parent &&
-      //   index.frontmatter.parent.title
-      // ) {
-      //   return index.frontmatter.parent.title;
-      // } else {
-      //   return section.title;
-      // }
       if (index) {
         const frontmatter =
           index.frontmatter.parent && index.frontmatter.parent.title;
