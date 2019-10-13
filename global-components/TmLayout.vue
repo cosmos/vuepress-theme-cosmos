@@ -9,6 +9,7 @@
             path(d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z")
               path(d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z")
           tm-breadcrumbs
+          //- tm-select-version
           tm-select-language(v-if="hasLocales").topbar__language
         tm-content(:aside="aside")
           template(v-slot:content)
