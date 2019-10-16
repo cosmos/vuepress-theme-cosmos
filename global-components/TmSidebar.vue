@@ -12,16 +12,9 @@
             .section(v-for="item in searchResults")
               .section__title
                 router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
-          div(v-for="group in sidebar" v-if="!search.query")
-            .title {{group.title}}
-            .section(v-for="section in groupSort(group.children)" v-if="sectionShow(section)")
-              .section__title
-                a.section__outbound(v-if="outboundUrl(section)" :href="section.path" target="_blank") {{section.title}}
-                router-link(v-else :to="sectionUrl(section)" :class="[`section__${active(section) ? 'active' : 'inactive'}`]") {{title(section)}}
-              div(v-if="active(section)")
-                div(v-for="item in sectionChildren(section)")
-                  router-link(:to="item.path" tag="div" v-if="item.path" :class="{'section__child__active': $page.path == item.path || $route.path == item.path}").section__child {{item.title}}
-                  router-link(:to="indexFile(item).path" tag="div" v-else-if="indexFile(item)" :class="{'section__child__active': $page.path == (indexFile(item) && indexFile(item).path) || $route.path == (indexFile(item) && indexFile(item).path)}").section__child {{indexFile(item) && indexFile(item).title}}
+          div(v-for="item in value")
+            .title {{item.title}}
+            tm-sidebar-tree(:value="item.children" :tree="tree").section
         .footer
           a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
             component(:is="`tm-logo-${product.label}`").footer__item__icon
@@ -218,90 +211,6 @@ export default {
     sidebar() {
       return this.value;
     }
-  },
-  methods: {
-    sectionChildren(section) {
-      let children;
-      if (!section.children) {
-        children = this.$site.pages.filter(page => {
-          return (
-            page.path.match(section.path) &&
-            page.path.split("/").length == section.path.split("/").length
-          );
-        });
-      } else {
-        children = section.children.filter(child => {
-          if (child.frontmatter) return child.frontmatter.order !== false;
-          if (child.children) return true;
-        });
-      }
-      return sortBy(children, ["frontmatter.order"]);
-    },
-    sectionShow(section) {
-      if (section.path) return section.path;
-      const index = this.indexFile(section);
-      const parent = index && index.frontmatter.parent;
-      const order = parent && parent.order;
-      return order !== false;
-    },
-    groupSort(group) {
-      return sortBy(group, section => {
-        const index = this.indexFile(section);
-        if (index && index.frontmatter.parent)
-          return index.frontmatter.parent.order;
-      });
-    },
-    outboundUrl(section) {
-      return /^[a-z]+:/i.test(section.path) || (section.path && section.static);
-    },
-    active(section) {
-      if (!section.children) return this.$route.path.match(section.path);
-      return (
-        section.children &&
-        find(section.children, item => {
-          return (
-            item.path == this.$page.path ||
-            item.path == this.$route.path ||
-            (item &&
-              item.children &&
-              (this.indexFile(item) && this.indexFile(item).path) ==
-                this.$page.path)
-          );
-        })
-      );
-    },
-    sectionUrl(section) {
-      if (section.path) return section.path;
-      const children = section.children;
-      if (!children) return "";
-      const index = this.indexFile(section);
-      if (index && index.frontmatter.order != false) return index.path;
-      const childrenSorted = sortBy(omit(children, this.indexFile(children)), [
-        "frontmatter.order"
-      ]).filter(child => child.frontmatter && child.frontmatter.order != false);
-      if (childrenSorted[0] && childrenSorted[0].path)
-        return childrenSorted[0].path;
-      if (this.indexFile(children[0])) return this.indexFile(children[0]).path;
-      return "";
-    },
-    indexFile(section) {
-      if (!section.children) return false;
-      return find(section.children, item => {
-        if (!item.relativePath) return false;
-        const name = last(item.relativePath.split("/")).toLowerCase();
-        return name === "readme.md" || name == "index.md";
-      });
-    },
-    title(section) {
-      const index = this.indexFile(section);
-      if (index) {
-        const frontmatter =
-          index.frontmatter.parent && index.frontmatter.parent.title;
-        return frontmatter ? frontmatter : index.title;
-      }
-      return section.title;
-    },
-    sortBy
   }
 };
 </script>

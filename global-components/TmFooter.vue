@@ -59,7 +59,7 @@
   &:before
     content ''
     height var(--height)
-    background linear-gradient(transparent, white)
+    background linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1))
     position absolute
     top calc(-1 * var(--height))
     width 100%

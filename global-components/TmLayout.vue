@@ -92,7 +92,7 @@
     pointer-events none
     width 100%
     max-width var(--sidebar-width)
-    position absolute
+    position fixed
     right 0
     top 0
     bottom 0
