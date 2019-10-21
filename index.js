@@ -12,4 +12,7 @@ module.exports = (options, ctx) => {
   //   })
   // );
   // return options;
+  return {
+    plugins: ["@vuepress/last-updated"]
+  };
 };

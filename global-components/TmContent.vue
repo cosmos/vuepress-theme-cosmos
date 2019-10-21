@@ -25,7 +25,6 @@
     max-width 800px
     padding-left 4rem
     padding-right 2rem
-    overflow-x hidden
 
     &.noAside
       max-width initial

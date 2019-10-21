@@ -1,8 +1,8 @@
 import pageComponents from "@internal/page-components";
-import TmTooltip from "tm-tooltip";
+import { Tooltip } from "@cosmos-ui/vue";
 
 export default ({ Vue }) => {
-  Vue.component("def", TmTooltip);
+  Vue.component("def", Tooltip);
   for (const [name, component] of Object.entries(pageComponents)) {
     Vue.component(name, component);
   }
