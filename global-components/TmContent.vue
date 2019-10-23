@@ -5,10 +5,21 @@
         .content__container(:class="{noAside}")
           slot(name="content")
           tm-content-cards(v-if="$frontmatter.cards")
-          div {{linkNext}}
+          .links
+            div
+              router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
+              router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev") ← {{linkPrevNext.prev.title}}
+            div
+              router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
+              router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next") {{linkPrevNext.next.title}} →
 </template>
 
 <style lang="stylus" scoped>
+.links
+  display flex
+  justify-content space-between
+  margin-top 4rem
+
 .container
   position relative
   min-height 100vh
@@ -116,63 +127,23 @@ export default {
       type: Array
     }
   },
-  methods: {
-    indexFile(item) {
-      if (!item.children) return false;
-      return find(item.children, page => {
-        const path = page.relativePath;
-        if (!path) return false;
-        return path.match(/index.md$/i) || path.match(/readme.md$/i);
-      });
-    },
-    sortedList(val) {
-      if (!val) return;
-      const filtered = val.filter(item => {
-        if (item.frontmatter) {
-          const order = item.frontmatter.order;
-          return order === false ? order : true;
-        }
-        if (item.children) {
-          const index = this.indexFile(item);
-          const order =
-            index &&
-            index.frontmatter &&
-            index.frontmatter.parent &&
-            index.frontmatter.parent.order;
-          return order === false ? order : true;
-        }
-        return item;
-      });
-      const sorted = sortBy(filtered, item => {
-        if (item.frontmatter) return item.frontmatter.order;
-        if (item.children) {
-          const index = this.indexFile(item);
-          return (
-            index &&
-            index.frontmatter &&
-            index.frontmatter.parent &&
-            index.frontmatter.parent.order
-          );
-        }
-      });
-      return sorted;
-    }
-  },
   computed: {
     noAside() {
       return !this.aside;
     },
-    linkNext() {
+    linkPrevNext() {
       if (!this.tree) return;
-      let result;
+      let result = {};
       const search = tree => {
         return tree.forEach(item => {
-          const children = this.sortedList(item.children);
+          const children = item.children;
           if (children) {
             const index = findIndex(children, ["regularPath", this.$page.path]);
+            if (index >= 0 && children[index - 1]) {
+              result.prev = children[index - 1];
+            }
             if (index >= 0 && children[index + 1]) {
-              console.log(this.sortedList(item.children));
-              result = this.sortedList(children)[index + 1];
+              result.next = children[index + 1];
             }
             return search(item.children);
           }

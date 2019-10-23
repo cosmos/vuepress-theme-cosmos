@@ -160,6 +160,7 @@ import {
   last,
   omit,
   omitBy,
+  sortBy,
   isString,
   isArray,
   flattenDeep,
@@ -214,7 +215,7 @@ export default {
         });
       };
       tree = toArray(tree);
-      return tree;
+      return this.sortedList(tree);
     },
     tree() {
       const autoSidebar =
@@ -222,6 +223,48 @@ export default {
           ? {}
           : { title: "Reference", children: this.directoryTree };
       return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
+    }
+  },
+  methods: {
+    indexFile(item) {
+      if (!item.children) return false;
+      return find(item.children, page => {
+        const path = page.relativePath;
+        if (!path) return false;
+        return path.match(/index.md$/i) || path.match(/readme.md$/i);
+      });
+    },
+    sortedList(val) {
+      if (!isArray(val)) return val;
+      const filtered = val.filter(item => {
+        if (item.frontmatter) {
+          const order = item.frontmatter.order;
+          return order === false ? order : true;
+        }
+        if (item.children) {
+          const index = this.indexFile(item);
+          const order =
+            index &&
+            index.frontmatter &&
+            index.frontmatter.parent &&
+            index.frontmatter.parent.order;
+          return order === false ? order : true;
+        }
+        return item;
+      });
+      const sorted = sortBy(filtered, item => {
+        if (item.frontmatter) return item.frontmatter.order;
+        if (item.children) {
+          const index = this.indexFile(item);
+          return (
+            index &&
+            index.frontmatter &&
+            index.frontmatter.parent &&
+            index.frontmatter.parent.order
+          );
+        }
+      });
+      return sorted;
     }
   },
   props: {

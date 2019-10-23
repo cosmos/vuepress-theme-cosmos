@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    div(v-for="item in sortedList")
+    div(v-for="item in value")
       component(:is="componentName(item)" :to="item.path" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
         tm-icon-dash(v-if="iconExpanded(item)").item__icon
         tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
@@ -64,39 +64,6 @@ export default {
       if (found) {
         this.revealParent(this.title);
       }
-    }
-  },
-  computed: {
-    sortedList() {
-      const filtered = this.value.filter(item => {
-        if (item.frontmatter) {
-          const order = item.frontmatter.order;
-          return order === false ? order : true;
-        }
-        if (item.children) {
-          const index = this.indexFile(item);
-          const order =
-            index &&
-            index.frontmatter &&
-            index.frontmatter.parent &&
-            index.frontmatter.parent.order;
-          return order === false ? order : true;
-        }
-        return item;
-      });
-      const sorted = sortBy(filtered, item => {
-        if (item.frontmatter) return item.frontmatter.order;
-        if (item.children) {
-          const index = this.indexFile(item);
-          return (
-            index &&
-            index.frontmatter &&
-            index.frontmatter.parent &&
-            index.frontmatter.parent.order
-          );
-        }
-      });
-      return sorted;
     }
   },
   methods: {
