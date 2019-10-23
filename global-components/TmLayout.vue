@@ -11,7 +11,7 @@
           tm-breadcrumbs
           //- tm-select-version
           tm-select-language(v-if="hasLocales").topbar__language
-        tm-content(:aside="aside")
+        tm-content(:aside="aside" :tree="directoryTree")
           template(v-slot:content)
             slot(name="content")
         tm-footer.footer

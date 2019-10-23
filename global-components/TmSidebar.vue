@@ -14,7 +14,7 @@
                 router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
           div(v-for="item in value")
             .title {{item.title}}
-            tm-sidebar-tree(:value="item.children" :tree="tree").section
+            tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree").section
         .footer
           a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
             component(:is="`tm-logo-${product.label}`").footer__item__icon

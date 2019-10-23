@@ -5,6 +5,7 @@
         .content__container(:class="{noAside}")
           slot(name="content")
           tm-content-cards(v-if="$frontmatter.cards")
+          div {{linkNext}}
 </template>
 
 <style lang="stylus" scoped>
@@ -103,16 +104,82 @@
 </style>
 
 <script>
+import { findIndex, sortBy } from "lodash";
+
 export default {
   props: {
     aside: {
       type: Boolean,
       default: true
+    },
+    tree: {
+      type: Array
+    }
+  },
+  methods: {
+    indexFile(item) {
+      if (!item.children) return false;
+      return find(item.children, page => {
+        const path = page.relativePath;
+        if (!path) return false;
+        return path.match(/index.md$/i) || path.match(/readme.md$/i);
+      });
+    },
+    sortedList(val) {
+      if (!val) return;
+      const filtered = val.filter(item => {
+        if (item.frontmatter) {
+          const order = item.frontmatter.order;
+          return order === false ? order : true;
+        }
+        if (item.children) {
+          const index = this.indexFile(item);
+          const order =
+            index &&
+            index.frontmatter &&
+            index.frontmatter.parent &&
+            index.frontmatter.parent.order;
+          return order === false ? order : true;
+        }
+        return item;
+      });
+      const sorted = sortBy(filtered, item => {
+        if (item.frontmatter) return item.frontmatter.order;
+        if (item.children) {
+          const index = this.indexFile(item);
+          return (
+            index &&
+            index.frontmatter &&
+            index.frontmatter.parent &&
+            index.frontmatter.parent.order
+          );
+        }
+      });
+      return sorted;
     }
   },
   computed: {
     noAside() {
       return !this.aside;
+    },
+    linkNext() {
+      if (!this.tree) return;
+      let result;
+      const search = tree => {
+        return tree.forEach(item => {
+          const children = this.sortedList(item.children);
+          if (children) {
+            const index = findIndex(children, ["regularPath", this.$page.path]);
+            if (index >= 0 && children[index + 1]) {
+              console.log(this.sortedList(item.children));
+              result = this.sortedList(children)[index + 1];
+            }
+            return search(item.children);
+          }
+        });
+      };
+      search(this.tree);
+      return result;
     }
   }
 };
