@@ -8,10 +8,10 @@
           .links
             div
               router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
-              router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev") ← {{linkPrevNext.prev.title}}
+              router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev && linkPrevNext.prev.regularPath") ← {{linkPrevNext.prev.title}}
             div
               router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
-              router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next") {{linkPrevNext.next.title}} →
+              router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next && linkPrevNext.next.regularPath") {{linkPrevNext.next.title}} →
 </template>
 
 <style lang="stylus" scoped>

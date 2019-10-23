@@ -207,7 +207,9 @@ export default {
       const toArray = object => {
         return map(object, (page, title) => {
           const properties =
-            page.key && isString(page.key) ? page : { children: toArray(page) };
+            page.key && isString(page.key)
+              ? page
+              : { children: this.sortedList(toArray(page)) };
           return {
             title,
             ...properties
