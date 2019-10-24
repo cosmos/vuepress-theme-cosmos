@@ -1,14 +1,14 @@
 <template lang="pug">
   div
     div(v-for="item in value")
-      component(:is="componentName(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
+      component(:is="componentName(item)" v-if="!hide(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
         tm-icon-dash(v-if="iconExpanded(item)").item__icon
         tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
         tm-icon-hex(v-if="iconActive(item)" style="fill: var(--accent-color)").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
         span {{titleText(item)}}
       transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
-        tm-sidebar-tree(:value="item.children || directoryChildren(item) || []" v-show="item.title == show" :title="item.title" @active="revealParent($event)")
+        tm-sidebar-tree(:value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
 </template>
 
 <style lang="stylus" scoped>
@@ -67,6 +67,16 @@ export default {
     }
   },
   methods: {
+    hide(item) {
+      const index = this.indexFile(item);
+      const fileHide = item.frontmatter && item.frontmatter.order === false;
+      const dirHide =
+        index &&
+        index.frontmatter &&
+        index.frontmatter.parent &&
+        index.frontmatter.parent.order === false;
+      return dirHide || fileHide;
+    },
     iconCollapsed(item) {
       if (item.directory && !this.iconExpanded(item)) return true;
       return (

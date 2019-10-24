@@ -241,23 +241,7 @@ export default {
     },
     sortedList(val) {
       if (!isArray(val)) return val;
-      const filtered = val.filter(item => {
-        if (item.frontmatter) {
-          const order = item.frontmatter.order;
-          return order === false ? order : true;
-        }
-        if (item.children) {
-          const index = this.indexFile(item);
-          const order =
-            index &&
-            index.frontmatter &&
-            index.frontmatter.parent &&
-            index.frontmatter.parent.order;
-          return order === false ? order : true;
-        }
-        return item;
-      });
-      const sorted = sortBy(filtered, item => {
+      const sorted = sortBy(val, item => {
         if (item.frontmatter) return item.frontmatter.order;
         if (item.children) {
           const index = this.indexFile(item);

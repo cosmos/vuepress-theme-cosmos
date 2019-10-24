@@ -7,11 +7,13 @@
           tm-content-cards(v-if="$frontmatter.cards")
           .links
             div
-              router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
-              router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev && linkPrevNext.prev.regularPath") ← {{linkPrevNext.prev.title}}
+              div(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
+                router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
+                router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev && linkPrevNext.prev.regularPath") ← {{linkPrevNext.prev.title}}
             div
-              router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
-              router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next && linkPrevNext.next.regularPath") {{linkPrevNext.next.title}} →
+              div(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
+                router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
+                router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next && linkPrevNext.next.regularPath") {{linkPrevNext.next.title}} →
 </template>
 
 <style lang="stylus" scoped>
