@@ -85,7 +85,13 @@ export default {
       return /^[a-z]+:/i.test(path);
     },
     componentName(item) {
-      if (item.path && !item.directory && !item.static) return "router-link";
+      if (
+        item.path &&
+        !item.directory &&
+        !item.static &&
+        !this.outboundLink(item.path)
+      )
+        return "router-link";
       if ((item.path && this.outboundLink(item.path)) || item.static) {
         return "a";
       }
@@ -96,7 +102,10 @@ export default {
       return find(item.children, page => {
         const path = page.relativePath;
         if (!path) return false;
-        return path.match(/index.md$/i) || path.match(/readme.md$/i);
+        return (
+          path.toLowerCase().match(/index.md$/i) ||
+          path.toLowerCase().match(/readme.md$/i)
+        );
       });
     },
     setHeight(el) {
