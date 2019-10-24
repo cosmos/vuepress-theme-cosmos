@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     div(v-for="item in value")
-      component(:is="componentName(item)" :to="item.path" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
+      component(:is="componentName(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
         tm-icon-dash(v-if="iconExpanded(item)").item__icon
         tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
         tm-icon-hex(v-if="iconActive(item)" style="fill: var(--accent-color)").item__icon

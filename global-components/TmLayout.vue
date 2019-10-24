@@ -233,7 +233,10 @@ export default {
       return find(item.children, page => {
         const path = page.relativePath;
         if (!path) return false;
-        return path.match(/index.md$/i) || path.match(/readme.md$/i);
+        return (
+          path.toLowerCase().match(/index.md$/i) ||
+          path.toLowerCase().match(/readme.md$/i)
+        );
       });
     },
     sortedList(val) {
