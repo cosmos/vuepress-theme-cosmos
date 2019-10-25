@@ -22,6 +22,10 @@
   justify-content space-between
   margin-top 4rem
 
+  a
+    box-shadow none
+    color var(--accent-color)
+
 .container
   position relative
   min-height 100vh
@@ -44,6 +48,9 @@
       max-width initial
 
 /deep/
+  h1,h2,h3,h4
+    font-weight 600
+
   .content__container
     img 
       max-width 100%
@@ -63,7 +70,13 @@
 
   a
     color var(--accent-color)
-    text-decoration none
+    box-shadow inset 0 -1px #ddd
+
+  strong
+    font-weight 600
+
+  em
+    font-style italic
 
   h1
     font-size 2.25rem
@@ -76,6 +89,12 @@
     margin-top 2rem
     margin-bottom 1.5rem
 
+  h3
+    font-size 1.25rem
+    font-weight 600
+    margin-top 2rem
+    margin-bottom 1.5rem
+
   p
     margin-top 1rem
     margin-bottom 1rem
@@ -83,21 +102,55 @@
 
   ul
     line-height 1.5
+    margin-top 1rem
 
   li
     padding-left 2rem
     list-style none
     margin-bottom 1rem
     position relative
-
+  
     &:before
       content ''
       width 1rem
       height 1rem
-      background url('/bullet.svg') no-repeat top left
+      background url('./images/bullet.svg') no-repeat top left
       position absolute
       top 0.35rem
       left 0
+
+  :not(pre) > code[class*="language-"], pre[class*="language-"]
+    background rgba(0,0,0,0)
+
+  :not(pre) > div[class*='language-']
+    background #2e3148
+    border-radius 0.25rem
+    font-size 0.875rem
+    font-family 'Menlo', monospace
+    position relative
+    line-height 1.5
+
+  pre[class*='language-']
+    position relative
+    z-index 1
+    line-height 1.5
+
+  .highlight-lines
+    position absolute
+    width 100%
+    padding-top .9rem
+    padding-bottom 1rem
+    font-size inherit
+
+    .highlighted
+      background rgba(0,0,0,.25)
+
+  p code
+    font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
+    font-size .875rem
+    background rgba(0,0,0,.05)
+    padding .2rem
+    border-radius .25rem
 
   @media screen and (max-width: 550px)
     .tooltip

@@ -6,7 +6,7 @@
         tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
         tm-icon-hex(v-if="iconActive(item)" style="fill: var(--accent-color)").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
-        span {{titleText(item)}}
+        span(:class="{'item__selected': iconActive(item) || iconExpanded(item)}") {{titleText(item)}}
       transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
         tm-sidebar-tree(:value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
 </template>
@@ -19,6 +19,9 @@
   margin-top .875rem
   cursor pointer
   font-size .875rem
+
+  &__selected
+    font-weight 500
   
   &__dir
     font-weight 500
