@@ -114,7 +114,7 @@
       content ''
       width 1rem
       height 1rem
-      background url('./images/bullet.svg') no-repeat top left
+      // background url('./images/bullet.svg') no-repeat top left
       position absolute
       top 0.35rem
       left 0

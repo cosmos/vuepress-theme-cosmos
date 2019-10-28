@@ -14,7 +14,8 @@
                 router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
           div(v-for="item in value")
             .title {{item.title}}
-            tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree").section
+            client-only
+              tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree").section
         .footer
           a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
             component(:is="`tm-logo-${product.label}`").footer__item__icon
@@ -74,7 +75,7 @@
         left 0
         height 1rem
         width 1rem
-        background url('./images/bullet-hex-blue.svg') no-repeat top left
+        // background url('./images/bullet-hex-blue.svg') no-repeat top left
         fill red
 
   &__title
@@ -90,7 +91,7 @@
       left 0
       height 1rem
       width 1rem
-      background url('./images/bullet-dash.svg') no-repeat top left
+      // background url('./images/bullet-dash.svg') no-repeat top left
 
   &__inactive
     &:before
@@ -100,7 +101,7 @@
       left 0
       height 1rem
       width 1rem
-      background url('./images/bullet-hex-full.svg') no-repeat top left
+      // background url('./images/bullet-hex-full.svg') no-repeat top left
 
   &__outbound
     &:before

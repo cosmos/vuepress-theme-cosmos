@@ -7,8 +7,9 @@
         tm-icon-hex(v-if="iconActive(item)" style="fill: var(--accent-color)").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
         span(:class="{'item__selected': iconActive(item) || iconExpanded(item)}") {{titleText(item)}}
-      transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
-        tm-sidebar-tree(:value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
+      div(v-if="item.children || directoryChildren(item) || []")
+        transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
+          tm-sidebar-tree(:value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
 </template>
 
 <style lang="stylus" scoped>

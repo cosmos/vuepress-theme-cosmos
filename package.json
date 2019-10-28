@@ -17,6 +17,6 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "tm-tooltip": "0.0.10",
-    "vuepress": "^1.1.0"
+    "vuepress": "^1.2.0"
   }
 }
