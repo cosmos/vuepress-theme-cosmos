@@ -11,13 +11,13 @@
           tm-breadcrumbs
           //- tm-select-version
           tm-select-language(v-if="hasLocales").topbar__language
-        tm-content(:aside="aside" :tree="directoryTree")
+        tm-content(:aside="aside" :tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)")
           template(v-slot:content)
             slot(name="content")
         tm-footer.footer
       .aside__container(v-if="aside")
         .aside
-          tm-aside
+          tm-aside(:selected="headerSelected")
 </template>
 
 <style lang="stylus" scoped>
@@ -170,7 +170,8 @@ import {
 export default {
   data: function() {
     return {
-      sidebarVisible: null
+      sidebarVisible: null,
+      headerSelected: null
     };
   },
   computed: {
@@ -228,6 +229,12 @@ export default {
     }
   },
   methods: {
+    selectHeader(elements) {
+      console.log(elements.map(e => e.target.id));
+      if (elements.length > 0) {
+        this.headerSelected = elements[0].target.id;
+      }
+    },
     indexFile(item) {
       if (!item.children) return false;
       return find(item.children, page => {

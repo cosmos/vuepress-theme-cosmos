@@ -1,4 +1,5 @@
 var fs = require("fs");
+require("intersection-observer");
 
 module.exports = (options, ctx) => {
   // const versions = fs

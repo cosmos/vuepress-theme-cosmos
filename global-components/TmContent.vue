@@ -182,6 +182,28 @@ export default {
       type: Array
     }
   },
+
+  mounted() {
+    const onIntersection = items => {
+      if (items && items[0].isIntersecting) this.$emit("selected", items);
+    };
+    let observer = new IntersectionObserver(onIntersection, {
+      rootMargin: "0px"
+    });
+    const searchForHeaders = () => {
+      const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+      if (headers && headers.length > 0) {
+        headers.forEach(header => {
+          if (header) observer.observe(header);
+        });
+      } else {
+        setTimeout(() => {
+          searchForHeaders();
+        }, 1000);
+      }
+    };
+    searchForHeaders();
+  },
   computed: {
     noAside() {
       return !this.aside;
