@@ -152,15 +152,6 @@
     padding .2rem
     border-radius .25rem
 
-  @media screen and (max-width: 550px)
-    .tooltip
-      position fixed
-      z-index 1000
-      border-radius 0
-      left 0
-      right 0
-      bottom 0
-
 @media screen and (max-width: 1024px)
   .content
     padding-right 0

@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cosmos-ui/vue": "^0.5.11",
+    "@cosmos-ui/vue": "^0.5.16",
     "@vuepress/plugin-last-updated": "^1.2.0",
     "@vuepress/plugin-search": "^1.1.0",
     "intersection-observer": "^0.7.0",
