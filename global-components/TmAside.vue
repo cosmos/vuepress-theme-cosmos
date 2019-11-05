@@ -1,8 +1,8 @@
 <template lang="pug">
   div
     div
-      a(href="https://hackathon.sfblockchainweek.io" target="_blank" rel="noreferrer noopener")
-        img(src="./images/banner-hackathon.svg").aside__image
+      a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
+        img(src="./images/goz.jpg").aside__image
     div(v-if="$page.headers && $page.headers.length > 0")
       .aside__title On this page
       .aside__link(v-for="link in $page.headers")
@@ -16,6 +16,7 @@
 .aside
   &__image
     width 100%
+    border-radius .25rem
 
   &__title
     font-size 0.75rem
