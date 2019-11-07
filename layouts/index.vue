@@ -197,7 +197,7 @@
       width 50%
       height 100%
       background linear-gradient(to right, var(--accent), rgba(0,0,0,0))
-      opacity 5%
+      opacity 6%
       border-radius .5rem
 
     &__logo
