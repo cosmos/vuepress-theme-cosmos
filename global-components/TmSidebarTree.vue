@@ -5,7 +5,7 @@
         tm-icon-hex(v-if="iconExpanded(item)" style="fill: var(--accent-color)").item__icon
         tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
-        span(:class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__alt': iconExpanded(item)}") {{titleText(item)}}
+        span(:class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}") {{titleText(item)}}
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
           tm-sidebar-tree(style="margin-left: .5rem" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
@@ -16,7 +16,7 @@
   position relative
   padding-left 1.25rem
   display block
-  margin-top .875rem
+  margin-top .75rem
   cursor pointer
   font-size .875rem
 
@@ -24,9 +24,13 @@
     font-weight 500
     color var(--accent-color)
 
+    &__dir
+      font-weight 400
+  
     &__alt
       color initial
-  
+      font-weight 500
+
   &__dir
     font-weight 500
 
