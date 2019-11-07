@@ -28,7 +28,7 @@
         .h2 Explore the Cosmos stack
         .p__alt Check out the docs for the various parts of the Cosmos stack:
         .stack
-          a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color}")
+          a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
             .stack__item__wrapper
               component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
               div
@@ -189,7 +189,7 @@
       grid-template-columns 30% 1fr
       gap 1rem
 
-    &:after
+    &::before
       position absolute
       top 0
       left 0
@@ -197,8 +197,8 @@
       width 50%
       height 100%
       background linear-gradient(to right, var(--accent), rgba(0,0,0,0))
-      opacity 6%
       border-radius .5rem
+      opacity var(--opacity)
 
     &__logo
       height 72px
