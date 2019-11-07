@@ -2,14 +2,13 @@
   div
     div(v-for="item in value")
       component(:is="componentName(item)" v-if="!hide(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
-        tm-icon-dash(v-if="iconExpanded(item)").item__icon
+        tm-icon-hex(v-if="iconExpanded(item)" style="fill: var(--accent-color)").item__icon
         tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
-        tm-icon-hex(v-if="iconActive(item)" style="fill: var(--accent-color)").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
-        span(:class="{'item__selected': iconActive(item) || iconExpanded(item)}") {{titleText(item)}}
+        span(:class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__alt': iconExpanded(item)}") {{titleText(item)}}
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
-          tm-sidebar-tree(:value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
+          tm-sidebar-tree(style="margin-left: .5rem" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
 </template>
 
 <style lang="stylus" scoped>
@@ -23,6 +22,10 @@
 
   &__selected
     font-weight 500
+    color var(--accent-color)
+
+    &__alt
+      color initial
   
   &__dir
     font-weight 500
@@ -89,7 +92,7 @@ export default {
       );
     },
     iconExpanded(item) {
-      return this.show == item.title;
+      return this.show == item.title && !item.key;
     },
     iconActive(item) {
       if (item.path == this.$page.path) return true;
