@@ -230,7 +230,6 @@ export default {
   },
   methods: {
     selectHeader(elements) {
-      console.log(elements.map(e => e.target.id));
       if (elements.length > 0) {
         this.headerSelected = elements[0].target.id;
       }

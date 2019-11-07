@@ -122,7 +122,8 @@
   position fixed
   bottom 0
   width var(--sidebar-width)
-  display flex
+  display grid
+  grid-auto-flow column
   padding-left .75rem
   padding-right .75rem
   align-items center
@@ -136,6 +137,10 @@
     align-items center
     flex-direction column
     fill rgba(14, 33, 37, 0.26)
+
+    &__icon
+      height 30px
+      margin-bottom .25rem
 
     &:hover
       fill var(--color)

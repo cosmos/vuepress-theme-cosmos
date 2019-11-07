@@ -1,6 +1,6 @@
 <template>
   <div>
-    <svg width="29" height="33" viewBox="0 0 29 33" xmlns="http://www.w3.org/2000/svg">
+    <svg width="100%" height="100%" viewBox="0 0 29 33" xmlns="http://www.w3.org/2000/svg" :fill="color">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5249 1.86771L1.62846 9.31346V24.2049L14.5249 31.6507L27.4213 24.2049V9.31346L14.5249 1.86771ZM28.3813 8.7592L14.5249 0.759201L0.668463 8.7592V24.7592L14.5249 32.7592L28.3813 24.7592V8.7592Z" />
       <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5249 14.6144L12.7136 15.6602V17.7516L14.5249 18.7974L16.3362 17.7516V15.6602L14.5249 14.6144ZM17.2962 15.1059L14.5249 13.5059L11.7536 15.1059V18.3059L14.5249 19.9059L17.2962 18.3059V15.1059Z" />
       <path fill-rule="evenodd" clip-rule="evenodd" d="M17.6182 20.0011L15.8069 21.0468V23.1383L17.6182 24.1841L19.4295 23.1383V21.0468L17.6182 20.0011ZM20.3895 20.4926L17.6182 18.8926L14.8469 20.4926V23.6926L17.6182 25.2926L20.3895 23.6926V20.4926Z" />
@@ -12,3 +12,9 @@
     </svg>
   </div>
 </template>
+
+<script>
+export default {
+  props: ["color"]
+};
+</script>

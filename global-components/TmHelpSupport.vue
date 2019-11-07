@@ -6,20 +6,27 @@
         .links__item(v-for="item in $themeConfig.gutter.children")
           div
             .links__item__title(v-if="item.title") {{item.title}}
-            .links__item__desc {{item.text}}
-          .links__item__indicator {{item.highlighted}}
+            .links__item__desc(v-html="md(item.text)")
+          .links__item__indicator(v-html="md(item.highlighted)")
         .links__item.links__item__featured(v-if="$themeConfig.gutter.editLink")
+          .links__item__icon
+            svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+              path(d="M7.5 3.75L15.75 12L7.5 20.25" stroke="#A2A3AD" stroke-width="2" stroke-linecap="round")
           div
             .links__item__title Found an Issue?
             .links__item__desc Help us improve this page by suggesting edits on GitHub.
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item__button
-            tm-icon-edit.links__item__button__icon
+            img(src="./images/icon-edit.svg").links__item__button__icon
             a(:href="editLink" target="_blank") Edit this page
 </template>
 
 <style lang="stylus" scoped>
-a
-  color var(--accent-color)
+/deep/
+  a[href]
+    color var(--accent-color)
+  
+  strong
+    font-weight 600
 
 strong
   font-weight 500
@@ -44,6 +51,13 @@ strong
     display flex
     flex-direction column
     justify-content space-between
+    position relative
+
+    &__icon
+      position absolute
+      top 0
+      right 0
+      padding 25px
 
     &__featured
       background white

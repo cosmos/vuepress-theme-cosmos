@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     select(e) {
-      console.log("change version");
       // this.$router.push(
       //   this.$page.path.replace(this.$localeConfig.path, e.target.value)
       // );
