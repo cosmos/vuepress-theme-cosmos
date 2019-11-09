@@ -1,19 +1,9 @@
-var fs = require("fs");
-require("intersection-observer");
+var ghmd = require("./markdown-it-gh.js")
 
-module.exports = (options, ctx) => {
-  // const versions = fs
-  //   .readFileSync("./versions", { encoding: "utf8" })
-  //   .split("\n")
-  //   .filter(version => version != "");
-  // Object.assign(
-  //   options,
-  //   Object.assign({
-  //     versions
-  //   })
-  // );
-  // return options;
+module.exports = (opts, ctx) => {
   return {
-    plugins: ["@vuepress/last-updated"]
-  };
-};
+    extendMarkdown: md => {
+      md.use(ghmd)
+    }
+  }
+}

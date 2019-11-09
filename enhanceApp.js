@@ -12,7 +12,7 @@ export default ({ Vue }) => {
       md: string => {
         const md = new MarkdownIt({ html: true, linkify: true });
         return `<div>${md.render(string)}</div>`;
-      }
+      },
     }
   })
   require("./styles/palette.styl");
