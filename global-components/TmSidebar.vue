@@ -15,7 +15,7 @@
           div(v-for="item in value")
             .title {{item.title}}
             client-only
-              tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree").section
+              tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
         .footer
           a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
             component(:is="`tm-logo-${product.label}`").footer__item__icon

@@ -1,42 +1,47 @@
 <template lang="pug">
   div
-    tm-layout(:aside="false")
-      template(v-slot:content)
-        .intro
-          .h1 {{$frontmatter.title}}
-          .p {{$frontmatter.description}}
-        .h2 Getting Started
-        .p__alt Read all about the SDK or dive straight into the code with a tutorial.
-        .features
-          a(:href="feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" target="_blank" rel="noreferrer noopener").features__item
-            .features__item__image
-              component(:is="`tm-image-${feature.image}`").features__item__image__img
-            .features__item__text
-              .features__item__cta {{feature.cta}}
-              .features__item__title {{feature.title}}
-              .features__item__desc {{feature.desc}}
-              .features__item__label
-                .features__item__label__text(v-if="!feature.h3") {{feature.label}}
-                .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
-        .h2 Explore the SDK
-        div Get familiar with the SDK and explore its main concepts:
-        .sections
-          router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-            component(:is="`tm-icon-${section.icon}`").sections__item__icon
-            .sections__item__title {{section.title}}
-            .sections__item__desc {{section.desc}}
-        .h2 Explore the Cosmos stack
-        .p__alt Check out the docs for the various parts of the Cosmos stack:
-        .stack
-          a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
-            .stack__item__wrapper
-              component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
-              div
-                .stack__item__h1 {{item.title}}
-                .stack__item__p {{item.desc}}
+    .container
+      tm-layout(:aside="false")
+        template(v-slot:content)
+          .intro
+            .h1 {{$frontmatter.title}}
+            .p {{$frontmatter.description}}
+          .h2 Getting Started
+          .p__alt Read all about the SDK or dive straight into the code with a tutorial.
+          .features
+            a(:href="feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" target="_blank" rel="noreferrer noopener").features__item
+              .features__item__image
+                component(:is="`tm-image-${feature.image}`").features__item__image__img
+              .features__item__text
+                .features__item__cta {{feature.cta}}
+                .features__item__title {{feature.title}}
+                .features__item__desc {{feature.desc}}
+                .features__item__label
+                  .features__item__label__text(v-if="!feature.h3") {{feature.label}}
+                  .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
+          .h2 Explore the SDK
+          div Get familiar with the SDK and explore its main concepts:
+          .sections
+            router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
+              component(:is="`tm-icon-${section.icon}`").sections__item__icon
+              .sections__item__title {{section.title}}
+              .sections__item__desc {{section.desc}}
+          .h2 Explore the Cosmos stack
+          .p__alt Check out the docs for the various parts of the Cosmos stack:
+          .stack
+            a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
+              .stack__item__wrapper
+                component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
+                div
+                  .stack__item__h1 {{item.title}}
+                  .stack__item__p {{item.desc}}
 </template>
 
 <style lang="stylus" scoped>
+
+.container
+  width 100%
+  max-width 1400px
 
 .intro
   width 100%

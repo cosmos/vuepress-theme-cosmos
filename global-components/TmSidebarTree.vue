@@ -1,24 +1,36 @@
 <template lang="pug">
   div
     div(v-for="item in value")
-      component(:is="componentName(item)" v-if="!hide(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
-        tm-icon-hex(v-if="iconExpanded(item)" style="fill: var(--accent-color)").item__icon
-        tm-icon-hex(v-if="iconCollapsed(item)" style="fill: #ccc").item__icon
+      component(:style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--accent-color)' : 'rgba(176, 180, 207, 0.2)' }" :is="componentName(item)" v-if="!hide(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
+        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="fill: var(--accent-color)").item__icon
+        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="fill: #ccc").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
-        span(:class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}") {{titleText(item)}}
+        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}") {{titleText(item)}}
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
-          tm-sidebar-tree(style="margin-left: .5rem" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
+          tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
 </template>
 
 <style lang="stylus" scoped>
+
 .item
   position relative
   padding-left 1.25rem
   display block
-  margin-top .75rem
+  padding-top .35rem
+  padding-bottom .35rem
   cursor pointer
   font-size .875rem
+
+  &:after
+    content ''
+    width 2px
+    height 100%
+    opacity var(--vline)
+    background var(--vline-color)
+    position absolute
+    top 0
+    left 5px
 
   &__selected
     font-weight 500
@@ -36,7 +48,7 @@
 
   &__icon
     position absolute
-    top .25rem
+    top .6rem
     left 0
 
 .reveal-enter-active, .reveal-leave-active
@@ -57,7 +69,7 @@ import { sortBy, find } from "lodash";
 
 export default {
   name: "tm-sidebar-tree",
-  props: ["value", "title", "tree"],
+  props: ["value", "title", "tree", "level"],
   data: function() {
     return {
       show: null
