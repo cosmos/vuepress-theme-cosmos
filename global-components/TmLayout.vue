@@ -5,18 +5,17 @@
         tm-sidebar(:class="{sidebarVisible}" :value="tree" :tree="directoryTree").sidebar.sidebar__hidden
       .content__container
         .content(:class="{sidebarVisible}")
-          .content__wrapper
-            .content__inner
-              .topbar
-                svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" @click="sidebarVisible = !sidebarVisible").topbar__menu__button
-                  path(d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z")
-                    path(d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z")
-                tm-breadcrumbs
-                //- tm-select-version
-                tm-select-language(v-if="hasLocales").topbar__language
-              tm-content(:aside="aside" :tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)")
-                template(v-slot:content)
-                  slot(name="content")
+          .content__inner
+            .topbar
+              svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" @click="sidebarVisible = !sidebarVisible").topbar__menu__button
+                path(d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z")
+                  path(d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z")
+              tm-breadcrumbs
+              //- tm-select-version
+              tm-select-language(v-if="hasLocales").topbar__language
+            tm-content(:aside="aside" :tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)")
+              template(v-slot:content)
+                slot(name="content")
         .footer__wrapper
           tm-footer.footer
       .aside__container(v-if="aside")
@@ -65,6 +64,7 @@
   margin 0 auto
 
 .content__container
+  width 100%
   display flex
   flex-direction column
   align-items center
@@ -72,10 +72,6 @@
 .content__inner
   margin-left var(--sidebar-width)
   max-width 1400px
-
-.content__wrapper
-  margin 0 auto
-  // margin-left var(--sidebar-width)  
 
 .topbar
   margin-left 4rem

@@ -32,21 +32,21 @@ strong
 
 .container
   background var(--sidebar-bg)
-  padding 3.5rem 1.5rem
+  padding 3.5rem 0
 
 .wrapper
-  max-width 1050px
+  max-width calc(1400px - var(--sidebar-width))
   margin 0 auto
+  padding-left 4rem
+  padding-right 2rem
 
 .title
   font-size 1.5rem
   color #161931
-  margin 1.5rem .5rem
+  margin 1.5rem 0
   font-weight 600
 
 .links
-  margin-left .5rem
-  margin-right .5rem
   display grid
   gap 2rem
   grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
@@ -72,7 +72,11 @@ a.links__item
 
 a.links__item__regular
   color #161931
+  background white
 
+@media screen and (max-width: 1024px)
+  .wrapper
+    padding-left 2rem
 </style>
 
 <script>

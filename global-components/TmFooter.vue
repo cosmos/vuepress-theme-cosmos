@@ -50,12 +50,12 @@
   color white
   padding-top 3.5rem
   padding-bottom 3.5rem
-  padding-left 1.5rem
-  padding-right 1.5rem
 
 .footer__wrapper
-  max-width 1050px
+  max-width calc(1400px - var(--sidebar-width))
   margin 0 auto
+  padding-left 2.5rem
+  padding-right .5rem
 
 .wrapper
   --height 50px
@@ -102,6 +102,9 @@
       font-size 0.8125rem
       color rgba(255, 255, 255, 0.51)
       line-height 1rem
+@media screen and (max-width: 1024px)
+  .footer__wrapper
+    padding-left .5rem
 </style>
 
 <script>
