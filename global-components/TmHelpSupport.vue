@@ -21,6 +21,7 @@
 </template>
 
 <style lang="stylus" scoped>
+
 /deep/
   a[href]
     color var(--accent-color)

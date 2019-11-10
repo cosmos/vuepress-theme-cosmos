@@ -41,10 +41,6 @@
 
 <style lang="stylus" scoped>
 
-.container
-  width 100%
-  max-width 1400px
-
 .intro
   width 100%
   max-width 800px
