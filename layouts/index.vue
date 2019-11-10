@@ -32,6 +32,8 @@
             a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
               .stack__item__wrapper
                 component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
+                svg(width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg").stack__item__icon
+                  path(d="M1.07239 14.4697C0.779499 14.7626 0.779499 15.2374 1.07239 15.5303C1.36529 15.8232 1.84016 15.8232 2.13305 15.5303L1.07239 14.4697ZM15.7088 1.95457C16.0017 1.66168 16.0017 1.18681 15.7088 0.893912C15.4159 0.601019 14.941 0.601019 14.6482 0.893912L15.7088 1.95457ZM15.6027 1H16.3527C16.3527 0.585786 16.0169 0.25 15.6027 0.25V1ZM5.4209 0.25C5.00669 0.25 4.6709 0.585786 4.6709 1C4.6709 1.41421 5.00669 1.75 5.4209 1.75V0.25ZM14.8527 11.1818C14.8527 11.596 15.1885 11.9318 15.6027 11.9318C16.0169 11.9318 16.3527 11.596 16.3527 11.1818H14.8527ZM2.13305 15.5303L15.7088 1.95457L14.6482 0.893912L1.07239 14.4697L2.13305 15.5303ZM15.6027 0.25H5.4209V1.75H15.6027V0.25ZM16.3527 11.1818V1H14.8527V11.1818H16.3527Z" fill="#DADCE6")
                 div
                   .stack__item__h1 {{item.title}}
                   .stack__item__p {{item.desc}}
@@ -73,7 +75,6 @@
   margin-bottom 4rem
 
   &__item
-    border 1px solid rgba(140, 145, 177, 0.32)
     border-radius 0.5rem
     position relative
     padding-left 1rem
@@ -84,6 +85,7 @@
     grid-template-columns 30% 1fr
     gap 1rem
     min-height 200px
+    box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
     background linear-gradient(to right, rgba(235,237,255,1), white 50%)
 
     &__text
@@ -177,6 +179,12 @@
     border-radius .5rem
     box-shadow inset 0 0 0 1px rgba(176, 180, 207, 0.2)
     color #161931
+
+    &__icon
+      position absolute
+      top 0
+      right 0
+      padding 1rem
 
     &__h1
       font-size 1.25rem
