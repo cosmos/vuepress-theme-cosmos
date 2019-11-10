@@ -3,21 +3,22 @@
     .wrapper
       tm-help-support(v-if="$themeConfig.gutter")
       .container
-        .links(v-if="$themeConfig.footer && $themeConfig.footer.links")
-          .links__item(v-for="item in $themeConfig.footer.links")
-            .links__item__title {{item.title}}
-            a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
-        .logo
-          .logo__item.logo__image
-            img(:src="$themeConfig.footer.logo" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Cosmos Logo")
-          .logo__item.logo__link
-            a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener") {{$themeConfig.footer.textLink.text}}
-        .smallprint(v-if="$themeConfig.footer")
-          .smallprint__item.smallprint__item__links
-            a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" rel="noreferrer noopener").smallprint__item__links__item
-              svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="white")
-                path(:d="serviceIcon(item.service)")
-          .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
+        .footer__wrapper
+          .links(v-if="$themeConfig.footer && $themeConfig.footer.links")
+            .links__item(v-for="item in $themeConfig.footer.links")
+              .links__item__title {{item.title}}
+              a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
+          .logo
+            .logo__item.logo__image
+              img(:src="$themeConfig.footer.logo" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Cosmos Logo")
+            .logo__item.logo__link
+              a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener") {{$themeConfig.footer.textLink.text}}
+          .smallprint(v-if="$themeConfig.footer")
+            .smallprint__item.smallprint__item__links
+              a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" rel="noreferrer noopener").smallprint__item__links__item
+                svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="white")
+                  path(:d="serviceIcon(item.service)")
+            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
 </template>
 
 <style lang="stylus" scoped>
@@ -51,6 +52,10 @@
   padding-bottom 3.5rem
   padding-left 1.5rem
   padding-right 1.5rem
+
+.footer__wrapper
+  max-width 1050px
+  margin 0 auto
 
 .wrapper
   --height 50px

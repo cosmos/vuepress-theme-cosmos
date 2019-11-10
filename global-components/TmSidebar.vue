@@ -3,7 +3,7 @@
     .container
       .wrapper
         .main
-          router-link(to="/")
+          router-link(:to="`/`")
             img(:src="$withBase(logo)" v-if="logo")
             div(v-else).logo Documentation
           tm-search(v-model="search.query")

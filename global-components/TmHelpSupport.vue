@@ -1,23 +1,21 @@
 <template lang="pug">
   div
     .container(v-if="$themeConfig && $themeConfig.gutter")
-      .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
-      .links(v-if="$themeConfig.gutter.children")
-        .links__item(v-for="item in $themeConfig.gutter.children")
-          div
-            .links__item__title(v-if="item.title") {{item.title}}
-            .links__item__desc(v-html="md(item.text)")
-          .links__item__indicator(v-html="md(item.highlighted)")
-        .links__item.links__item__featured(v-if="$themeConfig.gutter.editLink")
-          .links__item__icon
-            svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg")
-              path(d="M7.5 3.75L15.75 12L7.5 20.25" stroke="#A2A3AD" stroke-width="2" stroke-linecap="round")
-          div
-            .links__item__title Found an Issue?
-            .links__item__desc Help us improve this page by suggesting edits on GitHub.
-          a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item__button
-            img(src="./images/icon-edit.svg").links__item__button__icon
-            a(:href="editLink" target="_blank") Edit this page
+      .wrapper
+        .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
+        .links
+          a(:href="$themeConfig.gutter.chat.title" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
+            tm-logo-riot.links__item__logo
+            div(v-html="md($themeConfig.gutter.chat.title)").links__item__title
+            div(v-html="md($themeConfig.gutter.chat.text)").links__item__text
+          a(:href="$themeConfig.gutter.forum.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.forum.bg}").links__item.links__item__forum
+            component(:is="`tm-logo-${$themeConfig.gutter.forum.logo}`").links__item__logo
+            div(v-html="md($themeConfig.gutter.forum.title)").links__item__title
+            div(v-html="md($themeConfig.gutter.forum.text)").links__item__text
+          a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item.links__item__regular
+            tm-icon-paper-pen(fill="var(--accent-color").links__item__logo
+            div(v-html="md($themeConfig.gutter.github.title)").links__item__title
+            div(v-html="md($themeConfig.gutter.github.text)" style="color: rgba(22, 25, 49, 0.65)").links__item__text
 </template>
 
 <style lang="stylus" scoped>
@@ -36,64 +34,45 @@ strong
   background var(--sidebar-bg)
   padding 3.5rem 1.5rem
 
+.wrapper
+  max-width 1050px
+  margin 0 auto
+
 .title
   font-size 1.5rem
   color #161931
-  margin 1.5rem
+  margin 1.5rem .5rem
   font-weight 600
 
 .links
+  margin-left .5rem
+  margin-right .5rem
   display grid
+  gap 2rem
   grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
 
   &__item
-    margin-right 2rem
-    padding 1.5rem
     display flex
     flex-direction column
-    justify-content space-between
-    position relative
-
-    &__icon
-      position absolute
-      top 0
-      right 0
-      padding 25px
-
-    &__featured
-      background white
-      border-radius 0.5rem
-      box-shadow inset 0 0 0 1px #f2f3f8
+    align-items center
+    box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+    text-align center
+    border-radius .5rem
+    padding 2rem
+    line-height 20px
+    background var(--bg)
 
     &__title
-      color #161931
-      font-size 1.25rem
+      margin-top 1.5rem
       margin-bottom 1rem
-      font-weight 500
+      font-weight 600
 
-    &__desc
-      margin-bottom 1.5rem
-      font-size 0.875rem
-      line-height 1.25rem
+a.links__item
+  color white
 
-    &__indicator
-      box-shadow inset 4px 0 0 var(--accent-color)
-      padding-top 0.5rem
-      padding-bottom 0.5rem
-      padding-left 1rem
+a.links__item__regular
+  color #161931
 
-    &__button
-      display flex
-      align-items center
-      font-weight 500
-      font-size 0.875rem
-      text-transform uppercase
-      letter-spacing 0.02em
-      margin-top 0.5rem
-      margin-bottom 0.5rem
-
-      &__icon
-        margin-right 0.75rem
 </style>
 
 <script>

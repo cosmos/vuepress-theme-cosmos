@@ -30,7 +30,6 @@
   position relative
   min-height 100vh
   width 100%
-  max-width 1400px
 
 .content
   padding-right var(--sidebar-width)
@@ -42,7 +41,6 @@
 
   &__container
     width 100%
-    max-width 800px
     padding-left 4rem
     padding-right 2rem
 
