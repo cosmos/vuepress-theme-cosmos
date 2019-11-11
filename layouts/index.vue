@@ -18,13 +18,15 @@
               .features__item__label
                 .features__item__label__text(v-if="!feature.h3") {{feature.label}}
                 .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
-        .h2 Explore the SDK
-        div Get familiar with the SDK and explore its main concepts:
-        .sections
-          router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-            component(:is="`tm-icon-${section.icon}`").sections__item__icon
-            .sections__item__title {{section.title}}
-            .sections__item__desc {{section.desc}}
+        .sections__wrapper
+          .h2 Explore the SDK
+          div Get familiar with the SDK and explore its main concepts:
+          .sections
+            router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
+              component(:is="`tm-icon-${section.icon}`").sections__item__icon
+              .sections__item__wrapper
+                .sections__item__title {{section.title}}
+                .sections__item__desc {{section.desc}}
         .h2 Explore the Cosmos stack
         .p__alt Check out the docs for the various parts of the Cosmos stack:
         .stack
@@ -124,8 +126,11 @@
           font-weight 600
 
 .dark
-  background rgba(22, 25, 49, 0.9)
+  background linear-gradient(110.88deg, #161831 0%, #2E3148 100%)
   color white
+
+.dark .features__item__desc
+  color rgba(255, 255, 255, 0.8)
 
 .sections
   display grid
@@ -174,7 +179,8 @@
     border-radius .5rem
     box-shadow inset 0 0 0 1px rgba(176, 180, 207, 0.2)
     color #161931
-
+    background white
+    
     &__icon
       position absolute
       top 0
@@ -197,19 +203,105 @@
       grid-template-columns 30% 1fr
       gap 1rem
 
-    &::before
+    &:before
       position absolute
       top 0
       left 0
       content ''
       width 50%
       height 100%
-      background linear-gradient(to right, var(--accent), rgba(0,0,0,0))
+      background linear-gradient(to right, var(--accent), rgba(255,255,255,0))
       border-radius .5rem
-      opacity var(--opacity)
+      opacity .1
 
     &__logo
       height 72px
       width auto
+
+@media screen and (max-width: 500px)
+  .dark .features__item__image
+    transform none
+    padding-top 1rem
+    padding-bottom 1rem
+
+  .features
+    margin-bottom 2rem
+
+    &__item
+      gap 0
+      box-shadow none
+      grid-template-columns 1fr
+      padding 0 2rem 2rem
+
+      &__image
+        transform translateY(-1.5rem) scale(1.2)
+
+      &__text
+        padding-top 0
+
+      &__desc
+        margin-bottom 1.5rem
+
+      &__label
+        position relative
+        bottom inherit
+
+      &:after
+        content ''
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        border-radius .5rem
+        box-shadow  0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
+        z-index -1
+
+  .sections
+    gap .5rem
+    margin-bottom 0
+
+    &__item
+      margin-bottom 1rem
+
+      &__wrapper
+        padding-bottom 1.5rem
+        border-bottom 1px solid rgba(140, 145, 177, 0.32)
+
+      &:last-child .sections__item__wrapper
+        border-bottom none
+
+    &__wrapper
+      position relative
+      padding .1px 2rem
+      background white
+      border-radius .5rem
+
+      &:after
+        position absolute
+        content ""
+        top 0
+        left 0
+        right 0
+        bottom 0
+        z-index -1
+        border-radius .5rem
+        box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
+
+  .stack
+    gap .5rem
+
+    &__item
+
+      &:after
+        position absolute
+        content ""
+        top 0
+        left 0
+        right 0
+        bottom 0
+        z-index -1
+        border-radius .5rem
+        box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
 </style>

@@ -67,6 +67,7 @@
     p
       margin-top 0
       margin-bottom 0
+      line-height 1.5
 
   a
     color var(--accent-color)
@@ -98,7 +99,7 @@
   p
     margin-top 1rem
     margin-bottom 1rem
-    line-height 1.5
+    line-height 1.75rem
 
   ul
     line-height 1.5
