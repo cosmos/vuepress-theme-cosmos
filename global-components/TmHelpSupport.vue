@@ -4,7 +4,7 @@
       .wrapper
         .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
         .links
-          a(:href="$themeConfig.gutter.chat.title" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
+          a(:href="$themeConfig.gutter.chat.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
             tm-logo-riot.links__item__logo
             div(v-html="md($themeConfig.gutter.chat.title)").links__item__title
             div(v-html="md($themeConfig.gutter.chat.text)").links__item__text
