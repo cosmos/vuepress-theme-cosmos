@@ -146,7 +146,7 @@
     .highlighted
       background rgba(0,0,0,.25)
 
-  p code
+  p code, ul code
     font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
     font-size .875rem
     background rgba(0,0,0,.05)
