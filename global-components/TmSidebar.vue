@@ -42,7 +42,7 @@
   background-repeat no-repeat
   background-size 100% 40px, 100% 14px
   background-attachment local, scroll
-
+  
 .title
   font-size 0.75rem
   text-transform uppercase
@@ -115,7 +115,6 @@
 
 .footer
   height var(--sidebar-footer-height)
-  overflow-x scroll
   padding-top 1rem
   padding-bottom 1rem
   background-color var(--sidebar-bg)
