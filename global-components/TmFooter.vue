@@ -10,7 +10,7 @@
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
           .logo
             .logo__item.logo__image
-              img(:src="$themeConfig.footer.logo" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Cosmos Logo")
+              img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo")
             .logo__item.logo__link
               a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener") {{$themeConfig.footer.textLink.text}}
           .smallprint(v-if="$themeConfig.footer")
