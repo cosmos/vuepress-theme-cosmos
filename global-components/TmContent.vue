@@ -101,7 +101,7 @@
     margin-bottom 1rem
     line-height 1.75rem
 
-  ul
+  ul, ol
     line-height 1.5
     margin-top 1rem
 
@@ -146,7 +146,7 @@
     .highlighted
       background rgba(0,0,0,.25)
 
-  p code, ul code
+  p code, ul code, ol code
     font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
     font-size .875rem
     background rgba(0,0,0,.05)
