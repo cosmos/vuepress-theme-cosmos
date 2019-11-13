@@ -29,7 +29,7 @@ module.exports = function asciiDiagram(md, options) {
       const hasLines = a[1].match(/#L[0-9]+-L[0-9]+$/)
       if (data && hasLines) {
         const [lineStart, lineEnd] = hasLines && hasLines[0].replace(/#/g, "").replace(/L/g, "").split("-")
-        data = data.split("\n").slice(+lineStart - 1, +lineEnd - 1).join("\n")
+        data = data.split("\n").slice(+lineStart - 1, +lineEnd).join("\n")
       }
       return `<div class="language-go extra-class"><pre class="language-text"><code>${Prism.highlight(data.toString(), Prism.languages.clike, 'clike')}</code></pre></div>`
     }
