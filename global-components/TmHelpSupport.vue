@@ -32,7 +32,7 @@ strong
 
 .container
   background var(--sidebar-bg)
-  padding 3.5rem 0
+  padding 0 0 2rem
 
 .wrapper
   max-width calc(1400px - var(--sidebar-width))
