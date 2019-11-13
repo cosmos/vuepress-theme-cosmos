@@ -67,7 +67,7 @@
 
 .features
   display grid
-  grid-template-columns repeat(auto-fill, minmax(400px, 1fr))
+  grid-template-columns repeat(auto-fill, minmax(300px, 1fr))
   gap 1.5rem
   margin-bottom 4rem
 
@@ -226,6 +226,7 @@
 
   .features
     margin-bottom 2rem
+    grid-template-columns repeat(auto-fill, minmax(240px, 1fr))
 
     &__item
       gap 0
@@ -260,9 +261,11 @@
   .sections
     gap .5rem
     margin-bottom 0
+    grid-template-columns repeat(auto-fit, minmax(220px, 1fr))
 
     &__item
       margin-bottom 1rem
+      padding-left 3rem
 
       &__wrapper
         padding-bottom 1.5rem
@@ -273,7 +276,7 @@
 
     &__wrapper
       position relative
-      padding .1px 2rem
+      padding .1px 1rem
       background white
       border-radius .5rem
 
@@ -290,6 +293,7 @@
 
   .stack
     gap .5rem
+    grid-template-columns repeat(auto-fill, minmax(240px, 1fr))
 
     &__item
 
