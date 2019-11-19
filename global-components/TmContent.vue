@@ -4,23 +4,9 @@
       h1 {{$page.title}}
       .synopsis(v-if="$frontmatter.synopsis")
         .synopsis__title Synopsis
-        .synopsis__body {{$frontmatter.synopsis}}
+        .synopsis__body(v-html="md($frontmatter.synopsis)")
       slot(name="content")
       tm-content-cards(v-if="$frontmatter.cards")
-    //- .container
-    //-   .content(:class="{noAside}")
-    //-     .content__container(:class="{noAside}")
-    //-       slot(name="content")
-    //-       tm-content-cards(v-if="$frontmatter.cards")
-          //- .links
-          //-   div
-          //-     div(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
-          //-       router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
-          //-       router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev && linkPrevNext.prev.regularPath") ← {{linkPrevNext.prev.title}}
-          //-   div
-          //-     div(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
-          //-       router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
-          //-       router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next && linkPrevNext.next.regularPath") {{linkPrevNext.next.title}} →
 </template>
 
 <style lang="stylus" scoped>
@@ -39,6 +25,7 @@
   &__body
     color rgba(22, 25, 49, 0.9)
     font-size .875rem
+    line-height 20px
 
 .links
   display flex
@@ -91,6 +78,7 @@
     text-decoration underline
 
   .tooltip
+
     h1
       font-size 0.875rem
       font-weight 500

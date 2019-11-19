@@ -11,7 +11,7 @@ export default ({ Vue }) => {
     methods: {
       md: string => {
         const md = new MarkdownIt({ html: true, linkify: true });
-        return `<div>${md.render(string)}</div>`;
+        return `<div>${md.renderInline(string)}</div>`;
       },
     }
   })

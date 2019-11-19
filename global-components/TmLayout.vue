@@ -59,7 +59,6 @@
   display flex
   min-height 100vh
   width 100%
-  overflow-x hidden
   padding 4rem 3rem 0
 
 .content__wrapper

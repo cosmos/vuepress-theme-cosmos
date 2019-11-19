@@ -58,7 +58,10 @@ export default {
     };
   },
   mounted() {
-    const searchForPrereq = () => {
+    const searchForPrereq = i => {
+      let index = i || 0;
+      console.log(index);
+      if (index > 10) return;
       const prereq = document.querySelectorAll("[prereq]");
       if (prereq.length > 0) {
         this.prereq = [...prereq].map(e => {
@@ -69,7 +72,7 @@ export default {
           };
         });
       } else {
-        setTimeout(searchForPrereq, 500);
+        setTimeout(() => searchForPrereq(index + 1), 100);
       }
     };
     searchForPrereq();
