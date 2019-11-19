@@ -57,7 +57,7 @@ export default {
       prereq: []
     };
   },
-  created() {
+  mounted() {
     const searchForPrereq = () => {
       const prereq = document.querySelectorAll("[prereq]");
       if (prereq.length > 0) {
