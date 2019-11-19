@@ -1,18 +1,11 @@
 <template lang="pug">
   div
     .container
-      .wrapper
-        .main
-          router-link(:to="`/`")
-            img(:src="$withBase(logo)" v-if="logo")
-            div(v-else).logo Documentation
-          tm-search(v-model="search.query")
-          div(v-if="search.query")
-            .title Search results
-            .section(v-for="item in searchResults")
-              .section__title
-                router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
-          div(v-for="item in value")
+      .main
+        router-link(to="/").logo__container
+          component(:is="`logo-${$themeConfig.label}`").logo
+        .items
+          div(v-for="item in value").sidebar
             .title {{item.title}}
             client-only
               tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
@@ -20,28 +13,83 @@
           a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
             component(:is="`tm-logo-${product.label}`").footer__item__icon
             div.footer__item__title {{product.name}}
+    //- .container
+    //-   .wrapper
+    //-     .main
+    //-       router-link(:to="`/`")
+    //-         img(:src="$withBase(logo)" v-if="logo")
+    //-         div(v-else).logo Documentation
+    //-       tm-search(v-model="search.query")
+    //-       div(v-if="search.query")
+    //-         .title Search results
+    //-         .section(v-for="item in searchResults")
+    //-           .section__title
+    //-             router-link(:to="item.path" v-if="item.path && item.title" tag="a").section__inactive {{item.title}}
+    //-       div(v-for="item in value")
+    //-         .title {{item.title}}
+    //-         client-only
+    //-           tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
+    //-     .footer
+    //-       a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+    //-         component(:is="`tm-logo-${product.label}`").footer__item__icon
+    //-         div.footer__item__title {{product.name}}
 </template>
 
 <style lang="stylus" scoped>
-.main
-  padding 0 2rem 2rem
-
 .logo
-  margin-top 2rem
-  font-weight 600
+  padding 2rem 2rem 1rem
+  display block
 
-.container
-  height 100vh
-  position relative
+.logo__container
+  position sticky
+  display block
+  background white
+  z-index 10000
+  top 0
 
-.wrapper
-  height calc(100vh - var(--sidebar-footer-height))
-  position relative
-  overflow-y scroll
-  background linear-gradient(rgba(255,255,255,0), var(--sidebar-bg) 70%) 0 100%, linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.05)) 0 100%
-  background-repeat no-repeat
-  background-size 100% 40px, 100% 14px
-  background-attachment local, scroll
+  &:after
+    position absolute
+    content ""
+    top 100%
+    left 0
+    right 0
+    background linear-gradient(to bottom, white, rgba(255,255,255,0))
+    height 25px
+
+.sidebar
+  padding-left 2rem
+  padding-right 2rem
+  overflow-x hidden
+
+.items
+  padding-bottom 125px
+// .cont
+//   position relative
+//   height 100%
+
+// .crap
+//   position fixed
+//   bottom 0
+
+// .main
+//   padding 0 2rem 2rem
+
+// .logo
+//   margin-top 2rem
+//   font-weight 600
+
+// .container
+//   height 100vh
+//   position relative
+
+// .wrapper
+//   height calc(100vh - var(--sidebar-footer-height))
+//   position relative
+//   overflow-y scroll
+//   background linear-gradient(rgba(255,255,255,0), var(--sidebar-bg) 70%) 0 100%, linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.05)) 0 100%
+//   background-repeat no-repeat
+//   background-size 100% 40px, 100% 14px
+//   background-attachment local, scroll
   
 .title
   font-size 0.75rem
@@ -51,67 +99,67 @@
   margin-top 2rem
   margin-bottom .5rem
 
-.section
-  font-size 0.875rem
-  letter-spacing 0.01em
-  line-height 20px
-  margin-top 0.75rem
-  margin-bottom 0.75rem
+// .section
+//   font-size 0.875rem
+//   letter-spacing 0.01em
+//   line-height 20px
+//   margin-top 0.75rem
+//   margin-bottom 0.75rem
 
-  &__child
-    margin-top 0.5rem
-    margin-bottom 0.5rem
-    cursor pointer
-    position relative
-    padding-left 1.5rem
+//   &__child
+//     margin-top 0.5rem
+//     margin-bottom 0.5rem
+//     cursor pointer
+//     position relative
+//     padding-left 1.5rem
 
-    &__active
-      font-weight 500
+//     &__active
+//       font-weight 500
 
-      &:before
-        content ''
-        position absolute
-        top 0.25rem
-        left 0
-        height 1rem
-        width 1rem
-        // background url('./images/bullet-hex-blue.svg') no-repeat top left
-        fill red
+//       &:before
+//         content ''
+//         position absolute
+//         top 0.25rem
+//         left 0
+//         height 1rem
+//         width 1rem
+//         // background url('./images/bullet-hex-blue.svg') no-repeat top left
+//         fill red
 
-  &__title
-    font-weight 500
-    position relative
-    padding-left 1.5rem
+//   &__title
+//     font-weight 500
+//     position relative
+//     padding-left 1.5rem
 
-  &__active
-    &:before
-      content ''
-      position absolute
-      top 0.55rem
-      left 0
-      height 1rem
-      width 1rem
-      // background url('./images/bullet-dash.svg') no-repeat top left
+//   &__active
+//     &:before
+//       content ''
+//       position absolute
+//       top 0.55rem
+//       left 0
+//       height 1rem
+//       width 1rem
+//       // background url('./images/bullet-dash.svg') no-repeat top left
 
-  &__inactive
-    &:before
-      content ''
-      position absolute
-      top 0.25rem
-      left 0
-      height 1rem
-      width 1rem
-      // background url('./images/bullet-hex-full.svg') no-repeat top left
+//   &__inactive
+//     &:before
+//       content ''
+//       position absolute
+//       top 0.25rem
+//       left 0
+//       height 1rem
+//       width 1rem
+//       // background url('./images/bullet-hex-full.svg') no-repeat top left
 
-  &__outbound
-    &:before
-      content ''
-      position absolute
-      top 0.25rem
-      left 0
-      height 1rem
-      width 1rem
-      background url('./images/icon-outbound.svg') no-repeat top left
+//   &__outbound
+//     &:before
+//       content ''
+//       position absolute
+//       top 0.25rem
+//       left 0
+//       height 1rem
+//       width 1rem
+//       background url('./images/icon-outbound.svg') no-repeat top left
 
 .footer
   height var(--sidebar-footer-height)
@@ -126,7 +174,19 @@
   padding-left .75rem
   padding-right .75rem
   align-items center
-  overflow-y hidden
+  // overflow-y hidden
+  // overflow-x hidden
+  z-index 200
+
+  &:before
+    content ""
+    position absolute
+    top -50px
+    left 0
+    right 0
+    bottom 100%
+    background linear-gradient(to top, white, rgba(255,255,255,0))
+    pointer-events none
 
   &__item
     flex-grow 1

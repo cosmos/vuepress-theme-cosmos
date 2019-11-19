@@ -1,8 +1,10 @@
 <template lang="pug">
   div
-    div
-      a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
-        img(src="./images/goz.jpg").aside__image
+    a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
+      img(src="./images/goz.jpg").aside__image
+    div(v-if="prereq.length > 0")
+      .aside__title Pre-requisite reading
+      router-link(v-for="item in prereq" :to="item.href").prereq__item {{item.text}}
     div(v-if="$page.headers && $page.headers.length > 0")
       .aside__title On this page
       .aside__link(v-for="link in $page.headers")
@@ -33,10 +35,43 @@
 
     &__href
       color rgba(22, 25, 49, 0.65)
+
+.prereq__item
+  box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+  padding 1rem
+  border-radius .5rem
+  color #161931
+  font-size .875rem
+  font-weight 500
+  line-height 20px
+  margin 1rem 0
+  display block
 </style>
 
 <script>
 export default {
-  props: ["selected"]
+  props: ["selected"],
+  data: function() {
+    return {
+      prereq: []
+    };
+  },
+  created() {
+    const searchForPrereq = () => {
+      const prereq = document.querySelectorAll("[prereq]");
+      if (prereq.length > 0) {
+        this.prereq = [...prereq].map(e => {
+          const link = e.querySelector("[href]");
+          return {
+            href: link.getAttribute("href"),
+            text: link.innerText
+          };
+        });
+      } else {
+        setTimeout(searchForPrereq, 500);
+      }
+    };
+    searchForPrereq();
+  }
 };
 </script>

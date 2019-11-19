@@ -143,13 +143,14 @@
     padding-left 4rem
     position relative
     color initial
-    box-shadow none
-    margin-bottom 2rem
+    border-radius .5rem
+    padding 1.5rem 1.5rem 1.5rem 4.5rem
+    box-shadow: 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
 
     &__icon
       position absolute
-      top 0
-      left 0
+      top 1rem
+      left 1rem
       font-size 1.5rem
       display flex
       align-items center
@@ -261,11 +262,18 @@
   .sections
     gap .5rem
     margin-bottom 0
+    margin-top 2rem
     grid-template-columns repeat(auto-fit, minmax(220px, 1fr))
 
     &__item
-      margin-bottom 1rem
-      padding-left 3rem
+      margin-bottom 0
+      padding-left 4rem
+      box-shadow none
+      padding-bottom 0
+
+      &__icon
+        top 1rem
+        left .75rem
 
       &__wrapper
         padding-bottom 1.5rem

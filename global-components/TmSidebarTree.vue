@@ -12,7 +12,6 @@
 </template>
 
 <style lang="stylus" scoped>
-
 .item
   position relative
   padding-left 1.25rem
@@ -48,7 +47,7 @@
 
   &__icon
     position absolute
-    top .6rem
+    top .5rem
     left 0
 
 .reveal-enter-active, .reveal-leave-active

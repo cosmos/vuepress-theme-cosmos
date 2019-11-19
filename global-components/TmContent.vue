@@ -1,22 +1,45 @@
 <template lang="pug">
-  div
+  div(style="width: 100%")
     .container
-      .content(:class="{noAside}")
-        .content__container(:class="{noAside}")
-          slot(name="content")
-          tm-content-cards(v-if="$frontmatter.cards")
-          .links
-            div
-              div(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
-                router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
-                router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev && linkPrevNext.prev.regularPath") ← {{linkPrevNext.prev.title}}
-            div
-              div(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
-                router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
-                router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next && linkPrevNext.next.regularPath") {{linkPrevNext.next.title}} →
+      h1 {{$page.title}}
+      .synopsis(v-if="$frontmatter.synopsis")
+        .synopsis__title Synopsis
+        .synopsis__body {{$frontmatter.synopsis}}
+      slot(name="content")
+      tm-content-cards(v-if="$frontmatter.cards")
+    //- .container
+    //-   .content(:class="{noAside}")
+    //-     .content__container(:class="{noAside}")
+    //-       slot(name="content")
+    //-       tm-content-cards(v-if="$frontmatter.cards")
+          //- .links
+          //-   div
+          //-     div(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
+          //-       router-link(:to="$page.frontmatter.prev" v-if="$page.frontmatter.prev") ← {{$page.frontmatter.prev}}
+          //-       router-link(:to="linkPrevNext.prev.regularPath" v-else-if="linkPrevNext.prev && linkPrevNext.prev.regularPath") ← {{linkPrevNext.prev.title}}
+          //-   div
+          //-     div(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
+          //-       router-link(:to="$page.frontmatter.next" v-if="$page.frontmatter.next") {{$page.frontmatter.next}} →
+          //-       router-link(:to="linkPrevNext.next.regularPath" v-else-if="linkPrevNext.next && linkPrevNext.next.regularPath") {{linkPrevNext.next.title}} →
 </template>
 
 <style lang="stylus" scoped>
+.synopsis
+  padding 1.5rem 2rem
+  background-color rgba(176, 180, 207, 0.09)
+  border-radius .5rem
+
+  &__title
+    color rgba(22, 25, 49, 0.65)
+    text-transform uppercase
+    font-size .75rem
+    margin-bottom .5rem
+    letter-spacing 0.2em
+
+  &__body
+    color rgba(22, 25, 49, 0.9)
+    font-size .875rem
+
 .links
   display flex
   justify-content space-between
@@ -48,6 +71,15 @@
       max-width initial
 
 /deep/
+  .content__default h1
+    display none
+
+  [prereq]
+    display none
+    
+  .content__default
+    width 100%
+
   h1,h2,h3,h4
     font-weight 600
 
@@ -80,9 +112,9 @@
     font-style italic
 
   h1
-    font-size 2.25rem
+    font-size 2.5rem
     font-weight 600
-    margin-bottom 2rem
+    margin-bottom 3rem
 
   h2
     font-size 1.5rem
@@ -123,6 +155,10 @@
   :not(pre) > code[class*="language-"], pre[class*="language-"]
     background rgba(0,0,0,0)
 
+  [class*='language-']
+    overflow-x hidden
+    width 100%
+
   :not(pre) > div[class*='language-']
     background #2e3148
     border-radius 0.25rem
@@ -135,6 +171,8 @@
     position relative
     z-index 1
     line-height 1.5
+    overflow-x hidden
+    width 100%
 
   .highlight-lines
     position absolute
@@ -174,27 +212,26 @@ export default {
       type: Array
     }
   },
-
   mounted() {
-    const onIntersection = items => {
-      if (items && items[0].isIntersecting) this.$emit("selected", items);
-    };
-    let observer = new IntersectionObserver(onIntersection, {
-      rootMargin: "0px"
-    });
-    const searchForHeaders = () => {
-      const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-      if (headers && headers.length > 0) {
-        headers.forEach(header => {
-          if (header) observer.observe(header);
-        });
-      } else {
-        setTimeout(() => {
-          searchForHeaders();
-        }, 1000);
-      }
-    };
-    searchForHeaders();
+    // const onIntersection = items => {
+    //   if (items && items[0].isIntersecting) this.$emit("selected", items);
+    // };
+    // let observer = new IntersectionObserver(onIntersection, {
+    //   rootMargin: "0px"
+    // });
+    // const searchForHeaders = () => {
+    //   const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    //   if (headers && headers.length > 0) {
+    //     headers.forEach(header => {
+    //       if (header) observer.observe(header);
+    //     });
+    //   } else {
+    //     setTimeout(() => {
+    //       searchForHeaders();
+    //     }, 1000);
+    //   }
+    // };
+    // searchForHeaders();
   },
   computed: {
     noAside() {

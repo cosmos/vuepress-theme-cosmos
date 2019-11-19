@@ -32,18 +32,18 @@ strong
 
 .container
   background var(--sidebar-bg)
-  padding 0 0 2rem
+  padding 0 3rem 2rem
 
 .wrapper
   max-width calc(1400px - var(--sidebar-width))
   margin 0 auto
-  padding-left 4rem
-  padding-right 2rem
+  // padding-left 4rem
+  // padding-right 2rem
 
 .title
   font-size 1.5rem
   color #161931
-  margin 1.5rem 0
+  padding 1.5rem 0
   font-weight 600
 
 .links
@@ -75,8 +75,9 @@ a.links__item__regular
   background white
 
 @media screen and (max-width: 1024px)
-  .wrapper
-    padding-left 2rem
+  .container
+    padding-left 1.5rem
+    padding-right 1.5rem
 </style>
 
 <script>

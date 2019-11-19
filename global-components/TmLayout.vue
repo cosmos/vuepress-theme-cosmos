@@ -1,175 +1,122 @@
 <template lang="pug">
   div
     .container
-      .sidebar__container(:class="{sidebarVisible}" @click.self="sidebarVisible = false")
-        tm-sidebar(:class="{sidebarVisible}" :value="tree" :tree="directoryTree").sidebar.sidebar__hidden
-      .content__container
-        .content(:class="{sidebarVisible}")
-          .content__inner
-            .topbar
-              svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" @click="sidebarVisible = !sidebarVisible").topbar__menu__button
-                path(d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z")
-                  path(d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z")
-              tm-breadcrumbs
-              //- tm-select-version
-              tm-select-language(v-if="hasLocales").topbar__language
-            tm-content(:aside="aside" :tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)")
-              template(v-slot:content)
-                slot(name="content")
-        .footer__wrapper
-          tm-footer.footer
-      .aside__container(v-if="aside")
-        .aside
-          tm-aside(:selected="headerSelected")
+      .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
+        .sidebar
+          tm-sidebar(:value="tree" :tree="directoryTree")
+      .content__wrapper(:class="[`content__aside__${aside}`]")
+        .content
+          tm-content(:tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
+            template(v-slot:content)
+              slot(name="content")
+        .aside(v-if="aside" :key="$route.fullPath")
+          tm-aside
+        .footer
+          tm-footer(:tree="directoryTree")
+        //- tm-footer
+        //-   .content__inner
+        //-     .topbar
+        //-       svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" @click="sidebarVisible = !sidebarVisible").topbar__menu__button
+        //-         path(d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z")
+        //-           path(d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z")
+        //-       tm-breadcrumbs
+        //-       //- tm-select-version
+        //-       tm-select-language(v-if="hasLocales").topbar__language
+        //-     tm-content(:aside="aside" :tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)")
+        //-       template(v-slot:content)
+        //-         slot(name="content")
+        //- .footer__wrapper
+        //-   tm-footer.footer
+      //- .aside__container(v-if="aside")
+      //-   .aside
+      //-     tm-aside(:selected="headerSelected")
 </template>
 
 <style lang="stylus" scoped>
-.footer__wrapper
+.container
+  display grid
   width 100%
-
-.footer
-  margin-left var(--sidebar-width)
-  z-index 1000
+  grid-template-columns var(--sidebar-width) calc(100% - var(--sidebar-width))
+  max-width 1440px
+  margin-left auto
+  margin-right auto
   position relative
 
 .sidebar__container
-  z-index 10000
-  position fixed
-  top 0
-  left 0
-  height 100vh
-  width var(--sidebar-width)
-  pointer-events none
-  transition background-color 0.5s
+  transition transform .25s
+  max-width var(--sidebar-width)
+  width 100%
 
 .sidebar
-  width 100%
-  max-width var(--sidebar-width)
-  background-color var(--sidebar-bg)
-  position absolute
-  left 0
+  position sticky
+  background white
   top 0
   height 100vh
+  overflow-y scroll
   overflow-x hidden
-  z-index 1000
-  transition transform 0.5s
-  pointer-events all
 
 .content
-  max-width 1400px
+  display flex
+  min-height 100vh
   width 100%
-  margin 0 auto
+  overflow-x hidden
+  padding 4rem 3rem 0
+
+.content__wrapper
+  display grid
+  width 100%
+  position relative
+  grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
+
+.content__wrapper.content__aside__false
+  display block
 
 .content__container
+  display grid
+  grid-template-columns 1fr 1fr
   width 100%
-  display flex
-  flex-direction column
-  align-items center
-
-.content__inner
-  margin-left var(--sidebar-width)
-  max-width 1400px
-
-.topbar
-  margin-left 4rem
-  margin-right 1rem
-  display flex
-  height var(--topbar-height)
-  justify-content space-between
-  align-items center
-
-  &__breadcrumbs
-    font-size 0.75rem
-    text-transform uppercase
-    letter-spacing 0.2em
-
-  &__language
-    margin-left auto
-
-  &__menu
-    &__button
-      margin-right 1rem
-      display none
 
 .aside
-  margin-top var(--topbar-height)
-  pointer-events initial
-  background white
-  position fixed
-  right 0
-  overflow-y scroll
+  position sticky
+  float right
   top 0
-  bottom 0
-  width var(--sidebar-width)
-  padding-left 1rem
-  padding-right 1rem
+  width var(--aside-width)
+  z-index 2000
+  overflow-x hidden
+  height 100vh
+  padding 2rem
 
-  &::-webkit-scrollbar
-    width: 0 !important
+.footer
+  grid-area 2/1/2/3
+  z-index 5000
+  position relative
+  // Fix for Safari's buggy implementation of `sticky`
+  transform translateZ(0)
 
-  &__container
-    pointer-events none
-    width 100%
-    max-width var(--sidebar-width)
-    position fixed
-    right 0
-    top 0
-    bottom 0
-    overflow-y hidden
-    overflow-x hidden
-    z-index 500
-
-@media screen and (max-width: 1024px)
-  .topbar
-    margin-left 2rem
-    margin-right 2rem
+@media screen and (max-width: 1000px)
+  .content__wrapper
+    display block
 
   .aside
-    &__container
-      display none
+    display none
 
-@media screen and (max-width: 768px)
-  .content__inner, .footer
-    margin-left initial
-
-  .topbar
-    margin-left 2rem
-
-    &__breadcrumbs
-      &__current
-        display none
-
-    &__menu
-      &__button
-        display block
-
+@media screen and (max-width: 700px)
   .content
-    margin-left 0
+    padding 2rem 1.5rem 0
 
-  .content.sidebarVisible
-    overflow-y hidden
+  .container
+    display block
 
   .sidebar__container
-    width 100%
-    left 0
-    right 0
-    top 0
-    bottom 0
     position fixed
-    overflow-y scroll
+    z-index 10000
 
-    &.sidebarVisible
-      background rgba(0, 0, 0, 0.2)
-      pointer-events all
-      cursor pointer
+  .sidebar__container__false
+    transform translateX(calc(-1 * var(--sidebar-width)))
+    box-shadow initial
 
-  .sidebar
-    cursor inherit
-
-  .sidebar__hidden
-    transform translateX(-100%)
-
-  .sidebarVisible
+  .sidebar__container__true
+    box-shadow 0 0 100px 0 rgba(0,0,0,.25)
     transform translateX(0)
 </style>
 

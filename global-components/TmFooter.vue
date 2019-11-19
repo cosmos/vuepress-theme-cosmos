@@ -1,6 +1,7 @@
 <template lang="pug">
   div
     .wrapper
+      tm-footer-links(:tree="tree").footer__links
       tm-help-support(v-if="$themeConfig.gutter")
       .container
         .footer__wrapper
@@ -9,19 +10,23 @@
               .links__item__title {{item.title}}
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
           .logo
-            .logo__item.logo__image
-              img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo")
+            .logo__item
+              img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo").logo__image
             .logo__item.logo__link
               a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener") {{$themeConfig.footer.textLink.text}}
           .smallprint(v-if="$themeConfig.footer")
             .smallprint__item.smallprint__item__links
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" rel="noreferrer noopener").smallprint__item__links__item
-                svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="white")
+                svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
             .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
 </template>
 
 <style lang="stylus" scoped>
+.footer__links
+  margin-left 3rem
+  margin-right 3rem
+
 .links
   display grid
   grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
@@ -29,7 +34,7 @@
   &__item
     display flex
     flex-direction column
-    margin 1.5rem
+    margin 1.5rem .5rem
 
     &__title
       font-size 0.75rem
@@ -46,13 +51,12 @@
       margin-bottom 0.5rem
 
 .container
-  background-color var(--background)
-  color white
+  background-color white
+  color #161931
   padding-top 3.5rem
   padding-bottom 3.5rem
 
 .footer__wrapper
-  max-width calc(1400px - var(--sidebar-width))
   margin 0 auto
   padding-left 2.5rem
   padding-right .5rem
@@ -60,13 +64,14 @@
 .wrapper
   --height 50px
   margin-top var(--height)
+  background white
 
   &:before
     content ''
     height var(--height)
     background linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1))
     position absolute
-    top calc(-1 * var(--height))
+    top 0
     width 100%
 
 .logo
@@ -75,7 +80,10 @@
   align-items flex-end
 
   &__item
-    padding 1.5rem
+    padding 1.5rem .5rem
+
+  &__image
+    display block
 
   &__link
     grid-column span 2
@@ -87,30 +95,28 @@
   align-items flex-end
 
   &__item
-    padding 1.5rem
-    fill white
+    padding 1.5rem .5rem
 
     &__links
       &__item
         margin-right 1rem
 
-        &__icon
-          fill white
-
     &__desc
       grid-column span 2
       font-size 0.8125rem
-      color rgba(255, 255, 255, 0.51)
       line-height 1rem
-@media screen and (max-width: 1024px)
-  .footer__wrapper
-    padding-left .5rem
+
+@media screen and (max-width: 500px)
+  .footer__links
+    margin-left 1.5rem
+    margin-right 1.5rem
 </style>
 
 <script>
 import { find } from "lodash";
 
 export default {
+  props: ["tree"],
   methods: {
     serviceIcon(service) {
       const icons = [
