@@ -56,7 +56,7 @@ export default {
     return {
       prereq: []
     };
-  }
+  },
   created() {
     const searchForPrereq = () => {
       const prereq = document.querySelectorAll("[prereq]");
