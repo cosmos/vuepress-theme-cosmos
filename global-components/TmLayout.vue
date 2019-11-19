@@ -5,7 +5,10 @@
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
       .content__wrapper(:class="[`content__aside__${aside}`]")
+        .top-bar
+          tm-top-bar
         .content
+          tm-breadcrumbs.breadcrumbs
           tm-content(:tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
             template(v-slot:content)
               slot(name="content")
@@ -33,6 +36,12 @@
 </template>
 
 <style lang="stylus" scoped>
+.top-bar
+  grid-area 1/1/1/3
+
+.breadcrumbs
+  margin-bottom 1.5rem
+
 .container
   display grid
   width 100%
@@ -56,10 +65,10 @@
   overflow-x hidden
 
 .content
-  display flex
   min-height 100vh
   width 100%
-  padding 4rem 3rem 0
+  padding 3rem 3rem 0
+  grid-area auto
 
 .content__wrapper
   display grid
@@ -83,12 +92,14 @@
   z-index 2000
   overflow-x hidden
   height 100vh
+  grid-area auto
   padding 2rem
 
 .footer
-  grid-area 2/1/2/3
+  grid-area auto
   z-index 5000
   position relative
+  grid-area auto / auto / auto / span 2
   // Fix for Safari's buggy implementation of `sticky`
   transform translateZ(0)
 

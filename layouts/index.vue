@@ -3,7 +3,6 @@
     tm-layout(:aside="false")
       template(v-slot:content)
         .intro
-          .h1 {{$frontmatter.title}}
           .p {{$frontmatter.description}}
         .h2 Getting Started
         .p__alt Read all about the SDK or dive straight into the code with a tutorial.

@@ -1,5 +1,6 @@
 <template lang="pug">
   div
+    router-link(to="/").item Cosmos SDK
     router-link(:to="item.path" v-for="item in breadcrumbs").item {{item.title}}
 </template>
 
