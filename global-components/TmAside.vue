@@ -4,6 +4,7 @@
       img(src="./images/goz.jpg").aside__image
     div(v-if="prereq.length > 0")
       .aside__title Pre-requisite reading
+    client-only
       router-link(v-for="item in prereq" :to="item.href").prereq__item {{item.text}}
     div(v-if="$page.headers && $page.headers.length > 0")
       .aside__title On this page
@@ -55,7 +56,7 @@ export default {
     return {
       prereq: []
     };
-  },
+  }
   created() {
     const searchForPrereq = () => {
       const prereq = document.querySelectorAll("[prereq]");
