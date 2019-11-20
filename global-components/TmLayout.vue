@@ -1,12 +1,16 @@
 <template lang="pug">
   div
+    //- .search__container
+    //-     transition(name="panel")
+    //-       section-search(@visible="searchPanel = $event" v-if="searchPanel").search__panel
+    //-     .search__overlay(v-if="searchPanel" @click="overlayClick")
     .container
       .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
       .content__wrapper(:class="[`content__aside__${aside}`]")
         .top-bar
-          tm-top-bar
+          //- tm-top-bar(@search="searchPanel = $event")
         .content
           tm-breadcrumbs.breadcrumbs
           tm-content(:tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
@@ -36,6 +40,25 @@
 </template>
 
 <style lang="stylus" scoped>
+.search__panel
+  position fixed
+  z-index 200000
+  max-width 600px
+  width 100%
+  right 0
+  top 0
+  bottom 0
+  background-color #F8F9FC
+  box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
+
+.search__overlay
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  z-index 100000
+
 .top-bar
   grid-area 1/1/1/3
 
@@ -74,6 +97,7 @@
   display grid
   width 100%
   position relative
+
   grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
 
 .content__wrapper.content__aside__false
@@ -102,6 +126,25 @@
   grid-area auto / auto / auto / span 2
   // Fix for Safari's buggy implementation of `sticky`
   transform translateZ(0)
+
+.panel-enter-active, .panel-leave-active
+  transition opacity .25s, transform .35s
+
+.panel-enter
+  opacity 0
+  transform translateX(50px)
+
+.panel-enter-to
+  opacity 1
+  transform translateX(0)
+
+.panel-leave
+  opacity 1
+  transform translateX(0)
+
+.panel-leave-to
+  opacity 0
+  transform translateX(50px)
 
 @media screen and (max-width: 1000px)
   .content__wrapper
@@ -150,7 +193,8 @@ export default {
   data: function() {
     return {
       sidebarVisible: null,
-      headerSelected: null
+      headerSelected: null,
+      searchPanel: null
     };
   },
   computed: {
@@ -208,6 +252,12 @@ export default {
     }
   },
   methods: {
+    overlayClick(e) {
+      this.searchPanel = false;
+      this.$nextTick(() => {
+        document.elementFromPoint(e.clientX, e.clientY).click();
+      });
+    },
     selectHeader(elements) {
       if (elements.length > 0) {
         this.headerSelected = elements[0].target.id;

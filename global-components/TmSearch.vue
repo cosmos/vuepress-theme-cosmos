@@ -41,7 +41,19 @@
 </style>
 
 <script>
+import lunr from "lunr";
+
 export default {
   props: ["value"]
+  // mounted() {
+  //   const idx = lunr(function() {
+  //     this.ref("key");
+  //     this.field("title");
+
+  //     documents.forEach(function(doc) {
+  //       this.add(doc);
+  //     }, this);
+  //   });
+  // }
 };
 </script>

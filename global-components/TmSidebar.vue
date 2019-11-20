@@ -3,7 +3,9 @@
     .container
       .main
         router-link(to="/").logo__container
-          component(:is="`logo-${$themeConfig.label}`").logo
+          .logo
+            component(:is="`logo-${$themeConfig.label}`").logo__img
+            .logo__text {{$site.title || 'Documentation'}}
         .items
           div(v-for="item in value").sidebar
             .title {{item.title}}
@@ -37,8 +39,17 @@
 
 <style lang="stylus" scoped>
 .logo
-  padding 2rem 2rem 1rem
-  display block
+  padding 1rem 2rem
+  display flex
+  align-items center
+
+  &__img
+    display block
+    max-width 40px
+    margin-right .75rem
+
+  &__text
+    font-weight 500
 
 .logo__container
   position sticky

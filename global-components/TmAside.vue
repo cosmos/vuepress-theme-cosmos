@@ -60,7 +60,6 @@ export default {
   mounted() {
     const searchForPrereq = i => {
       let index = i || 0;
-      console.log(index);
       if (index > 10) return;
       const prereq = document.querySelectorAll("[prereq]");
       if (prereq.length > 0) {
