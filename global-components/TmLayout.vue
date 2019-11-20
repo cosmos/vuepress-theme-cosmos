@@ -1,16 +1,17 @@
 <template lang="pug">
   div
-    //- .search__container
-    //-     transition(name="panel")
-    //-       section-search(@visible="searchPanel = $event" v-if="searchPanel").search__panel
-    //-     .search__overlay(v-if="searchPanel" @click="overlayClick")
+    .search__container
+        transition(name="panel")
+          client-only
+            section-search(@visible="searchPanel = $event" v-show="searchPanel").search__panel
+        .search__overlay(v-if="searchPanel" @click="overlayClick")
     .container
       .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
       .content__wrapper(:class="[`content__aside__${aside}`]")
         .top-bar
-          //- tm-top-bar(@search="searchPanel = $event")
+          tm-top-bar(@search="searchPanel = $event")
         .content
           tm-breadcrumbs.breadcrumbs
           tm-content(:tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
