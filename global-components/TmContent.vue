@@ -77,6 +77,9 @@
   .term
     text-decoration underline
 
+  img
+    width 100%
+
   .tooltip
 
     h1
