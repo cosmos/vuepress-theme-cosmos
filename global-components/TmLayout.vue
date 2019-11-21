@@ -93,6 +93,7 @@
   width 100%
   padding 3rem 3rem 0
   grid-area auto
+  overflow-x hidden
 
 .content__wrapper
   display grid
