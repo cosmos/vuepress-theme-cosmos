@@ -18,7 +18,7 @@
   height 100vh
   overflow-y scroll
   -webkit-overflow-scrolling touch
-  
+
 .search-box
   width 100%
   display grid
@@ -65,6 +65,7 @@
 <script>
 import lunr from "lunr";
 import { find } from "lodash";
+// const algoliasearch = require("algoliasearch");
 
 export default {
   data: function() {
@@ -74,7 +75,12 @@ export default {
     };
   },
   mounted() {
-    console.log("mount");
+    // const client = algoliasearch(
+    //   "tendermint",
+    //   "59f0e2deb984aa9cdf2b3a5fd24ac501"
+    // );
+    // const index = client.initIndex("tendermint");
+    // console.log(client, index);
     const documents = this.$site.pages;
     this.lunr = lunr(function() {
       this.ref("key");

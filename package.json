@@ -12,6 +12,7 @@
     "@cosmos-ui/vue": "^0.5.16",
     "@vuepress/plugin-last-updated": "^1.2.0",
     "@vuepress/plugin-search": "^1.1.0",
+    "algoliasearch": "^3.35.1",
     "axios": "^0.19.0",
     "intersection-observer": "^0.7.0",
     "lunr": "^2.3.8",
