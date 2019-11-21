@@ -14,6 +14,7 @@
     "@vuepress/plugin-search": "^1.1.0",
     "algoliasearch": "^3.35.1",
     "axios": "^0.19.0",
+    "docsearch.js": "^2.6.3",
     "intersection-observer": "^0.7.0",
     "lunr": "^2.3.8",
     "markdown-it": "^10.0.0",
