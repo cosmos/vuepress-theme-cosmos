@@ -51,7 +51,7 @@
   margin-bottom 1.5rem
 
 .h2
-  font-size 1.5rem
+  font-size 2rem
   font-weight 600
   margin-top 2.5rem
   margin-bottom 1rem

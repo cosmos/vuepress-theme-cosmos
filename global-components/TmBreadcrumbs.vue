@@ -7,10 +7,12 @@
 <style lang="stylus" scoped>
 .item
   display inline-block
+  font-size .8125rem
+
   &:after
     content "/"
-    padding-left .5rem
-    padding-right .5rem
+    padding-left .25rem
+    padding-right .25rem
 
   &:last-child
     opacity .5

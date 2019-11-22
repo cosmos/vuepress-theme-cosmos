@@ -65,6 +65,8 @@
     cursor pointer
 
 .results
+  overflow-y scroll
+  padding-bottom 3rem
 
   &__item
     padding 1rem 2rem

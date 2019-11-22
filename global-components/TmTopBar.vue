@@ -6,7 +6,7 @@
           tm-icon-menu
       .logo
         .logo__wrapper
-          .logo__image
+          router-link(to="/" tag="div").logo__image
             component(:is="`tm-logo-${$themeConfig.label}`")
           .logo__text {{$site.title}}
       .toolbar

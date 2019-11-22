@@ -32,6 +32,7 @@
     border-radius .5rem
     display block
     flex-grow 1
+    overflow-x hidden
 
     &__title
       font-weight 500

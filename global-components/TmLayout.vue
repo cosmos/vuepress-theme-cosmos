@@ -51,7 +51,7 @@
   right 0
   top 0
   bottom 0
-  background-color #F8F9FC
+  background-color white
   box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
 .search__overlay
@@ -76,6 +76,8 @@
   margin-left auto
   margin-right auto
   position relative
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
 
 .sidebar__container
   transition transform .5s
@@ -86,7 +88,8 @@
   position sticky
   background white
   top 0
-  height 100vh
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
   overflow-y scroll
   overflow-x hidden
 
@@ -94,9 +97,10 @@
     position fixed
     z-index 10000
     top 0
-    bottom 0
     left 0
     right 0
+    height 100vh
+    height: calc(var(--vh, 1vh) * 100);
     background rgba(51, 54, 74, 0.4)
 
 .content
@@ -123,7 +127,6 @@
 
 .aside
   position sticky
-  float right
   top 0
   width var(--aside-width)
   z-index 2000
@@ -231,6 +234,10 @@ export default {
       headerSelected: null,
       searchPanel: null
     };
+  },
+  mounted() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
   computed: {
     hasLocales() {
