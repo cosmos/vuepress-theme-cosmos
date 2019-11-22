@@ -4,7 +4,8 @@
       .main
         router-link(to="/").logo__container
           .logo
-            component(:is="`logo-${$themeConfig.label}`").logo__img
+            .logo__img
+              component(:is="`logo-${$themeConfig.label}`")
             .logo__text {{$site.title || 'Documentation'}}
         .items
           div(v-for="item in value").sidebar
@@ -44,8 +45,8 @@
   align-items center
 
   &__img
-    display block
-    max-width 40px
+    width 40px
+    height 40px
     margin-right .75rem
 
   &__text
@@ -218,6 +219,10 @@
     &__title
       text-align center
       font-size .625rem
+
+@media screen and (max-width: 752px)
+  .logo
+    display none
 </style>
 
 <script>

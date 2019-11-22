@@ -1,17 +1,19 @@
 <template lang="pug">
   div
     .search__container
-        transition(name="panel")
-          client-only
-            section-search(@visible="searchPanel = $event" v-show="searchPanel").search__panel
-        .search__overlay(v-if="searchPanel" @click="overlayClick")
+      transition(name="panel")
+        client-only
+          section-search(@visible="searchPanel = $event" v-show="searchPanel").search__panel
+      .search__overlay(v-if="searchPanel" @click="overlayClick")
     .container
+      transition(name="fade")
+        .sidebar__overlay(v-if="sidebarVisible" @click="sidebarVisible = false")
       .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
       .content__wrapper(:class="[`content__aside__${aside}`]")
         .top-bar
-          tm-top-bar(@search="searchPanel = $event")
+          tm-top-bar(@search="searchPanel = $event" @sidebar="sidebarVisible = $event")
         .content
           tm-breadcrumbs.breadcrumbs
           tm-content(:tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
@@ -76,7 +78,7 @@
   position relative
 
 .sidebar__container
-  transition transform .25s
+  transition transform .5s
   max-width var(--sidebar-width)
   width 100%
 
@@ -87,6 +89,15 @@
   height 100vh
   overflow-y scroll
   overflow-x hidden
+
+  &__overlay
+    position fixed
+    z-index 10000
+    top 0
+    bottom 0
+    left 0
+    right 0
+    background rgba(51, 54, 74, 0.4)
 
 .content
   min-height 100vh
@@ -148,6 +159,29 @@
   opacity 0
   transform translateX(50px)
 
+.fade-enter-active, .fade-leave-active
+  transition opacity .25s
+
+.fade-enter
+  opacity 0
+
+.fade-enter-to
+  opacity 1
+
+.fade-leave
+  opacity 1
+
+.fade-leave-to
+  opacity 0
+
+@media screen and (max-width: 1392px)
+  .container
+    --sidebar-width 304px
+
+@media screen and (max-width: 1136px)
+  .container
+    --sidebar-width 256px
+
 @media screen and (max-width: 1000px)
   .content__wrapper
     display block
@@ -155,7 +189,7 @@
   .aside
     display none
 
-@media screen and (max-width: 700px)
+@media screen and (max-width: 752px)
   .content
     padding 2rem 1.5rem 0
 
@@ -171,7 +205,6 @@
     box-shadow initial
 
   .sidebar__container__true
-    box-shadow 0 0 100px 0 rgba(0,0,0,.25)
     transform translateX(0)
 </style>
 
