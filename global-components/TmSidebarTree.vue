@@ -51,7 +51,7 @@
     left 0
 
 .reveal-enter-active, .reveal-leave-active
-  transition all 0.5s
+  transition all 0.25s
   overflow hidden
 
 .reveal-enter, .reveal-leave-to

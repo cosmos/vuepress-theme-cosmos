@@ -5,12 +5,19 @@
         .search-box__icon
           icon-search
         .search-box__input
-          input(type="text" placeholder="Search" id="search-box-input" v-model="searchQuery").search-box__input__input
+          input(type="text" placeholder="Search" id="search-box-input" ref="search" v-model="searchQuery").search-box__input__input
         .search-box__clear
-          icon-circle-cross(v-if="searchQuery && searchQuery.length > 0" @click.native="searchQuery = ''").search-box__clear__icon
-        a.search-box__button(@click="$emit('visible', false)") Cancel
+          icon-circle-cross(v-if="searchQuery && searchQuery.length > 0" @click.native="searchQuery = ''" @keydown.enter="searchQuery = ''" tabindex="1").search-box__clear__icon
+        a.search-box__button(@click="$emit('visible', false)" @keydown.enter="$emit('visible', false)" tabindex="1") Cancel
       .results
-        .results__item(v-for="result in searchResults" v-if="searchResults && result.path" @click="itemClick(result)")
+        .results__noresults__container(v-if="searchQuery && (searchResults.length <= 0)")
+          .results__noresults
+            .results__noresults__icon
+              icon-search
+            .results__noresults__h1 No results for #[strong “{{searchQuery}}”]
+            .results__noresults__p
+              span Try queries such as #[span.results__noresults__a(@click="searchQuery = 'auth'" @keydown.enter="searchQuery = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="searchQuery = 'slashing'" @keydown.enter="searchQuery = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="searchQuery = 'staking'" @keydown.enter="searchQuery = 'staking'" tabindex="0") staking].
+        .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults && result.path && searchQuery" @keydown.enter="itemClick(result)" @click="itemClick(result)")
           .results__item__title {{result.title}}
           .results__item__path
             .results__item__path__item(v-for="item in itemPath(result)") {{item}}
@@ -18,10 +25,16 @@
 </template>
 
 <style lang="stylus" scoped>
+strong
+  font-weight 500
+
 .container
   height 100vh
   overflow-y scroll
   -webkit-overflow-scrolling touch
+  display flex
+  flex-direction column
+  background-color #F8F9FC
 
 .search-box
   width 100%
@@ -42,8 +55,7 @@
       outline none
       font-size 1.25rem
       width 100%
-      padding-top 1.5rem
-      padding-bottom 1.5rem
+      padding 1.5rem .5rem
 
       &::-webkit-input-placeholder
         color rgba(14, 33, 37, 0.26)
@@ -55,8 +67,9 @@
       fill rgba(0,0,0,.15)
       margin-top .25rem
 
-      &:hover
+      &:hover, &:focus
         fill rgba(0,0,0,.25)
+        outline none
   
   &__button
     text-transform uppercase
@@ -67,10 +80,47 @@
 .results
   overflow-y scroll
   padding-bottom 3rem
+  display flex
+  flex-direction column
+  flex-grow 1
+
+  &__noresults__container
+    height 100%
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+    flex-grow 1
+
+  &__noresults
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+
+    &__icon
+      max-width 80px
+      margin-bottom 2rem
+
+    &__h1
+      color rgba(22, 25, 49, 0.65)
+      font-size 1.5rem
+      margin-bottom 1rem
+
+    &__p
+      color rgba(22, 25, 49, 0.65)
+
+    &__a
+      cursor pointer
+      color var(--accent-color)
 
   &__item
     padding 1rem 2rem
     cursor pointer
+
+    &:focus
+      outline none
+      background-color white
 
     &__title
       color var(--accent-color)
@@ -105,6 +155,7 @@ import lunr from "lunr";
 import { find, last } from "lodash";
 
 export default {
+  props: ["visible"],
   data: function() {
     return {
       lunr: null,
@@ -115,9 +166,24 @@ export default {
   watch: {
     searchQuery: function(e) {
       this.search(e);
+    },
+    visible(becomesVisible) {
+      const search = this.$refs.search;
+      if (becomesVisible && search) search.focus();
     }
   },
   mounted() {
+    this.$refs.search.addEventListener("keydown", e => {
+      if (e.keyCode == 27) {
+        this.$emit("visible", false);
+        return;
+      }
+      if (e.keyCode == 40) {
+        console.log(this.$refs.result[0]);
+        this.$refs.result[0].focus();
+        return;
+      }
+    });
     // Promise.all([
     //   import(
     //     /* webpackChunkName: "docsearch" */ "docsearch.js/dist/cdn/docsearch.min.js"
@@ -178,7 +244,7 @@ export default {
     },
     itemClick(item) {
       this.$emit("visible", false);
-      this.$router.push(item.path);
+      if (item.path != this.$page.path) this.$router.push(item.path);
     },
     itemPath(sourceItem) {
       let path = sourceItem.path
@@ -202,6 +268,16 @@ export default {
         return found ? found : noIndex;
       });
       return path.map(p => p.title).slice(0, -1);
+    },
+    focusNext(e) {
+      const next = e.target.nextSibling;
+      if (next && next.focus) next.focus();
+      e.preventDefault();
+    },
+    focusPrev(e) {
+      const prev = e.target.previousSibling;
+      if (prev && prev.focus) prev.focus();
+      e.preventDefault();
     }
   }
 };

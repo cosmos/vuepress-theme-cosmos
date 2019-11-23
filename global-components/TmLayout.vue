@@ -3,7 +3,7 @@
     .search__container
       transition(name="panel")
         client-only
-          section-search(@visible="searchPanel = $event" v-show="searchPanel").search__panel
+          section-search(@visible="searchPanel = $event" v-show="searchPanel" :visible="searchPanel").search__panel
       .search__overlay(v-if="searchPanel" @click="overlayClick")
     .container
       transition(name="fade")
@@ -52,7 +52,7 @@
   top 0
   bottom 0
   background-color white
-  box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
+  box-shadow 0px 0px 40px rgba(22, 25, 49, 0.1), 0px 0px 16px rgba(22, 25, 49, 0.08), 0px 0px 0px rgba(22, 25, 49, 0.05)
 
 .search__overlay
   position fixed
@@ -226,6 +226,7 @@ import {
   flattenDeep,
   map
 } from "lodash";
+import hotkeys from "hotkeys-js";
 
 export default {
   data: function() {
@@ -236,6 +237,10 @@ export default {
     };
   },
   mounted() {
+    hotkeys("/", (event, handler) => {
+      event.preventDefault();
+      this.searchPanel = !this.searchPanel;
+    });
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
@@ -331,6 +336,9 @@ export default {
         }
       });
       return sorted;
+    },
+    test(e) {
+      console.log(e);
     }
   },
   props: {
