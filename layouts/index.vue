@@ -40,7 +40,6 @@
 </template>
 
 <style lang="stylus" scoped>
-
 .intro
   width 100%
   max-width 800px
@@ -169,6 +168,7 @@
   display grid
   gap 1.5rem
   grid-template-columns repeat(auto-fit, minmax(300px, 1fr))
+  margin-bottom 3rem
 
   &__item
     position relative

@@ -3,13 +3,29 @@
     .container
       .search-box
         .search-box__icon
-          icon-search
+          icon-search(:stroke="searchQuery ? '#66A1FF' : '#aaa'" :fill="searchQuery ? '#66A1FF' : '#aaa'")
         .search-box__input
-          input(type="text" placeholder="Search" id="search-box-input" ref="search" v-model="searchQuery").search-box__input__input
+          input(type="text" autocomplete="off" placeholder="Search" id="search-box-input" ref="search" v-model="searchQuery").search-box__input__input
         .search-box__clear
           icon-circle-cross(v-if="searchQuery && searchQuery.length > 0" @click.native="searchQuery = ''" @keydown.enter="searchQuery = ''" tabindex="1").search-box__clear__icon
         a.search-box__button(@click="$emit('visible', false)" @keydown.enter="$emit('visible', false)" tabindex="1") Cancel
       .results
+        .shortcuts(v-if="!searchQuery")
+          .shortcuts__h1 Keyboard shortcuts
+          .shortcuts__table
+            .shortcuts__table__row
+              .shortcuts__table__row__keys
+                .shortcuts__table__row__keys__item /
+              .shortcuts__table__row__desc Toggle search window
+            .shortcuts__table__row
+              .shortcuts__table__row__keys
+                .shortcuts__table__row__keys__item ↵
+              .shortcuts__table__row__desc Open highlighted search result
+            .shortcuts__table__row
+              .shortcuts__table__row__keys
+                .shortcuts__table__row__keys__item(style="font-size: .65rem") ▼
+                .shortcuts__table__row__keys__item(style="font-size: .65rem") ▲
+              .shortcuts__table__row__desc Navigate between search results
         .results__noresults__container(v-if="searchQuery && (searchResults.length <= 0)")
           .results__noresults
             .results__noresults__icon
@@ -18,13 +34,56 @@
             .results__noresults__p
               span Try queries such as #[span.results__noresults__a(@click="searchQuery = 'auth'" @keydown.enter="searchQuery = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="searchQuery = 'slashing'" @keydown.enter="searchQuery = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="searchQuery = 'staking'" @keydown.enter="searchQuery = 'staking'" tabindex="0") staking].
         .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults && result.path && searchQuery" @keydown.enter="itemClick(result)" @click="itemClick(result)")
-          .results__item__title {{result.title}}
-          .results__item__path
-            .results__item__path__item(v-for="item in itemPath(result)") {{item}}
-          .results__item__desc(v-html="result.frontmatter.synopsis && md(result.frontmatter.synopsis)")
+          .results__item__title #[span(v-if="itemPath(result)") {{itemPath(result)}} /] {{result.title}}
+          .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).join(", ")}}
+          .results__item__desc(v-if="result.frontmatter.synopsis && md(result.frontmatter.synopsis)" v-html="result.frontmatter.synopsis && md(result.frontmatter.synopsis)")
 </template>
 
 <style lang="stylus" scoped>
+.shortcuts
+  display flex
+  justify-content center
+  flex-direction column
+
+  &__h1
+    text-align center
+    color rgba(22, 25, 49, 0.65)
+    text-transform uppercase
+    letter-spacing 0.2em
+    font-size .75rem
+    margin-top 4rem
+    margin-bottom 2rem
+
+  &__table
+
+    &__row
+      display grid
+      grid-template-columns 35% 65%
+      gap 1.5rem
+      align-items center
+      margin-top .5rem
+      margin-bottom .5rem
+
+      &__keys
+        display flex
+        justify-content flex-end
+
+        &__item
+          color #46509F
+          background-color rgba(176, 180, 207, 0.2)
+          border 1px solid rgba(176, 180, 207, 0.09)
+          border-radius .25rem
+          font-size .8125rem
+          width 1.5rem
+          height 1.5rem
+          display flex
+          align-items center
+          justify-content center
+          margin 2px
+
+      &__desc
+        color rgba(22, 25, 49, 0.65)
+
 strong
   font-weight 500
 
@@ -125,7 +184,7 @@ strong
     &__title
       color var(--accent-color)
 
-    &__path
+    &__h2
       font-size .75rem
       opacity .75
       margin-top .25rem
@@ -145,9 +204,20 @@ strong
             content ""
 
     &__desc
-      text-overflow ellipsis
       white-space nowrap
       overflow hidden
+      position relative
+
+      &:after
+        content "..."
+        background linear-gradient(to right, rgba(248, 249, 252, .5) 0%, rgba(248, 249, 252, 1) 30%)
+        height 1em
+        width 1em
+        padding-bottom .25rem
+        text-align right
+        position absolute
+        top 0
+        right 0
 </style>
 
 <script>
@@ -179,47 +249,23 @@ export default {
         return;
       }
       if (e.keyCode == 40) {
-        console.log(this.$refs.result[0]);
         this.$refs.result[0].focus();
+        e.preventDefault();
         return;
       }
     });
-    // Promise.all([
-    //   import(
-    //     /* webpackChunkName: "docsearch" */ "docsearch.js/dist/cdn/docsearch.min.js"
-    //   ),
-    //   import(
-    //     /* webpackChunkName: "docsearch" */ "docsearch.js/dist/cdn/docsearch.min.css"
-    //   )
-    // ]).then(([docsearch]) => {
-    //   docsearch = docsearch.default;
-    //   docsearch(
-    //     Object.assign(
-    //       {},
-    //       {
-    //         apiKey: "59f0e2deb984aa9cdf2b3a5fd24ac501",
-    //         indexName: "tendermint"
-    //       },
-    //       {
-    //         inputSelector: "#search-box-input",
-    //         handleSelected: (input, event, suggestion) => {
-    //           const { pathname, hash } = new URL(suggestion.url);
-    //           this.$router.push(`${pathname}${hash}`);
-    //         }
-    //       }
-    //     )
-    //   );
-    // });
     const documents = this.$site.pages;
     this.lunr = lunr(function() {
       this.ref("key");
       this.field("title");
+      this.field("headers");
       this.field("synopsis");
       this.metadataWhitelist = ["position"];
       documents.forEach(function(doc) {
         this.add({
           key: doc.key,
           title: doc.title,
+          headers: doc.headers && doc.headers.map(h => h.title).join(" "),
           synopsis: doc.frontmatter.synopsis
         });
       }, this);
@@ -244,7 +290,18 @@ export default {
     },
     itemClick(item) {
       this.$emit("visible", false);
-      if (item.path != this.$page.path) this.$router.push(item.path);
+      if (item.path != this.$page.path) {
+        const header = this.resultHeader(item);
+        const fragment =
+          header && header[0]
+            ? "#" +
+              header[0]
+                .split(" ")
+                .map(h => h.toLowerCase())
+                .join("-")
+            : "";
+        this.$router.push(`${item.path}${fragment}`);
+      }
     },
     itemPath(sourceItem) {
       let path = sourceItem.path
@@ -267,7 +324,10 @@ export default {
         };
         return found ? found : noIndex;
       });
-      return path.map(p => p.title).slice(0, -1);
+      return path
+        .map(p => p.title)
+        .slice(0, -1)
+        .pop();
     },
     focusNext(e) {
       const next = e.target.nextSibling;
@@ -278,6 +338,16 @@ export default {
       const prev = e.target.previousSibling;
       if (prev && prev.focus) prev.focus();
       e.preventDefault();
+    },
+    resultHeader(result) {
+      if (!result.headers) return;
+      return result.headers
+        .map(h => {
+          if (h.title.match(new RegExp(this.searchQuery, "gi"))) {
+            return h.title;
+          }
+        })
+        .filter(e => e);
     }
   }
 };

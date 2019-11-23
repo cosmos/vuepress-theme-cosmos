@@ -12,7 +12,7 @@
       .toolbar
         .toolbar__item(@click="$emit('search', true)")
           .toolbar__item__icon
-            icon-search
+            icon-search(fill="#aaa")
           .toolbar__item__text.toolbar__item__text__search Search
 </template>
 
