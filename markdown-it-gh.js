@@ -31,7 +31,7 @@ module.exports = function asciiDiagram(md, options) {
         const [lineStart, lineEnd] = hasLines && hasLines[0].replace(/#/g, "").replace(/L/g, "").split("-")
         data = data.split("\n").slice(+lineStart - 1, +lineEnd).join("\n")
       }
-      return `<div class="language-go extra-class"><pre class="language-text"><code>${Prism.highlight(data.toString(), Prism.languages.clike, 'clike')}</code></pre></div>`
+      return `<code-block url="${a[1]}" value="${escapeHtml(data.toString())}"></code-block>`
     }
     return escapeHtml(tokens[idx].content);
   };

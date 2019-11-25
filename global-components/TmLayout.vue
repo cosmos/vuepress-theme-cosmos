@@ -336,9 +336,6 @@ export default {
         }
       });
       return sorted;
-    },
-    test(e) {
-      console.log(e);
     }
   },
   props: {

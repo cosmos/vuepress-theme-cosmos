@@ -142,45 +142,55 @@
       position absolute
       top 0.35rem
       left 0
-
-  :not(pre) > code[class*="language-"], pre[class*="language-"]
-    background rgba(0,0,0,0)
-
-  [class*='language-']
-    overflow-x hidden
-    width 100%
-
-  :not(pre) > div[class*='language-']
-    background #2e3148
-    border-radius 0.25rem
-    font-size 0.875rem
-    font-family 'Menlo', monospace
-    position relative
-    line-height 1.5
-
-  pre[class*='language-']
-    position relative
-    z-index 1
-    line-height 1.5
-    overflow-x hidden
-    width 100%
-
-  .highlight-lines
-    position absolute
-    width 100%
-    padding-top .9rem
-    padding-bottom 1rem
-    font-size inherit
-
-    .highlighted
-      background rgba(0,0,0,.25)
-
-  p code, ul code, ol code
-    font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
-    font-size .875rem
-    background rgba(0,0,0,.05)
-    padding .2rem
+  
+  p code
+    background-color rgba(176, 180, 207, 0.2)
+    border 1px solid rgba(176, 180, 207, 0.09)
     border-radius .25rem
+    padding-left .25rem
+    padding-right .25rem
+    font-size .8125rem
+    font-family "Menlo", "Monaco", "DejaVuSans Mono", monospace
+    color #46509F
+
+  // :not(pre) > code[class*="language-"], pre[class*="language-"]
+  //   background rgba(0,0,0,0)
+
+  // [class*='language-']
+  //   overflow-x hidden
+  //   width 100%
+
+  // :not(pre) > div[class*='language-']
+  //   background #2e3148
+  //   border-radius 0.25rem
+  //   font-size 0.875rem
+  //   font-family 'Menlo', monospace
+  //   position relative
+  //   line-height 1.5
+
+  // pre[class*='language-']
+  //   position relative
+  //   z-index 1
+  //   line-height 1.5
+  //   overflow-x hidden
+  //   width 100%
+
+  // .highlight-lines
+  //   position absolute
+  //   width 100%
+  //   padding-top .9rem
+  //   padding-bottom 1rem
+  //   font-size inherit
+
+  //   .highlighted
+  //     background rgba(0,0,0,.25)
+
+  // p code, ul code, ol code
+  //   font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
+  //   font-size .875rem
+  //   background rgba(0,0,0,.05)
+  //   padding .2rem
+  //   border-radius .25rem
 
 @media screen and (max-width: 1024px)
   .content
