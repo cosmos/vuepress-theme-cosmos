@@ -3,6 +3,10 @@
     .container
       .body__container
         .icons
+          .icons__item(v-if="height > 300 && expanded")
+            svg(width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" @click="expanded = null").icons__item__icon
+              path(fill-rule="evenodd" clip-rule="evenodd" d="M12.5303 10.7803L12 11.3107L11.4697 10.7803L6.96967 6.28033C6.67678 5.98744 6.67678 5.51256 6.96967 5.21967C7.26256 4.92678 7.73744 4.92678 8.03033 5.21967L11.25 8.43934L11.25 1.5C11.25 1.08579 11.5858 0.75 12 0.75C12.4142 0.75 12.75 1.08579 12.75 1.5L12.75 8.43934L15.9697 5.21967C16.2626 4.92678 16.7374 4.92678 17.0303 5.21967C17.3232 5.51256 17.3232 5.98744 17.0303 6.28033L12.5303 10.7803ZM12.5303 13.2197L12 12.6893L11.4697 13.2197L6.96967 17.7197C6.67678 18.0126 6.67678 18.4874 6.96967 18.7803C7.26256 19.0732 7.73744 19.0732 8.03033 18.7803L11.25 15.5607L11.25 22.5C11.25 22.9142 11.5858 23.25 12 23.25C12.4142 23.25 12.75 22.9142 12.75 22.5L12.75 15.5607L15.9697 18.7803C16.2626 19.0732 16.7374 19.0732 17.0303 18.7803C17.3232 18.4874 17.3232 18.0126 17.0303 17.7197L12.5303 13.2197Z")
+            .icons__item__tooltip Collapse
           .icons__item
             svg(width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @click="copy(value)").icons__item__icon
               path(fill-rule="evenodd" clip-rule="evenodd" d="M11 0.25C10.0335 0.25 9.25 1.0335 9.25 2V4.5H10.75V2C10.75 1.86193 10.8619 1.75 11 1.75H21C21.1381 1.75 21.25 1.86193 21.25 2V16C21.25 16.1381 21.1381 16.25 21 16.25H16.5V17.75H21C21.9665 17.75 22.75 16.9665 22.75 16V2C22.75 1.0335 21.9665 0.25 21 0.25H11ZM3 6.25C2.0335 6.25 1.25 7.0335 1.25 8V22C1.25 22.9665 2.0335 23.75 3 23.75H13C13.9665 23.75 14.75 22.9665 14.75 22V8C14.75 7.0335 13.9665 6.25 13 6.25H3ZM2.75 8C2.75 7.86193 2.86193 7.75 3 7.75H13C13.1381 7.75 13.25 7.86193 13.25 8V22C13.25 22.1381 13.1381 22.25 13 22.25H3C2.86193 22.25 2.75 22.1381 2.75 22V8Z")
@@ -50,9 +54,11 @@
   color rgba(255, 255, 255, 0.8)
   position relative
   line-height 1.75
-  max-height 300px
+  max-height 700px
   transition max-height 1s ease-out
   overflow-y hidden
+  padding-top .5rem
+  padding-bottom .5rem
 
   &__expanded__true
     max-height var(--max-height)
@@ -106,11 +112,16 @@
   right 0
   padding .5rem
   opacity 0
+  display flex
 
   &__item
     cursor pointer
     border-radius .25rem
     position relative
+    background rgba(46, 49, 72, .7)
+
+    &:active &__icon
+      fill #66A1FF
 
     &:hover &__tooltip
       opacity 1
@@ -122,7 +133,7 @@
       transition all .25s .5s
       position absolute
       opacity 0
-      top -2rem
+      top -2.05rem
       left 50%
       z-index 100000000000
       white-space pre
@@ -134,11 +145,11 @@
       padding .5rem .75rem
       line-height 1
 
-      &:after
+      &:before
         content "◥◤"
         color #161931
         position absolute
-        top 70%
+        top 80%
         font-size 1rem
         transform translateX(-50%)
         left 50%
@@ -150,7 +161,7 @@
 
     &:hover
       fill #66A1FF
-      background rgba(255, 255, 255, 0.1)
+      background #43465a
 
 .footer
   background-color #161931
@@ -170,6 +181,13 @@
     align-items center
     display flex
     box-shadow none
+    outline none
+
+    &:hover
+      box-shadow none
+
+    &:active
+      color #66A1FF
 
     &__icon
       margin-left .5rem
@@ -185,7 +203,8 @@ export default {
     return {
       expanded: null,
       maxHeight: null,
-      copied: null
+      copied: null,
+      height: null
     };
   },
   computed: {
@@ -194,7 +213,8 @@ export default {
     }
   },
   mounted() {
-    this.expanded = this.$refs.body.scrollHeight - 300 < 100;
+    this.height = this.$refs.body.scrollHeight - 700;
+    this.expanded = this.$refs.body.scrollHeight - 700 < 300;
     this.maxHeight = this.$refs.body.scrollHeight + "px";
   },
   methods: {

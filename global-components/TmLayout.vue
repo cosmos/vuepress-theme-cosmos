@@ -5,9 +5,11 @@
         client-only
           section-search(@visible="searchPanel = $event" v-show="searchPanel" :visible="searchPanel").search__panel
       .search__overlay(v-if="searchPanel" @click="overlayClick")
+    .rsidebar(v-if="rsidebarVisible")
+      tm-toc-menu
     .container
       transition(name="fade")
-        .sidebar__overlay(v-if="sidebarVisible" @click="sidebarVisible = false")
+        .sidebar__overlay(v-if="sidebarVisible || rsidebarVisible" @click="overlayClick")
       .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
@@ -15,34 +17,29 @@
         .top-bar
           tm-top-bar(@search="searchPanel = $event" @sidebar="sidebarVisible = $event")
         .content
-          tm-breadcrumbs.breadcrumbs
+          tm-breadcrumbs(@rsidebar="rsidebarVisible = true").breadcrumbs
           tm-content(:tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
             template(v-slot:content)
               slot(name="content")
         .aside(v-if="aside" :key="$route.fullPath")
           tm-aside
         .footer
-          tm-footer(:tree="directoryTree")
-        //- tm-footer
-        //-   .content__inner
-        //-     .topbar
-        //-       svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" @click="sidebarVisible = !sidebarVisible").topbar__menu__button
-        //-         path(d="M24 18v1h-24v-1h24zm0-6v1h-24v-1h24zm0-6v1h-24v-1h24z")
-        //-           path(d="M24 19h-24v-1h24v1zm0-6h-24v-1h24v1zm0-6h-24v-1h24v1z")
-        //-       tm-breadcrumbs
-        //-       //- tm-select-version
-        //-       tm-select-language(v-if="hasLocales").topbar__language
-        //-     tm-content(:aside="aside" :tree="directoryTree" :key="$route.fullPath" @selected="selectHeader($event)")
-        //-       template(v-slot:content)
-        //-         slot(name="content")
-        //- .footer__wrapper
-        //-   tm-footer.footer
-      //- .aside__container(v-if="aside")
-      //-   .aside
-      //-     tm-aside(:selected="headerSelected")
+          tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
 </template>
 
 <style lang="stylus" scoped>
+.rsidebar
+  position fixed
+  max-width 225px
+  width 100%
+  z-index 100000
+  right 0
+  top 0
+  bottom 0
+  background-color white
+  visibility hidden
+  overflow-y scroll
+
 .search__panel
   position fixed
   z-index 200000
@@ -102,6 +99,7 @@
     height 100vh
     height: calc(var(--vh, 1vh) * 100);
     background rgba(51, 54, 74, 0.4)
+    visibility hidden
 
 .content
   min-height 100vh
@@ -181,16 +179,15 @@
   .container
     --sidebar-width 304px
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1135px)
   .container
     --sidebar-width 256px
 
-@media screen and (max-width: 1000px)
-  .content__wrapper
-    display block
-
   .aside
     display none
+
+  .content__wrapper
+    display block
 
 @media screen and (max-width: 752px)
   .content
@@ -209,6 +206,12 @@
 
   .sidebar__container__true
     transform translateX(0)
+
+  .sidebar__overlay
+    visibility visible
+
+  .rsidebar
+    visibility visible
 </style>
 
 <script>
@@ -233,6 +236,7 @@ export default {
     return {
       sidebarVisible: null,
       headerSelected: null,
+      rsidebarVisible: null,
       searchPanel: null
     };
   },
@@ -300,10 +304,12 @@ export default {
   },
   methods: {
     overlayClick(e) {
+      this.sidebarVisible = false;
+      this.rsidebarVisible = false;
       this.searchPanel = false;
-      this.$nextTick(() => {
-        document.elementFromPoint(e.clientX, e.clientY).click();
-      });
+      // this.$nextTick(() => {
+      //   document.elementFromPoint(e.clientX, e.clientY).click();
+      // });
     },
     selectHeader(elements) {
       if (elements.length > 0) {

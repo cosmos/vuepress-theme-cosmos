@@ -20,7 +20,7 @@
 .container
   padding 2rem 3rem 0 3rem
   display grid
-  grid-template-columns 1fr 1fr 1fr
+  grid-template-columns auto 1fr auto
   align-items center
 
 .menu
@@ -59,6 +59,7 @@
     display flex
     flex-direction row
     align-items center
+    padding .75rem
 
     &__icon
       height 1.5rem

@@ -314,5 +314,4 @@
         z-index -1
         border-radius .5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
-
 </style>

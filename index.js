@@ -22,7 +22,7 @@ function escapeHtml(str) {
 module.exports = (opts, ctx) => {
   return {
     chainMarkdown(config) {
-      require('@vuepress/markdown').removeAllBuiltInPlugins(config)
+      // require('@vuepress/markdown').removeAllBuiltInPlugins(config)
       config.options.highlight((str) => escapeHtml(str))
     },
     extendMarkdown: md => {

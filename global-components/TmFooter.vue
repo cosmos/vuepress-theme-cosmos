@@ -2,10 +2,15 @@
   div
     .wrapper
       tm-footer-links(:tree="tree").footer__links
-      tm-help-support(v-if="$themeConfig.gutter")
+      tm-help-support(v-if="$themeConfig.gutter && full")
       .container
         .footer__wrapper
-          .links(v-if="$themeConfig.footer && $themeConfig.footer.links")
+          .questions(v-if="!full")
+            .questions__wrapper
+              .questions__h1 Questions?
+              .questions__p Chat with Cosmos developers on Riot or reach out on the SDK Developer Forum to learn more.
+            tm-newsletter-form(style="grid-column: span 2; grid-template-columns: 1fr; padding-right: 10vw")
+          .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
               .links__item__title {{item.title}}
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
@@ -19,10 +24,29 @@
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
+            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint && full") {{$themeConfig.footer.smallprint}}
 </template>
 
 <style lang="stylus" scoped>
+.questions
+  display grid
+  grid-template-columns 1fr 1fr 1fr
+
+  &__wrapper
+    padding-right 5vw
+    margin-bottom 2rem
+
+  &__h1
+    font-size 1.25rem
+    margin-bottom 1rem
+    font-weight 500
+    color #161931
+
+  &__p
+    font-size .875rem
+    color rgba(22, 25, 49, 0.9)
+    line-height 20px
+
 .footer__links
   margin-left 3rem
   margin-right 3rem
@@ -34,7 +58,7 @@
   &__item
     display flex
     flex-direction column
-    margin 1.5rem .5rem
+    margin 1.5rem 0
 
     &__title
       font-size 0.75rem
@@ -80,7 +104,7 @@
   align-items flex-end
 
   &__item
-    padding 1.5rem .5rem
+    padding 1.5rem 0
 
   &__image
     display block
@@ -95,7 +119,7 @@
   align-items flex-end
 
   &__item
-    padding 1.5rem .5rem
+    padding 1.5rem 0
 
     &__links
       &__item
@@ -105,6 +129,10 @@
       grid-column span 2
       font-size 0.8125rem
       line-height 1rem
+
+@media screen and  (max-width: 1000px)
+  .questions
+    display block
 
 @media screen and (max-width: 500px)
   .footer__links
@@ -116,7 +144,7 @@
 import { find } from "lodash";
 
 export default {
-  props: ["tree"],
+  props: ["tree", "full"],
   methods: {
     serviceIcon(service) {
       const icons = [
@@ -150,7 +178,6 @@ export default {
           icon:
             "M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
         },
-        // TODO: Change icon
         {
           service: "unknown_service",
           icon:

@@ -58,7 +58,7 @@
 
     &__row
       display grid
-      grid-template-columns 35% 65%
+      grid-template-columns 3fr 7fr
       gap 1.5rem
       align-items center
       margin-top .5rem
