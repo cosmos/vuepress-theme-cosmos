@@ -183,8 +183,15 @@
     box-shadow none
     outline none
 
+    &:visited
+      color #66A1FF
+
+      &:hover
+        color #66A1FF
+
     &:hover
       box-shadow none
+      color #66A1FF
 
     &:active
       color #66A1FF

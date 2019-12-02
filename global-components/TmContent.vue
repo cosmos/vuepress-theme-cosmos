@@ -167,6 +167,11 @@
     font-family "Menlo", "Monaco", "DejaVuSans Mono", monospace
     color #46509F
 
+  h1, h2, h3, h4, h5, h6
+
+    code
+      font-size inherit
+
   p, ul, ol
   
     a
