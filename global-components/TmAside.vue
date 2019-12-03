@@ -9,7 +9,7 @@
     div(v-if="$page.headers && $page.headers.length > 0")
       .aside__title On this page
       .aside__link(v-for="link in $page.headers")
-        a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
+        a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title.replace(/{.*}/ig, '')}}
 </template>
 
 <style lang="stylus" scoped>
