@@ -14,6 +14,8 @@
   padding 1.5rem 2rem
   background-color rgba(176, 180, 207, 0.09)
   border-radius .5rem
+  margin-top 3rem
+  margin-bottom 3rem
 
   &__title
     color rgba(22, 25, 49, 0.65)
@@ -58,6 +60,10 @@
       max-width initial
 
 /deep/
+  .code-block__container
+    margin-top 2rem
+    margin-bottom 2rem
+
   .synopsis
 
     & a
@@ -85,7 +91,7 @@
   .content__default
     width 100%
 
-  h1,h2,h3,h4
+  h1, h2, h3, h4
     font-weight 600
 
   .content__container
@@ -120,23 +126,25 @@
     font-size 2.5rem
     font-weight 600
     margin-bottom 3rem
+    line-height 3.25rem
 
   h2
-    font-size 2rem
+    font-size 1.5rem
     font-weight 600
-    margin-top 2rem
+    margin-top 3rem
     margin-bottom 1.5rem
+    line-height 2rem
 
   h3
     font-size 1.25rem
     font-weight 600
     margin-top 2rem
-    margin-bottom 1.5rem
+    margin-bottom 1rem
 
   p
     margin-top 1rem
     margin-bottom 1rem
-    line-height 1.75rem
+    line-height 1.5rem
 
   ul, ol
     line-height 1.5
@@ -166,6 +174,7 @@
     font-size .8125rem
     font-family "Menlo", "Monaco", "DejaVuSans Mono", monospace
     color #46509F
+    margin-top 3rem
 
   h1, h2, h3, h4, h5, h6
 

@@ -1,5 +1,10 @@
 <template lang="pug">
   div
+    .search__container
+      .search(@click="$emit('search', true)")
+        .search__icon
+          icon-search
+        .search__text Search
     a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
       img(src="./images/goz.jpg").aside__image
     div(v-if="prereq.length > 0")
@@ -9,10 +14,31 @@
     div(v-if="$page.headers && $page.headers.length > 0")
       .aside__title On this page
       .aside__link(v-for="link in $page.headers")
-        a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title.replace(/{.*}/ig, '')}}
+        router-link(:to="`#${link.slug}`" :class="{selected: link.slug == selected}" v-if="!link.title.match(/{hide}/gi)").aside__link__href.header-anchor {{link.title}}
 </template>
 
 <style lang="stylus" scoped>
+.search__container
+  display flex
+  justify-content flex-end
+  margin-top 1rem
+  margin-bottom 1rem
+
+.search
+  cursor pointer
+  display flex
+  justify-content flex-end
+  align-items center
+
+  &__icon
+    height 1.5rem
+    width 1.5rem
+    margin-right .5rem
+    fill #aaa
+
+  &__text
+    color rgba(22, 25, 49, 0.65)
+
 .selected
   font-weight 600
 

@@ -10,10 +10,10 @@
             component(:is="`tm-logo-${$themeConfig.label}`")
           .logo__text {{$site.title}}
       .toolbar
-        .toolbar__item(@click="$emit('search', true)")
-          .toolbar__item__icon
-            icon-search(fill="#aaa")
-          .toolbar__item__text.toolbar__item__text__search Search
+        //- .toolbar__item(@click="$emit('search', true)")
+          //- .toolbar__item__icon
+          //-   icon-search(fill="#aaa")
+          //- .toolbar__item__text.toolbar__item__text__search Search
 </template>
 
 <style lang="stylus" scoped>
