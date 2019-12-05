@@ -7,9 +7,16 @@
         .synopsis__body(v-html="md($frontmatter.synopsis)")
       slot(name="content")
       tm-content-cards(v-if="$frontmatter.cards")
+      tm-footer-links(:tree="tree").footer__links
 </template>
 
 <style lang="stylus" scoped>
+.footer__links
+  padding-top 5rem
+  padding-bottom 5rem
+  border-top: 1px solid rgba(176, 180, 207, 0.2)
+  margin-top 5rem
+
 .synopsis
   padding 1.5rem 2rem
   background-color rgba(176, 180, 207, 0.09)
@@ -60,6 +67,24 @@
       max-width initial
 
 /deep/
+  table
+    width 100%
+    line-height 24px
+
+  td
+    word-break break-word
+
+  th
+    text-align left
+    font-weight 600
+
+  td, th
+    padding .75rem
+    border-bottom 1px solid rgba(140, 145, 177, 0.32)
+
+  tr:last-child td
+    border-bottom none
+
   .code-block__container
     margin-top 2rem
     margin-bottom 2rem

@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .wrapper
-      tm-footer-links(:tree="tree").footer__links
+      //- tm-footer-links(:tree="tree").footer__links
       tm-help-support(v-if="$themeConfig.gutter && full")
       .container
         .footer__wrapper
@@ -46,10 +46,6 @@
     font-size .875rem
     color rgba(22, 25, 49, 0.9)
     line-height 20px
-
-.footer__links
-  margin-left 3rem
-  margin-right 3rem
 
 .links
   display grid

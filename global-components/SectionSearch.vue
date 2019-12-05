@@ -16,7 +16,11 @@
             .shortcuts__table__row
               .shortcuts__table__row__keys
                 .shortcuts__table__row__keys__item /
-              .shortcuts__table__row__desc Toggle search window
+              .shortcuts__table__row__desc Open search window
+            .shortcuts__table__row
+              .shortcuts__table__row__keys
+                .shortcuts__table__row__keys__item(style="font-size: .65rem") esc
+              .shortcuts__table__row__desc Close search window
             .shortcuts__table__row
               .shortcuts__table__row__keys
                 .shortcuts__table__row__keys__item ↵
@@ -239,7 +243,9 @@ export default {
     },
     visible(becomesVisible) {
       const search = this.$refs.search;
-      if (becomesVisible && search) search.focus();
+      if (becomesVisible && search) {
+        search.select();
+      }
     }
   },
   mounted() {

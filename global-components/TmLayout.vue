@@ -246,6 +246,10 @@ export default {
       event.preventDefault();
       this.searchPanel = !this.searchPanel;
     });
+    hotkeys("escape", (event, handler) => {
+      event.preventDefault();
+      this.searchPanel = false;
+    });
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
