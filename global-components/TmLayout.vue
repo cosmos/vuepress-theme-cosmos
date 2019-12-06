@@ -15,7 +15,7 @@
           tm-sidebar(:value="tree" :tree="directoryTree")
       .content__wrapper(:class="[`content__aside__${aside}`]")
         .top-bar
-          tm-top-bar(@sidebar="sidebarVisible = $event")
+          tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
         .content
           tm-breadcrumbs(@rsidebar="rsidebarVisible = true").breadcrumbs
           tm-content(:tree="directoryTree" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")

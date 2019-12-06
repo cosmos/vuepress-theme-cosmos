@@ -10,10 +10,10 @@
             component(:is="`tm-logo-${$themeConfig.label}`")
           .logo__text {{$site.title}}
       .toolbar
-        //- .toolbar__item(@click="$emit('search', true)")
-          //- .toolbar__item__icon
-          //-   icon-search(fill="#aaa")
-          //- .toolbar__item__text.toolbar__item__text__search Search
+        .toolbar__item(@click="$emit('search', true)")
+          .toolbar__item__icon
+            icon-search(fill="#aaa")
+          .toolbar__item__text.toolbar__item__text__search Search
 </template>
 
 <style lang="stylus" scoped>
@@ -53,6 +53,7 @@
   grid-column-start -2
   display flex
   justify-content flex-end
+  visibility hidden
 
   &__item
     cursor pointer
@@ -83,5 +84,8 @@
     display none
 
   .logo__wrapper
+    visibility visible
+
+  .toolbar
     visibility visible
 </style>
