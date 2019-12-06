@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.code-block__container
+  .code-block__container
     .container
       .body__container
         .icons
