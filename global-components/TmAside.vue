@@ -14,8 +14,8 @@
         router-link(v-for="item in prereq" :to="item.href").prereq__item {{item.text}}
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
-        .aside__link(v-for="link in $page.headers")
-          router-link(:to="`#${link.slug}`" :class="{selected: link.slug == selected}" v-if="!link.title.match(/{hide}/gi)").aside__link__href.header-anchor {{link.title}}
+        .aside__link(v-for="link in $page.headers.filter(e => !e.title.match(/{hide}/))")
+          router-link(:to="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
 </template>
 
 <style lang="stylus" scoped>
