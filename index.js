@@ -28,8 +28,9 @@ module.exports = (opts, ctx) => {
     extendMarkdown: md => {
       md.use(ghmd)
       md.use(fcb)
-      md.use(require('markdown-it-attrs'),
-        allowedAttributes: ['prereq', 'hide'])
+      md.use(require('markdown-it-attrs'), {
+        allowedAttributes: ['prereq', 'hide']
+      })
     }
   }
 }

@@ -217,14 +217,39 @@
 
     &__icon
       margin-left .5rem
+
+/deep/
+  .token
+  
+    &.keyword
+      color #c678dd
+
+    &.comment
+      opacity .5
+
+    &.function
+      color #61afef
+
+    &.builtin
+      color #e06c75
+
+    &.string
+      color #98c379
+
+    &.operator
+      color #56b6c2
+
+    &.boolean
+      color #d19a66
 </style>
 
 <script>
 import Prism from "prismjs";
+import "prismjs/components/prism-go.js";
 import copy from "clipboard-copy";
 
 export default {
-  props: ["url", "value", "arg"],
+  props: ["url", "value", "language"],
   data: function() {
     return {
       expanded: null,
@@ -258,7 +283,11 @@ export default {
       }, 2000);
     },
     highlighted(value) {
-      return Prism.highlight(value, Prism.languages.javascript, "javascript");
+      if (!this.url && this.language === "go")
+        return Prism.highlight(value, Prism.languages["go"]);
+      if (this.url && this.filename(this.url).match(/\.go$/))
+        return Prism.highlight(value, Prism.languages["go"]);
+      return value;
     }
   }
 };

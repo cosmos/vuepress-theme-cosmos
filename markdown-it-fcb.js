@@ -21,6 +21,6 @@ module.exports = (md) => {
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, options] = args
     const token = tokens[idx]
-    return `<code-block value="${escapeHtml(token.content)}"></code-block>`
+    return `<code-block language="${token.info}" value="${escapeHtml(token.content)}"></code-block>`
   }
 }
