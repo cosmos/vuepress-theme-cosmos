@@ -13,16 +13,17 @@
       .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
-      .content__wrapper(:class="[`content__aside__${aside}`]")
-        .top-bar
-          tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
-        .content
-          tm-breadcrumbs(@rsidebar="rsidebarVisible = true").breadcrumbs
-          tm-content(:tree="directoryTree" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
-            template(v-slot:content)
-              slot(name="content")
-        .aside(v-if="aside" :key="$route.fullPath")
-          tm-aside(@search="searchPanel = $event")
+      div
+        .content__wrapper(:class="[`content__aside__${aside}`]")
+          .content(id="content-scroll")
+            .top-bar
+              tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
+            tm-breadcrumbs(@rsidebar="rsidebarVisible = true").breadcrumbs
+            tm-content(:tree="directoryTree" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
+              template(v-slot:content)
+                slot(name="content")
+          .aside(v-if="aside" :key="$route.fullPath" :class="[`aside__bottom__${!!asideBottom}`]")
+            tm-aside(@search="searchPanel = $event" id="aside-scroll")
         .footer
           tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
 </template>
@@ -105,15 +106,14 @@
   min-height 100vh
   width 100%
   padding 3rem 3rem 0
-  grid-area 2/1/3/2
+  // grid-area 2/1/3/2
   overflow-x hidden
 
 .content__wrapper
   display grid
   width 100%
   position relative
-  grid-template-rows 50px auto
-
+  // grid-template-rows 50px auto
   grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
 
 .content__wrapper.content__aside__false
@@ -123,6 +123,7 @@
   display grid
   grid-template-columns 1fr 1fr
   width 100%
+  position relative
 
 .aside
   position sticky
@@ -131,16 +132,24 @@
   z-index 2000
   overflow-x hidden
   height 100vh
-  grid-area auto
-  padding 1rem 2rem
+  // grid-area auto
+  // padding 1rem 2rem
+
+  &__bottom__true
+    position absolute
+    bottom 0
+    right 0
+    top initial
+    height initial
 
 .footer
-  grid-area auto
+  // grid-area auto
   z-index 5000
+  // grid-columns span 2
   position relative
-  grid-area auto / auto / auto / span 2
+  // grid-area auto / auto / auto / span 2
   transform translateZ(0)
-  grid-area 3/1/4/3
+  // grid-area 3/1/4/3
 
 .panel-enter-active, .panel-leave-active
   transition opacity .25s, transform .35s
@@ -238,10 +247,28 @@ export default {
       sidebarVisible: null,
       headerSelected: null,
       rsidebarVisible: null,
-      searchPanel: null
+      searchPanel: null,
+      asideBottom: null
     };
   },
   mounted() {
+    document.addEventListener("scroll", () => {
+      const content = document.querySelector("#content-scroll");
+      const aside = document.querySelector("#aside-scroll");
+      const top = window.scrollY;
+      if (aside.getBoundingClientRect().height < window.innerHeight) {
+        this.asideBottom = false;
+      }
+      if (
+        content &&
+        aside &&
+        aside.getBoundingClientRect().height > window.innerHeight
+      ) {
+        this.asideBottom =
+          top + aside.getBoundingClientRect().height >
+          content.getBoundingClientRect().height;
+      }
+    });
     hotkeys("/", (event, handler) => {
       event.preventDefault();
       this.searchPanel = !this.searchPanel;

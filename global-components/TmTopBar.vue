@@ -18,10 +18,10 @@
 
 <style lang="stylus" scoped>
 .container
-  padding 2rem 3rem 0 3rem
   display grid
   grid-template-columns auto 1fr auto
   align-items center
+  padding-bottom 1rem
 
 .menu
 
@@ -60,7 +60,7 @@
     display flex
     flex-direction row
     align-items center
-    padding .75rem
+    padding .5rem
 
     &__icon
       height 1.5rem
@@ -71,10 +71,6 @@
       color rgba(22, 25, 49, 0.65)
 
 @media screen and (max-width: 752px)
-  .container
-    padding-left 1.5rem
-    padding-right 1.5rem
-
   .menu
 
     &__icon

@@ -1,28 +1,32 @@
 <template lang="pug">
   div
-    .search__container
-      .search(@click="$emit('search', true)")
-        .search__icon
-          icon-search
-        .search__text Search
-    a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
-      img(src="./images/goz.jpg").aside__image
-    div(v-if="prereq.length > 0")
-      .aside__title Pre-requisite reading
-    client-only
-      router-link(v-for="item in prereq" :to="item.href").prereq__item {{item.text}}
-    div(v-if="$page.headers && $page.headers.length > 0")
-      .aside__title On this page
-      .aside__link(v-for="link in $page.headers")
-        router-link(:to="`#${link.slug}`" :class="{selected: link.slug == selected}" v-if="!link.title.match(/{hide}/gi)").aside__link__href.header-anchor {{link.title}}
+    .container
+      .search__container
+        .search(@click="$emit('search', true)")
+          .search__icon
+            icon-search
+          .search__text Search
+      a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
+        img(src="./images/goz.jpg").aside__image
+      div(v-if="prereq.length > 0")
+        .aside__title Pre-requisite reading
+      client-only
+        router-link(v-for="item in prereq" :to="item.href").prereq__item {{item.text}}
+      div(v-if="$page.headers && $page.headers.length > 0")
+        .aside__title On this page
+        .aside__link(v-for="link in $page.headers")
+          router-link(:to="`#${link.slug}`" :class="{selected: link.slug == selected}" v-if="!link.title.match(/{hide}/gi)").aside__link__href.header-anchor {{link.title}}
 </template>
 
 <style lang="stylus" scoped>
+.container
+  padding 2rem
+
 .search__container
   display flex
   justify-content flex-end
-  margin-top 1rem
-  margin-bottom 1rem
+  padding-top 1rem
+  padding-bottom 1rem
 
 .search
   cursor pointer
@@ -56,8 +60,8 @@
 
   &__link
     color rgba(22, 25, 49, 0.65)
-    margin-top 0.75rem
-    margin-bottom 0.75rem
+    padding-top 0.35rem
+    padding-bottom 0.35rem
     font-size 0.875rem
 
     &__href
