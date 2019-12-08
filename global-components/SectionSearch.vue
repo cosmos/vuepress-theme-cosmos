@@ -227,6 +227,7 @@ strong
 <script>
 import lunr from "lunr";
 import { find, last } from "lodash";
+import Fuse from "fuse.js";
 
 export default {
   props: ["visible"],
@@ -234,7 +235,8 @@ export default {
     return {
       lunr: null,
       searchResults: null,
-      searchQuery: null
+      searchQuery: null,
+      fuse: null
     };
   },
   watch: {
@@ -276,12 +278,31 @@ export default {
         });
       }, this);
     });
+    this.fuse = new Fuse(
+      documents.map(doc => {
+        return {
+          key: doc.key,
+          title: doc.title,
+          headers: doc.headers && doc.headers.map(h => h.title).join(" "),
+          synopsis: doc.frontmatter.synopsis,
+          path: doc.path
+        };
+      }),
+      {
+        id: "key",
+        keys: ["title", "headers", "synopsis", "path"]
+      }
+    );
   },
   methods: {
     search(e) {
-      this.searchResults = this.lunr
+      const fuse = this.fuse
         .search(e)
-        .map(item => find(this.$site.pages, { key: item.ref }));
+        .map(item => find(this.$site.pages, { key: item }));
+      // const lunr = this.lunr
+      //   .search(e)
+      //   .map(item => find(this.$site.pages, { key: item.ref }));
+      this.searchResults = fuse;
     },
     itemByKey(key) {
       return find(this.$site.pages, { key });
