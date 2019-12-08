@@ -30,7 +30,7 @@
                 .shortcuts__table__row__keys__item(style="font-size: .65rem") ▼
                 .shortcuts__table__row__keys__item(style="font-size: .65rem") ▲
               .shortcuts__table__row__desc Navigate between search results
-        .results__noresults__container(v-if="searchQuery && (searchResults.length <= 0)")
+        .results__noresults__container(v-if="searchQuery && (searchResults && searchResults.length <= 0)")
           .results__noresults
             .results__noresults__icon
               icon-search
@@ -226,7 +226,7 @@ strong
 
 <script>
 import lunr from "lunr";
-import { find, last } from "lodash";
+import { find, last, debounce } from "lodash";
 import Fuse from "fuse.js";
 
 export default {
@@ -241,13 +241,18 @@ export default {
   },
   watch: {
     searchQuery: function(e) {
-      this.search(e);
+      return this.debouncedSearch();
     },
     visible(becomesVisible) {
       const search = this.$refs.search;
       if (becomesVisible && search) {
         search.select();
       }
+    }
+  },
+  computed: {
+    debouncedSearch() {
+      return debounce(this.search, 300);
     }
   },
   mounted() {
@@ -297,7 +302,7 @@ export default {
   methods: {
     search(e) {
       const fuse = this.fuse
-        .search(e)
+        .search(this.$refs.search.value)
         .map(item => find(this.$site.pages, { key: item }));
       // const lunr = this.lunr
       //   .search(e)
