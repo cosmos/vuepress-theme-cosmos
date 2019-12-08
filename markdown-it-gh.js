@@ -31,8 +31,8 @@ module.exports = function asciiDiagram(md, options) {
         const [lineStart, lineEnd] = hasLines && hasLines[0].replace(/#/g, "").replace(/L/g, "").split("-")
         data = data.split("\n").slice(+lineStart - 1, +lineEnd).join("\n")
       }
-      return `</p><code-block url="${a[1]}" value="${escapeHtml(data.toString())}"></code-block><p>`
+      return `<code-block url="${a[1]}" value="${escapeHtml(data.toString())}"></code-block>`
     }
-    return tokens[idx].content;
+    return escapeHtml(tokens[idx].content);
   };
 };
