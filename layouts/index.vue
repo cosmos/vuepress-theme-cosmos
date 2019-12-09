@@ -1,7 +1,11 @@
 <template lang="pug">
   div
-    tm-layout(:aside="false")
+    tm-layout(:aside="false" ref="layout")
       template(v-slot:content)
+        .search(@click="$refs.layout.searchVisible(true)")
+          .search__icon
+            icon-search
+          .search__text Search
         .intro
           .p {{$frontmatter.description}}
         .h2 Getting Started
@@ -41,10 +45,21 @@
 
 <style lang="stylus" scoped>
 .search
-  background red
   position absolute
   top 0
   right 0
+  transform translate(1rem, -5rem)
+  color rgba(22,25,49,0.65)
+  display flex
+  align-items center
+
+  &__icon
+    width 1.5rem
+    fill #aaa
+    margin-right .5rem
+
+  &__text
+    margin-bottom .2rem
 
 .intro
   width 100%
@@ -224,7 +239,12 @@
       height 72px
       width auto
 
+@media screen and (max-width: 752px)
+  .search
+    display none
+
 @media screen and (max-width: 500px)
+
   .dark .features__item__image
     transform none
     padding-top 1rem

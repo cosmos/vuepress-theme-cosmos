@@ -19,7 +19,7 @@
             .top-bar
               tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
             tm-breadcrumbs(@rsidebar="rsidebarVisible = true" v-if="aside").breadcrumbs
-            tm-content(:tree="directoryTree" :aside="aside" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
+            tm-content(:tree="directoryTree" @search="searchPanel = $event" :aside="aside" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
               template(v-slot:content)
                 slot(name="content")
           .aside(v-if="aside" :key="$route.fullPath" :class="[`aside__bottom__${!!asideBottom}`]")
@@ -335,6 +335,9 @@ export default {
     }
   },
   methods: {
+    searchVisible(bool) {
+      this.searchPanel = bool;
+    },
     overlayClick(e) {
       this.sidebarVisible = false;
       this.rsidebarVisible = false;
@@ -380,6 +383,10 @@ export default {
     aside: {
       type: Boolean,
       default: true
+    },
+    search: {
+      type: Boolean,
+      default: false
     }
   }
 };
