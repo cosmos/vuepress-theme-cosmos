@@ -324,7 +324,6 @@ export default {
           item: find(this.$site.pages, { key: result.item.key })
         };
       });
-      console.dir(fuse);
       this.searchResults = fuse;
     },
     itemByKey(key) {
