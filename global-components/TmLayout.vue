@@ -19,7 +19,7 @@
             .top-bar
               tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
             tm-breadcrumbs(@rsidebar="rsidebarVisible = true").breadcrumbs
-            tm-content(:tree="directoryTree" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
+            tm-content(:tree="directoryTree" :aside="aside" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
               template(v-slot:content)
                 slot(name="content")
           .aside(v-if="aside" :key="$route.fullPath" :class="[`aside__bottom__${!!asideBottom}`]")

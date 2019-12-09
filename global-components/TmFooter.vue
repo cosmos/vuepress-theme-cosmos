@@ -86,14 +86,6 @@
   margin-top var(--height)
   background white
 
-  &:before
-    content ''
-    height var(--height)
-    background linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1))
-    position absolute
-    top 0
-    width 100%
-
 .logo
   display grid
   grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
