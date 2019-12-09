@@ -18,7 +18,7 @@
           .content(id="content-scroll")
             .top-bar
               tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
-            tm-breadcrumbs(@rsidebar="rsidebarVisible = true").breadcrumbs
+            tm-breadcrumbs(@rsidebar="rsidebarVisible = true" v-if="aside").breadcrumbs
             tm-content(:tree="directoryTree" :aside="aside" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
               template(v-slot:content)
                 slot(name="content")
