@@ -273,10 +273,21 @@ export default {
   },
   methods: {
     filename(url) {
-      return url
+      const tokens = url
+        .replace(/\#.*$/, "")
         .split("/")
-        .slice(-1)[0]
-        .replace(/\#.*$/, "");
+        .slice(7);
+      if (tokens.length > 4) {
+        return [
+          tokens[0],
+          tokens[1],
+          "...",
+          tokens.slice(-2)[0],
+          tokens.slice(-2)[1]
+        ].join(" / ");
+      } else {
+        return tokens.join(" / ");
+      }
     },
     copy(value) {
       this.copied = true;
@@ -288,7 +299,7 @@ export default {
     highlighted(value) {
       if (!this.url && this.language === "go")
         return Prism.highlight(value, Prism.languages["go"]);
-      if (this.url && this.filename(this.url).match(/\.go$/))
+      if (this.url && this.url.replace(/\#.*$/, "").match(/\.go$/))
         return Prism.highlight(value, Prism.languages["go"]);
       return value;
     }
