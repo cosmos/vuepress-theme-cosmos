@@ -37,10 +37,11 @@
             .results__noresults__h1 No results for #[strong “{{searchQuery}}”]
             .results__noresults__p
               span Try queries such as #[span.results__noresults__a(@click="searchQuery = 'auth'" @keydown.enter="searchQuery = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="searchQuery = 'slashing'" @keydown.enter="searchQuery = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="searchQuery = 'staking'" @keydown.enter="searchQuery = 'staking'" tabindex="0") staking].
-        .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults && result.path && searchQuery" @keydown.enter="itemClick(result)" @click="itemClick(result)")
-          .results__item__title #[span(v-if="itemPath(result)") {{itemPath(result)}} /] {{result.title}}
-          .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).join(", ")}}
-          .results__item__desc(v-if="result.frontmatter.synopsis && md(result.frontmatter.synopsis)" v-html="result.frontmatter.synopsis && md(result.frontmatter.synopsis)")
+        .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result))" @click="itemClick(resultLink(result))")
+          //- pre {{result}}
+          .results__item__title #[span(v-if="itemPath(result.item)") {{itemPath(result.item)}} /] {{result.item.title}}
+          .results__item__desc(v-if="resultSynopsis(result)" v-html="resultSynopsis(result)")
+          .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).title}}
 </template>
 
 <style lang="stylus" scoped>
@@ -189,10 +190,10 @@ strong
       color var(--accent-color)
 
     &__h2
-      font-size .75rem
-      opacity .75
       margin-top .25rem
       margin-bottom .25rem
+      font-weight 500
+      font-size .875rem
       
       &__item
         display inline-block
@@ -208,15 +209,17 @@ strong
             content ""
 
     &__desc
+      opacity .5
       white-space nowrap
       overflow hidden
       position relative
+      font-size .875rem
 
       &:after
-        content "..."
-        background linear-gradient(to right, rgba(248, 249, 252, .5) 0%, rgba(248, 249, 252, 1) 30%)
+        content ""
+        background linear-gradient(to right, rgba(248, 249, 252, .5) 0%, rgba(248, 249, 252, 1))
         height 1em
-        width 1em
+        width 2em
         padding-bottom .25rem
         text-align right
         position absolute
@@ -267,46 +270,62 @@ export default {
         return;
       }
     });
-    const documents = this.$site.pages;
-    this.lunr = lunr(function() {
-      this.ref("key");
-      this.field("title");
-      this.field("headers");
-      this.field("synopsis");
-      this.metadataWhitelist = ["position"];
-      documents.forEach(function(doc) {
-        this.add({
-          key: doc.key,
-          title: doc.title,
-          headers: doc.headers && doc.headers.map(h => h.title).join(" "),
-          synopsis: doc.frontmatter.synopsis
-        });
-      }, this);
-    });
     this.fuse = new Fuse(
-      documents.map(doc => {
-        return {
-          key: doc.key,
-          title: doc.title,
-          headers: doc.headers && doc.headers.map(h => h.title).join(" "),
-          synopsis: doc.frontmatter.synopsis,
-          path: doc.path
-        };
-      }),
+      this.$site.pages
+        .map(doc => {
+          return {
+            key: doc.key,
+            title: doc.title,
+            headers: doc.headers && doc.headers.map(h => h.title).join(" "),
+            synopsis: doc.frontmatter.synopsis,
+            path: doc.path
+          };
+        })
+        .filter(doc => {
+          return !(
+            Object.keys(this.$site.locales).indexOf(doc.path.split("/")[1]) > -1
+          );
+        }),
       {
-        id: "key",
-        keys: ["title", "headers", "synopsis", "path"]
+        keys: ["title", "headers", "synopsis", "path"],
+        shouldSort: true,
+        includeScore: true,
+        includeMatches: true
       }
     );
   },
   methods: {
+    resultSynopsis(result) {
+      if (!result.item.frontmatter.synopsis) return false;
+      return this.md(
+        result.item.frontmatter.synopsis
+          .split("")
+          .slice(0, 75)
+          .join("") + "..."
+      );
+    },
+    resultLink(result) {
+      const header = this.resultHeader(result);
+      return result.item.path + (header ? `#${header.slug}` : "");
+    },
+    resultHeader(result) {
+      if (!result.item.headers) return false;
+      const headers = result.item.headers.filter(h =>
+        h.title.match(new RegExp(this.searchQuery, "gi"))
+      );
+      if (headers && headers.length) return headers[0];
+    },
     search(e) {
-      const fuse = this.fuse
-        .search(this.$refs.search.value)
-        .map(item => find(this.$site.pages, { key: item }));
+      const fuse = this.fuse.search(this.$refs.search.value).map(result => {
+        return {
+          ...result,
+          item: find(this.$site.pages, { key: result.item.key })
+        };
+      });
       // const lunr = this.lunr
       //   .search(e)
       //   .map(item => find(this.$site.pages, { key: item.ref }));
+      console.dir(fuse);
       this.searchResults = fuse;
     },
     itemByKey(key) {
@@ -320,20 +339,19 @@ export default {
         this.md(this.itemByKey(item.ref).frontmatter.synopsis)
       );
     },
-    itemClick(item) {
+    itemClick(url) {
       this.$emit("visible", false);
-      if (item.path != this.$page.path) {
-        const header = this.resultHeader(item);
-        const fragment =
-          header && header[0]
-            ? "#" +
-              header[0]
-                .split(" ")
-                .map(h => h.toLowerCase())
-                .join("-")
-            : "";
-        this.$router.push(`${item.path}${fragment}`);
-      }
+      // if (item.path != this.$page.path) {
+      //   const header = this.resultHeader(item);
+      //   const fragment =
+      //     header && header[0]
+      //       ? "#" +
+      //         header[0]
+      //           .split(" ")
+      //           .map(h => h.toLowerCase())
+      //           .join("-")
+      //       : "";
+      this.$router.push(url);
     },
     itemPath(sourceItem) {
       let path = sourceItem.path
@@ -370,17 +388,17 @@ export default {
       const prev = e.target.previousSibling;
       if (prev && prev.focus) prev.focus();
       e.preventDefault();
-    },
-    resultHeader(result) {
-      if (!result.headers) return;
-      return result.headers
-        .map(h => {
-          if (h.title.match(new RegExp(this.searchQuery, "gi"))) {
-            return h.title;
-          }
-        })
-        .filter(e => e);
     }
+    // resultHeader(result) {
+    //   if (!result.headers) return;
+    //   return result.headers
+    //     .map(h => {
+    //       if (h.title.match(new RegExp(this.searchQuery, "gi"))) {
+    //         return h.title;
+    //       }
+    //     })
+    //     .filter(e => e);
+    // }
   }
 };
 </script>
