@@ -121,7 +121,7 @@ a.links__item
 
 a.links__item__regular
   color #161931
-  background white
+  background rgba(176, 180, 207, 0.09)
 
 @media screen and (max-width: 1024px)
   .container

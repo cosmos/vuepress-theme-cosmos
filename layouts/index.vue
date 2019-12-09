@@ -23,7 +23,7 @@
                 .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
         .sections__wrapper
           .h2 Explore the SDK
-          div Get familiar with the SDK and explore its main concepts:
+          div Get familiar with the SDK and explore its main concepts.
           .sections
             router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
               component(:is="`tm-icon-${section.icon}`").sections__item__icon
@@ -31,7 +31,7 @@
                 .sections__item__title {{section.title}}
                 .sections__item__desc {{section.desc}}
         .h2 Explore the Cosmos stack
-        .p__alt Check out the docs for the various parts of the Cosmos stack:
+        .p__alt Check out the docs for the various parts of the Cosmos stack.
         .stack
           a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
             .stack__item__wrapper
