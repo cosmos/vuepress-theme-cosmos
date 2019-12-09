@@ -174,11 +174,12 @@
   ul, ol
     line-height 1.5
     margin-top 1rem
+    padding-left .75rem
 
   li
     padding-left 2rem
     list-style none
-    margin-bottom 1rem
+    margin-bottom .5rem
     position relative
   
     &:before
