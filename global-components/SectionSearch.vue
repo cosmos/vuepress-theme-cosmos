@@ -37,7 +37,7 @@
             .results__noresults__h1 No results for #[strong “{{searchQuery}}”]
             .results__noresults__p
               span Try queries such as #[span.results__noresults__a(@click="searchQuery = 'auth'" @keydown.enter="searchQuery = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="searchQuery = 'slashing'" @keydown.enter="searchQuery = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="searchQuery = 'staking'" @keydown.enter="searchQuery = 'staking'" tabindex="0") staking].
-        .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result))" @click="itemClick(resultLink(result))")
+        .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result), result.item)" @click="itemClick(resultLink(result), result.item)")
           //- pre {{result}}
           .results__item__title #[span(v-if="itemPath(result.item)") {{itemPath(result.item)}} /] {{result.item.title}}
           .results__item__desc(v-if="resultSynopsis(result)" v-html="resultSynopsis(result)")
@@ -259,17 +259,17 @@ export default {
     }
   },
   mounted() {
-    this.$refs.search.addEventListener("keydown", e => {
-      if (e.keyCode == 27) {
-        this.$emit("visible", false);
-        return;
-      }
-      if (e.keyCode == 40) {
-        this.$refs.result[0].focus();
-        e.preventDefault();
-        return;
-      }
-    });
+    // this.$refs.search.addEventListener("keydown", e => {
+    //   if (e.keyCode == 27) {
+    //     this.$emit("visible", false);
+    //     return;
+    //   }
+    //   if (e.keyCode == 40) {
+    //     this.$refs.result[0].focus();
+    //     e.preventDefault();
+    //     return;
+    //   }
+    // });
     this.fuse = new Fuse(
       this.$site.pages
         .map(doc => {
@@ -283,7 +283,9 @@ export default {
         })
         .filter(doc => {
           return !(
-            Object.keys(this.$site.locales).indexOf(doc.path.split("/")[1]) > -1
+            Object.keys(this.$site.locales || {}).indexOf(
+              doc.path.split("/")[1]
+            ) > -1
           );
         }),
       {
@@ -322,9 +324,6 @@ export default {
           item: find(this.$site.pages, { key: result.item.key })
         };
       });
-      // const lunr = this.lunr
-      //   .search(e)
-      //   .map(item => find(this.$site.pages, { key: item.ref }));
       console.dir(fuse);
       this.searchResults = fuse;
     },
@@ -339,19 +338,11 @@ export default {
         this.md(this.itemByKey(item.ref).frontmatter.synopsis)
       );
     },
-    itemClick(url) {
+    itemClick(url, item) {
       this.$emit("visible", false);
-      // if (item.path != this.$page.path) {
-      //   const header = this.resultHeader(item);
-      //   const fragment =
-      //     header && header[0]
-      //       ? "#" +
-      //         header[0]
-      //           .split(" ")
-      //           .map(h => h.toLowerCase())
-      //           .join("-")
-      //       : "";
-      this.$router.push(url);
+      if (item.path != this.$page.path) {
+        this.$router.push(url);
+      }
     },
     itemPath(sourceItem) {
       let path = sourceItem.path
