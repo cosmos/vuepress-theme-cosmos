@@ -40,6 +40,12 @@
 </template>
 
 <style lang="stylus" scoped>
+.search
+  background red
+  position absolute
+  top 0
+  right 0
+
 .intro
   width 100%
   max-width 800px

@@ -20,13 +20,13 @@
 
 <style lang="stylus" scoped>
 .container
-  padding 2rem
+  padding 1rem 2rem
 
 .search__container
   display flex
   justify-content flex-end
-  padding-top 1rem
-  padding-bottom 1rem
+  padding-top .5rem
+  padding-bottom 3.5rem
 
 .search
   cursor pointer
