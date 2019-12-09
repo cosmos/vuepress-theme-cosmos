@@ -259,17 +259,17 @@ export default {
     }
   },
   mounted() {
-    // this.$refs.search.addEventListener("keydown", e => {
-    //   if (e.keyCode == 27) {
-    //     this.$emit("visible", false);
-    //     return;
-    //   }
-    //   if (e.keyCode == 40) {
-    //     this.$refs.result[0].focus();
-    //     e.preventDefault();
-    //     return;
-    //   }
-    // });
+    this.$refs.search.addEventListener("keydown", e => {
+      if (e.keyCode == 27) {
+        this.$emit("visible", false);
+        return;
+      }
+      if (e.keyCode == 40) {
+        this.$refs.result[0].focus();
+        e.preventDefault();
+        return;
+      }
+    });
     this.fuse = new Fuse(
       this.$site.pages
         .map(doc => {
