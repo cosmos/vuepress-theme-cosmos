@@ -256,7 +256,7 @@ export default {
       const content = document.querySelector("#content-scroll");
       const aside = document.querySelector("#aside-scroll");
       const top = window.scrollY;
-      if (aside.getBoundingClientRect().height < window.innerHeight) {
+      if (aside && aside.getBoundingClientRect().height < window.innerHeight) {
         this.asideBottom = false;
       }
       if (
