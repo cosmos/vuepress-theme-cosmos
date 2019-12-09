@@ -78,6 +78,7 @@
   padding-right .75rem
   align-items center
   z-index 200
+  grid-auto-columns 1fr
 
   &:before
     content ""
@@ -90,9 +91,9 @@
     pointer-events none
 
   &__item
-    flex-grow 1
-    padding-left 2rem
-    padding-right 2rem
+    // flex-grow 1
+    padding-left .75rem
+    padding-right .75rem
     display flex
     align-items center
     flex-direction column
@@ -141,12 +142,12 @@ export default {
           url: "https://cosmos.network/docs/",
           color: "#5064FB"
         },
-        // {
-        //   label: "ibc",
-        //   name: "IBC Protocol",
-        //   url: "https://cosmos.network/docs/spec/ibc/",
-        //   color: "#E6900A"
-        // },
+        {
+          label: "core",
+          name: "Tendermint Core",
+          url: "https://tendermint.com/docs/",
+          color: "#00BB00"
+        },
         {
           label: "hub",
           name: "Cosmos Hub",
@@ -154,10 +155,10 @@ export default {
           color: "#BA3FD9"
         },
         {
-          label: "core",
-          name: "Tendermint Core",
-          url: "https://tendermint.com/docs/",
-          color: "#00BB00"
+          label: "ibc",
+          name: "IBC Protocol",
+          url: "https://github.com/cosmos/ics",
+          color: "#E6900A"
         }
       ]
     };

@@ -13,7 +13,7 @@
 <style lang="stylus" scoped>
 .footer__links
   padding-top 5rem
-  padding-bottom 5rem
+  padding-bottom 1rem
   border-top: 1px solid rgba(176, 180, 207, 0.2)
   margin-top 5rem
 

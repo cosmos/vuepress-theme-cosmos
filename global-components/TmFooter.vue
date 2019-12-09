@@ -83,7 +83,6 @@
 
 .wrapper
   --height 50px
-  margin-top var(--height)
   background white
 
 .logo
