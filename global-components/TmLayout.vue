@@ -63,9 +63,6 @@
 .top-bar
   grid-area 1/1/2/2
 
-.breadcrumbs
-  margin-bottom 1.5rem
-
 .container
   display grid
   width 100%
