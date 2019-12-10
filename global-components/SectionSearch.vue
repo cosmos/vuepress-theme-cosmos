@@ -134,12 +134,15 @@ strong
       &:hover, &:focus
         fill rgba(0,0,0,.25)
         outline none
-  
+
   &__button
     text-transform uppercase
     color var(--accent-color)
     font-weight 500
     cursor pointer
+    height 100%
+    display flex
+    align-items center
 
 .results
   overflow-y scroll
@@ -194,7 +197,7 @@ strong
       margin-bottom .25rem
       font-weight 500
       font-size .875rem
-      
+
       &__item
         display inline-block
 

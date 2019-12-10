@@ -11,7 +11,7 @@
         .h2 Getting Started
         .p__alt Read all about the SDK or dive straight into the code with a tutorial.
         .features
-          a(:href="feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" target="_blank" rel="noreferrer noopener").features__item
+          a(:href="feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" rel="noreferrer noopener").features__item
             .features__item__image
               component(:is="`tm-image-${feature.image}`").features__item__image__img
             .features__item__text
@@ -30,7 +30,7 @@
               .sections__item__wrapper
                 .sections__item__title {{section.title}}
                 .sections__item__desc {{section.desc}}
-        .h2 Explore the Cosmos stack
+        .h2 Explore the Cosmos Stack
         .p__alt Check out the docs for the various parts of the Cosmos stack.
         .stack
           a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
@@ -201,7 +201,7 @@
     box-shadow inset 0 0 0 1px rgba(176, 180, 207, 0.2)
     color #161931
     background white
-    
+
     &__icon
       position absolute
       top 0
@@ -217,7 +217,7 @@
       font-size .875rem
       color rgba(22, 25, 49, 0.65)
       line-height 1.25rem
-      
+
     &__wrapper
       display grid
       grid-auto-flow column

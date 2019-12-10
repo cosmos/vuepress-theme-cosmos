@@ -143,12 +143,6 @@ export default {
           color: "#5064FB"
         },
         {
-          label: "core",
-          name: "Tendermint Core",
-          url: "https://tendermint.com/docs/",
-          color: "#00BB00"
-        },
-        {
           label: "hub",
           name: "Cosmos Hub",
           url: "https://hub.cosmos.network/",
@@ -159,6 +153,12 @@ export default {
           name: "IBC Protocol",
           url: "https://github.com/cosmos/ics",
           color: "#E6900A"
+        },
+        {
+          label: "core",
+          name: "Tendermint Core",
+          url: "https://tendermint.com/docs/",
+          color: "#00BB00"
         }
       ]
     };
