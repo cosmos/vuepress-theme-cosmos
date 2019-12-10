@@ -43,7 +43,7 @@
     color #161931
 
   &__p
-    font-size .875rem
+    font-size 0.875rem
     color rgba(22, 25, 49, 0.9)
     line-height 20px
 
@@ -79,7 +79,7 @@
 .footer__wrapper
   margin 0 auto
   padding-left 2.5rem
-  padding-right .5rem
+  padding-right 0.5rem
 
 .wrapper
   --height 50px
@@ -117,7 +117,7 @@
       font-size 0.8125rem
       line-height 1rem
 
-@media screen and  (max-width: 1000px)
+@media screen and (max-width: 1000px)
   .questions
     display block
 

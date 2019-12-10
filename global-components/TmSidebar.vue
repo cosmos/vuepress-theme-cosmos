@@ -27,7 +27,7 @@
   &__img
     width 40px
     height 40px
-    margin-right .75rem
+    margin-right 0.75rem
 
   &__text
     font-weight 500
@@ -41,11 +41,11 @@
 
   &:after
     position absolute
-    content ""
+    content ''
     top 100%
     left 0
     right 0
-    background linear-gradient(to bottom, white, rgba(255,255,255,0))
+    background linear-gradient(to bottom, white, rgba(255, 255, 255, 0))
     height 25px
 
 .sidebar
@@ -55,14 +55,14 @@
 
 .items
   padding-bottom 125px
-  
+
 .title
   font-size 0.75rem
   text-transform uppercase
   letter-spacing 0.2em
   color #666
   margin-top 2rem
-  margin-bottom .5rem
+  margin-bottom 0.5rem
 
 .footer
   height var(--sidebar-footer-height)
@@ -75,25 +75,25 @@
   display grid
   grid-auto-flow column
   padding-left .75rem
-  padding-right .75rem
+  padding-right 0.75rem
   align-items center
   z-index 200
   grid-auto-columns 1fr
 
   &:before
-    content ""
+    content ''
     position absolute
     top -50px
     left 0
     right 0
     bottom 100%
-    background linear-gradient(to top, white, rgba(255,255,255,0))
+    background linear-gradient(to top, white, rgba(255, 255, 255, 0))
     pointer-events none
 
   &__item
     // flex-grow 1
-    padding-left .75rem
-    padding-right .75rem
+    padding-left 0.75rem
+    padding-right 0.75rem
     display flex
     align-items center
     flex-direction column
@@ -101,14 +101,14 @@
 
     &__icon
       height 32px
-      margin-bottom .25rem
+      margin-bottom 0.25rem
 
     &:hover
       fill var(--color)
 
     &__title
       text-align center
-      font-size .6875rem
+      font-size 0.6875rem
       line-height 14px
 
 @media screen and (max-width: 752px)

@@ -14,26 +14,26 @@
 .footer__links
   padding-top 5rem
   padding-bottom 1rem
-  border-top: 1px solid rgba(176, 180, 207, 0.2)
+  border-top 1px solid rgba(176, 180, 207, 0.2)
   margin-top 5rem
 
 .synopsis
   padding 1.5rem 2rem
   background-color rgba(176, 180, 207, 0.09)
-  border-radius .5rem
+  border-radius 0.5rem
   margin-top 3rem
   margin-bottom 3rem
 
   &__title
     color rgba(22, 25, 49, 0.65)
     text-transform uppercase
-    font-size .75rem
-    margin-bottom .5rem
+    font-size 0.75rem
+    margin-bottom 0.5rem
     letter-spacing 0.2em
 
   &__body
     color rgba(22, 25, 49, 0.9)
-    font-size .875rem
+    font-size 0.875rem
     line-height 20px
 
 .links
@@ -79,7 +79,7 @@
     font-weight 600
 
   td, th
-    padding .75rem
+    padding 0.75rem
     border-bottom 1px solid rgba(140, 145, 177, 0.32)
 
   tr:last-child td
@@ -90,7 +90,6 @@
     margin-bottom 2rem
 
   .synopsis
-
     & a
       box-shadow none
 
@@ -98,21 +97,21 @@
       box-shadow none
 
     & a code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, .3), 0 0 0 3px #f8f8fb
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
 
     & a:hover code
       box-shadow 0 1px 0 0 rgba(80, 100, 251, 1), 0 0 0 3px #f8f8fb
 
     & a:active code
-      color rgba(80, 100, 251, .6)
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, .3), 0 0 0 3px #f8f8fb
+      color rgba(80, 100, 251, 0.6)
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
 
   .content__default h1
     display none
 
   [prereq]
     display none
-    
+
   .content__default
     width 100%
 
@@ -120,7 +119,7 @@
     font-weight 600
 
   .content__container
-    img 
+    img
       max-width 100%
 
   .term
@@ -130,7 +129,6 @@
     width 100%
 
   .tooltip
-
     h1
       font-size 0.875rem
       font-weight 500
@@ -174,14 +172,14 @@
   ul, ol
     line-height 1.5
     margin-top 1rem
-    padding-left .75rem
+    padding-left 0.75rem
 
   li
     padding-left 2rem
     list-style none
-    margin-bottom .5rem
+    margin-bottom 0.5rem
     position relative
-  
+
     &:before
       content ''
       width 1rem
@@ -194,29 +192,27 @@
   code
     background-color rgba(176, 180, 207, 0.2)
     border 1px solid rgba(176, 180, 207, 0.09)
-    border-radius .25rem
-    padding-left .25rem
-    padding-right .25rem
-    font-size .8125rem
-    font-family "Menlo", "Monaco", "DejaVuSans Mono", monospace
+    border-radius 0.25rem
+    padding-left 0.25rem
+    padding-right 0.25rem
+    font-size 0.8125rem
+    font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
     color #46509F
     margin-top 3rem
 
   h1, h2, h3, h4, h5, h6
-
     code
       font-size inherit
 
   p, ul, ol
-  
     a
       color var(--accent-color)
-      box-shadow inset 0 -.5px 0 rgba(80, 100, 251, .7)
+      box-shadow inset 0 -0.5px 0 rgba(80, 100, 251, 0.7)
       outline none
 
     a:focus
       box-shadow 0 0 0 3px rgba(102, 161, 255, 0.7)
-      border-radius .25rem
+      border-radius 0.25rem
 
     a:visited
       color rgba(146, 20, 177, 1)
@@ -228,67 +224,28 @@
       box-shadow inset 0 -1px 0 rgba(80, 100, 251, 1)
 
     a:active
-      color rgba(80, 100, 251, .6)
+      color rgba(80, 100, 251, 0.6)
       border-radius 0
-      box-shadow inset 0 -.5px 0 rgba(80, 100, 251, .3)
+      box-shadow inset 0 -0.5px 0 rgba(80, 100, 251, 0.3)
 
     a code
       border-bottom none
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, .3), 0 0 0 3px white
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px white
       color rgba(80, 100, 251, 1)
 
     a:hover code
       box-shadow 0 1px 0 0 rgba(80, 100, 251, 1), 0 0 0 3px white
 
     a:active code
-      color rgba(80, 100, 251, .6)
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, .3), 0 0 0 3px white
+      color rgba(80, 100, 251, 0.6)
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px white
       background-color rgba(176, 180, 207, 0.1)
       border 1px solid rgba(176, 180, 207, 0.045)
       border-bottom none
-      border-radius .25rem
+      border-radius 0.25rem
 
     a:focus code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, .3), 0 0 0 3px rgba(102, 161, 255, 0.7)
-
-  // :not(pre) > code[class*="language-"], pre[class*="language-"]
-  //   background rgba(0,0,0,0)
-
-  // [class*='language-']
-  //   overflow-x hidden
-  //   width 100%
-
-  // :not(pre) > div[class*='language-']
-  //   background #2e3148
-  //   border-radius 0.25rem
-  //   font-size 0.875rem
-  //   font-family 'Menlo', monospace
-  //   position relative
-  //   line-height 1.5
-
-  // pre[class*='language-']
-  //   position relative
-  //   z-index 1
-  //   line-height 1.5
-  //   overflow-x hidden
-  //   width 100%
-
-  // .highlight-lines
-  //   position absolute
-  //   width 100%
-  //   padding-top .9rem
-  //   padding-bottom 1rem
-  //   font-size inherit
-
-  //   .highlighted
-  //     background rgba(0,0,0,.25)
-
-  // p code, ul code, ol code
-  //   font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
-  //   font-size .875rem
-  //   background rgba(0,0,0,.05)
-  //   padding .2rem
-  //   border-radius .25rem
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px rgba(102, 161, 255, 0.7)
 
 @media screen and (max-width: 1024px)
   .content

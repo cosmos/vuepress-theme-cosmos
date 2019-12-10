@@ -25,7 +25,7 @@
 .search__container
   display flex
   justify-content flex-end
-  padding-top .5rem
+  padding-top 0.5rem
   padding-bottom 3.5rem
 
 .search
@@ -37,7 +37,7 @@
   &__icon
     height 1.5rem
     width 1.5rem
-    margin-right .5rem
+    margin-right 0.5rem
     fill #aaa
 
   &__text
@@ -49,7 +49,7 @@
 .aside
   &__image
     width 100%
-    border-radius .25rem
+    border-radius 0.25rem
 
   &__title
     font-size 0.75rem
@@ -70,9 +70,9 @@
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
   padding 1rem
-  border-radius .5rem
+  border-radius 0.5rem
   color #161931
-  font-size .875rem
+  font-size 0.875rem
   font-weight 500
   line-height 20px
   margin 1rem 0
