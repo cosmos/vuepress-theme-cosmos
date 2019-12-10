@@ -13,16 +13,15 @@
             span.icons__item__tooltip {{copied ? 'Copied!' : 'Copy to clipboard'}}
         span.body(:class="[`body__hasfooter__${!!url}`, `body__expanded__${!!expanded}`]" :style="{'--max-height': maxHeight}" ref="body")
           span.body__wrapper
-            pre(v-html="highlighted(value)")
-          transition(name="fade")
-            span.expand(:class="[`expand__expanded__${!!expanded}`]")
-              span.expand__item(@click="expanded = true" v-if="!expanded").expand__item__expand
-                span Expand
-                svg(width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg").expand__item__icon
-                  path(d="M7.25 0.99998C7.25 0.585766 7.58578 0.24998 8 0.24998C8.41421 0.24998 8.75 0.585766 8.75 0.99998L7.25 0.99998ZM8 14.8333L8.53033 15.3636L8 15.894L7.46967 15.3636L8 14.8333ZM2.46967 10.3636C2.17678 10.0708 2.17678 9.59588 2.46967 9.30298C2.76256 9.01009 3.23744 9.01009 3.53033 9.30298L2.46967 10.3636ZM12.4697 9.30298C12.7626 9.01009 13.2374 9.01009 13.5303 9.30298C13.8232 9.59587 13.8232 10.0707 13.5303 10.3636L12.4697 9.30298ZM8.75 0.99998L8.75 14.8333L7.25 14.8333L7.25 0.99998L8.75 0.99998ZM7.46967 15.3636L2.46967 10.3636L3.53033 9.30298L8.53033 14.303L7.46967 15.3636ZM13.5303 10.3636L8.53033 15.3636L7.46967 14.303L12.4697 9.30298L13.5303 10.3636Z" fill="black")
-              span.expand__item.expand__item__collapse(@click="expanded = null" v-if="height > 300 && expanded")
-                svg(width="100%" height="100%" viewBox="0 0 12 24" fill="none" xmlns="http://www.w3.org/2000/svg")
-                  path(fill-rule="evenodd" clip-rule="evenodd" d="M6.53033 10.7803L6 11.3107L5.46967 10.7803L0.96967 6.28033C0.676777 5.98744 0.676777 5.51256 0.96967 5.21967C1.26256 4.92678 1.73744 4.92678 2.03033 5.21967L5.25 8.43934L5.25 1.5C5.25 1.08579 5.58578 0.75 6 0.75C6.41421 0.75 6.75 1.08579 6.75 1.5L6.75 8.43934L9.96967 5.21967C10.2626 4.92678 10.7374 4.92678 11.0303 5.21967C11.3232 5.51256 11.3232 5.98744 11.0303 6.28033L6.53033 10.7803ZM6.53033 13.2197L6 12.6893L5.46967 13.2197L0.96967 17.7197C0.676777 18.0126 0.676777 18.4874 0.96967 18.7803C1.26256 19.0732 1.73744 19.0732 2.03033 18.7803L5.25 15.5607L5.25 22.5C5.25 22.9142 5.58578 23.25 6 23.25C6.41421 23.25 6.75 22.9142 6.75 22.5L6.75 15.5607L9.96967 18.7803C10.2626 19.0732 10.7374 19.0732 11.0303 18.7803C11.3232 18.4874 11.3232 18.0126 11.0303 17.7197L6.53033 13.2197Z" fill="#2E3148")
+            span.body__code(v-html="highlighted(value)")
+          span.expand(:class="[`expand__expanded__${!!expanded}`]")
+            span.expand__item(@click="expanded = true" v-if="!expanded").expand__item__expand
+              span Expand
+              svg(width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg").expand__item__icon
+                path(d="M7.25 0.99998C7.25 0.585766 7.58578 0.24998 8 0.24998C8.41421 0.24998 8.75 0.585766 8.75 0.99998L7.25 0.99998ZM8 14.8333L8.53033 15.3636L8 15.894L7.46967 15.3636L8 14.8333ZM2.46967 10.3636C2.17678 10.0708 2.17678 9.59588 2.46967 9.30298C2.76256 9.01009 3.23744 9.01009 3.53033 9.30298L2.46967 10.3636ZM12.4697 9.30298C12.7626 9.01009 13.2374 9.01009 13.5303 9.30298C13.8232 9.59587 13.8232 10.0707 13.5303 10.3636L12.4697 9.30298ZM8.75 0.99998L8.75 14.8333L7.25 14.8333L7.25 0.99998L8.75 0.99998ZM7.46967 15.3636L2.46967 10.3636L3.53033 9.30298L8.53033 14.303L7.46967 15.3636ZM13.5303 10.3636L8.53033 15.3636L7.46967 14.303L12.4697 9.30298L13.5303 10.3636Z" fill="black")
+            span.expand__item.expand__item__collapse(@click="expanded = null" v-if="height > 300 && expanded")
+              svg(width="100%" height="100%" viewBox="0 0 12 24" fill="none" xmlns="http://www.w3.org/2000/svg")
+                path(fill-rule="evenodd" clip-rule="evenodd" d="M6.53033 10.7803L6 11.3107L5.46967 10.7803L0.96967 6.28033C0.676777 5.98744 0.676777 5.51256 0.96967 5.21967C1.26256 4.92678 1.73744 4.92678 2.03033 5.21967L5.25 8.43934L5.25 1.5C5.25 1.08579 5.58578 0.75 6 0.75C6.41421 0.75 6.75 1.08579 6.75 1.5L6.75 8.43934L9.96967 5.21967C10.2626 4.92678 10.7374 4.92678 11.0303 5.21967C11.3232 5.51256 11.3232 5.98744 11.0303 6.28033L6.53033 10.7803ZM6.53033 13.2197L6 12.6893L5.46967 13.2197L0.96967 17.7197C0.676777 18.0126 0.676777 18.4874 0.96967 18.7803C1.26256 19.0732 1.73744 19.0732 2.03033 18.7803L5.25 15.5607L5.25 22.5C5.25 22.9142 5.58578 23.25 6 23.25C6.41421 23.25 6.75 22.9142 6.75 22.5L6.75 15.5607L9.96967 18.7803C10.2626 19.0732 10.7374 19.0732 11.0303 18.7803C11.3232 18.4874 11.3232 18.0126 11.0303 17.7197L6.53033 13.2197Z" fill="#2E3148")
       span.footer(v-if="url")
         span.footer__filename {{filename(url)}}
         a(:href="url" target="_blank" rel="noreferrer noopener").footer__source
@@ -32,11 +31,14 @@
 </template>
 
 <style lang="stylus" scoped>
+.body__code
+  white-space pre
+
 span
   display block
 
 .fade-enter-active, .fade-leave-active
-  transition opacity .2s
+  transition opacity 0.2s
 
 .fade-enter, .fade-leave-to
   opacity 0
@@ -56,22 +58,22 @@ span
 
 .body
   background-color #2E3148
-  border-radius .5rem
+  border-radius 0.5rem
   color rgba(255, 255, 255, 0.8)
   position relative
   line-height 1.75
   max-height 700px
   transition max-height 1s ease-out
   overflow-y hidden
-  padding-top .5rem
-  padding-bottom .5rem
+  padding-top 0.5rem
+  padding-bottom 0.5rem
 
   &__expanded__true
     max-height var(--max-height)
 
   &__wrapper
-    font-family "Menlo", "Monaco", "DejaVu Sans Mono", monospace
-    font-size .785rem
+    font-family 'Menlo', 'Monaco', 'DejaVu Sans Mono', monospace
+    font-size 0.785rem
     margin 1rem
 
   &.body__hasfooter__true
@@ -99,48 +101,48 @@ span
     display grid
     justify-self center
     grid-auto-flow column
-    gap .5rem
+    gap 0.5rem
     align-items center
     font-weight 500
-    padding .5rem 1rem
+    padding 0.5rem 1rem
     line-height 1
     letter-spacing 0.02em
-    font-size .8125rem
+    font-size 0.8125rem
     height 2rem
     cursor pointer
     border-radius 1000px
     box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
     &__expand
-      grid-area 1/2/1/3
+      grid-area 1 / 2 / 1 / 3
       justify-self center
 
     &__collapse
-      grid-area 1/3/1/4
+      grid-area 1 / 3 / 1 / 4
       justify-self flex-end
       max-width 3rem
-      padding-top .3rem
-      padding-bottom .3rem
+      padding-top 0.3rem
+      padding-bottom 0.3rem
 
     &__icon
       height 1em
       width auto
 
 .icons
-  transition all .1s
+  transition all 0.1s
   position absolute
   z-index 1000
   top 0
   right 0
-  padding .5rem
+  padding 0.5rem
   opacity 0
   display flex
 
   &__item
     cursor pointer
-    border-radius .25rem
+    border-radius 0.25rem
     position relative
-    background rgba(46, 49, 72, .7)
+    background rgba(46, 49, 72, 0.7)
 
     &:active &__icon
       fill #66A1FF
@@ -152,23 +154,23 @@ span
         opacity 0
 
     &__tooltip
-      transition all .25s .5s
+      transition all 0.25s 0.5s
       position absolute
       opacity 0
       top -2.05rem
       left 50%
       z-index 100000000000
       white-space pre
-      font-size .8125rem
+      font-size 0.8125rem
       background #161931
       color white
       transform translateX(-50%)
-      border-radius .25rem
-      padding .5rem .75rem
+      border-radius 0.25rem
+      padding 0.5rem 0.75rem
       line-height 1
 
       &:before
-        content "◥◤"
+        content '◥◤'
         color #161931
         position absolute
         top 80%
@@ -178,7 +180,7 @@ span
 
     &__icon
       fill white
-      padding .75rem
+      padding 0.75rem
       display block
 
     &:hover
@@ -190,12 +192,12 @@ span
   color white
   display flex
   justify-content space-between
-  padding .75rem 1rem
-  border-bottom-left-radius .5rem
-  border-bottom-right-radius .5rem
-  font-size .8125rem
+  padding 0.75rem 1rem
+  border-bottom-left-radius 0.5rem
+  border-bottom-right-radius 0.5rem
+  font-size 0.8125rem
   line-height 1
-  
+
   &__source
     color #66A1FF
     font-weight 500
@@ -219,16 +221,15 @@ span
       color #66A1FF
 
     &__icon
-      margin-left .5rem
+      margin-left 0.5rem
 
 /deep/
   .token
-  
     &.keyword
       color #c678dd
 
     &.comment
-      opacity .5
+      opacity 0.5
 
     &.function
       color #61afef
