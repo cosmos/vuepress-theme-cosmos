@@ -44,6 +44,10 @@
 </template>
 
 <style lang="stylus" scoped>
+/deep/
+  .container h1
+    margin-bottom 2rem
+
 .search
   position absolute
   top 0
