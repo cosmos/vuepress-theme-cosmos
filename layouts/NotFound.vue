@@ -2,7 +2,9 @@
   div
     tm-layout(:aside="false")
       template(v-slot:content)
-        div 404
+        h1 Page Not Found
+        p The page you visited either does not exist or has been moved. We're sorry for the inconvenience.
+        p Use menu in the sidebar to navigate to a different page or visit the #[a(href="/") main page].
 </template>
 
 <style lang="stylus" scoped>
