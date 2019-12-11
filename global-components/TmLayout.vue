@@ -67,7 +67,7 @@
   display grid
   width 100%
   grid-template-columns var(--sidebar-width) calc(100% - var(--sidebar-width))
-  max-width 1440px
+  max-width 1540px
   margin-left auto
   margin-right auto
   position relative
@@ -103,7 +103,9 @@
 .content
   min-height 100vh
   width 100%
-  padding 3rem 3rem 0
+  padding-top 3rem
+  padding-left 7rem
+  padding-right 7rem
   // grid-area 2/1/3/2
   overflow-x hidden
 
@@ -182,6 +184,11 @@
 
 .fade-leave-to
   opacity 0
+
+@media screen and (max-width: 1500px)
+  .content
+    padding-left 3rem
+    padding-right 3rem
 
 @media screen and (max-width: 1392px)
   .container
