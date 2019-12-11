@@ -84,6 +84,7 @@
   th
     text-align left
     font-weight 600
+    font-size 0.875rem
 
   td, th
     padding 0.75rem
