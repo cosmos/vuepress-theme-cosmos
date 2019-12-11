@@ -77,8 +77,8 @@
   margin-bottom 1rem
 
 .p
-  font-size 1.25rem
-  line-height 28px
+  font-size 1.5rem
+  line-height 36px
 
   &__alt
     margin-top 0.75rem
@@ -238,6 +238,11 @@
     &__logo
       height 72px
       width auto
+
+@media screen and (max-width: 1136px)
+  .p
+    font-size 1.25rem
+    line-height 28px
 
 @media screen and (max-width: 752px)
   .search
