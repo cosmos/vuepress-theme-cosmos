@@ -109,6 +109,10 @@
     min-height 200px
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
     background linear-gradient(to right, rgba(235, 237, 255, 1), white 50%)
+    transition box-shadow 0.25s
+
+    &:hover
+      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
     &__text
       padding-top 2rem
@@ -171,6 +175,10 @@
     border-radius 0.5rem
     padding 1.5rem 1.5rem 1.5rem 4.5rem
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+    transition box-shadow 0.25s
+
+    &:hover
+      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
     &__icon
       position absolute
