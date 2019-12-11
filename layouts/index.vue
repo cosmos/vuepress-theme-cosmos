@@ -23,7 +23,7 @@
                 .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
         .sections__wrapper
           .h2 Explore the SDK
-          div Get familiar with the SDK and explore its main concepts.
+          .p__alt Get familiar with the SDK and explore its main concepts.
           .sections
             router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
               component(:is="`tm-icon-${section.icon}`").sections__item__icon
@@ -46,7 +46,7 @@
 <style lang="stylus" scoped>
 /deep/
   .container h1
-    margin-bottom 2rem
+    margin-bottom 1.5rem
 
 .search
   position absolute
@@ -77,7 +77,7 @@
 .h2
   font-size 2rem
   font-weight 600
-  margin-top 2.5rem
+  margin-top 4.5rem
   margin-bottom 1rem
 
 .p
@@ -87,6 +87,8 @@
   &__alt
     margin-top 0.75rem
     margin-bottom 2rem
+    font-size 1.25rem
+    line-height 28px
 
 .features
   display grid

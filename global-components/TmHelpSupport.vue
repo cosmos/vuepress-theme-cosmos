@@ -31,15 +31,15 @@
   margin-bottom 1rem
   overflow hidden
   min-height 200px
-  border-radius .5rem
+  border-radius 0.5rem
   position relative
   display flex
   align-items center
   justify-content flex-end
 
   &:hover &__image__item
-    opacity .25
-    transform scale(.98)
+    opacity 0.25
+    transform scale(0.98)
 
   &:hover &__image__item.letter__10
     transform scale(1.5) rotate(25deg)
@@ -56,8 +56,8 @@
     top 0
 
     &__item
-      opacity .5
-      transition all .5s
+      opacity 0.5
+      transition all 0.5s
 
       &.letter__10
         opacity 1
@@ -72,7 +72,7 @@
 /deep/
   a[href]
     color var(--accent-color)
-  
+
   strong
     font-weight 600
 
@@ -90,7 +90,7 @@ strong
   // padding-right 2rem
 
 .title
-  font-size 1.5rem
+  font-size 2rem
   color #161931
   padding 1.5rem 0
   font-weight 600
@@ -106,7 +106,7 @@ strong
     align-items center
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
     text-align center
-    border-radius .5rem
+    border-radius 0.5rem
     padding 2rem
     line-height 20px
     background var(--bg)
