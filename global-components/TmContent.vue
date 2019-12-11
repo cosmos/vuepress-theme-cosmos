@@ -67,6 +67,13 @@
       max-width initial
 
 /deep/
+  a[target='_blank']:after
+    content url('./images/icon-outbound.svg')
+    padding-left 3px
+
+  .icon.outbound
+    display none
+
   table
     width 100%
     line-height 24px

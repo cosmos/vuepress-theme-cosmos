@@ -145,6 +145,8 @@
 .footer
   // grid-area auto
   z-index 5000
+  padding-left 4rem
+  padding-right 4rem
   // grid-columns span 2
   position relative
   // grid-area auto / auto / auto / span 2
@@ -190,6 +192,10 @@
     padding-left 3rem
     padding-right 3rem
 
+  .footer
+    padding-left 0
+    padding-right 0
+
 @media screen and (max-width: 1392px)
   .container
     --sidebar-width 304px
@@ -203,6 +209,10 @@
 
   .content__wrapper
     display block
+
+  .footer
+    padding-left 1.5rem
+    padding-right 1.5rem
 
 @media screen and (max-width: 752px)
   .content
@@ -227,6 +237,10 @@
 
   .rsidebar
     visibility visible
+
+  .footer
+    padding-left 0
+    padding-right 0
 </style>
 
 <script>
