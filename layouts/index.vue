@@ -48,18 +48,18 @@
   position absolute
   top 0
   right 0
-  transform translate(1rem, -5rem)
-  color rgba(22,25,49,0.65)
+  transform translate(-3.35rem, -5rem)
+  color rgba(22, 25, 49, 0.65)
   display flex
   align-items center
 
   &__icon
     width 1.5rem
     fill #aaa
-    margin-right .5rem
+    margin-right 0.5rem
 
   &__text
-    margin-bottom .2rem
+    margin-bottom 0.2rem
 
 .intro
   width 100%
@@ -81,7 +81,7 @@
   line-height 28px
 
   &__alt
-    margin-top .75rem
+    margin-top 0.75rem
     margin-bottom 2rem
 
 .features
@@ -102,7 +102,7 @@
     gap 1rem
     min-height 200px
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
-    background linear-gradient(to right, rgba(235,237,255,1), white 50%)
+    background linear-gradient(to right, rgba(235, 237, 255, 1), white 50%)
 
     &__text
       padding-top 2rem
@@ -162,9 +162,9 @@
     padding-left 4rem
     position relative
     color initial
-    border-radius .5rem
+    border-radius 0.5rem
     padding 1.5rem 1.5rem 1.5rem 4.5rem
-    box-shadow: 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+    box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
 
     &__icon
       position absolute
@@ -182,7 +182,7 @@
       margin-bottom 0.5rem
 
     &__desc
-      font-size .875rem
+      font-size 0.875rem
       color rgba(22, 25, 49, 0.65)
 
 .stack
@@ -197,7 +197,7 @@
     display flex
     align-items center
     padding 2rem 1rem
-    border-radius .5rem
+    border-radius 0.5rem
     box-shadow inset 0 0 0 1px rgba(176, 180, 207, 0.2)
     color #161931
     background white
@@ -210,11 +210,11 @@
 
     &__h1
       font-size 1.25rem
-      margin-bottom .75rem
+      margin-bottom 0.75rem
       font-weight 500
 
     &__p
-      font-size .875rem
+      font-size 0.875rem
       color rgba(22, 25, 49, 0.65)
       line-height 1.25rem
 
@@ -231,9 +231,9 @@
       content ''
       width 50%
       height 100%
-      background linear-gradient(to right, var(--accent), rgba(255,255,255,0))
-      border-radius .5rem
-      opacity .1
+      background linear-gradient(to right, var(--accent), rgba(255, 255, 255, 0))
+      border-radius 0.5rem
+      opacity 0.1
 
     &__logo
       height 72px
@@ -244,7 +244,6 @@
     display none
 
 @media screen and (max-width: 500px)
-
   .dark .features__item__image
     transform none
     padding-top 1rem
@@ -280,12 +279,12 @@
         left 0
         right 0
         bottom 0
-        border-radius .5rem
-        box-shadow  0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
+        border-radius 0.5rem
+        box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
         z-index -1
 
   .sections
-    gap .5rem
+    gap 0.5rem
     margin-bottom 0
     margin-top 2rem
     grid-template-columns repeat(auto-fit, minmax(220px, 1fr))
@@ -298,7 +297,7 @@
 
       &__icon
         top 1rem
-        left .75rem
+        left 0.75rem
 
       &__wrapper
         padding-bottom 1.5rem
@@ -309,35 +308,34 @@
 
     &__wrapper
       position relative
-      padding .1px 1rem
+      padding 0.1px 1rem
       background white
-      border-radius .5rem
+      border-radius 0.5rem
 
       &:after
         position absolute
-        content ""
+        content ''
         top 0
         left 0
         right 0
         bottom 0
         z-index -1
-        border-radius .5rem
+        border-radius 0.5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
   .stack
-    gap .5rem
+    gap 0.5rem
     grid-template-columns repeat(auto-fill, minmax(240px, 1fr))
 
     &__item
-
       &:after
         position absolute
-        content ""
+        content ''
         top 0
         left 0
         right 0
         bottom 0
         z-index -1
-        border-radius .5rem
+        border-radius 0.5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
 </style>

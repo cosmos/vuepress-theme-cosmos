@@ -24,7 +24,7 @@
 
 .search__container
   display flex
-  justify-content flex-end
+  justify-content flex-start
   padding-top 0.5rem
   padding-bottom 3.5rem
 
