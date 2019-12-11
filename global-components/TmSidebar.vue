@@ -74,7 +74,7 @@
   width var(--sidebar-width)
   display grid
   grid-auto-flow column
-  padding-left .75rem
+  padding-left 0.75rem
   padding-right 0.75rem
   align-items center
   z-index 200
@@ -151,7 +151,7 @@ export default {
         {
           label: "ibc",
           name: "IBC Protocol",
-          url: "https://github.com/cosmos/ics",
+          url: "https://github.com/cosmos/ics/tree/master/ibc",
           color: "#E6900A"
         },
         {
