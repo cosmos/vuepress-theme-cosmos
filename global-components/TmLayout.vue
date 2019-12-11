@@ -61,7 +61,7 @@
   z-index 100000
 
 .top-bar
-  grid-area 1/1/2/2
+  grid-area 1 / 1 / 2 / 2
 
 .container
   display grid
@@ -71,11 +71,11 @@
   margin-left auto
   margin-right auto
   position relative
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+  height 100vh /* Fallback for browsers that do not support Custom Properties */
+  height calc(var(--vh, 1vh) * 100)
 
 .sidebar__container
-  transition transform .5s
+  transition transform 0.5s
   max-width var(--sidebar-width)
   width 100%
 
@@ -83,10 +83,11 @@
   position sticky
   background white
   top 0
-  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+  height 100vh /* Fallback for browsers that do not support Custom Properties */
+  height calc(var(--vh, 1vh) * 100)
   overflow-y scroll
   overflow-x hidden
+  scrollbar-color rgba(0, 0, 0, 0.05) white
 
   &__overlay
     position fixed
@@ -95,7 +96,7 @@
     left 0
     right 0
     height 100vh
-    height: calc(var(--vh, 1vh) * 100);
+    height calc(var(--vh, 1vh) * 100)
     background rgba(51, 54, 74, 0.4)
     visibility hidden
 
@@ -129,9 +130,9 @@
   z-index 2000
   overflow-x hidden
   height 100vh
+
   // grid-area auto
   // padding 1rem 2rem
-
   &__bottom__true
     position absolute
     bottom 0
@@ -149,7 +150,7 @@
   // grid-area 3/1/4/3
 
 .panel-enter-active, .panel-leave-active
-  transition opacity .25s, transform .35s
+  transition opacity 0.25s, transform 0.35s
 
 .panel-enter
   opacity 0
@@ -168,7 +169,7 @@
   transform translateX(50px)
 
 .fade-enter-active, .fade-leave-active
-  transition opacity .25s
+  transition opacity 0.25s
 
 .fade-enter
   opacity 0
