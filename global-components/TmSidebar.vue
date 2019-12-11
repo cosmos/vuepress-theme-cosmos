@@ -92,8 +92,8 @@
 
   &__item
     // flex-grow 1
-    padding-left 0.75rem
-    padding-right 0.75rem
+    padding-left 1rem
+    padding-right 1rem
     display flex
     align-items center
     flex-direction column
