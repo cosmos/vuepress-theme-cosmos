@@ -18,12 +18,12 @@
             .logo__item
               img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo").logo__image
             .logo__item.logo__link
-              a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener") {{$themeConfig.footer.textLink.text}}
-          .smallprint(v-if="$themeConfig.footer")
-            .smallprint__item.smallprint__item__links
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
+          .smallprint(v-if="$themeConfig.footer")
+            .smallprint__item.smallprint__item__links
+              a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
             .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint && full") {{$themeConfig.footer.smallprint}}
 </template>
 
@@ -106,9 +106,13 @@
   align-items flex-end
 
   &__item
-    padding 1.5rem 0
+    padding 1rem 0
+    font-weight 500
 
     &__links
+      color var(--color-accent)
+      font-size 0.875rem
+
       &__item
         margin-right 1rem
 
@@ -116,6 +120,7 @@
       grid-column span 2
       font-size 0.8125rem
       line-height 1rem
+      font-weight normal
 
 @media screen and (max-width: 1000px)
   .questions
