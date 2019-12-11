@@ -57,12 +57,14 @@
     letter-spacing 0.2em
     color #666
     margin-top 3rem
+    margin-bottom 0.75rem
 
   &__link
     color rgba(22, 25, 49, 0.65)
-    padding-top 0.35rem
-    padding-bottom 0.35rem
+    padding-top 0.375rem
+    padding-bottom 0.375rem
     font-size 0.875rem
+    line-height 18px
 
     &__href
       color rgba(22, 25, 49, 0.65)
