@@ -17,6 +17,7 @@
     "clipboard-copy": "^3.1.0",
     "docsearch.js": "^2.6.3",
     "fuse.js": "^3.4.6",
+    "gray-matter": "^4.0.2",
     "hotkeys-js": "^3.7.3",
     "intersection-observer": "^0.7.0",
     "lunr": "^2.3.8",

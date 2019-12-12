@@ -114,10 +114,10 @@
       color rgba(80, 100, 251, 0.6)
       box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
 
-  .content__default h1
+  [prereq]
     display none
 
-  [prereq]
+  .content__default h1
     display none
 
   .content__default
