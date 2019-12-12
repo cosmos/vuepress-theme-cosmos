@@ -11,7 +11,7 @@
         .h2 Getting Started
         .p__alt Read all about the SDK or dive straight into the code with a tutorial.
         .features
-          a(:href="feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" rel="noreferrer noopener").features__item
+          component(:is="feature.url.match(/^http/) ? 'a' : 'router-link'" :to="feature.url" :href="feature.url.match(/^http/) && feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" rel="noreferrer noopener").features__item
             .features__item__image
               component(:is="`tm-image-${feature.image}`").features__item__image__img
             .features__item__text
@@ -106,6 +106,7 @@
     display grid
     grid-template-columns 30% 1fr
     gap 1rem
+    cursor pointer
     min-height 200px
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
     background linear-gradient(to right, rgba(235, 237, 255, 1), white 50%)
@@ -130,7 +131,7 @@
       letter-spacing 0.2em
 
     &__title
-      font-weight 600
+      font-weight 500
       font-size 1.25rem
       line-height 28px
       margin-bottom 0.5rem
@@ -192,7 +193,7 @@
       height 2.5rem
 
     &__title
-      font-weight 600
+      font-weight 500
       margin-bottom 0.5rem
 
     &__desc
