@@ -11,7 +11,7 @@
       div(v-if="prereq.length > 0")
         .aside__title Pre-requisite reading
       client-only
-        router-link(v-for="item in prereq" :to="item.href").prereq__item {{item.text}}
+        a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
         .aside__link(v-for="link in $page.headers.filter(e => !e.title.match(/{hide}/))")
