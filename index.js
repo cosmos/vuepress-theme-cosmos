@@ -21,15 +21,9 @@ function escapeHtml(str) {
 
 module.exports = (opts, ctx) => {
   return {
-    // chainMarkdown(config) {
-    //   // require('@vuepress/markdown').removeAllBuiltInPlugins(config)
-    //   config.options.highlight((str) => escapeHtml(str))
-    // },
-
     plugins: [
       require('./plugin-frontmatter.js')
     ],
-
     extendMarkdown: md => {
       md.use(ghmd)
       md.use(fcb)

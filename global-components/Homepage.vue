@@ -1,46 +1,44 @@
 <template lang="pug">
   div
-    tm-layout(:aside="false" ref="layout")
-      template(v-slot:content)
-        .search(@click="$refs.layout.searchVisible(true)")
-          .search__icon
-            icon-search
-          .search__text Search
-        .intro
-          .p {{$frontmatter.description}}
-        .h2 Getting Started
-        .p__alt Read all about the SDK or dive straight into the code with a tutorial.
-        .features
-          component(:is="feature.url.match(/^http/) ? 'a' : 'router-link'" :to="feature.url" :href="feature.url.match(/^http/) && feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" rel="noreferrer noopener").features__item
-            .features__item__image
-              component(:is="`tm-image-${feature.image}`").features__item__image__img
-            .features__item__text
-              .features__item__cta {{feature.cta}}
-              .features__item__title {{feature.title}}
-              .features__item__desc {{feature.desc}}
-              .features__item__label
-                .features__item__label__text(v-if="!feature.h3") {{feature.label}}
-                .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
-        .sections__wrapper
-          .h2 Explore the SDK
-          .p__alt Get familiar with the SDK and explore its main concepts.
-          .sections
-            router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
-              component(:is="`tm-icon-${section.icon}`").sections__item__icon
-              .sections__item__wrapper
-                .sections__item__title {{section.title}}
-                .sections__item__desc {{section.desc}}
-        .h2 Explore the Cosmos Stack
-        .p__alt Check out the docs for the various parts of the Cosmos stack.
-        .stack
-          a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
-            .stack__item__wrapper
-              component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
-              svg(width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg").stack__item__icon
-                path(d="M1.07239 14.4697C0.779499 14.7626 0.779499 15.2374 1.07239 15.5303C1.36529 15.8232 1.84016 15.8232 2.13305 15.5303L1.07239 14.4697ZM15.7088 1.95457C16.0017 1.66168 16.0017 1.18681 15.7088 0.893912C15.4159 0.601019 14.941 0.601019 14.6482 0.893912L15.7088 1.95457ZM15.6027 1H16.3527C16.3527 0.585786 16.0169 0.25 15.6027 0.25V1ZM5.4209 0.25C5.00669 0.25 4.6709 0.585786 4.6709 1C4.6709 1.41421 5.00669 1.75 5.4209 1.75V0.25ZM14.8527 11.1818C14.8527 11.596 15.1885 11.9318 15.6027 11.9318C16.0169 11.9318 16.3527 11.596 16.3527 11.1818H14.8527ZM2.13305 15.5303L15.7088 1.95457L14.6482 0.893912L1.07239 14.4697L2.13305 15.5303ZM15.6027 0.25H5.4209V1.75H15.6027V0.25ZM16.3527 11.1818V1H14.8527V11.1818H16.3527Z" fill="#DADCE6")
-              div
-                .stack__item__h1 {{item.title}}
-                .stack__item__p {{item.desc}}
+    .search(@click="$emit('search', true)")
+      .search__icon
+        icon-search
+      .search__text Search
+    .intro
+      .p {{$frontmatter.description}}
+    .h2 Getting Started
+    .p__alt Read all about the SDK or dive straight into the code with a tutorial.
+    .features
+      component(:is="feature.url.match(/^http/) ? 'a' : 'router-link'" :to="feature.url" :href="feature.url.match(/^http/) && feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" rel="noreferrer noopener").features__item
+        .features__item__image
+          component(:is="`tm-image-${feature.image}`").features__item__image__img
+        .features__item__text
+          .features__item__cta {{feature.cta}}
+          .features__item__title {{feature.title}}
+          .features__item__desc {{feature.desc}}
+          .features__item__label
+            .features__item__label__text(v-if="!feature.h3") {{feature.label}}
+            .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
+    .sections__wrapper
+      .h2 Explore the SDK
+      .p__alt Get familiar with the SDK and explore its main concepts.
+      .sections
+        router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
+          component(:is="`tm-icon-${section.icon}`").sections__item__icon
+          .sections__item__wrapper
+            .sections__item__title {{section.title}}
+            .sections__item__desc {{section.desc}}
+    .h2 Explore the Cosmos Stack
+    .p__alt Check out the docs for the various parts of the Cosmos stack.
+    .stack
+      a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
+        .stack__item__wrapper
+          component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
+          svg(width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg").stack__item__icon
+            path(d="M1.07239 14.4697C0.779499 14.7626 0.779499 15.2374 1.07239 15.5303C1.36529 15.8232 1.84016 15.8232 2.13305 15.5303L1.07239 14.4697ZM15.7088 1.95457C16.0017 1.66168 16.0017 1.18681 15.7088 0.893912C15.4159 0.601019 14.941 0.601019 14.6482 0.893912L15.7088 1.95457ZM15.6027 1H16.3527C16.3527 0.585786 16.0169 0.25 15.6027 0.25V1ZM5.4209 0.25C5.00669 0.25 4.6709 0.585786 4.6709 1C4.6709 1.41421 5.00669 1.75 5.4209 1.75V0.25ZM14.8527 11.1818C14.8527 11.596 15.1885 11.9318 15.6027 11.9318C16.0169 11.9318 16.3527 11.596 16.3527 11.1818H14.8527ZM2.13305 15.5303L15.7088 1.95457L14.6482 0.893912L1.07239 14.4697L2.13305 15.5303ZM15.6027 0.25H5.4209V1.75H15.6027V0.25ZM16.3527 11.1818V1H14.8527V11.1818H16.3527Z" fill="#DADCE6")
+          div
+            .stack__item__h1 {{item.title}}
+            .stack__item__p {{item.desc}}
 </template>
 
 <style lang="stylus" scoped>

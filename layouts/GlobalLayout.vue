@@ -14,15 +14,16 @@
         .sidebar
           tm-sidebar(:value="tree" :tree="directoryTree")
       div
-        .content__wrapper(:class="[`content__aside__${aside}`]")
+        .content__wrapper(:class="[`content__aside__${!($frontmatter.aside === false)}`]")
           .content(id="content-scroll")
             .top-bar
               tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
             tm-breadcrumbs(@rsidebar="rsidebarVisible = true" v-if="aside").breadcrumbs
             tm-content(:tree="directoryTree" @search="searchPanel = $event" :aside="aside" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
               template(v-slot:content)
-                slot(name="content")
-          .aside(v-if="aside" :key="$route.fullPath" :class="[`aside__bottom__${!!asideBottom}`]")
+                component(:is="$frontmatter.layout || 'div'" @search="searchPanel = $event")
+                  Content
+          .aside(v-if="!($frontmatter.aside === false)" :key="$route.fullPath" :class="[`aside__bottom__${!!asideBottom}`]")
             tm-aside(@search="searchPanel = $event" id="aside-scroll")
         .footer
           tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
@@ -306,7 +307,7 @@ export default {
           // You can also check whether layout exists first as the default global layout does.
           return this.$frontmatter.layout;
         }
-        return "TmLayout";
+        return "Layout";
       }
       return "NotFound";
     },
