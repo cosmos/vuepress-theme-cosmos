@@ -2,7 +2,7 @@
   div
     div(v-for="item in value")
       component(:style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--accent-color)' : 'rgba(176, 180, 207, 0.2)' }" :is="componentName(item)" v-if="!hide(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
-        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="fill: var(--accent-color)").item__icon
+        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="fill: var(--accent-color, black)").item__icon
         tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="fill: #ccc").item__icon
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}") {{titleText(item)}}
@@ -26,7 +26,7 @@
     width 2px
     height 100%
     opacity var(--vline)
-    background var(--vline-color)
+    background var(--vline-color, black)
     position absolute
     top 0
     left 5px

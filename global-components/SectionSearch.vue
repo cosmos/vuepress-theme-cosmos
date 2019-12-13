@@ -55,19 +55,18 @@
     color rgba(22, 25, 49, 0.65)
     text-transform uppercase
     letter-spacing 0.2em
-    font-size .75rem
+    font-size 0.75rem
     margin-top 4rem
     margin-bottom 2rem
 
   &__table
-
     &__row
       display grid
       grid-template-columns 3fr 7fr
       gap 1.5rem
       align-items center
-      margin-top .5rem
-      margin-bottom .5rem
+      margin-top 0.5rem
+      margin-bottom 0.5rem
 
       &__keys
         display flex
@@ -77,8 +76,8 @@
           color #46509F
           background-color rgba(176, 180, 207, 0.2)
           border 1px solid rgba(176, 180, 207, 0.09)
-          border-radius .25rem
-          font-size .8125rem
+          border-radius 0.25rem
+          font-size 0.8125rem
           width 1.5rem
           height 1.5rem
           display flex
@@ -96,7 +95,7 @@ strong
   height 100vh
   overflow-y scroll
   -webkit-overflow-scrolling touch
-  display flex
+  // display flex
   flex-direction column
   background-color #F8F9FC
 
@@ -112,27 +111,25 @@ strong
   gap 1rem
 
   &__input
-
     &__input
       border none
       background none
       outline none
       font-size 1.25rem
       width 100%
-      padding 1.5rem .5rem
+      padding 1.5rem 0.5rem
 
       &::-webkit-input-placeholder
         color rgba(14, 33, 37, 0.26)
 
   &__clear
-
     &__icon
       cursor pointer
-      fill rgba(0,0,0,.15)
-      margin-top .25rem
+      fill rgba(0, 0, 0, 0.15)
+      margin-top 0.25rem
 
       &:hover, &:focus
-        fill rgba(0,0,0,.25)
+        fill rgba(0, 0, 0, 0.25)
         outline none
 
   &__button
@@ -193,37 +190,36 @@ strong
       color var(--accent-color)
 
     &__h2
-      margin-top .25rem
-      margin-bottom .25rem
+      margin-top 0.25rem
+      margin-bottom 0.25rem
       font-weight 500
-      font-size .875rem
+      font-size 0.875rem
 
       &__item
         display inline-block
 
         &:after
-          content ">"
-          margin-left .25rem
-          margin-right .25rem
+          content '>'
+          margin-left 0.25rem
+          margin-right 0.25rem
 
         &:last-child
-
           &:after
-            content ""
+            content ''
 
     &__desc
-      opacity .5
+      opacity 0.5
       white-space nowrap
       overflow hidden
       position relative
-      font-size .875rem
+      font-size 0.875rem
 
       &:after
-        content ""
-        background linear-gradient(to right, rgba(248, 249, 252, .5) 0%, rgba(248, 249, 252, 1))
+        content ''
+        background linear-gradient(to right, rgba(248, 249, 252, 0.5) 0%, rgba(248, 249, 252, 1))
         height 1em
         width 2em
-        padding-bottom .25rem
+        padding-bottom 0.25rem
         text-align right
         position absolute
         top 0

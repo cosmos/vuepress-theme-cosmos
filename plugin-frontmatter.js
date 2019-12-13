@@ -9,6 +9,7 @@ module.exports = (options = {}, context) => ({
     tokens.forEach((t, i) => {
       if (t.type === 'heading_open' && ['h1'].includes(t.tag)) {
         $page.title = tokens[i + 1].content
+        return;
       }
     })
     // $page.tokes = tokens
