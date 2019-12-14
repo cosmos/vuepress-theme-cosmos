@@ -30,6 +30,7 @@
 </template>
 
 <style lang="stylus" scoped>
+
 .rsidebar
   position fixed
   max-width 225px

@@ -7,7 +7,7 @@
         .synopsis__body(v-html="md($frontmatter.synopsis)")
       slot(name="content")
       tm-content-cards(v-if="$frontmatter.cards")
-      tm-footer-links(:tree="tree" v-if="aside").footer__links
+      tm-footer-links(:tree="tree" v-if="!($frontmatter.aside === false)").footer__links
 </template>
 
 <style lang="stylus" scoped>
@@ -134,7 +134,9 @@
     text-decoration underline
 
   img
-    width 100%
+    // width 100%
+    height auto
+    display block
 
   .tooltip
     h1

@@ -22,7 +22,7 @@ function escapeHtml(str) {
 module.exports = (opts, ctx) => {
   return {
     plugins: [
-      require('./plugin-frontmatter.js')
+      require('./plugin-frontmatter.js'),
     ],
     extendMarkdown: md => {
       md.use(ghmd)

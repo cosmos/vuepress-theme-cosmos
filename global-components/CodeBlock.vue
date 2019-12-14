@@ -63,7 +63,7 @@ span
   position relative
   line-height 1.75
   max-height 700px
-  transition max-height 1s ease-out
+  // transition max-height 1s ease-out
   overflow-y hidden
   padding-top 0.5rem
   padding-bottom 0.5rem

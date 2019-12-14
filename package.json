@@ -32,6 +32,7 @@
     "tm-tooltip": "0.0.10",
     "v-runtime-template": "^1.10.0",
     "vuepress": "^1.2.0",
-    "vuepress-plugin-sitemap": "^2.3.1"
+    "vuepress-plugin-sitemap": "^2.3.1",
+    "vuepress-plugin-smooth-scroll": "0.0.9"
   }
 }
