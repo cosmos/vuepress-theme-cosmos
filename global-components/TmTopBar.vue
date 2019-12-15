@@ -5,15 +5,14 @@
         .menu__icon(@click="$emit('sidebar', true)")
           tm-icon-menu
       .logo
-        .logo__wrapper
-          router-link(to="/" tag="div").logo__image
+        router-link(to="/" tag="div").logo__wrapper
+          .logo__image
             component(:is="`tm-logo-${$themeConfig.label}`")
           .logo__text {{$site.title}}
       .toolbar
         .toolbar__item(@click="$emit('search', true)")
           .toolbar__item__icon
             icon-search(fill="#aaa")
-          .toolbar__item__text.toolbar__item__text__search Search
 </template>
 
 <style lang="stylus" scoped>
@@ -21,12 +20,11 @@
   display grid
   grid-template-columns auto 1fr auto
   align-items center
-  padding-bottom 1rem
 
 .menu
+  padding .75rem
 
   &__icon
-    visibility hidden
     height 1.5rem
     width 1.5rem
     cursor pointer
@@ -39,7 +37,9 @@
     justify-content center
     gap .5rem
     align-items center
-    visibility hidden
+    cursor pointer
+    padding-top .75rem
+    padding-bottom .75rem
 
   &__image
     width 2rem
@@ -53,7 +53,6 @@
   grid-column-start -2
   display flex
   justify-content flex-end
-  visibility hidden
 
   &__item
     cursor pointer

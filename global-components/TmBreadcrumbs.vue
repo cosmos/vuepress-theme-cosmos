@@ -39,6 +39,7 @@
   grid-auto-flow column
   justify-content space-between
   align-items center
+  padding-left .75rem
 
 .crumbs
   &__item
@@ -70,16 +71,16 @@
       border-radius 0.25rem
       fill rgba(51, 54, 74, 0.4)
 
-      &.menu__item__icon__active__true
+      &:active
         fill #5064FB
         background rgba(102, 161, 255, 0.15)
 
     &__modal
       position absolute
       width 16rem
+      z-index 1000
       box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
       right 0
-      z-index 1000
       border-radius 0.25rem
       background-color white
 
@@ -105,7 +106,7 @@
   .menu
     visibility visible
 
-@media screen and (max-width: 750px)
+@media screen and (max-width: 732px)
   .menu
     &__item
       &__modal
@@ -149,7 +150,7 @@ export default {
   methods: {
     click(e) {
       this.tocShow = !this.tocShow;
-      this.$emit("rsidebar", true);
+      this.$emit("visible", true);
     }
   }
 };

@@ -4,6 +4,7 @@
       .search__icon
         icon-search
       .search__text Search
+    .h1 {{$frontmatter.title}}
     .intro
       .p {{$frontmatter.description}}
     .h2 Getting Started
@@ -39,6 +40,7 @@
           div
             .stack__item__h1 {{item.title}}
             .stack__item__p {{item.desc}}
+    tm-help-support
 </template>
 
 <style lang="stylus" scoped>
@@ -68,7 +70,7 @@
   max-width 800px
 
 .h1
-  font-size 2.25rem
+  font-size 2.5rem
   font-weight 600
   margin-bottom 1.5rem
 
@@ -303,7 +305,6 @@
         bottom 0
         border-radius 0.5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
-        z-index -1
 
   .sections
     gap 0.5rem
@@ -341,7 +342,6 @@
         left 0
         right 0
         bottom 0
-        z-index -1
         border-radius 0.5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
@@ -357,7 +357,6 @@
         left 0
         right 0
         bottom 0
-        z-index -1
         border-radius 0.5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
 </style>

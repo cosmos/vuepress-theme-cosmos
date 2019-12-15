@@ -103,7 +103,7 @@ export default {
           };
         });
       } else {
-        setTimeout(() => searchForPrereq(index + 1), 100);
+        setTimeout(() => searchForPrereq(index + 1), 200);
       }
     };
     searchForPrereq();

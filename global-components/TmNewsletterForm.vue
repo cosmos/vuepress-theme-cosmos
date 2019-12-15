@@ -31,7 +31,6 @@
   width 100%
   align-items flex-end
   background-color white
-  z-index 1000
 
 .newsletter
 

@@ -1,248 +1,219 @@
 <template lang="pug">
   div
-    .search__container
-      transition(name="panel")
-        client-only
-          section-search(@visible="searchPanel = $event" v-show="searchPanel" :visible="searchPanel").search__panel
-      .search__overlay(v-if="searchPanel" @click="overlayClick")
-    .rsidebar(v-if="rsidebarVisible")
-      tm-toc-menu
-    .container
-      transition(name="fade")
-        .sidebar__overlay(v-if="sidebarVisible || rsidebarVisible" @click="overlayClick")
-      .sidebar__container(:class="[`sidebar__container__${!!sidebarVisible}`]")
-        .sidebar
-          tm-sidebar(:value="tree" :tree="directoryTree")
-      div
-        .content__wrapper(:class="[`content__aside__${!($frontmatter.aside === false)}`]")
-          .content(id="content-scroll")
-            .top-bar
-              tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
-            tm-breadcrumbs(@rsidebar="rsidebarVisible = true" v-if="aside").breadcrumbs
-            tm-content(:tree="directoryTree" @search="searchPanel = $event" :aside="aside" @selected="selectHeader($event)" @sidebar="sidebarVisible = !sidebarVisible")
-              template(v-slot:content)
-                component(:is="$frontmatter.layout || 'div'" @search="searchPanel = $event")
-                  Content
-          .aside(v-if="!($frontmatter.aside === false)" :key="$route.fullPath" :class="[`aside__bottom__${!!asideBottom}`]")
-            tm-aside(@search="searchPanel = $event" id="aside-scroll")
-        .footer
+    .layout
+      .layout__sidebar
+        tm-sidebar-content(:value="tree" :tree="directoryTree")
+      .layout__main
+        .layout__main__navbar
+          tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
+        .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
+          .layout__main__content__body(id="content-scroll")
+            .layout__main__content__body__breadcrumbs(v-if="!($frontmatter.aside === false)")
+              tm-breadcrumbs(@visible="rsidebarVisible = $event")
+            .layout__main__content__body__wrapper
+              component(:is="$frontmatter.layout || 'layout-default'" :key="$route.path" @search="searchPanel = $event")
+                Content
+          .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)")
+            .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
+              tm-aside(id="aside-scroll" @search="searchPanel = $event" :key="$route.path")
+        .layout__main__gutter(v-if="!($frontmatter.aside === false)")
+          tm-footer-links(:tree="tree")
+        .layout__main__footer
           tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
+    tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
+      tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
+    tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
+      section-search(@visible="searchPanel = $event" :query="searchQuery")
+    tm-sidebar(:visible="rsidebarVisible" @visible="rsidebarVisible = $event" side="right").sheet__sidebar.sheet__sidebar__toc
+      tm-toc-menu
 </template>
 
 <style lang="stylus" scoped>
+.sheet
 
-.rsidebar
-  position fixed
-  max-width 225px
-  width 100%
-  z-index 100000
-  right 0
-  top 0
+  &__sidebar
+    z-index 10000
+    position relative
+
+    &__toc
+      display none
+
+.layout__main__content__aside.aside__bottom__true
+  position absolute
   bottom 0
-  background-color white
-  visibility hidden
-  overflow-y scroll
-
-.search__panel
-  position fixed
-  z-index 200000
-  max-width 600px
-  width 100%
   right 0
-  top 0
-  bottom 0
-  background-color white
-  box-shadow 0px 0px 40px rgba(22, 25, 49, 0.1), 0px 0px 16px rgba(22, 25, 49, 0.08), 0px 0px 0px rgba(22, 25, 49, 0.05)
+  top initial
+  height initial
 
-.search__overlay
-  position fixed
-  top 0
-  left 0
-  right 0
-  bottom 0
-  z-index 100000
+.layout__main__content.aside__false
+  display block
 
-.top-bar
-  grid-area 1 / 1 / 2 / 2
-
-.container
+.layout
   display grid
   width 100%
   grid-template-columns var(--sidebar-width) calc(100% - var(--sidebar-width))
-  max-width 1540px
+  max-width var(--layout-max-width, 1540px)
   margin-left auto
   margin-right auto
   position relative
-  height 100vh /* Fallback for browsers that do not support Custom Properties */
-  height calc(var(--vh, 1vh) * 100)
 
-.sidebar__container
-  transition transform 0.5s
-  max-width var(--sidebar-width)
-  width 100%
-
-.sidebar
-  position sticky
-  background white
-  top 0
-  height 100vh /* Fallback for browsers that do not support Custom Properties */
-  height calc(var(--vh, 1vh) * 100)
-  overflow-y scroll
-  overflow-x hidden
-  scrollbar-color rgba(0, 0, 0, 0.05) white
-
-  &__overlay
-    position fixed
-    z-index 10000
+  &__sidebar
+    position sticky
     top 0
-    left 0
-    right 0
     height 100vh
-    height calc(var(--vh, 1vh) * 100)
-    background rgba(51, 54, 74, 0.4)
-    visibility hidden
+    overflow-y scroll
 
-.content
-  min-height 100vh
-  width 100%
-  padding-top 3rem
-  padding-left 7rem
-  padding-right 7rem
-  // grid-area 2/1/3/2
-  overflow-x hidden
+  &__main
 
-.content__wrapper
-  display grid
-  width 100%
-  position relative
-  // grid-template-rows 50px auto
-  grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
+    &__navbar
+      padding-left 2.5rem
+      padding-right 2.5rem
+      display none
+      position fixed
+      width 100%
+      background white
+      z-index 500
 
-.content__wrapper.content__aside__false
-  display block
+    &__content
+      display grid
+      grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
 
-.content__container
-  display grid
-  grid-template-columns 1fr 1fr
-  width 100%
-  position relative
+      &__body
+        padding-top 6.5rem
 
-.aside
-  position sticky
-  top 0
-  width var(--aside-width)
-  z-index 2000
-  overflow-x hidden
-  height 100vh
+        &__breadcrumbs
+          padding-left 3.25rem
+          padding-right 3.25rem
 
-  // grid-area auto
-  // padding 1rem 2rem
-  &__bottom__true
-    position absolute
-    bottom 0
-    right 0
-    top initial
-    height initial
+        &__wrapper
+          padding-left 4rem
+          padding-right 4rem
 
-.footer
-  // grid-area auto
-  z-index 5000
-  padding-left 4rem
-  padding-right 4rem
-  // grid-columns span 2
-  position relative
-  // grid-area auto / auto / auto / span 2
-  transform translateZ(0)
-  // grid-area 3/1/4/3
+      &__aside
+        position sticky
+        top 0
+        height 100vh
+        overflow-y scroll
 
-.panel-enter-active, .panel-leave-active
-  transition opacity 0.25s, transform 0.35s
+        &__container
+          position relative
+          height 100%
 
-.panel-enter
-  opacity 0
-  transform translateX(50px)
+    &__gutter
+      max-width calc(100% - var(--aside-width))
+      padding-top 4rem
+      padding-bottom 4rem
+      padding-left 4rem
+      padding-right 4rem
 
-.panel-enter-to
-  opacity 1
-  transform translateX(0)
-
-.panel-leave
-  opacity 1
-  transform translateX(0)
-
-.panel-leave-to
-  opacity 0
-  transform translateX(50px)
-
-.fade-enter-active, .fade-leave-active
-  transition opacity 0.25s
-
-.fade-enter
-  opacity 0
-
-.fade-enter-to
-  opacity 1
-
-.fade-leave
-  opacity 1
-
-.fade-leave-to
-  opacity 0
-
-@media screen and (max-width: 1500px)
-  .content
-    padding-left 3rem
-    padding-right 3rem
-
-  .footer
-    padding-left 0
-    padding-right 0
+    &__footer
+      padding-left 4rem
+      padding-right 4rem
 
 @media screen and (max-width: 1392px)
-  .container
-    --sidebar-width 304px
-
-@media screen and (max-width: 1135px)
-  .container
+  .layout
     --sidebar-width 256px
 
-  .aside
-    display none
+@media screen and (max-width: 1136px)
+  .layout
 
-  .content__wrapper
+    &__main
+
+      &__content
+        display block
+
+        &__aside
+          display none
+
+      &__gutter
+        max-width initial
+
+@media screen and (max-width: 832px)
+  .layout
     display block
 
-  .footer
-    padding-left 1.5rem
-    padding-right 1.5rem
+    &__sidebar
+      display none
 
-@media screen and (max-width: 752px)
-  .content
-    padding 2rem 1.5rem 0
+    &__main
 
-  .container
-    display block
+      &__navbar
+        display block
+        padding-left 1.75rem
+        padding-right 1.75rem
 
-  .sidebar__container
-    position fixed
-    z-index 10000
+      &__content
 
-  .sidebar__container__false
-    transform translateX(calc(-1 * var(--sidebar-width)))
-    box-shadow initial
+        &__body
 
-  .sidebar__container__true
-    transform translateX(0)
+          &__breadcrumbs
+            padding-left 1.75rem
+            padding-right 1.75rem
 
-  .sidebar__overlay
-    visibility visible
+          &__wrapper
+            padding-left 2.5rem
+            padding-right 2.5rem
 
-  .rsidebar
-    visibility visible
+      &__gutter
+        padding-left 2.5rem
+        padding-right 2.5rem
 
-  .footer
-    padding-left 0
-    padding-right 0
+      &__footer
+        padding-left 2.5rem
+        padding-right 2.5rem
+
+@media screen and (max-width: 732px)
+  .sheet
+
+    &__sidebar
+
+      &__toc
+        display block
+
+  .layout
+
+    &__main
+
+      &__navbar
+        padding-left 1.75rem
+        padding-right 1.75rem
+
+      &__content
+
+        &__body
+
+          &__breadcrumbs
+            padding-left 1.75rem
+            padding-right 1.75rem
+
+@media screen and (max-width: 480px)
+  .layout
+
+    &__main
+
+      &__navbar
+        padding-left .25rem
+        padding-right .25rem
+
+      &__content
+
+        &__body
+
+          &__breadcrumbs
+            padding-left .25rem
+            padding-right .25rem
+
+          &__wrapper
+            padding-left 1rem
+            padding-right 1rem
+
+      &__gutter
+        padding-left 1rem
+        padding-right 1rem
+
+      &__footer
+        padding-left 1rem
+        padding-right 1rem
 </style>
 
 <script>
@@ -269,7 +240,8 @@ export default {
       headerSelected: null,
       rsidebarVisible: null,
       searchPanel: null,
-      asideBottom: null
+      asideBottom: null,
+      searchQuery: null
     };
   },
   mounted() {

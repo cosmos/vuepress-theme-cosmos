@@ -2,7 +2,7 @@
   div
     .wrapper
       //- tm-footer-links(:tree="tree").footer__links
-      tm-help-support(v-if="$themeConfig.gutter && full")
+      //- tm-help-support(v-if="$themeConfig.gutter && full")
       .container
         .footer__wrapper
           .questions(v-if="!full")
@@ -28,6 +28,16 @@
 </template>
 
 <style lang="stylus" scoped>
+.container
+  background-color white
+  color #161931
+  padding-top 3.5rem
+  padding-bottom 3.5rem
+
+.wrapper
+  --height 50px
+  background white
+
 .questions
   display grid
   grid-template-columns 1fr 1fr 1fr
@@ -70,20 +80,10 @@
       margin-top 0.5rem
       margin-bottom 0.5rem
 
-.container
-  background-color white
-  color #161931
-  padding-top 3.5rem
-  padding-bottom 3.5rem
-
 .footer__wrapper
   margin 0 auto
-  padding-left 2.5rem
-  padding-right 0.5rem
-
-.wrapper
-  --height 50px
-  background white
+  // padding-left 2.5rem
+  // padding-right 0.5rem
 
 .logo
   display grid

@@ -62,7 +62,6 @@
       &.letter__10
         opacity 1
         background white
-        z-index 1000
 
   &__form
     margin-left 250px
@@ -81,11 +80,11 @@ strong
 
 .container
   background var(--sidebar-bg)
-  padding 0 3rem 2rem
+  // padding 0 3rem 2rem
 
 .wrapper
   max-width calc(1400px - var(--sidebar-width))
-  margin 0 auto
+  // margin 0 auto
   // padding-left 4rem
   // padding-right 2rem
 
@@ -123,10 +122,10 @@ a.links__item__regular
   color #161931
   background rgba(176, 180, 207, 0.09)
 
-@media screen and (max-width: 1024px)
-  .container
-    padding-left 1.5rem
-    padding-right 1.5rem
+// @media screen and (max-width: 1024px)
+//   .container
+//     padding-left 1.5rem
+//     padding-right 1.5rem
 
 @media screen and (max-width: 832px)
   .newsletter
