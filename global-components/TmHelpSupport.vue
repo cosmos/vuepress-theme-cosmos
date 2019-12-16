@@ -109,6 +109,10 @@ strong
     padding 2rem
     line-height 20px
     background var(--bg)
+    transition box-shadow .25s
+
+    &:hover
+      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
     &__title
       margin-top 1.5rem

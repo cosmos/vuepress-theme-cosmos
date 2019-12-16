@@ -69,7 +69,7 @@
       padding-left 2.5rem
       padding-right 2.5rem
       display none
-      position fixed
+      position sticky
       width 100%
       background white
       z-index 500
@@ -145,6 +145,7 @@
       &__content
 
         &__body
+          padding-top 0
 
           &__breadcrumbs
             padding-left 1.75rem

@@ -23,6 +23,7 @@
   border-radius 0.5rem
   margin-top 3rem
   margin-bottom 3rem
+  letter-spacing 0.01em
 
   &__title
     color rgba(22, 25, 49, 0.65)
@@ -126,6 +127,9 @@
   h1, h2, h3, h4
     font-weight 600
 
+  h1 code, h2 code, h3 code
+    font-weight normal
+
   .content__container
     img
       max-width 100%
@@ -160,6 +164,7 @@
     font-weight 600
     margin-bottom 3rem
     line-height 3.25rem
+    letter-spacing -0.03em
 
   h2
     font-size 1.5rem
@@ -167,12 +172,14 @@
     margin-top 3rem
     margin-bottom 1.5rem
     line-height 2rem
+    letter-spacing -0.01em
 
   h3
     font-size 1.25rem
     font-weight 600
     margin-top 2rem
     margin-bottom 1rem
+    letter-spacing -0.01em
 
   p
     margin-top 1rem
@@ -183,11 +190,12 @@
     line-height 1.5
     margin-top 1rem
     padding-left 0.75rem
+    margin-bottom 1.5rem
 
   li
     padding-left 2rem
     list-style none
-    margin-bottom 0.5rem
+    margin-bottom 1rem
     position relative
 
     &:before

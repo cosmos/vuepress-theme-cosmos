@@ -121,6 +121,7 @@
       text-align center
       font-size 0.6875rem
       line-height 14px
+      letter-spacing 0.01em
 </style>
 
 <script>
@@ -164,7 +165,7 @@ export default {
         {
           label: "core",
           name: "Tendermint<br>Core",
-          url: "https://tendermint.com/docs/",
+          url: "https://docs.tendermint.com/",
           color: "#00BB00"
         }
       ]

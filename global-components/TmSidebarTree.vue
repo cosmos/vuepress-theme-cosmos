@@ -20,6 +20,7 @@
   padding-bottom .35rem
   cursor pointer
   font-size .875rem
+  letter-spacing 0.01em
 
   &:after
     content ''

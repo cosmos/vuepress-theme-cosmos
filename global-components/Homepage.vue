@@ -263,6 +263,10 @@
     font-size 1.25rem
     line-height 28px
 
+@media screen and (max-width: 832px)
+  .h1
+    padding-top 3.5rem
+
 @media screen and (max-width: 752px)
   .search
     display none

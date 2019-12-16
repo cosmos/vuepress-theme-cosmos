@@ -27,7 +27,7 @@
 <style lang="stylus" scoped>
 .newsletter__form__component__internal
   display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+  grid-template-columns repeat(auto-fit, minmax(300px, 1fr))
   width 100%
   align-items flex-end
   background-color white
@@ -40,13 +40,13 @@
     &__h1
       color #161931
       font-size 1.25rem
-      font-weight 600
-      margin-bottom .75rem
+      font-weight 500
+      margin-bottom 1rem
     
     &__p
-      color rgba(22, 25, 49, 0.65)
       font-size .875rem
       line-height 20px
+      color rgba(22, 25, 49, 0.9)
 
   &__input
     padding-top 1rem

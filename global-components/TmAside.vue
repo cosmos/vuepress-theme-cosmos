@@ -65,6 +65,7 @@
     padding-bottom 0.375rem
     font-size 0.875rem
     line-height 18px
+    letter-spacing 0.01em
 
     &__href
       color rgba(22, 25, 49, 0.65)
@@ -79,6 +80,7 @@
   line-height 20px
   margin 1rem 0
   display block
+  letter-spacing 0.01em
 </style>
 
 <script>

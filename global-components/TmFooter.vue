@@ -9,7 +9,7 @@
             .questions__wrapper
               .questions__h1 Questions?
               .questions__p Chat with Cosmos developers on Riot or reach out on the SDK Developer Forum to learn more.
-            tm-newsletter-form(style="grid-column: span 2; grid-template-columns: 1fr; padding-right: 10vw")
+            tm-newsletter-form
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
               .links__item__title {{item.title}}
@@ -40,10 +40,13 @@
 
 .questions
   display grid
-  grid-template-columns 1fr 1fr 1fr
+  grid-template-columns 1fr 1fr
+  margin-bottom 3rem
+  column-gap 10%
+  margin-right 10%
+  align-items flex-start
 
   &__wrapper
-    padding-right 5vw
     margin-bottom 2rem
 
   &__h1
@@ -122,14 +125,16 @@
       line-height 1rem
       font-weight normal
 
-@media screen and (max-width: 1000px)
+@media screen and (max-width: 732px)
   .questions
     display block
+    margin-right 0
 
-@media screen and (max-width: 500px)
+@media screen and (max-width: 480px)
   .footer__links
     margin-left 1.5rem
     margin-right 1.5rem
+
 </style>
 
 <script>
