@@ -1,9 +1,10 @@
 <template lang="pug">
   div
-    .search(@click="$emit('search', true)")
-      .search__icon
-        icon-search
-      .search__text Search
+    .search__container
+      .search(@click="$emit('search', true)")
+        .search__icon
+          icon-search
+        .search__text Search
     .h1 {{$frontmatter.title}}
     .intro
       .p {{$frontmatter.description}}
@@ -49,21 +50,24 @@
     margin-bottom 1.5rem
 
 .search
-  position absolute
-  top 0
-  right 0
-  transform translate(-3.35rem, -5rem)
-  color rgba(22, 25, 49, 0.65)
   display flex
   align-items center
+  color rgba(22, 25, 49, 0.65)
+  padding-top 0.5rem
+  width calc(var(--aside-width) - 6rem)
+  cursor pointer
+
+  &__container
+    display flex
+    justify-content flex-end
+    margin-top 1rem
+    margin-bottom 1rem
 
   &__icon
     width 1.5rem
+    height 1.5rem
     fill #aaa
     margin-right 0.5rem
-
-  &__text
-    margin-bottom 0.2rem
 
 .intro
   width 100%
@@ -73,6 +77,7 @@
   font-size 2.5rem
   font-weight 600
   margin-bottom 1.5rem
+  padding-top 2.5rem
 
 .h2
   font-size 2rem
@@ -266,6 +271,9 @@
 @media screen and (max-width: 832px)
   .h1
     padding-top 3.5rem
+
+  .search__container
+    display none
 
 @media screen and (max-width: 752px)
   .search

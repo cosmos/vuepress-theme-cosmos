@@ -72,7 +72,7 @@ span
     max-height var(--max-height)
 
   &__wrapper
-    font-family 'Menlo', 'Monaco', 'DejaVu Sans Mono', monospace
+    font-family 'Menlo', 'Monaco', 'Fira Code', monospace
     font-size 0.785rem
     margin 1rem
 

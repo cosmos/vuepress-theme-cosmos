@@ -152,7 +152,7 @@ export default {
   methods: {
     click(e) {
       this.tocShow = !this.tocShow;
-      this.$emit("visible", true);
+      if (window.innerWidth < 832) this.$emit("visible", true);
     }
   }
 };

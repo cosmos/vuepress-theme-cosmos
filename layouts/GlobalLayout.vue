@@ -23,7 +23,7 @@
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
-      section-search(@visible="searchPanel = $event" :query="searchQuery")
+      section-search(@visible="searchPanel = $event" :query="searchQuery" @query="searchQuery = $event")
     tm-sidebar(:visible="rsidebarVisible" @visible="rsidebarVisible = $event" side="right").sheet__sidebar.sheet__sidebar__toc
       tm-toc-menu
 </template>
@@ -79,11 +79,12 @@
       grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
 
       &__body
-        padding-top 6.5rem
+        // padding-top 6.5rem
 
         &__breadcrumbs
           padding-left 3.25rem
           padding-right 3.25rem
+          padding-top 6.5rem
 
         &__wrapper
           padding-left 4rem
@@ -150,6 +151,7 @@
           &__breadcrumbs
             padding-left 1.75rem
             padding-right 1.75rem
+            padding-top 0
 
           &__wrapper
             padding-left 2.5rem

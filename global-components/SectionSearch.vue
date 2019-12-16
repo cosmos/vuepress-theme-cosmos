@@ -3,14 +3,14 @@
     .container
       .search-box
         .search-box__icon
-          icon-search(:stroke="searchQuery ? '#66A1FF' : '#aaa'" :fill="searchQuery ? '#66A1FF' : '#aaa'")
+          icon-search(:stroke="query ? '#66A1FF' : '#aaa'" :fill="query ? '#66A1FF' : '#aaa'")
         .search-box__input
-          input(type="text" autocomplete="off" placeholder="Search" id="search-box-input" ref="search" v-model="searchQuery").search-box__input__input
+          input(type="text" autocomplete="off" placeholder="Search" id="search-box-input" ref="search" :value="query" @input="$emit('query', $event.target.value)").search-box__input__input
         .search-box__clear
-          icon-circle-cross(v-if="searchQuery && searchQuery.length > 0" @click.native="searchQuery = ''" @keydown.enter="searchQuery = ''" tabindex="1").search-box__clear__icon
+          icon-circle-cross(v-if="query && query.length > 0" @click.native="query = ''" @keydown.enter="query = ''" tabindex="1").search-box__clear__icon
         a.search-box__button(@click="$emit('visible', false)" @keydown.enter="$emit('visible', false)" tabindex="1") Cancel
       .results
-        .shortcuts(v-if="!searchQuery")
+        .shortcuts(v-if="!query")
           .shortcuts__h1 Keyboard shortcuts
           .shortcuts__table
             .shortcuts__table__row
@@ -30,18 +30,19 @@
                 .shortcuts__table__row__keys__item(style="font-size: .65rem") ▼
                 .shortcuts__table__row__keys__item(style="font-size: .65rem") ▲
               .shortcuts__table__row__desc Navigate between search results
-        .results__noresults__container(v-if="searchQuery && (searchResults && searchResults.length <= 0)")
+        .results__noresults__container(v-if="query && (searchResults && searchResults.length <= 0)")
           .results__noresults
             .results__noresults__icon
               icon-search
-            .results__noresults__h1 No results for #[strong “{{searchQuery}}”]
+            .results__noresults__h1 No results for #[strong “{{query}}”]
             .results__noresults__p
-              span Try queries such as #[span.results__noresults__a(@click="searchQuery = 'auth'" @keydown.enter="searchQuery = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="searchQuery = 'slashing'" @keydown.enter="searchQuery = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="searchQuery = 'staking'" @keydown.enter="searchQuery = 'staking'" tabindex="0") staking].
-        .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result), result.item)" @click="itemClick(resultLink(result), result.item)")
-          //- pre {{result}}
-          .results__item__title #[span(v-if="itemPath(result.item)") {{itemPath(result.item)}} /] {{result.item.title}}
-          .results__item__desc(v-if="resultSynopsis(result)" v-html="resultSynopsis(result)")
-          .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).title}}
+              span Try queries such as #[span.results__noresults__a(@click="query = 'auth'" @keydown.enter="query = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="query = 'slashing'" @keydown.enter="query = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="query = 'staking'" @keydown.enter="query = 'staking'" tabindex="0") staking].
+        div(v-if="query && searchResults && searchResults.length > 0")
+          .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result), result.item)" @click="itemClick(resultLink(result), result.item)")
+            //- pre {{result}}
+            .results__item__title #[span(v-if="itemPath(result.item)") {{itemPath(result.item)}} /] {{result.item.title}}
+            .results__item__desc(v-if="resultSynopsis(result)" v-html="resultSynopsis(result)")
+            .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).title}}
 </template>
 
 <style lang="stylus" scoped>
@@ -232,7 +233,7 @@ import { find, last, debounce } from "lodash";
 import Fuse from "fuse.js";
 
 export default {
-  props: ["visible"],
+  props: ["visible", "query"],
   data: function() {
     return {
       lunr: null,
@@ -242,7 +243,7 @@ export default {
     };
   },
   watch: {
-    searchQuery: function(e) {
+    query: function(e) {
       return this.debouncedSearch();
     },
     visible(becomesVisible) {
@@ -294,6 +295,8 @@ export default {
         includeMatches: true
       }
     );
+    if (this.$refs.search) this.$refs.search.focus();
+    this.search();
   },
   methods: {
     resultSynopsis(result) {
@@ -312,12 +315,13 @@ export default {
     resultHeader(result) {
       if (!result.item.headers) return false;
       const headers = result.item.headers.filter(h =>
-        h.title.match(new RegExp(this.searchQuery, "gi"))
+        h.title.match(new RegExp(this.query, "gi"))
       );
       if (headers && headers.length) return headers[0];
     },
     search(e) {
-      const fuse = this.fuse.search(this.$refs.search.value).map(result => {
+      if (!this.query) return;
+      const fuse = this.fuse.search(this.query).map(result => {
         return {
           ...result,
           item: find(this.$site.pages, { key: result.item.key })
