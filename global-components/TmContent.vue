@@ -206,7 +206,7 @@
     padding-left 0.25rem
     padding-right 0.25rem
     font-size 0.8125rem
-    font-family 'Menlo', 'Monaco', 'DejaVuSans Mono', monospace
+    font-family 'Menlo', 'Monaco', 'Fira Code', monospace
     color #46509F
     margin-top 3rem
 
