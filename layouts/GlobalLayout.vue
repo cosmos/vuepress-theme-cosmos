@@ -34,7 +34,8 @@
   &__sidebar
     z-index 10000
     position relative
-
+    scrollbar-color #eee white
+      
     &__toc
       display none
 
@@ -62,6 +63,15 @@
     top 0
     height 100vh
     overflow-y scroll
+    scrollbar-color #eee white
+
+    &::-webkit-scrollbar
+      background white
+      width 6px
+
+    &::-webkit-scrollbar-thumb
+      background #eee
+      border-radius 6px
 
   &__main
 
@@ -95,6 +105,15 @@
         top 0
         height 100vh
         overflow-y scroll
+        scrollbar-color #eee white
+
+        &::-webkit-scrollbar
+          background white
+          width 6px
+
+        &::-webkit-scrollbar-thumb
+          background #eee
+          border-radius 6px
 
         &__container
           position relative

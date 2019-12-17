@@ -143,7 +143,6 @@ strong
     align-items center
 
 .results
-  overflow-y scroll
   padding-bottom 3rem
   display flex
   flex-direction column
