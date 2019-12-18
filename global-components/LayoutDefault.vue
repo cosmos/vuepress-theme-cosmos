@@ -287,6 +287,10 @@ export default {
     }
   },
   mounted() {
+    if (window.location.hash) {
+      const elementId = document.querySelector(window.location.hash);
+      if (elementId) elementId.scrollIntoView();
+    }
     // const onIntersection = items => {
     //   if (items && items[0].isIntersecting) this.$emit("selected", items);
     // };

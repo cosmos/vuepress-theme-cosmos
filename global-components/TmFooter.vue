@@ -16,7 +16,8 @@
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
           .logo
             .logo__item
-              img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo").logo__image
+              //- img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo").logo__image
+              component(:is="`logo-${$themeConfig.label}-text` || null" fill="black").logo__image
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
@@ -91,13 +92,16 @@
 .logo
   display grid
   grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
-  align-items flex-end
 
   &__item
     padding 1.5rem 0
+    display flex
+    align-items flex-start
 
   &__image
     display block
+    height 30px
+    width auto
 
   &__link
     grid-column span 2
