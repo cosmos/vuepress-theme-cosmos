@@ -3,7 +3,6 @@
     .container
       slot
       tm-content-cards(v-if="$frontmatter.cards")
-      //- tm-footer-links(:tree="tree" v-if="!($frontmatter.aside === false)").footer__links
 </template>
 
 <style lang="stylus" scoped>
@@ -64,6 +63,23 @@
       margin-bottom 0.5rem
       letter-spacing 0.2em
 
+  [synopsis]
+    & a
+      box-shadow none
+
+    & a:hover
+      box-shadow none
+
+    & a code
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
+
+    & a:hover code
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 1), 0 0 0 3px #f8f8fb
+
+    & a:active code
+      color rgba(80, 100, 251, 0.6)
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
+
   a[target='_blank']:after
     content url('./images/icon-outbound.svg')
     padding-left 3px
@@ -93,23 +109,6 @@
   .code-block__container
     margin-top 2rem
     margin-bottom 2rem
-
-  .synopsis
-    & a
-      box-shadow none
-
-    & a:hover
-      box-shadow none
-
-    & a code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
-
-    & a:hover code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 1), 0 0 0 3px #f8f8fb
-
-    & a:active code
-      color rgba(80, 100, 251, 0.6)
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
 
   [prereq]
     display none
