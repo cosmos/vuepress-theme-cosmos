@@ -1,10 +1,6 @@
 <template lang="pug">
   div(style="width: 100%")
     .container
-      h1(v-if="$page.title" v-html="md($page.title)")
-      .synopsis(v-if="$frontmatter.synopsis")
-        .synopsis__title Synopsis
-        .synopsis__body(v-if="$frontmatter.synopsis" v-html="md($frontmatter.synopsis)")
       slot
       tm-content-cards(v-if="$frontmatter.cards")
       //- tm-footer-links(:tree="tree" v-if="!($frontmatter.aside === false)").footer__links
@@ -16,26 +12,6 @@
   padding-bottom 1rem
   border-top 1px solid rgba(176, 180, 207, 0.2)
   margin-top 5rem
-
-.synopsis
-  padding 1.5rem 2rem
-  background-color rgba(176, 180, 207, 0.09)
-  border-radius 0.5rem
-  margin-top 3rem
-  margin-bottom 3rem
-  letter-spacing 0.01em
-
-  &__title
-    color rgba(22, 25, 49, 0.65)
-    text-transform uppercase
-    font-size 0.75rem
-    margin-bottom 0.5rem
-    letter-spacing 0.2em
-
-  &__body
-    color rgba(22, 25, 49, 0.9)
-    font-size 0.875rem
-    line-height 20px
 
 .links
   display flex
@@ -68,6 +44,26 @@
       max-width initial
 
 /deep/
+  [synopsis]
+    padding 1.5rem 2rem
+    background-color rgba(176, 180, 207, 0.09)
+    border-radius 0.5rem
+    margin-top 3rem
+    margin-bottom 3rem
+    letter-spacing 0.01em
+    color rgba(22, 25, 49, 0.9)
+    font-size 0.875rem
+    line-height 20px
+
+    &:before
+      content "Synopsis"
+      display block
+      color rgba(22, 25, 49, 0.65)
+      text-transform uppercase
+      font-size 0.75rem
+      margin-bottom 0.5rem
+      letter-spacing 0.2em
+
   a[target='_blank']:after
     content url('./images/icon-outbound.svg')
     padding-left 3px
@@ -116,9 +112,6 @@
       box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
 
   [prereq]
-    display none
-
-  .content__default h1
     display none
 
   .content__default
