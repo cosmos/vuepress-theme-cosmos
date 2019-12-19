@@ -11,16 +11,24 @@
     .h2 Getting Started
     .p__alt Read all about the SDK or dive straight into the code with a tutorial.
     .features
-      component(:is="feature.url.match(/^http/) ? 'a' : 'router-link'" :to="feature.url" :href="feature.url.match(/^http/) && feature.url" v-for="feature in $frontmatter.features" :class="[feature.special]" rel="noreferrer noopener").features__item
+      .features__item.features__item__light
         .features__item__image
-          component(:is="`tm-image-${feature.image}`").features__item__image__img
+          icon-spaceship.features__item__image__img
         .features__item__text
-          .features__item__cta {{feature.cta}}
-          .features__item__title {{feature.title}}
-          .features__item__desc {{feature.desc}}
-          .features__item__label
-            .features__item__label__text(v-if="!feature.h3") {{feature.label}}
-            .features__item__label__text__alt(v-if="feature.h3") {{feature.h3}}
+          .features__item__text__h2 Read
+          .features__item__text__h1 Introduction to Cosmos SDK
+          .features__item__text__p High-level overview of the Cosmos SDK.
+          .features__item__text__tag
+            .features__item__text__tag__text 5 min
+      .features__item.features__item__dark
+        icon-arrow.features__item__icon
+        .features__item__image
+          icon-window.features__item__image__img
+        .features__item__text
+          .features__item__text__h2 Use
+          .features__item__text__h1 Tutorials
+          .features__item__text__p Build your first application-specific blockchain with the Cosmos SDK.
+          .features__item__text__label View Tutorials
     .sections__wrapper
       .h2 Explore the SDK
       .p__alt Get familiar with the SDK and explore its main concepts.
@@ -99,73 +107,110 @@
   display grid
   grid-template-columns repeat(auto-fit, minmax(300px, 1fr))
   gap 1.5rem
-  margin-bottom 4rem
+  margin-bottom 3rem
 
   &__item
-    border-radius 0.5rem
-    position relative
-    padding-left 1rem
-    padding-right 1rem
-    color inherit
-    box-shadow none
-    display grid
-    grid-template-columns 30% 1fr
-    gap 1rem
     cursor pointer
-    min-height 200px
+    display grid
+    grid-auto-flow column
+    grid-template-columns 1fr 2fr
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
-    background linear-gradient(to right, rgba(235, 237, 255, 1), white 50%)
+    position relative
+    border-radius .5rem
+    background linear-gradient(302.07deg, #FFFFFF 48.96%, #EBEDFF 100%)
     transition box-shadow 0.25s
-
+    
     &:hover
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
-    &__text
-      padding-top 2rem
+    &__dark
+      background linear-gradient(112.22deg, #161831 0%, #2E3148 100%)
+
+    &__dark &__text__h2
+      color white
+      opacity .5
+
+    &__dark &__text__h1
+      color white
+
+    &__dark &__text__p
+      color white
+      opacity .8
+
+    &__dark &__text__label
+      color white
+
+    &__icon
+      position absolute
+      top 0
+      right 0
+      padding .75rem
+      width 1rem
+      height 1rem
+      fill white
+      opacity .35
 
     &__image
+      display flex
       align-items center
-      display grid
+      justify-content center
 
       &__img
-        width 100%
+        max-height 232px
+        max-width 160px
 
-    &__cta
-      text-transform uppercase
-      font-size 0.75rem
-      letter-spacing 0.2em
+    &__text
+      padding 1.75rem 2rem 2rem
+      display flex
+      flex-direction column
 
-    &__title
-      font-weight 500
-      font-size 1.25rem
-      line-height 28px
-      margin-bottom 0.5rem
+      &__h2
+        font-size .75rem
+        letter-spacing 0.2em
+        text-transform uppercase
+        color #161931
+        opacity .45
+        margin-bottom .25rem
 
-    &__desc
-      font-size 0.875rem
-      line-height 20px
+      &__h1
+        font-size 1.25rem
+        color #161931
+        line-height 28px
+        letter-spacing -0.01em
+        font-weight 500
+        margin-top .25rem
+        margin-bottom .75rem
 
-    &__label
-      position absolute
-      bottom 1.5rem
+      &__p
+        color rgba(22, 25, 49, 0.65)
+        font-size .875rem
+        letter-spacing 0.01em
+        line-height 20px
+        margin-bottom 1.5rem
 
-      &__text
-        display inline-block
-        background rgba(176, 180, 207, 0.2)
-        border-radius 0.25rem
-        padding 0.25rem 0.5rem
-        font-size 0.8125rem
+      &__tag
+        flex-grow 1
+        display flex
+        align-items flex-end
 
-        &__alt
-          text-transform uppercase
-          font-weight 600
+        &__text
+          display inline-block
+          background rgba(176, 180, 207, 0.2)
+          border-radius .25rem
+          padding-left .5rem
+          padding-right .5rem
+          color rgba(22, 25, 49, 0.65)
+          letter-spacing 0.01em
+          font-size .8125rem
+          line-height 18px
 
-.dark
-  background linear-gradient(110.88deg, #161831 0%, #2E3148 100%)
-  color white
-
-.dark .features__item__desc
-  color rgba(255, 255, 255, 0.8)
+      &__label
+        text-transform uppercase
+        font-weight 500
+        letter-spacing 0.02em
+        flex-grow 1
+        display flex
+        align-items flex-end
 
 .sections
   display grid
@@ -280,44 +325,6 @@
     display none
 
 @media screen and (max-width: 500px)
-  .dark .features__item__image
-    transform none
-    padding-top 1rem
-    padding-bottom 1rem
-
-  .features
-    margin-bottom 2rem
-    grid-template-columns repeat(auto-fill, minmax(240px, 1fr))
-
-    &__item
-      gap 0
-      box-shadow none
-      grid-template-columns 1fr
-      padding 0 2rem 2rem
-
-      &__image
-        transform translateY(-1.5rem) scale(1.2)
-
-      &__text
-        padding-top 0
-
-      &__desc
-        margin-bottom 1.5rem
-
-      &__label
-        position relative
-        bottom inherit
-
-      &:after
-        content ''
-        position absolute
-        top 0
-        left 0
-        right 0
-        bottom 0
-        border-radius 0.5rem
-        box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
-
   .sections
     gap 0.5rem
     margin-bottom 0
@@ -371,4 +378,27 @@
         bottom 0
         border-radius 0.5rem
         box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
+
+@media screen and (max-width: 480px)
+  .h1
+    font-size 2rem
+
+  .h2
+    font-size 1.5rem
+
+  .p__alt
+    font-size 1rem
+    line-height 1.5rem
+
+  .features
+    grid-template-columns repeat(auto-fit, minmax(240px, 1fr))
+
+    &__item
+      display block
+
+      &__image
+        padding-top 1rem
+
+      &__text
+        padding 1.5rem
 </style>
