@@ -14,7 +14,7 @@
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
-        .aside__link(v-for="link in $page.headers.filter(e => !e.title.match(/{hide}/))")
+        .aside__link(v-for="link in $page.headers.filter(e => !e.title.match(/{hide}/))" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
           a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
 </template>
 
@@ -67,6 +67,10 @@
     line-height 18px
     letter-spacing 0.01em
 
+    &__active__true
+      color red
+      font-weight bold
+
     &__href
       color rgba(22, 25, 49, 0.65)
 
@@ -88,10 +92,13 @@ export default {
   props: ["selected"],
   data: function() {
     return {
-      prereq: []
+      prereq: [],
+      headerCurrent: null
     };
   },
   mounted() {
+    window.addEventListener("scroll", this.headerActive);
+    window.addEventListener("hashchange", this.headerActive);
     const searchForPrereq = i => {
       let index = i || 0;
       if (index > 10) return;
@@ -109,6 +116,39 @@ export default {
       }
     };
     searchForPrereq();
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.headerActive);
+    window.removeEventListener("hashchange", this.headerActive);
+  },
+  methods: {
+    headerActive(e) {
+      const middleY = window.scrollY + 50;
+      const headers = this.$page.headers
+        .map(h => ({
+          ...h,
+          y: document.getElementById(h.slug).getBoundingClientRect().top
+        }))
+        .filter(h => !h.title.match(/\{hide\}/))
+        .map(h => ({
+          ...h,
+          y: h.y + window.scrollY
+        }));
+      console.log(middleY, headers);
+      headers.forEach((h, i) => {
+        const curr = headers[i];
+        const next = headers[i + 1];
+        if (curr && next) {
+          if (middleY >= curr.y && middleY < next.y) {
+            return (this.headerCurrent = { ...curr });
+          }
+        } else {
+          if (middleY >= curr.y) {
+            return (this.headerCurrent = { ...curr });
+          }
+        }
+      });
+    }
   }
 };
 </script>

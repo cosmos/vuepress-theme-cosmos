@@ -89,4 +89,8 @@
     &__desc
       padding-right 0
       padding-bottom 1rem
+
+@media screen and (max-width: 480px)
+  .newsletter__form__component__internal
+      grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
 </style>
