@@ -11,7 +11,7 @@
     .h2 Getting Started
     .p__alt Read all about the SDK or dive straight into the code with a tutorial.
     .features
-      .features__item.features__item__light
+      router-link(to="./intro/overview.html").features__item.features__item__light
         .features__item__image
           icon-spaceship.features__item__image__img
         .features__item__text
@@ -20,7 +20,7 @@
           .features__item__text__p High-level overview of the Cosmos SDK.
           .features__item__text__tag
             .features__item__text__tag__text 5 min
-      .features__item.features__item__dark
+      a(href="https://tutorials.cosmos.network" target="_blank").features__item.features__item__dark
         icon-arrow.features__item__icon
         .features__item__image
           icon-window.features__item__image__img
