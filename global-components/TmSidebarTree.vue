@@ -111,6 +111,7 @@ export default {
       return this.show == item.title && !item.key;
     },
     iconActive(item) {
+      if (this.$page.path === "") return false; // Workaround for 404 page
       if (item.path == this.$page.path) return true;
       return item.key == this.$page.key;
     },

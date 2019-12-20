@@ -11,7 +11,7 @@
             .layout__main__content__body__breadcrumbs(v-if="!($frontmatter.aside === false)")
               tm-breadcrumbs(@visible="rsidebarVisible = $event")
             .layout__main__content__body__wrapper
-              component(:is="$frontmatter.layout || 'layout-default'" :key="$route.path" @search="searchPanel = $event")
+              component(:is="layout" :key="$route.path" @search="searchPanel = $event")
                 Content
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
@@ -302,7 +302,7 @@ export default {
           // You can also check whether layout exists first as the default global layout does.
           return this.$frontmatter.layout;
         }
-        return "Layout";
+        return "LayoutDefault";
       }
       return "NotFound";
     },

@@ -124,6 +124,7 @@ export default {
   methods: {
     headerActive(e) {
       const middleY = window.scrollY + 50;
+      if (!this.$page.headers) return;
       const headers = this.$page.headers
         .map(h => ({
           ...h,
