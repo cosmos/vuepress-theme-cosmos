@@ -134,7 +134,6 @@ export default {
           ...h,
           y: h.y + window.scrollY
         }));
-      console.log(middleY, headers);
       headers.forEach((h, i) => {
         const curr = headers[i];
         const next = headers[i + 1];
