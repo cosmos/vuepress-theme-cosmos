@@ -67,6 +67,8 @@ span
   overflow-y hidden
   padding-top 0.5rem
   padding-bottom 0.5rem
+  padding-left 1rem
+  padding-right 1rem
 
   &__expanded__true
     max-height var(--max-height)
@@ -74,6 +76,8 @@ span
   &__wrapper
     font-family 'Menlo', 'Monaco', 'Fira Code', monospace
     font-size 0.785rem
+    // Fix for right-side padding when content is overflowing
+    display inline-block
 
   &.body__hasfooter__true
     border-bottom-left-radius 0
