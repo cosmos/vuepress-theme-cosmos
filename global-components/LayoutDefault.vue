@@ -1,11 +1,42 @@
 <template lang="pug">
   div(style="width: 100%")
+    .search__container
+      .search(@click="$emit('search', true)")
+        .search__icon
+          icon-search
+        .search__text Search
     .container
       slot
       tm-content-cards(v-if="$frontmatter.cards")
 </template>
 
 <style lang="stylus" scoped>
+.search
+  display flex
+  align-items center
+  color rgba(22, 25, 49, 0.65)
+  padding-top 0.5rem
+  width calc(var(--aside-width) - 6rem)
+  cursor pointer
+  position absolute 
+  top 1rem
+  right 4rem
+  justify-content flex-end
+
+  &__container
+    visibility hidden
+    display flex
+    justify-content flex-end
+    margin-top 1rem
+    margin-bottom 1rem
+
+  &__icon
+    width 1.5rem
+    height 1.5rem
+    fill #aaa
+    margin-right 0.5rem
+
+
 .footer__links
   padding-top 5rem
   padding-bottom 1rem
@@ -273,6 +304,10 @@
 
     &__container
       padding-left 2rem
+
+@media screen and (max-width: 1136px) and (min-width: 833px)
+  .search__container
+    visibility visible
 </style>
 
 <script>
@@ -293,25 +328,6 @@ export default {
       const elementId = document.querySelector(window.location.hash);
       if (elementId) elementId.scrollIntoView();
     }
-    // const onIntersection = items => {
-    //   if (items && items[0].isIntersecting) this.$emit("selected", items);
-    // };
-    // let observer = new IntersectionObserver(onIntersection, {
-    //   rootMargin: "0px"
-    // });
-    // const searchForHeaders = () => {
-    //   const headers = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    //   if (headers && headers.length > 0) {
-    //     headers.forEach(header => {
-    //       if (header) observer.observe(header);
-    //     });
-    //   } else {
-    //     setTimeout(() => {
-    //       searchForHeaders();
-    //     }, 1000);
-    //   }
-    // };
-    // searchForHeaders();
   },
   computed: {
     noAside() {
