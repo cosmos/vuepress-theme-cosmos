@@ -11,7 +11,7 @@
         :href="(outboundLink(item.path) || item.static) && item.path"
         :class="[level > 0 && 'item__child',{'item__dir': !item.path}]"
         tag="a"
-        @keydown.enter="revealChild(item.title)"
+        @keydown.enter="handleEnter(item)"
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
         tm-icon-hex(v-if="iconExpanded(item) && level < 1" :style="{'--icon-color': `var(--accent-color, black)`}").item__icon.item__icon__expanded
@@ -157,17 +157,24 @@ export default {
     outboundLink(path) {
       return /^[a-z]+:/i.test(path);
     },
-    componentName(item) {
-      if (
+    isInternalLink(item) {
+      return (
         item.path &&
         !item.directory &&
         !item.static &&
         !this.outboundLink(item.path)
-      )
-        return "router-link";
-      if ((item.path && this.outboundLink(item.path)) || item.static) {
-        return "a";
-      }
+      );
+    },
+    isOutboundLink(item) {
+      return (item.path && this.outboundLink(item.path)) || item.static;
+    },
+    handleEnter(item) {
+      console.log("enter");
+      this.revealChild(item.title);
+    },
+    componentName(item) {
+      if (this.isInternalLink(item)) return "router-link";
+      if (this.isOutboundLink(item)) return "a";
       return "div";
     },
     indexFile(item) {

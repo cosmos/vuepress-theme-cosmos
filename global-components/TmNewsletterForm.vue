@@ -5,7 +5,7 @@
       .newsletter__desc__p You’ll be notified with Cosmos updates, news and announcements.
     .newsletter__input
       .newsletter__input__input
-        input(type="email" name="CONTACT_EMAIL" id="newsletter-email-input" placeholder="Your email").newsletter__input__input__el
+        input(type="email" required name="CONTACT_EMAIL" id="newsletter-email-input" placeholder="Your email").newsletter__input__input__el
         button(type="submit").newsletter__input__input__button Sign up
         input#submitType(type="hidden" name="submitType" value="optinCustomView")
         input#lD(type="hidden" name="lD" value="16352f88325b24db")
@@ -59,6 +59,9 @@
       padding .5rem
       border-radius .25rem
 
+      &:focus-within
+        border-color #66A1FF
+        
       &__button
         padding .5rem
         text-transform uppercase
@@ -73,7 +76,8 @@
         width 100%
         outline none
         padding .5rem
-    
+        background none
+  
     &__p
       margin-top .5rem
       color rgba(22, 25, 49, 0.65)
