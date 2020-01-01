@@ -92,6 +92,9 @@
     line-height 24px
     margin-top 2rem
     margin-bottom 2rem
+    box-shadow 0 0 0 1px rgba(140, 145, 177, 0.32)
+    border-radius .5rem
+    border-collapse collapse
 
   td
     word-break break-word
@@ -103,7 +106,12 @@
 
   td, th
     padding 0.75rem
-    border-bottom 1px solid rgba(140, 145, 177, 0.32)
+  
+  tr
+    box-shadow 0 1px 0 0 rgba(140, 145, 177, 0.32)
+
+  tr + tr:last-child
+    box-shadow none
 
   tr:last-child td
     border-bottom none
