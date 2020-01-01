@@ -74,7 +74,6 @@ span
   &__wrapper
     font-family 'Menlo', 'Monaco', 'Fira Code', monospace
     font-size 0.785rem
-    margin 1rem
 
   &.body__hasfooter__true
     border-bottom-left-radius 0

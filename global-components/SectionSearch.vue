@@ -7,7 +7,7 @@
         .search-box__input
           input(type="text" autocomplete="off" placeholder="Search" id="search-box-input" ref="search" :value="query" @input="$emit('query', $event.target.value)").search-box__input__input
         .search-box__clear
-          icon-circle-cross(v-if="query && query.length > 0" @click.native="query = ''" @keydown.enter="query = ''" tabindex="1").search-box__clear__icon
+          icon-circle-cross(v-if="query && query.length > 0" @click.native="$emit('query', '')" @keydown.enter="$emit('query', '')" tabindex="1").search-box__clear__icon
         a.search-box__button(@click="$emit('visible', false)" @keydown.enter="$emit('visible', false)" tabindex="1") Cancel
       .results
         .shortcuts(v-if="!query")

@@ -1,10 +1,22 @@
 <template lang="pug">
   div
     div(v-for="item in value")
-      component(:style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--accent-color)' : 'rgba(176, 180, 207, 0.2)' }" :is="componentName(item)" v-if="!hide(item)" :to="item.path" :target="outboundLink(item.path) && '_blank'" :href="(outboundLink(item.path) || item.static) && item.path" @click="!outboundLink(item.path) && revealChild(item.title)" :class="{'item__dir': !item.path}").item
-        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="fill: var(--accent-color, black)").item__icon
-        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="fill: #ccc").item__icon
-        tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon
+      component(
+        tabindex="0"
+        v-if="!hide(item)"
+        :style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--accent-color)' : 'rgba(176, 180, 207, 0.2)' }"
+        :is="componentName(item)"
+        :to="item.path"
+        :target="outboundLink(item.path) && '_blank'"
+        :href="(outboundLink(item.path) || item.static) && item.path"
+        :class="[level > 0 && 'item__child',{'item__dir': !item.path}]"
+        tag="a"
+        @keydown.enter="revealChild(item.title)"
+        @click="!outboundLink(item.path) && revealChild(item.title)"
+      ).item
+        tm-icon-hex(v-if="iconExpanded(item) && level < 1" :style="{'--icon-color': `var(--accent-color, black)`}").item__icon.item__icon__expanded
+        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: #ccc").item__icon.item__icon__collapsed
+        tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="md(titleText(item))")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
@@ -14,13 +26,37 @@
 <style lang="stylus" scoped>
 .item
   position relative
-  padding-left 1.25rem
+  padding-left 1.5rem
   display block
-  padding-top .35rem
-  padding-bottom .35rem
+  padding-top .375rem
+  padding-bottom .375rem
   cursor pointer
   font-size .875rem
   letter-spacing 0.01em
+  line-height 20px
+  outline none
+
+  &__child
+    color rgba(22, 25, 49, 0.65)
+
+    &:hover, &:focus
+      color #161931
+
+  &:hover, &:focus
+
+    .item__icon.item__icon__collapsed
+      stroke var(--accent-color, black)
+      fill none
+
+  &:hover, &:focus
+
+    .item__icon.item__icon__expanded
+      stroke none
+      fill none
+      background var(--accent-color, black)
+      height 1px
+      padding-top 1px
+      margin-top 4px
 
   &:after
     content ''
@@ -48,8 +84,11 @@
 
   &__icon
     position absolute
-    top .5rem
+    top .65rem
     left 0
+    width 12px
+    height 12px
+    fill var(--icon-color)
 
 .reveal-enter-active, .reveal-leave-active
   transition all 0.25s

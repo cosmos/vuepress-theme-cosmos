@@ -90,6 +90,8 @@
   table
     width 100%
     line-height 24px
+    margin-top 2rem
+    margin-bottom 2rem
 
   td
     word-break break-word

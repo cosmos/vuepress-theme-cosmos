@@ -80,13 +80,9 @@ strong
 
 .container
   background var(--sidebar-bg)
-  // padding 0 3rem 2rem
 
 .wrapper
   max-width calc(1400px - var(--sidebar-width))
-  // margin 0 auto
-  // padding-left 4rem
-  // padding-right 2rem
 
 .title
   font-size 2rem
@@ -111,6 +107,11 @@ strong
     background var(--bg)
     transition box-shadow .25s
 
+    &__text
+      font-size .875rem
+      line-height 20px
+      letter-spacing 0.01em
+
     &:hover
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
 
@@ -125,11 +126,6 @@ a.links__item
 a.links__item__regular
   color #161931
   background rgba(176, 180, 207, 0.09)
-
-// @media screen and (max-width: 1024px)
-//   .container
-//     padding-left 1.5rem
-//     padding-right 1.5rem
 
 @media screen and (max-width: 832px)
   .newsletter

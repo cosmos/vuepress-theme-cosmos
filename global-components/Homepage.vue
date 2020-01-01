@@ -108,6 +108,7 @@
   grid-template-columns repeat(auto-fit, minmax(300px, 1fr))
   gap 1.5rem
   margin-bottom 3rem
+  margin-top 2.25rem
 
   &__item
     cursor pointer
