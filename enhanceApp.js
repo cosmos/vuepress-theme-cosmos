@@ -1,9 +1,10 @@
 // import pageComponents from "@internal/page-components";
-import { Tooltip } from "@cosmos-ui/vue";
+import { Tooltip, CookieBanner } from "@cosmos-ui/vue";
 import MarkdownIt from "markdown-it";
 
 export default ({ Vue }) => {
   Vue.component("df", Tooltip);
+  Vue.component("df", CookieBanner);
   // for (const [name, component] of Object.entries(pageComponents)) {
   //   Vue.component(name, component);
   // }
