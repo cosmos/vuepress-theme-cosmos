@@ -80,6 +80,7 @@
       padding-right 2.5rem
       display none
       position sticky
+      top 0
       width 100%
       background white
       z-index 500
