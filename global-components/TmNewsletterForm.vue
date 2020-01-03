@@ -27,7 +27,7 @@
 <style lang="stylus" scoped>
 .newsletter__form__component__internal
   display grid
-  grid-template-columns repeat(auto-fit, minmax(300px, 1fr))
+  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
   width 100%
   align-items flex-end
   background-color white
