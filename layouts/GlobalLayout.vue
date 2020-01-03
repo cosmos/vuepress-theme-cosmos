@@ -1,5 +1,6 @@
 <template lang="pug">
   div
+    cookie-banner
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
@@ -255,8 +256,10 @@ import {
   map
 } from "lodash";
 import hotkeys from "hotkeys-js";
+import { CookieBanner } from "@cosmos-ui/vue";
 
 export default {
+  components: { CookieBanner, },
   data: function() {
     return {
       sidebarVisible: null,
