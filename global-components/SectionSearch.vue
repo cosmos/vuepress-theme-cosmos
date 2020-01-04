@@ -155,6 +155,7 @@ strong
     align-items center
     justify-content center
     flex-grow 1
+    margin-top 4rem
 
   &__noresults
     display flex
@@ -165,6 +166,7 @@ strong
     &__icon
       max-width 80px
       margin-bottom 2rem
+      fill #ccc
 
     &__h1
       color rgba(22, 25, 49, 0.65)
