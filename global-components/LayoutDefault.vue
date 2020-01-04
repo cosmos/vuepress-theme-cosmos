@@ -74,6 +74,55 @@
       max-width initial
 
 /deep/
+
+  h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]
+    display none
+    align-items center
+    cursor pointer
+
+    &:before
+      content ""
+      width 24px
+      height 24px
+      display block
+      margin-right .75rem
+      background url('./images/icon-chevron.svg')
+      transition all .25s
+
+  h1[id*="requisite"].prereqTitleShow, h2[id*="requisite"].prereqTitleShow, h3[id*="requisite"].prereqTitleShow, h4[id*="requisite"].prereqTitleShow, h5[id*="requisite"].prereqTitleShow, h6[id*="requisite"].prereqTitleShow
+
+    &:before
+      transform rotate(90deg)
+
+  h1[id*="requisite"] + ul, h2[id*="requisite"] + ul, h3[id*="requisite"] + ul, h4[id*="requisite"] + ul, h5[id*="requisite"] + ul, h6[id*="requisite"] + ul
+    padding-left initial
+    display none
+
+  li[prereq]
+    padding-left initial
+    display none
+
+    &:before
+      display none
+
+  li[prereq].prereqLinkShow
+    display block
+
+  li[prereq] a[href]
+    box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+    padding 1rem
+    border-radius 0.5rem
+    color #161931
+    font-size 0.875rem
+    font-weight 500
+    line-height 20px
+    margin 1rem 0
+    display block
+    letter-spacing 0.01em
+
+    &:hover
+      color inherit
+
   [synopsis]
     padding 1.5rem 2rem
     background-color rgba(176, 180, 207, 0.09)
@@ -150,9 +199,6 @@
   .code-block__container
     margin-top 2rem
     margin-bottom 2rem
-
-  [prereq]
-    display none
 
   .content__default
     width 100%
@@ -308,6 +354,14 @@
 @media screen and (max-width: 1136px) and (min-width: 833px)
   .search__container
     visibility visible
+
+@media screen and (max-width: 1136px)
+  >>> h1[id*="requisite"], >>> h2[id*="requisite"], >>> h3[id*="requisite"], >>> h4[id*="requisite"], >>> h5[id*="requisite"], >>> h6[id*="requisite"]
+    display flex
+
+  >>> h1[id*="requisite"] + ul, >>> h2[id*="requisite"] + ul, >>> h3[id*="requisite"] + ul, >>> h4[id*="requisite"] + ul, >>> h5[id*="requisite"] + ul, >>> h6[id*="requisite"] + ul
+    display block
+
 </style>
 
 <script>
@@ -324,10 +378,21 @@ export default {
     }
   },
   mounted() {
+    document.querySelectorAll('h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]').forEach(node => {
+      node.addEventListener("click", this.prereqToggle)
+    })
     if (window.location.hash) {
       const elementId = document.querySelector(window.location.hash);
       if (elementId) elementId.scrollIntoView();
     }
+  },
+  methods: {
+    prereqToggle(e) {
+      e.target.classList.toggle('prereqTitleShow')
+      document.querySelectorAll('[prereq]').forEach(node => {
+        node.classList.toggle('prereqLinkShow')
+      })
+    },
   },
   computed: {
     noAside() {
