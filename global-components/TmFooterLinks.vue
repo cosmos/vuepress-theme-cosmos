@@ -81,7 +81,7 @@
 </style>
 
 <script>
-import { findIndex } from "lodash";
+import { findIndex, find } from "lodash";
 
 export default {
   props: ["tree"],
@@ -98,7 +98,7 @@ export default {
       if (!this.tree) return;
       let result = {};
       const search = tree => {
-        return tree.forEach(item => {
+        return tree.forEach((item, i) => {
           const children = item.children;
           if (children) {
             const index = findIndex(children, ["regularPath", this.$page.path]);
@@ -107,6 +107,8 @@ export default {
             }
             if (index >= 0 && children[index + 1]) {
               result.next = children[index + 1];
+            } else if (index >= 0 && tree[i+1] && tree[i+1].children) {
+              result.next = find(tree[i+1].children, x => x.frontmatter.order !== false)
             }
             return search(item.children);
           }
