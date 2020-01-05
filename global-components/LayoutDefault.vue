@@ -190,6 +190,12 @@
   tr
     box-shadow 0 1px 0 0 rgba(140, 145, 177, 0.32)
 
+  tr:only-child
+    box-shadow none
+
+  thead tr:only-child
+    box-shadow 0 1px 0 0 rgba(140, 145, 177, 0.32)
+
   tr + tr:last-child
     box-shadow none
 
