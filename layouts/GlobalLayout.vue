@@ -68,12 +68,22 @@
     scrollbar-color #eee white
 
     &::-webkit-scrollbar
-      background white
+      background rgba(255,255,255,0)
       width 6px
+      transition background .25s
 
     &::-webkit-scrollbar-thumb
-      background #eee
+      background rgba(255,255,255,0)
       border-radius 6px
+      transition background .25s
+
+    &:hover
+
+      &::-webkit-scrollbar
+        background rgba(255,255,255,0)
+  
+      &::-webkit-scrollbar-thumb
+        background #eee
 
   &__main
 
@@ -92,7 +102,6 @@
       grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
 
       &__body
-        // padding-top 6.5rem
 
         &__breadcrumbs
           padding-left 3.25rem
@@ -111,12 +120,22 @@
         scrollbar-color #eee white
 
         &::-webkit-scrollbar
-          background white
+          background rgba(255,255,255,0)
           width 6px
+          transition background .25s
 
         &::-webkit-scrollbar-thumb
-          background #eee
+          background rgba(255,255,255,0)
           border-radius 6px
+          transition background .25s
+
+        &:hover
+
+          &::-webkit-scrollbar
+            background rgba(255,255,255,0)
+      
+          &::-webkit-scrollbar-thumb
+            background #eee
 
         &__container
           position relative
