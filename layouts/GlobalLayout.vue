@@ -44,6 +44,7 @@
   position absolute
   bottom 0
   right 0
+  max-height initial
   top initial
   height initial
 
@@ -105,7 +106,7 @@
       &__aside
         position sticky
         top 0
-        height 100vh
+        max-height 100vh
         overflow-y scroll
         scrollbar-color #eee white
 
