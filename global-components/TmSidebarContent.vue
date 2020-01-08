@@ -147,7 +147,7 @@ export default {
         {
           label: "sdk",
           name: "Cosmos<br>SDK",
-          url: "https://cosmos.network/docs/",
+          url: "https://docs.cosmos.network/",
           color: "#5064FB"
         },
         {
