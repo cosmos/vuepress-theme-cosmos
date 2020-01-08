@@ -17,7 +17,7 @@
         tm-icon-hex(v-if="iconExpanded(item) && level < 1" :style="{'--icon-color': `var(--accent-color, black)`}").item__icon.item__icon__expanded
         tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: #ccc").item__icon.item__icon__collapsed
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
-        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="md(titleText(item))")
+        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleText(item)")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
           tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
