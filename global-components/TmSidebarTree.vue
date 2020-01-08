@@ -193,12 +193,15 @@ export default {
     },
     titleText(item) {
       const index = this.indexFile(item);
-      const parentTitle =
-        index &&
-        index.frontmatter &&
-        index.frontmatter.parent &&
-        index.frontmatter.parent.title;
-      return parentTitle || (index && index.title) || item.title;
+      if (item.frontmatter) {
+        return item.frontmatter.title || item.title
+      }
+      if (index) {
+        if (index.frontmatter && index.frontmatter.parent && index.frontmatter.parent.title) return index.frontmatter.parent.title
+        if (index.title.match(/readme\.md/i) || index.title.match(/index\.md/i)) return item.title
+        return index.title
+      }
+      return item.title
     },
     revealChild(title) {
       this.show = this.show == title ? null : title;
