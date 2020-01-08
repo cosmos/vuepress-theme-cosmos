@@ -74,6 +74,8 @@
       max-width initial
 
 /deep/
+  a.header-anchor
+    display none
 
   h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]
     display none
