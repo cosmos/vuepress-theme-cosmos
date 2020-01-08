@@ -18,6 +18,7 @@
     "clipboard-copy": "^3.1.0",
     "docsearch.js": "^2.6.3",
     "dom-parser": "^0.1.6",
+    "entities": "^2.0.0",
     "fuse.js": "^3.4.6",
     "gray-matter": "^4.0.2",
     "hotkeys-js": "^3.7.3",
