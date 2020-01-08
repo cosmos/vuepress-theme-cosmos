@@ -7,7 +7,7 @@
       .logo
         router-link(to="/" tag="div").logo__wrapper
           .logo__image
-            component(:is="`tm-logo-${$themeConfig.label}`")
+            component(:is="`tm-logo-${$themeConfig.label || 'sdk'}`")
           .logo__text {{$site.title}}
       .toolbar
         .toolbar__item(@click="$emit('search', true)")

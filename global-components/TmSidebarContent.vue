@@ -4,7 +4,7 @@
       router-link(to="/" v-if="!(compact === true)").logo__container
         .logo
           .logo__img
-            component(:is="`logo-${$themeConfig.label}`")
+            component(:is="`logo-${$themeConfig.label || 'sdk'}`")
           .logo__text {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value").sidebar
