@@ -18,7 +18,7 @@ npm install --save vuepress-theme-cosmos
 Minimal config in `.vuepress/config.js` to enable the theme:
 
 ```js
-modules.exports = {
+module.exports = {
   theme: "cosmos"
 }
 ```
