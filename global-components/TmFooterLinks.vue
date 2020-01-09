@@ -108,7 +108,9 @@ export default {
             if (index >= 0 && children[index + 1]) {
               result.next = children[index + 1];
             } else if (index >= 0 && tree[i+1] && tree[i+1].children) {
-              result.next = find(tree[i+1].children, x => x.frontmatter.order !== false)
+              result.next = find(tree[i+1].children, x => {
+                return x.frontmatter && x.frontmatter.order !== false
+              })
             }
             return search(item.children);
           }
