@@ -74,8 +74,58 @@
       max-width initial
 
 /deep/
+  h2, h3, h4, h5, h6
+
+    &:hover
+      a.header-anchor
+        opacity 1
+
   a.header-anchor
-    display none
+    opacity 0
+    position absolute
+    font-weight 400
+    left -1.5em
+    width 1.5em
+    text-align center
+    box-sizing border-box
+    color rgba(0,0,0,.5)
+    transition all .25s
+
+    &:before
+      transition all .25s
+      opacity 0
+      border-radius .25rem
+      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      content attr(data-header-anchor-text)
+      width 4rem
+      background #161931
+      color white
+      position absolute
+      top -2rem
+      padding 7px 12px
+      white-space nowrap
+      left 50%
+      transform translateX(-50%)
+      font-size .8125rem
+      line-height 1
+
+    &:after
+      transition all .25s
+      content "◥◤"
+      position absolute
+      top -17px
+      left 50%
+      transform translateX(-50%)
+      color #161931
+      font-size .5rem
+      opacity 0
+
+    &:hover:after
+      opacity 1
+
+    &:hover:before
+      transition all .25s
+      opacity 1
 
   h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]
     display none
@@ -352,6 +402,18 @@
     a:focus code
       box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px rgba(102, 161, 255, 0.7)
 
+@media screen and (max-width: 1136px)
+  >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
+    padding-right 1.5rem
+
+  >>> a.header-anchor
+    left initial
+    right 0
+    opacity 1
+
+  >>> h1 a.header-anchor
+    display none
+
 @media screen and (max-width: 1024px)
   .content
     padding-right 0
@@ -374,6 +436,7 @@
 
 <script>
 import { findIndex, sortBy } from "lodash";
+import copy from "clipboard-copy";
 
 export default {
   props: {
@@ -386,8 +449,20 @@ export default {
     }
   },
   mounted() {
+    const headerAnchorClick = (event) => {
+      event.target.setAttribute("data-header-anchor-text", "Copied!")
+      copy(event.target.href)
+      setTimeout(() => {
+        event.target.setAttribute("data-header-anchor-text", "Copy link!")
+      }, 1000)
+      event.preventDefault()
+    }
     document.querySelectorAll('h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]').forEach(node => {
       node.addEventListener("click", this.prereqToggle)
+    })
+    document.querySelectorAll("a.header-anchor").forEach(node => {
+      node.setAttribute("data-header-anchor-text", "Copy link")
+      node.addEventListener("click", headerAnchorClick)
     })
     if (window.location.hash) {
       const elementId = document.querySelector(window.location.hash);
