@@ -52,6 +52,7 @@ span
   margin-bottom 1rem
   border-radius .5rem
   background #2E3148
+  min-height 4rem
 
 .body__container
   position relative
