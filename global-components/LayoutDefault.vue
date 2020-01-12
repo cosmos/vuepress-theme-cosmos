@@ -91,7 +91,7 @@
     color rgba(0,0,0,.5)
     transition all .25s
 
-    &:before
+    &:after
       transition all .25s
       opacity 0
       border-radius .25rem
@@ -101,7 +101,7 @@
       background #161931
       color white
       position absolute
-      top -2rem
+      top -2.5em
       padding 7px 12px
       white-space nowrap
       left 50%
@@ -109,21 +109,20 @@
       font-size .8125rem
       line-height 1
 
-    &:after
+    &:before
       transition all .25s
       content "◥◤"
       position absolute
-      top -17px
+      top -1.1em
       left 50%
       transform translateX(-50%)
       color #161931
-      font-size .5rem
       opacity 0
 
-    &:hover:after
+    &:hover:before
       opacity 1
 
-    &:hover:before
+    &:hover:after
       transition all .25s
       opacity 1
 
@@ -460,7 +459,7 @@ export default {
     document.querySelectorAll('h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]').forEach(node => {
       node.addEventListener("click", this.prereqToggle)
     })
-    document.querySelectorAll("a.header-anchor").forEach(node => {
+    document.querySelectorAll(".content__default a.header-anchor").forEach(node => {
       node.setAttribute("data-header-anchor-text", "Copy link")
       node.addEventListener("click", headerAnchorClick)
     })
