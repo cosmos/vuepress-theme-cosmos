@@ -93,12 +93,10 @@
 
     &:after
       transition all .25s
-      opacity 0
       border-radius .25rem
-      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
       content attr(data-header-anchor-text)
       width 4rem
-      background #161931
+      background white
       color white
       position absolute
       top -2.5em
@@ -116,15 +114,14 @@
       top -1.1em
       left 50%
       transform translateX(-50%)
-      color #161931
-      opacity 0
+      color white
 
     &:hover:before
-      opacity 1
+      color #161931
 
     &:hover:after
-      transition all .25s
-      opacity 1
+      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      background #161931
 
   h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]
     display none
