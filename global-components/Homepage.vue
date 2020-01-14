@@ -20,7 +20,7 @@
           .features__item__text__p High-level overview of the Cosmos SDK.
           .features__item__text__tag
             .features__item__text__tag__text 5 min
-      a(href="https://tutorials.cosmos.network" target="_blank").features__item.features__item__dark
+      a(href="https://tutorials.cosmos.network" target="_blank" rel="noopener").features__item.features__item__dark
         icon-arrow.features__item__icon
         .features__item__image
           icon-window.features__item__image__img

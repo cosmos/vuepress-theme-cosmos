@@ -8,6 +8,7 @@
         :is="componentName(item)"
         :to="item.path"
         :target="outboundLink(item.path) && '_blank'"
+        :rel="outboundLink(item.path) && 'noreferrer noopener'"
         :href="(outboundLink(item.path) || item.static) && item.path"
         :class="[level > 0 && 'item__child',{'item__dir': !item.path}]"
         tag="a"

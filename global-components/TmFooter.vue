@@ -13,7 +13,7 @@
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
               .links__item__title {{item.title}}
-              a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
+              a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank" rel="noopenner noreferrer").links__item__link {{link.title}}
           .logo
             .logo__item
               //- img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo").logo__image

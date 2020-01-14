@@ -12,7 +12,7 @@
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
       .footer(:class="[`footer__compact__${!!(compact === true)}`]")
-        a(:href="product.url" target="_blank" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
           div.footer__item__title(v-html="md(product.name)")
 </template>
