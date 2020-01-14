@@ -1,7 +1,8 @@
 <template lang="pug">
   form(action="https://zcs1.maillist-manage.com/campaigns/weboptin.zc" method="POST" target="_blank" rel="noreferrer noopener").newsletter__form__component__internal
     .newsletter__desc
-      .newsletter__desc__h1 Get SDK updates
+      .newsletter__desc__h1
+        label(for="newsletter-email-input") Get SDK updates
       .newsletter__desc__p You’ll be notified with Cosmos updates, news and announcements.
     .newsletter__input
       .newsletter__input__input

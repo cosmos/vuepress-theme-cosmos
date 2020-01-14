@@ -7,7 +7,7 @@
             icon-search
           .search__text Search
       a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
-        img(src="./images/goz.jpg").aside__image
+        img(src="./images/goz.jpg" alt="Game of Zones").aside__image
       div(v-if="prereq.length > 0")
         .aside__title Pre-requisite reading
       client-only
