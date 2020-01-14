@@ -10,7 +10,7 @@ module.exports = (options = {}, context) => ({
     const tokens = md.parse($page._content, {})
     const $ = cheerio.load(md.render($page._content))
     $page.frontmatter = {
-      synopsis: $('[synopsis]').text(),
+      description: $('[synopsis]').text(),
       ...$page.frontmatter,
       ...matter($page._content, { delims: ['<!--', '-->'] }).data,
     }

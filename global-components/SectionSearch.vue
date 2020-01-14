@@ -278,7 +278,7 @@ export default {
             key: doc.key,
             title: doc.title,
             headers: doc.headers && doc.headers.map(h => h.title).join(" "),
-            synopsis: doc.frontmatter.synopsis,
+            description: doc.frontmatter.description,
             path: doc.path
           };
         })
@@ -290,7 +290,7 @@ export default {
           );
         }),
       {
-        keys: ["title", "headers", "synopsis", "path"],
+        keys: ["title", "headers", "description", "path"],
         shouldSort: true,
         includeScore: true,
         includeMatches: true
@@ -301,9 +301,9 @@ export default {
   },
   methods: {
     resultSynopsis(result) {
-      if (!result.item.frontmatter.synopsis) return false;
+      if (!result.item.frontmatter.description) return false;
       return this.md(
-        result.item.frontmatter.synopsis
+        result.item.frontmatter.description
           .split("")
           .slice(0, 75)
           .join("") + "..."
@@ -337,8 +337,8 @@ export default {
       return (
         this.itemByKey(item.ref) &&
         this.itemByKey(item.ref).frontmatter &&
-        this.itemByKey(item.ref).frontmatter.synopsis &&
-        this.md(this.itemByKey(item.ref).frontmatter.synopsis)
+        this.itemByKey(item.ref).frontmatter.description &&
+        this.md(this.itemByKey(item.ref).frontmatter.description)
       );
     },
     itemClick(url, item) {
