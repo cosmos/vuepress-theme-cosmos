@@ -23,6 +23,10 @@ module.exports = (opts, ctx) => {
   return {
     plugins: [
       require('./plugin-frontmatter.js'),
+      ...["warning", "tip", "danger"].map(type => [
+        "container",
+        { type, defaultTitle: false }
+      ]),
     ],
     extendMarkdown: md => {
       md.use(ghmd)
