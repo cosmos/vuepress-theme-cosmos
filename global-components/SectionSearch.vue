@@ -39,8 +39,7 @@
               span Try queries such as #[span.results__noresults__a(@click="query = 'auth'" @keydown.enter="query = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="query = 'slashing'" @keydown.enter="query = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="query = 'staking'" @keydown.enter="query = 'staking'" tabindex="0") staking].
         div(v-if="query && searchResults && searchResults.length > 0")
           .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result), result.item)" @click="itemClick(resultLink(result), result.item)")
-            //- pre {{result}}
-            .results__item__title #[span(v-if="itemPath(result.item)") {{itemPath(result.item)}} /] {{result.item.title}}
+            .results__item__title(v-html="resultTitle(result)")
             .results__item__desc(v-if="resultSynopsis(result)" v-html="resultSynopsis(result)")
             .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).title}}
 </template>
@@ -300,6 +299,10 @@ export default {
     this.search();
   },
   methods: {
+    resultTitle(result) {
+      const path = this.itemPath(result.item) ? this.itemPath(result.item) + " /" : ""
+      return this.md(`${path} ${result.item.title}`)
+    },
     resultSynopsis(result) {
       if (!result.item.frontmatter.description) return false;
       return this.md(
