@@ -102,10 +102,14 @@ export default {
     visible(newValue, oldValue) {
       if (newValue) {
         const body = document.querySelector("body").style;
+        const html = document.querySelector("html").style;
         const iOS =
           !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const sidebar = this.$refs.sidebar;
-        if (iOS) body.position = "relative";
+        body.height = "100%"
+        body.overflow="hidden"
+        html.height = "100%"
+        html.overflow="hidden"
         body.overflowY = "hidden";
         // body.overflowX = "hidden";
         if (sidebar) {

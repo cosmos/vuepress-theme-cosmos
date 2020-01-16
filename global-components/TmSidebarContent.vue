@@ -72,6 +72,13 @@
   margin-top 2rem
   margin-bottom 0.5rem
 
+.footer.footer__compact__true
+  padding-bottom 150px
+  bottom initial
+  margin-top 0
+  position relative
+  flex-grow 1
+
 .footer
   height var(--sidebar-footer-height)
   padding-top 1rem
@@ -86,12 +93,6 @@
   padding-right 0.75rem
   align-items center
   grid-auto-columns 1fr
-
-  &__compact__true
-    bottom initial
-    margin-top 0
-    position relative
-    flex-grow 1
 
   &:before
     content ''
