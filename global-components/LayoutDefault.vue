@@ -407,6 +407,11 @@
     right 0
     opacity 1
 
+    &:after
+      transform none
+      left initial
+      right -5px
+
   >>> h1 a.header-anchor
     display none
 
