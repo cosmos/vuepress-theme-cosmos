@@ -55,8 +55,8 @@
 export default {
   methods: {
     goto(fragment) {
-      this.$emit("toc", false);
-      this.$router.push(`#${fragment}`);
+      this.$emit("visible", false);
+      location.replace(`#${fragment}`);
     }
   }
 };
