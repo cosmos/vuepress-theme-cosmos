@@ -16,8 +16,8 @@
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
             .logo__item
-              //- img(:src="$withBase($themeConfig.footer.logo)" v-if="$themeConfig.footer && $themeConfig.footer.logo" alt="Logo").logo__image
               component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black").logo__image
+              component(:is="`logo-sdk-text`" v-else fill="black").logo__image
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
@@ -25,7 +25,7 @@
           .smallprint(v-if="$themeConfig.footer")
             .smallprint__item.smallprint__item__links
               a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint && full") {{$themeConfig.footer.smallprint}}
+            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
 </template>
 
 <style lang="stylus" scoped>

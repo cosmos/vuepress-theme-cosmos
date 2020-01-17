@@ -7,7 +7,7 @@
             component(:is="`logo-${$themeConfig.label || 'sdk'}`")
           .logo__text {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
-        div(v-for="item in value").sidebar
+        div(v-for="item in value" :style="{display: $themeConfig.autoSidebar === false && item.title == 'Reference' ? 'none' : 'block'}").sidebar
           .title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section

@@ -378,7 +378,7 @@ export default {
     tree() {
       const autoSidebar =
         this.$themeConfig.autoSidebar == false
-          ? {}
+          ? { title: "Reference", children: this.directoryTree } //{}
           : { title: "Reference", children: this.directoryTree };
       return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
     }
