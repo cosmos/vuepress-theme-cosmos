@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function replaceUnsafeChar(ch) {
   return HTML_REPLACEMENTS[ch];
 }
@@ -17,10 +19,12 @@ function escapeHtml(str) {
 }
 
 module.exports = (md) => {
-  const fence = md.renderer.rules.fence
   md.renderer.rules.fence = (...args) => {
     const [tokens, idx, options] = args
     const token = tokens[idx]
-    return `<code-block language="${token.info}" value="${escapeHtml(token.content)}"></code-block>`
+    if (fs.existsSync(token.src)) {
+      token.content = fs.readFileSync(token.src, 'utf8')
+    }
+    return `<code-block language="${token.info}" value="${escapeHtml(JSON.stringify(token))}"></code-block>`
   }
 }
