@@ -16,8 +16,9 @@
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
             .logo__item
-              component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black").logo__image
-              component(:is="`logo-sdk-text`" v-else fill="black").logo__image
+              router-link(to="/" tag="div").logo__image
+                component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
+                component(:is="`logo-sdk-text`" v-else fill="black")
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
@@ -97,11 +98,13 @@
     padding 1.5rem 0
     display flex
     align-items flex-start
+    justify-content flex-start
 
   &__image
-    display block
+    display inline-block
     height 30px
-    width auto
+    max-width 200px
+    cursor pointer
 
   &__link
     grid-column span 2
