@@ -25,6 +25,6 @@ module.exports = (md) => {
     if (fs.existsSync(token.src)) {
       token.content = fs.readFileSync(token.src, 'utf8')
     }
-    return `<code-block language="${token.info}" value="${escapeHtml(JSON.stringify(token))}"></code-block>`
+    return `<code-block language="${token.info}" value="${escapeHtml(token.content)}"></code-block>`
   }
 }
