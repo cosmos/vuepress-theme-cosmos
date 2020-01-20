@@ -228,7 +228,6 @@ strong
 </style>
 
 <script>
-import lunr from "lunr";
 import { find, last, debounce } from "lodash";
 import Fuse from "fuse.js";
 
@@ -236,7 +235,6 @@ export default {
   props: ["visible", "query"],
   data: function() {
     return {
-      lunr: null,
       searchResults: null,
       searchQuery: null,
       fuse: null
