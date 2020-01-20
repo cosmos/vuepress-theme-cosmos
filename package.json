@@ -6,6 +6,18 @@
   "scripts": {
     "postversion": "git push && git push --tags"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cosmos/vuepress-theme-cosmos.git"
+  },
+  "keywords": [
+    "documentation",
+    "docs",
+    "cosmos",
+    "tendermint",
+    "vuepress",
+    "theme"
+  ],
   "author": "",
   "license": "Apache 2.0",
   "dependencies": {
