@@ -1,13 +1,13 @@
 {
   "name": "vuepress-theme-cosmos",
   "version": "1.0.142",
-  "description": "",
+  "description": "Theme for VuePress static site generator used by Tendermint and Cosmos projects.",
   "main": "index.js",
   "scripts": {
     "postversion": "git push && git push --tags"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache 2.0",
   "dependencies": {
     "@cosmos-ui/vue": "^0.5.20",
     "@vuepress/plugin-last-updated": "^1.2.0",
