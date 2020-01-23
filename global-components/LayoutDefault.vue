@@ -135,7 +135,6 @@
       border-radius .25rem
       content attr(data-header-anchor-text)
       width 4rem
-      background white
       color white
       position absolute
       top -2.5em
@@ -145,22 +144,28 @@
       transform translateX(-50%)
       font-size .8125rem
       line-height 1
+      opacity 0
+      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      background #161931
 
     &:before
       transition all .25s
-      content "◥◤"
+      content ""
+      background-image: url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='rgb(22, 25, 49)' d='M12 21l-12-18h24z'/></svg>");
       position absolute
-      top -1.1em
+      width 8px
+      height 8px
+      top -.7em
       left 50%
+      font-size .5rem
       transform translateX(-50%)
-      color white
+      opacity 0
 
     &:hover:before
-      color #161931
+      opacity 1
 
     &:hover:after
-      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
-      background #161931
+      opacity 1
 
   h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]
     display none
