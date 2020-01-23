@@ -55,8 +55,10 @@
 export default {
   methods: {
     goto(fragment) {
-      this.$emit("visible", false);
       location.replace(`#${fragment}`);
+      location.replace(`#${fragment}`);
+      this.$emit("visible", false);
+      this.$emit("toc", false);
     }
   }
 };
