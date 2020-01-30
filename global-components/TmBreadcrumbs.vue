@@ -60,10 +60,11 @@
         content ''
 
 .menu
-  visibility hidden
+  height 3rem
 
   &__item
     position relative
+    display none
 
     &__icon
       cursor pointer
@@ -105,8 +106,8 @@
           box-shadow inset 2px 0 0 0 var(--accent-color)
 
 @media screen and (max-width: 1135px)
-  .menu
-    visibility visible
+  .menu__item
+    display block
 
 @media screen and (max-width: 732px)
   .menu
