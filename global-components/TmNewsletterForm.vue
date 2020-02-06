@@ -11,7 +11,7 @@
         input#submitType(type="hidden" name="submitType" value="optinCustomView")
         input#lD(type="hidden" name="lD" value="16352f88325b24db")
         input#emailReportId(type="hidden" name="emailReportId" value="")
-        input#cmpZuid(type="hidden" name="zx" value="127fec298")
+        input#cmpZuid(type="hidden" name="zx" value="129a50c11")
         input(type="hidden" name="zcvers" value="2.0")
         input#allCheckedListIds(type="hidden" name="oldListIds" value="")
         input#mode(type="hidden" name="mode" value="OptinCreateView")
@@ -20,7 +20,7 @@
         input#zc_Url(type="hidden" value="zcs1.maillist-manage.com")
         input#new_optin_response_in(type="hidden" value="1")
         input#duplicate_optin_response_in(type="hidden" value="1")
-        input#zc_formIx(type="hidden" name="zc_formIx" value="4ef47fbb86ab6668436a999521baa5557461b395c6e88487")
+        input#zc_formIx(type="hidden" name="zc_formIx" value="4ef47fbb86ab66681d4cb3275283cf70ab16e7ccaa8dd327")
         input#scriptless(type="hidden" name="scriptless" value="yes")
       .newsletter__input__p You can unsubscribe at any time.
 </template>
