@@ -1,14 +1,12 @@
 <template lang="pug">
   div
     .wrapper
-      //- tm-footer-links(:tree="tree").footer__links
-      //- tm-help-support(v-if="$themeConfig.gutter && full")
       .container
         .footer__wrapper
           .questions(v-if="!full")
             .questions__wrapper
               .questions__h1 Questions?
-              .questions__p Chat with Cosmos developers on Riot or reach out on the SDK Developer Forum to learn more.
+              .questions__p(v-if="$themeConfig.footer.questionsText" v-html="md($themeConfig.footer.questionsText)")
             tm-newsletter-form
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
@@ -47,6 +45,9 @@
   column-gap 10%
   margin-right 10%
   align-items flex-start
+
+  & >>> a[href]
+    color var(--accent-color, #ccc)
 
   &__wrapper
     margin-bottom 2rem
