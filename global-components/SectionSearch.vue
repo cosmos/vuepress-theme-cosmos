@@ -264,8 +264,13 @@ export default {
     }
   },
   mounted() {
-    this.algolia.client = algoliasearch('BH4D9OD16A','ac317234e6a42074175369b2f42e9754');
-    this.algolia.index = this.algolia.client.initIndex('cosmos-sdk');
+    if (this.$themeConfig.algolia) {
+      const algolia = this.$themeConfig.algolia
+      if (algolia.id && algolia.key && algolia.index) {
+        this.algolia.client = algoliasearch(algolia.id, algolia.key);
+        this.algolia.index = this.algolia.client.initIndex(algolia.index);
+      }
+    }
     this.$refs.search.addEventListener("keydown", e => {
       if (e.keyCode == 27) {
         this.$emit("visible", false);
