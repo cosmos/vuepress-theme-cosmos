@@ -38,10 +38,9 @@
             .results__noresults__p
               span Try queries such as #[span.results__noresults__a(@click="query = 'auth'" @keydown.enter="query = 'auth'" tabindex="0") auth], #[span.results__noresults__a(@click="query = 'slashing'" @keydown.enter="query = 'slashing'" tabindex="0") slashing], or #[span.results__noresults__a(@click="query = 'staking'" @keydown.enter="query = 'staking'" tabindex="0") staking].
         div(v-if="query && searchResults && searchResults.length > 0")
-          .results__item(@keydown.40="focusNext" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults" @keydown.enter="itemClick(resultLink(result), result.item)" @click="itemClick(resultLink(result), result.item)")
-            .results__item__title(v-html="resultTitle(result)")
-            .results__item__desc(v-if="resultSynopsis(result)" v-html="resultSynopsis(result)")
-            .results__item__h2(v-if="resultHeader(result)") {{resultHeader(result).title}}
+          a.results__item(@keydown.40="focusNext" :href="result.url" @keydown.38="focusPrev" tabindex="0" ref="result" v-for="result in searchResults" v-if="searchResults")
+            .results__item__title(v-html="result.title")
+            .results__item__desc(v-if="result.content" v-html="result.content")
 </template>
 
 <style lang="stylus" scoped>
@@ -182,6 +181,7 @@ strong
   &__item
     padding 1rem 2rem
     cursor pointer
+    display block
 
     &:focus
       outline none
@@ -230,14 +230,21 @@ strong
 <script>
 import { find, last, debounce } from "lodash";
 import Fuse from "fuse.js";
+import algoliasearch from 'algoliasearch';
 
 export default {
   props: ["visible", "query"],
   data: function() {
     return {
-      searchResults: null,
       searchQuery: null,
-      fuse: null
+      fuse: {
+        index: null,
+      },
+      algolia: {
+        client: null,
+        index: null,
+      },
+      searchResults: null
     };
   },
   watch: {
@@ -257,6 +264,8 @@ export default {
     }
   },
   mounted() {
+    this.algolia.client = algoliasearch('BH4D9OD16A','ac317234e6a42074175369b2f42e9754');
+    this.algolia.index = this.algolia.client.initIndex('cosmos-sdk');
     this.$refs.search.addEventListener("keydown", e => {
       if (e.keyCode == 27) {
         this.$emit("visible", false);
@@ -268,7 +277,7 @@ export default {
         return;
       }
     });
-    this.fuse = new Fuse(
+    this.fuse.index = new Fuse(
       this.$site.pages
         .map(doc => {
           return {
@@ -323,13 +332,34 @@ export default {
     },
     search(e) {
       if (!this.query) return;
-      const fuse = this.fuse.search(this.query).map(result => {
-        return {
-          ...result,
-          item: find(this.$site.pages, { key: result.item.key })
-        };
-      });
-      this.searchResults = fuse;
+      if (this.algolia.index) {
+        this.algolia.index.search(this.query).then(({hits}) => {
+          if (hits && hits.length > 0) {
+            this.searchResults = hits.map(r => {
+              const
+                title = [...Array(6)]
+                  .map((_, i) => r.hierarchy[`lvl${i}`])
+                  .filter(e => e)
+                  .join(' / ')
+              return {
+                title,
+                url: r.url,
+                content: r.content
+              }
+            })
+          }
+        }).catch(() => {
+          if (this.fuse.index) {
+            this.searchResults = this.fuse.index.search(this.query).map(({item}) => {
+              return {
+                title: item.title,
+                url: item.path,
+                content: item.description
+              }
+            })
+          }
+        })
+      }
     },
     itemByKey(key) {
       return find(this.$site.pages, { key });
