@@ -27,11 +27,12 @@ module.exports = function asciiDiagram(md, options) {
       const url = isGithub ? a[1].replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/") : a[1]
       let data = child_process.spawnSync("curl", [url]).stdout.toString()
       const hasLines = a[1].match(/#L[0-9]+-L[0-9]+$/)
+      const golang = !!(a[1].replace(/#L.*$/, "").match(/\.go$/))
       if (data && hasLines) {
         const [lineStart, lineEnd] = hasLines && hasLines[0].replace(/#/g, "").replace(/L/g, "").split("-")
         data = data.split("\n").slice(+lineStart - 1, +lineEnd).join("\n")
       }
-      return `<code-block url="${a[1]}" value="${escapeHtml(data.toString())}"></code-block>`
+      return `<code-block url="${a[1]}" language="${golang && 'go'}" value="${escapeHtml(data.toString())}"></code-block>`
     }
     return escapeHtml(tokens[idx].content);
   };
