@@ -14,7 +14,7 @@
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
             .logo__item
-              router-link(to="/" tag="div").logo__image
+              a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
                 component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                 component(:is="`logo-sdk-text`" v-else fill="black")
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
