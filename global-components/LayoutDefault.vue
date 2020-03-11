@@ -74,6 +74,10 @@
       max-width initial
 
 /deep/
+  .codeblock
+    margin-top 1rem
+    margin-bottom 1rem
+
   .custom-block
 
     &.danger, &.warning, &.tip

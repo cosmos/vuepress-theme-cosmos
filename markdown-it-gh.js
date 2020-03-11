@@ -32,7 +32,7 @@ module.exports = function asciiDiagram(md, options) {
         const [lineStart, lineEnd] = hasLines && hasLines[0].replace(/#/g, "").replace(/L/g, "").split("-")
         data = data.split("\n").slice(+lineStart - 1, +lineEnd).join("\n")
       }
-      return `<code-block url="${a[1]}" language="${golang && 'go'}" value="${escapeHtml(data.toString())}"></code-block>`
+      return `<code-block class="codeblock" language="${golang && 'go'}" base64="${Buffer.from(data).toString("base64")}"></code-block>`
     }
     return escapeHtml(tokens[idx].content);
   };
