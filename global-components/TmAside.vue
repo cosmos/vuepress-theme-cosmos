@@ -6,9 +6,10 @@
           .search__icon
             icon-search
           .search__text Search
-      a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
-        img(src="./images/goz.jpg" alt="Game of Zones").aside__image
-      div(v-if="prereq.length > 0")
+      .banners(v-for="banner in banners" v-if="banners")
+        a(:href="banner.href" target="_blank" rel="noreferrer noopener")
+          img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="banners = null").aside__image
+      div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
       client-only
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
@@ -27,6 +28,9 @@
   justify-content flex-start
   padding-top 0.5rem
   padding-bottom 3.5rem
+
+.banners
+  margin-bottom 3rem
 
 .search
   cursor pointer
@@ -56,7 +60,7 @@
     text-transform uppercase
     letter-spacing 0.2em
     color #666
-    margin-top 3rem
+    margin-top 1rem
     margin-bottom 0.75rem
 
   &__link
@@ -89,33 +93,15 @@
 
 <script>
 export default {
-  props: ["selected"],
+  props: ["selected", "banners", "bannersUrl", "prereq"],
   data: function() {
     return {
-      prereq: [],
-      headerCurrent: null
+      headerCurrent: null,
     };
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("scroll", this.headerActive);
     window.addEventListener("hashchange", this.headerActive);
-    const searchForPrereq = i => {
-      let index = i || 0;
-      if (index > 10) return;
-      const prereq = document.querySelectorAll("[prereq]");
-      if (prereq.length > 0) {
-        this.prereq = [...prereq].map(e => {
-          const link = e.querySelector("[href]");
-          return {
-            href: link.getAttribute("href"),
-            text: link.innerText
-          };
-        });
-      } else {
-        setTimeout(() => searchForPrereq(index + 1), 200);
-      }
-    };
-    searchForPrereq();
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.headerActive);
@@ -126,14 +112,14 @@ export default {
       const middleY = window.scrollY + 50;
       if (!this.$page.headers) return;
       const headers = this.$page.headers
-        .map(h => ({
+        .map((h) => ({
           ...h,
-          y: document.getElementById(h.slug).getBoundingClientRect().top
+          y: document.getElementById(h.slug).getBoundingClientRect().top,
         }))
-        .filter(h => !h.title.match(/\{hide\}/))
-        .map(h => ({
+        .filter((h) => !h.title.match(/\{hide\}/))
+        .map((h) => ({
           ...h,
-          y: h.y + window.scrollY
+          y: h.y + window.scrollY,
         }));
       headers.forEach((h, i) => {
         const curr = headers[i];
@@ -148,7 +134,7 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

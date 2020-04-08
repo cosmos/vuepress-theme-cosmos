@@ -12,11 +12,11 @@
             .layout__main__content__body__breadcrumbs(v-if="!($frontmatter.aside === false)")
               tm-breadcrumbs(@visible="rsidebarVisible = $event")
             .layout__main__content__body__wrapper
-              component(:is="layout" :key="$route.path" @search="searchPanel = $event")
+              component(:is="layout" :key="$route.path" @search="searchPanel = $event" @prereq="prereq = $event")
                 Content
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
-              tm-aside(id="aside-scroll" @search="searchPanel = $event" :key="$route.path")
+              tm-aside(id="aside-scroll" @search="searchPanel = $event" v-bind="{banners, bannersUrl, prereq}")
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
         .layout__main__footer
@@ -36,7 +36,7 @@
     z-index 10000
     position relative
     scrollbar-color #eee white
-      
+
     &__toc
       display none
 
@@ -81,7 +81,7 @@
 
       &::-webkit-scrollbar
         background rgba(255,255,255,0)
-  
+
       &::-webkit-scrollbar-thumb
         background #eee
 
@@ -133,7 +133,7 @@
 
           &::-webkit-scrollbar
             background rgba(255,255,255,0)
-      
+
           &::-webkit-scrollbar-thumb
             background #eee
 
@@ -273,13 +273,14 @@ import {
   isString,
   isArray,
   flattenDeep,
-  map
+  map,
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import { CookieBanner } from "@cosmos-ui/vue";
+import axios from "axios";
 
 export default {
-  components: { CookieBanner, },
+  components: { CookieBanner },
   data: function() {
     return {
       sidebarVisible: null,
@@ -287,10 +288,19 @@ export default {
       rsidebarVisible: null,
       searchPanel: null,
       asideBottom: null,
-      searchQuery: null
+      searchQuery: null,
+      prereq: null,
+      bannersUrl:
+        "https://deploy-preview-795--cosmos-network.netlify.com/banners/",
+      banners: null,
     };
   },
-  mounted() {
+  async mounted() {
+    try {
+      this.banners = (await axios.get(`${this.bannersUrl}/index.json`)).data;
+    } catch {
+      console.log(`Error in fetching data from ${this.bannersUrl}`);
+    }
     document.addEventListener("scroll", () => {
       const content = document.querySelector("#content-scroll");
       const aside = document.querySelector("#aside-scroll");
@@ -337,13 +347,13 @@ export default {
     },
     directoryTree() {
       const files = this.$site.pages;
-      const langDirs = Object.keys(this.$site.locales || {}).map(e =>
+      const langDirs = Object.keys(this.$site.locales || {}).map((e) =>
         e.replace(/\//g, "")
       );
       const langCurrent = (this.$localeConfig.path || "").replace(/\//g, "");
       const langOther = langCurrent.length > 0;
       let tree = {};
-      files.forEach(file => {
+      files.forEach((file) => {
         let location = file.relativePath.split("/");
         if (location.length === 1) {
           return (tree[location[0]] = file);
@@ -359,8 +369,8 @@ export default {
         }, tree);
       });
       tree = langOther ? tree[langCurrent] : omit(tree, langDirs);
-      tree = omitBy(tree, e => typeof e.key === "string");
-      const toArray = object => {
+      tree = omitBy(tree, (e) => typeof e.key === "string");
+      const toArray = (object) => {
         return map(object, (page, title) => {
           const properties =
             page.key && isString(page.key)
@@ -368,7 +378,7 @@ export default {
               : { children: this.sortedList(toArray(page)) };
           return {
             title,
-            ...properties
+            ...properties,
           };
         });
       };
@@ -381,9 +391,12 @@ export default {
           ? { title: "Reference", children: this.directoryTree } //{}
           : { title: "Reference", children: this.directoryTree };
       return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
-    }
+    },
   },
   methods: {
+    log(e) {
+      console.log(e);
+    },
     searchVisible(bool) {
       this.searchPanel = bool;
     },
@@ -402,7 +415,7 @@ export default {
     },
     indexFile(item) {
       if (!item.children) return false;
-      return find(item.children, page => {
+      return find(item.children, (page) => {
         const path = page.relativePath;
         if (!path) return false;
         return (
@@ -413,7 +426,7 @@ export default {
     },
     sortedList(val) {
       if (!isArray(val)) return val;
-      const sorted = sortBy(val, item => {
+      const sorted = sortBy(val, (item) => {
         if (item.frontmatter) return item.frontmatter.order;
         if (item.children) {
           const index = this.indexFile(item);
@@ -426,17 +439,17 @@ export default {
         }
       });
       return sorted;
-    }
+    },
   },
   props: {
     aside: {
       type: Boolean,
-      default: true
+      default: true,
     },
     search: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 };
 </script>
