@@ -8,7 +8,7 @@
           .search__text Search
       .banners(v-for="banner in banners" v-if="banners")
         a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-          img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="banners = null").aside__image
+          img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
       client-only
@@ -60,7 +60,7 @@
     text-transform uppercase
     letter-spacing 0.2em
     color #666
-    margin-top 1rem
+    margin-top 3rem
     margin-bottom 0.75rem
 
   &__link

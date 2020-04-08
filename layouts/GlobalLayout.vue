@@ -16,7 +16,7 @@
                 Content
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
-              tm-aside(id="aside-scroll" @search="searchPanel = $event" v-bind="{banners, bannersUrl, prereq}")
+              tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="banners = null" v-bind="{banners, bannersUrl, prereq}")
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
         .layout__main__footer
@@ -290,8 +290,7 @@ export default {
       asideBottom: null,
       searchQuery: null,
       prereq: null,
-      bannersUrl:
-        "https://deploy-preview-795--cosmos-network.netlify.com/banners/",
+      bannersUrl: "https://cosmos.network/banners/",
       banners: null,
     };
   },
