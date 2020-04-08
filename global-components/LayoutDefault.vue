@@ -18,7 +18,7 @@
   padding-top 0.5rem
   width calc(var(--aside-width) - 6rem)
   cursor pointer
-  position absolute 
+  position absolute
   top 1rem
   right 4rem
   justify-content flex-end
@@ -100,7 +100,7 @@
         top 1rem
         left 1rem
         background-repeat no-repeat
-  
+
     &.danger
       background #FFF6F9
 
@@ -282,7 +282,7 @@
 
   td, th
     padding 0.75rem
-  
+
   tr
     box-shadow 0 1px 0 0 rgba(140, 145, 177, 0.32)
 
@@ -480,7 +480,6 @@
 
   >>> h1[id*="requisite"] + ul, >>> h2[id*="requisite"] + ul, >>> h3[id*="requisite"] + ul, >>> h4[id*="requisite"] + ul, >>> h5[id*="requisite"] + ul, >>> h6[id*="requisite"] + ul
     display block
-
 </style>
 
 <script>
@@ -491,39 +490,56 @@ export default {
   props: {
     aside: {
       type: Boolean,
-      default: true
+      default: true,
     },
     tree: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   mounted() {
+    this.emitPrereqLinks();
     const headerAnchorClick = (event) => {
-      event.target.setAttribute("data-header-anchor-text", "Copied!")
-      copy(event.target.href)
+      event.target.setAttribute("data-header-anchor-text", "Copied!");
+      copy(event.target.href);
       setTimeout(() => {
-        event.target.setAttribute("data-header-anchor-text", "Copy link!")
-      }, 1000)
-      event.preventDefault()
-    }
-    document.querySelectorAll('h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]').forEach(node => {
-      node.addEventListener("click", this.prereqToggle)
-    })
-    document.querySelectorAll(".content__default a.header-anchor").forEach(node => {
-      node.setAttribute("data-header-anchor-text", "Copy link")
-      node.addEventListener("click", headerAnchorClick)
-    })
+        event.target.setAttribute("data-header-anchor-text", "Copy link!");
+      }, 1000);
+      event.preventDefault();
+    };
+    document
+      .querySelectorAll(
+        'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
+      )
+      .forEach((node) => {
+        node.addEventListener("click", this.prereqToggle);
+      });
+    document
+      .querySelectorAll(".content__default a.header-anchor")
+      .forEach((node) => {
+        node.setAttribute("data-header-anchor-text", "Copy link");
+        node.addEventListener("click", headerAnchorClick);
+      });
     if (window.location.hash) {
       const elementId = document.querySelector(window.location.hash);
       if (elementId) elementId.scrollIntoView();
     }
   },
   methods: {
+    emitPrereqLinks() {
+      const prereq = [...document.querySelectorAll("[prereq]")].map((item) => {
+        const link = item.querySelector("[href]");
+        return {
+          href: link.getAttribute("href"),
+          text: link.innerText,
+        };
+      });
+      this.$emit("prereq", prereq);
+    },
     prereqToggle(e) {
-      e.target.classList.toggle('prereqTitleShow')
-      document.querySelectorAll('[prereq]').forEach(node => {
-        node.classList.toggle('prereqLinkShow')
-      })
+      e.target.classList.toggle("prereqTitleShow");
+      document.querySelectorAll("[prereq]").forEach((node) => {
+        node.classList.toggle("prereqLinkShow");
+      });
     },
   },
   computed: {
@@ -533,8 +549,8 @@ export default {
     linkPrevNext() {
       if (!this.tree) return;
       let result = {};
-      const search = tree => {
-        return tree.forEach(item => {
+      const search = (tree) => {
+        return tree.forEach((item) => {
           const children = item.children;
           if (children) {
             const index = findIndex(children, ["regularPath", this.$page.path]);
@@ -550,7 +566,7 @@ export default {
       };
       search(this.tree);
       return result;
-    }
-  }
+    },
+  },
 };
 </script>

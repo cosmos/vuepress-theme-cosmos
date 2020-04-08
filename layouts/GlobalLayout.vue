@@ -12,11 +12,11 @@
             .layout__main__content__body__breadcrumbs(v-if="!($frontmatter.aside === false)")
               tm-breadcrumbs(@visible="rsidebarVisible = $event")
             .layout__main__content__body__wrapper
-              component(:is="layout" :key="$route.path" @search="searchPanel = $event")
+              component(:is="layout" :key="$route.path" @search="searchPanel = $event" @prereq="prereq = $event")
                 Content
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
-              tm-aside(id="aside-scroll" @search="searchPanel = $event" :key="$route.path")
+              tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="banners = null" v-bind="{banners, bannersUrl, prereq}")
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
         .layout__main__footer
@@ -31,12 +31,11 @@
 
 <style lang="stylus" scoped>
 .sheet
-
   &__sidebar
     z-index 10000
     position relative
     scrollbar-color #eee white
-      
+
     &__toc
       display none
 
@@ -68,25 +67,23 @@
     scrollbar-color #eee white
 
     &::-webkit-scrollbar
-      background rgba(255,255,255,0)
+      background rgba(255, 255, 255, 0)
       width 6px
-      transition background .25s
+      transition background 0.25s
 
     &::-webkit-scrollbar-thumb
-      background rgba(255,255,255,0)
+      background rgba(255, 255, 255, 0)
       border-radius 6px
-      transition background .25s
+      transition background 0.25s
 
     &:hover
-
       &::-webkit-scrollbar
-        background rgba(255,255,255,0)
-  
+        background rgba(255, 255, 255, 0)
+
       &::-webkit-scrollbar-thumb
         background #eee
 
   &__main
-
     &__navbar
       padding-left 2.5rem
       padding-right 2.5rem
@@ -102,7 +99,6 @@
       grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
 
       &__body
-
         &__breadcrumbs
           padding-left 3.25rem
           padding-right 3.25rem
@@ -120,20 +116,19 @@
         scrollbar-color #eee white
 
         &::-webkit-scrollbar
-          background rgba(255,255,255,0)
+          background rgba(255, 255, 255, 0)
           width 6px
-          transition background .25s
+          transition background 0.25s
 
         &::-webkit-scrollbar-thumb
-          background rgba(255,255,255,0)
+          background rgba(255, 255, 255, 0)
           border-radius 6px
-          transition background .25s
+          transition background 0.25s
 
         &:hover
-
           &::-webkit-scrollbar
-            background rgba(255,255,255,0)
-      
+            background rgba(255, 255, 255, 0)
+
           &::-webkit-scrollbar-thumb
             background #eee
 
@@ -158,9 +153,7 @@
 
 @media screen and (max-width: 1136px)
   .layout
-
     &__main
-
       &__content
         display block
 
@@ -178,14 +171,12 @@
       display none
 
     &__main
-
       &__navbar
         display block
         padding-left 1.75rem
         padding-right 1.75rem
 
       &__content
-
         &__body
           padding-top 0
 
@@ -208,44 +199,34 @@
 
 @media screen and (max-width: 732px)
   .sheet
-
     &__sidebar
-
       &__toc
         display block
 
   .layout
-
     &__main
-
       &__navbar
         padding-left 1.75rem
         padding-right 1.75rem
 
       &__content
-
         &__body
-
           &__breadcrumbs
             padding-left 1.75rem
             padding-right 1.75rem
 
 @media screen and (max-width: 480px)
   .layout
-
     &__main
-
       &__navbar
-        padding-left .25rem
-        padding-right .25rem
+        padding-left 0.25rem
+        padding-right 0.25rem
 
       &__content
-
         &__body
-
           &__breadcrumbs
-            padding-left .25rem
-            padding-right .25rem
+            padding-left 0.25rem
+            padding-right 0.25rem
 
           &__wrapper
             padding-left 1rem
@@ -277,9 +258,10 @@ import {
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import { CookieBanner } from "@cosmos-ui/vue";
+import axios from "axios";
 
 export default {
-  components: { CookieBanner, },
+  components: { CookieBanner },
   data: function() {
     return {
       sidebarVisible: null,
@@ -287,10 +269,18 @@ export default {
       rsidebarVisible: null,
       searchPanel: null,
       asideBottom: null,
-      searchQuery: null
+      searchQuery: null,
+      prereq: null,
+      bannersUrl: "https://cosmos.network/banners",
+      banners: null
     };
   },
-  mounted() {
+  async mounted() {
+    try {
+      this.banners = (await axios.get(`${this.bannersUrl}/index.json`)).data;
+    } catch {
+      console.log(`Error in fetching data from ${this.bannersUrl}`);
+    }
     document.addEventListener("scroll", () => {
       const content = document.querySelector("#content-scroll");
       const aside = document.querySelector("#aside-scroll");
@@ -384,6 +374,9 @@ export default {
     }
   },
   methods: {
+    log(e) {
+      console.log(e);
+    },
     searchVisible(bool) {
       this.searchPanel = bool;
     },

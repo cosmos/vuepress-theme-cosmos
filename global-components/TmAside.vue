@@ -6,9 +6,11 @@
           .search__icon
             icon-search
           .search__text Search
-      a(href="https://cosmos.network/goz" target="_blank" rel="noreferrer noopener")
-        img(src="./images/goz.jpg" alt="Game of Zones").aside__image
-      div(v-if="prereq.length > 0")
+      .banners(v-if="banners")
+        .banners__item(v-for="banner in banners")
+          a(:href="banner.href" target="_blank" rel="noreferrer noopener")
+            img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+      div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
       client-only
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
@@ -27,6 +29,25 @@
   justify-content flex-start
   padding-top 0.5rem
   padding-bottom 3.5rem
+
+.banners
+  margin-bottom 3rem
+
+  &__item
+    margin-bottom .5rem
+
+    a
+      display block
+      transition transform 150ms ease-out, opacity 150ms ease-out, box-shadow 150ms ease-out
+
+      &:hover:not(:active),
+      &:focus:not(:active)
+        transform translateY(-2px)
+        opacity 0.85
+        box-shadow 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 2px 6px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
+
+      &:active
+        transition none
 
 .search
   cursor pointer
@@ -50,6 +71,7 @@
   &__image
     width 100%
     border-radius 0.25rem
+    display block
 
   &__title
     font-size 0.75rem
@@ -89,33 +111,15 @@
 
 <script>
 export default {
-  props: ["selected"],
+  props: ["selected", "banners", "bannersUrl", "prereq"],
   data: function() {
     return {
-      prereq: [],
-      headerCurrent: null
+      headerCurrent: null,
     };
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("scroll", this.headerActive);
     window.addEventListener("hashchange", this.headerActive);
-    const searchForPrereq = i => {
-      let index = i || 0;
-      if (index > 10) return;
-      const prereq = document.querySelectorAll("[prereq]");
-      if (prereq.length > 0) {
-        this.prereq = [...prereq].map(e => {
-          const link = e.querySelector("[href]");
-          return {
-            href: link.getAttribute("href"),
-            text: link.innerText
-          };
-        });
-      } else {
-        setTimeout(() => searchForPrereq(index + 1), 200);
-      }
-    };
-    searchForPrereq();
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.headerActive);
@@ -126,14 +130,14 @@ export default {
       const middleY = window.scrollY + 50;
       if (!this.$page.headers) return;
       const headers = this.$page.headers
-        .map(h => ({
+        .map((h) => ({
           ...h,
-          y: document.getElementById(h.slug).getBoundingClientRect().top
+          y: document.getElementById(h.slug).getBoundingClientRect().top,
         }))
-        .filter(h => !h.title.match(/\{hide\}/))
-        .map(h => ({
+        .filter((h) => !h.title.match(/\{hide\}/))
+        .map((h) => ({
           ...h,
-          y: h.y + window.scrollY
+          y: h.y + window.scrollY,
         }));
       headers.forEach((h, i) => {
         const curr = headers[i];
@@ -148,7 +152,7 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
