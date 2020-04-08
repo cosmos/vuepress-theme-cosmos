@@ -12,7 +12,6 @@
             img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
-      client-only
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
@@ -34,14 +33,13 @@
   margin-bottom 3rem
 
   &__item
-    margin-bottom .5rem
+    margin-bottom 0.5rem
 
     a
       display block
       transition transform 150ms ease-out, opacity 150ms ease-out, box-shadow 150ms ease-out
 
-      &:hover:not(:active),
-      &:focus:not(:active)
+      &:hover:not(:active), &:focus:not(:active)
         transform translateY(-2px)
         opacity 0.85
         box-shadow 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 2px 6px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
@@ -114,7 +112,7 @@ export default {
   props: ["selected", "banners", "bannersUrl", "prereq"],
   data: function() {
     return {
-      headerCurrent: null,
+      headerCurrent: null
     };
   },
   async mounted() {
@@ -130,14 +128,14 @@ export default {
       const middleY = window.scrollY + 50;
       if (!this.$page.headers) return;
       const headers = this.$page.headers
-        .map((h) => ({
+        .map(h => ({
           ...h,
-          y: document.getElementById(h.slug).getBoundingClientRect().top,
+          y: document.getElementById(h.slug).getBoundingClientRect().top
         }))
-        .filter((h) => !h.title.match(/\{hide\}/))
-        .map((h) => ({
+        .filter(h => !h.title.match(/\{hide\}/))
+        .map(h => ({
           ...h,
-          y: h.y + window.scrollY,
+          y: h.y + window.scrollY
         }));
       headers.forEach((h, i) => {
         const curr = headers[i];
@@ -152,7 +150,7 @@ export default {
           }
         }
       });
-    },
-  },
+    }
+  }
 };
 </script>
