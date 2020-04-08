@@ -6,9 +6,10 @@
           .search__icon
             icon-search
           .search__text Search
-      .banners(v-for="banner in banners" v-if="banners")
-        a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-          img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+      .banners(v-if="banners")
+        .banners__item(v-for="banner in banners")
+          a(:href="banner.href" target="_blank" rel="noreferrer noopener")
+            img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
       client-only
@@ -32,6 +33,9 @@
 .banners
   margin-bottom 3rem
 
+  &__item
+    margin-bottom .5rem
+
 .search
   cursor pointer
   display flex
@@ -54,6 +58,7 @@
   &__image
     width 100%
     border-radius 0.25rem
+    display block
 
   &__title
     font-size 0.75rem
