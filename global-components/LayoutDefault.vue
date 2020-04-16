@@ -259,6 +259,7 @@
   a[target='_blank']:after
     content url('./images/icon-outbound.svg')
     padding-left 3px
+    fill var(--accent-color)
 
   .icon.outbound
     display none
@@ -406,26 +407,24 @@
   p, ul, ol
     a
       color var(--accent-color)
-      box-shadow inset 0 -0.5px 0 rgba(80, 100, 251, 0.7)
+      box-shadow inset 0 -0.5px 0 var(--accent-color)
       outline none
 
     a:focus
       box-shadow 0 0 0 3px rgba(102, 161, 255, 0.7)
       border-radius 0.25rem
 
-    a:visited
-      color rgba(146, 20, 177, 1)
-
-    a:visited:hover
-      color var(--accent-color)
+    a:focus:hover
+      border-radius 0
 
     a:hover
-      box-shadow inset 0 -1px 0 rgba(80, 100, 251, 1)
+      box-shadow inset 0 -.5px 0 var(--accent-color)
 
     a:active
-      color rgba(80, 100, 251, 0.6)
+      color var(--accent-color)
       border-radius 0
-      box-shadow inset 0 -0.5px 0 rgba(80, 100, 251, 0.3)
+      box-shadow inset 0 -0.5px 0 var(--accent-color)
+      opacity .65
 
     a code
       border-bottom none
@@ -444,7 +443,7 @@
       border-radius 0.25rem
 
     a:focus code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px rgba(102, 161, 255, 0.7)
+      box-shadow none
 
 @media screen and (max-width: 1136px)
   >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
