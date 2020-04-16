@@ -141,7 +141,7 @@
       width 4rem
       color white
       position absolute
-      top -2.5em
+      top -2.4em
       padding 7px 12px
       white-space nowrap
       left 50%
@@ -259,7 +259,6 @@
   a[target='_blank']:after
     content url('./images/icon-outbound.svg')
     padding-left 3px
-    fill var(--accent-color)
 
   .icon.outbound
     display none
