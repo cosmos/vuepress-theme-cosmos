@@ -27,7 +27,7 @@
     "cheerio": "^1.0.0-rc.3",
     "clipboard-copy": "^3.1.0",
     "entities": "^2.0.0",
-    "fuse.js": "^3.4.6",
+    "fuse.js": "^5.2.0",
     "gray-matter": "^4.0.2",
     "hotkeys-js": "^3.7.3",
     "jsonp": "^0.2.1",
