@@ -14,10 +14,13 @@
             .layout__main__content__body__wrapper
               component(:is="layout" :key="$route.path" @search="searchPanel = $event" @prereq="prereq = $event")
                 Content
-          .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)")
+          .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
               client-only
                 tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="banners = null" v-bind="{banners, bannersUrl, prereq}")
+            .layout__main__content__aside__banners(ref="banners")
+              a(:href="editLink" target="_blank")
+                card-banner
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
         .layout__main__footer
@@ -42,7 +45,7 @@
 
 .layout__main__content__aside.aside__bottom__true
   position absolute
-  bottom 0
+  bottom var(--height-banners, 0)
   right 0
   max-height initial
   top initial
@@ -136,6 +139,16 @@
         &__container
           position relative
           height 100%
+          padding-bottom var(--height-banners, 0)
+
+        &__banners
+          width 100%
+          position absolute
+          bottom 0
+          right 0
+          padding-left 2rem
+          padding-right 1.5rem
+          box-sizing border-box
 
     &__gutter
       max-width calc(100% - var(--aside-width))
@@ -261,6 +274,9 @@ import hotkeys from "hotkeys-js";
 import { CookieBanner } from "@cosmos-ui/vue";
 import axios from "axios";
 
+const endingSlashRE = /\/$/;
+const outboundRE = /^[a-z]+:/i;
+
 export default {
   components: { CookieBanner },
   data: function() {
@@ -273,7 +289,8 @@ export default {
       searchQuery: null,
       prereq: null,
       bannersUrl: "https://cosmos.network/banners",
-      banners: null
+      banners: null,
+      heightBanners: null
     };
   },
   async mounted() {
@@ -283,6 +300,10 @@ export default {
       console.log(`Error in fetching data from ${this.bannersUrl}`);
     }
     document.addEventListener("scroll", () => {
+      const banners = this.$refs.banners;
+      if (banners) {
+        this.heightBanners = banners.offsetHeight
+      }
       const content = document.querySelector("#content-scroll");
       const aside = document.querySelector("#aside-scroll");
       const top = window.scrollY;
@@ -296,7 +317,7 @@ export default {
       ) {
         this.asideBottom =
           top + aside.getBoundingClientRect().height >
-          content.getBoundingClientRect().height;
+          content.getBoundingClientRect().height - this.heightBanners;
       }
     });
     hotkeys("/", (event, handler) => {
@@ -311,6 +332,27 @@ export default {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
   computed: {
+    editLink() {
+      if (this.$page.frontmatter.editLink === false) {
+        return;
+      }
+      const {
+        repo,
+        editLinks,
+        docsDir = "",
+        docsBranch = "master",
+        docsRepo = repo
+      } = this.$site.themeConfig;
+      if (docsRepo && editLinks && this.$page.relativePath) {
+        return this.createEditLink(
+          repo,
+          docsRepo,
+          docsDir,
+          docsBranch,
+          this.$page.relativePath
+        );
+      }
+    },
     layout() {
       if (this.$page.path) {
         if (this.$frontmatter.layout) {
@@ -375,6 +417,30 @@ export default {
     }
   },
   methods: {
+    createEditLink(repo, docsRepo, docsDir, docsBranch, path) {
+      const bitbucket = /bitbucket.org/;
+      if (bitbucket.test(repo)) {
+        const base = outboundRE.test(docsRepo) ? docsRepo : repo;
+        return (
+          base.replace(endingSlashRE, "") +
+          `/src` +
+          `/${docsBranch}/` +
+          (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+          path +
+          `?mode=edit&spa=0&at=${docsBranch}&fileviewer=file-view-default`
+        );
+      }
+      const base = outboundRE.test(docsRepo)
+        ? docsRepo
+        : `https://github.com/${docsRepo}`;
+      return (
+        base.replace(endingSlashRE, "") +
+        `/edit` +
+        `/${docsBranch}/` +
+        (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+        path
+      );
+    },
     log(e) {
       console.log(e);
     },

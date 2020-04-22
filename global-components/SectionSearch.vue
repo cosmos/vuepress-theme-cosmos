@@ -237,7 +237,7 @@ export default {
     return {
       searchResults: null,
       searchQuery: null,
-      fuse: null
+      fuse: null,
     };
   },
   watch: {
@@ -249,15 +249,15 @@ export default {
       if (becomesVisible && search) {
         search.select();
       }
-    }
+    },
   },
   computed: {
     debouncedSearch() {
       return debounce(this.search, 300);
-    }
+    },
   },
   mounted() {
-    this.$refs.search.addEventListener("keydown", e => {
+    this.$refs.search.addEventListener("keydown", (e) => {
       if (e.keyCode == 27) {
         this.$emit("visible", false);
         return;
@@ -268,38 +268,40 @@ export default {
         return;
       }
     });
-    this.fuse = new Fuse(
-      this.$site.pages
-        .map(doc => {
-          return {
-            key: doc.key,
-            title: doc.title,
-            headers: doc.headers && doc.headers.map(h => h.title).join(" "),
-            description: doc.frontmatter.description,
-            path: doc.path
-          };
-        })
-        .filter(doc => {
-          return !(
-            Object.keys(this.$site.locales || {}).indexOf(
-              doc.path.split("/")[1]
-            ) > -1
-          );
-        }),
-      {
-        keys: ["title", "headers", "description", "path"],
-        shouldSort: true,
-        includeScore: true,
-        includeMatches: true
-      }
-    );
+    const fuseIndex = this.$site.pages
+      .map((doc) => {
+        return {
+          key: doc.key,
+          title: doc.title,
+          headers: doc.headers && doc.headers.map((h) => h.title).join(" "),
+          // description: doc.frontmatter && doc.frontmatter.description,
+          path: doc.path,
+        };
+      })
+      .filter((doc) => {
+        return !(
+          Object.keys(this.$site.locales || {}).indexOf(
+            doc.path.split("/")[1]
+          ) > -1
+        );
+      });
+    const fuseOptions = {
+      keys: ["title", "headers", "description", "path"],
+      shouldSort: true,
+      includeScore: true,
+      includeMatches: true,
+      threshold: 1,
+    };
+    this.fuse = new Fuse(fuseIndex, fuseOptions);
     if (this.$refs.search) this.$refs.search.focus();
     this.search();
   },
   methods: {
     resultTitle(result) {
-      const path = this.itemPath(result.item) ? this.itemPath(result.item) + " /" : ""
-      return this.md(`${path} ${result.item.title}`)
+      const path = this.itemPath(result.item)
+        ? this.itemPath(result.item) + " /"
+        : "";
+      return this.md(`${path} ${result.item.title}`);
     },
     resultSynopsis(result) {
       if (!result.item.frontmatter.description) return false;
@@ -316,17 +318,17 @@ export default {
     },
     resultHeader(result) {
       if (!result.item.headers) return false;
-      const headers = result.item.headers.filter(h =>
+      const headers = result.item.headers.filter((h) =>
         h.title.match(new RegExp(this.query, "gi"))
       );
       if (headers && headers.length) return headers[0];
     },
     search(e) {
       if (!this.query) return;
-      const fuse = this.fuse.search(this.query).map(result => {
+      const fuse = this.fuse.search(this.query).map((result) => {
         return {
           ...result,
-          item: find(this.$site.pages, { key: result.item.key })
+          item: find(this.$site.pages, { key: result.item.key }),
         };
       });
       this.searchResults = fuse;
@@ -351,26 +353,26 @@ export default {
     itemPath(sourceItem) {
       let path = sourceItem.path
         .split("/")
-        .filter(item => item !== "")
+        .filter((item) => item !== "")
         .map((currentValue, index, array) => {
           let path = array.slice(0, index + 1).join("/");
           return "/" + path;
         })
-        .map(item => {
+        .map((item) => {
           return /\.html$/.test(item) ? item : `${item}/`;
         });
-      path = path.map(item => {
-        const found = find(this.$site.pages, page => {
+      path = path.map((item) => {
+        const found = find(this.$site.pages, (page) => {
           return page.regularPath === item;
         });
         const noIndex = {
-          title: last(item.split("/").filter(e => e !== "")),
-          path: ""
+          title: last(item.split("/").filter((e) => e !== "")),
+          path: "",
         };
         return found ? found : noIndex;
       });
       return path
-        .map(p => p.title)
+        .map((p) => p.title)
         .slice(0, -1)
         .pop();
     },
@@ -383,7 +385,7 @@ export default {
       const prev = e.target.previousSibling;
       if (prev && prev.focus) prev.focus();
       e.preventDefault();
-    }
+    },
     // resultHeader(result) {
     //   if (!result.headers) return;
     //   return result.headers
@@ -394,6 +396,6 @@ export default {
     //     })
     //     .filter(e => e);
     // }
-  }
+  },
 };
 </script>
