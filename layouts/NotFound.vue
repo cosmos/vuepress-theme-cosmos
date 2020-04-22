@@ -8,7 +8,7 @@
 <style lang="stylus" scoped>
 a
   color var(--accent-color)
-  
+
 .h1
   font-size 2.25rem
   font-weight 600
@@ -25,11 +25,3 @@ a
   line-height 28px
   margin-bottom 1rem
 </style>
-
-<script>
-export default {
-  created() {
-    console.log("404");
-  }
-};
-</script>

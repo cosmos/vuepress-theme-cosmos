@@ -5,11 +5,11 @@
         .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
         .links
           a(:href="$themeConfig.gutter.chat.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
-            tm-logo-riot.links__item__logo
+            tm-logo-chat.links__item__logo(style="fill: white; width: 80px; height: 80px; padding: 10px;")
             div(v-html="md($themeConfig.gutter.chat.title)").links__item__title
             div(v-html="md($themeConfig.gutter.chat.text)").links__item__text
           a(:href="$themeConfig.gutter.forum.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.forum.bg}").links__item.links__item__forum
-            component(:is="`tm-logo-${$themeConfig.gutter.forum.logo}`").links__item__logo
+            component(:is="`tm-logo-${$themeConfig.gutter.forum.logo}`" style="fill: white; width: 100px; height: 100px;").links__item__logo
             div(v-html="md($themeConfig.gutter.forum.title)").links__item__title
             div(v-html="md($themeConfig.gutter.forum.text)").links__item__text
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item.links__item__regular

@@ -21,7 +21,7 @@
 
 <style lang="stylus" scoped>
 .container
-  padding 1rem 2rem
+  padding 1rem 1rem 1rem 2rem
 
 .search__container
   display flex
