@@ -404,7 +404,7 @@
   p, ul, ol
     a
       color var(--accent-color)
-      box-shadow inset 0 -0.5px 0 rgba(0, 0, 0, 0.5)
+      box-shadow inset 0 -0.5px 0 var(--accent-color)
       outline none
       transition box-shadow 0.25s
       line-height 12px
@@ -412,9 +412,6 @@
 
     a[target='_blank']
       margin-right 1rem
-
-    a:visited
-      color inehrit
 
     a:focus
       box-shadow 0 0 0 3px rgba(102, 161, 255, 0.7)
@@ -424,7 +421,7 @@
       border-radius 0
 
     a:hover
-      box-shadow inset 0 -1px 0 var(--accent-color)
+      box-shadow inset 0 -1px 0 inherit
 
     a:active
       color var(--accent-color)
