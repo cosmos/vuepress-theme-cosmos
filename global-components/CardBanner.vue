@@ -14,12 +14,21 @@
   background #f8f9fc
   padding 1rem
   text-align center
-  border-radius .5rem
+  border-radius 0.5rem
   position relative
+  transition all 0.1s
+
+  &:hover
+    box-shadow 0px 12px 24px rgba(0, 0, 0, 0.07), 0px 4px 8px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
+    transform translateY(-2px)
+    transition all 0.15s ease-out
+
+    .icon
+      fill #A2A3AD
 
 .icon
   position absolute
-  padding .75rem
+  padding 0.75rem
   width 1rem
   height 1rem
   top 0
@@ -32,14 +41,14 @@
   padding 0.5rem
 
 .h1
-  margin-top .875rem
-  margin-bottom .25rem
+  margin-top 0.875rem
+  margin-bottom 0.25rem
   line-height 1.5
   font-weight 500
 
 .h2
-  font-size .8125rem
+  font-size 0.8125rem
   line-height 18px
   color rgba(22, 25, 49, 0.65)
-  letter-spacing .01em
+  letter-spacing 0.01em
 </style>
