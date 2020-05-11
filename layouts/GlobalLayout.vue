@@ -18,7 +18,7 @@
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
               client-only
                 tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="banners = null" v-bind="{banners, bannersUrl, prereq}")
-            .layout__main__content__aside__banners(ref="banners")
+            .layout__main__content__aside__banners(ref="banners" v-if="editLink")
               a(:href="editLink" target="_blank")
                 card-banner
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
@@ -174,6 +174,9 @@
         &__aside
           display none
 
+          &__banners
+            display none
+
       &__gutter
         max-width initial
 
@@ -302,7 +305,7 @@ export default {
     document.addEventListener("scroll", () => {
       const banners = this.$refs.banners;
       if (banners) {
-        this.heightBanners = banners.offsetHeight
+        this.heightBanners = banners.offsetHeight;
       }
       const content = document.querySelector("#content-scroll");
       const aside = document.querySelector("#aside-scroll");
