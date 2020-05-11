@@ -1,6 +1,6 @@
 {
   "name": "vuepress-theme-cosmos",
-  "version": "1.0.163",
+  "version": "1.0.164",
   "description": "Theme for VuePress static site generator used by Tendermint and Cosmos projects.",
   "main": "index.js",
   "scripts": {
