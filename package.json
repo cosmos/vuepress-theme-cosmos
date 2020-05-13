@@ -21,7 +21,7 @@
   "author": "",
   "license": "Apache 2.0",
   "dependencies": {
-    "@cosmos-ui/vue": "^0.23.0",
+    "@cosmos-ui/vue": "^0.25.0",
     "@vuepress/plugin-google-analytics": "^1.4.1",
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
