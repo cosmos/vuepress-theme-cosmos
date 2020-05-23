@@ -15,7 +15,7 @@
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
-        .aside__link(v-for="link in $page.headers.filter(e => !e.title.match(/{hide}/))" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
+        .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
           a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
 </template>
 
@@ -122,6 +122,15 @@ export default {
   beforeDestroy() {
     window.removeEventListener("scroll", this.headerActive);
     window.removeEventListener("hashchange", this.headerActive);
+  },
+  computed: {
+    headersFiltered() {
+      return this.$page.headers.filter(e => {
+        const notHidden = !e.title.match(/{hide}/);
+        const notPrereq = !e.title.match(/pre-requisite/i);
+        return notHidden && notPrereq;
+      });
+    }
   },
   methods: {
     headerActive(e) {
