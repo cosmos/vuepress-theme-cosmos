@@ -25,13 +25,15 @@
 
 <style lang="stylus" scoped>
 .links
-  display grid
-  grid-template-columns repeat(auto-fill, minmax(300px, 1fr))
-  column-gap 1rem
-  row-gap 2rem
+  display flex
 
   &__wrapper
     display flex
+    width 100%
+    margin-bottom 2rem
+
+    &:first-child
+      margin-right 2rem
 
   &__container
     width 100%
@@ -44,7 +46,7 @@
     margin-top 1rem
     padding 2rem
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
-    border-radius .5rem
+    border-radius 0.5rem
     display grid
     grid-auto-flow column
     flex-grow 1
@@ -65,19 +67,22 @@
       margin-top 5px
       font-weight 500
       font-size 1.25rem
-    
+
     &__desc
       color rgba(22, 25, 49, 0.65)
-      margin-top .5rem
-      font-size .875rem
+      margin-top 0.5rem
+      font-size 0.875rem
       line-height 20px
 
   &__label
     color rgba(22, 25, 49, 0.9)
     text-transform uppercase
-    font-size .75rem
-    letter-spacing .2rem
+    font-size 0.75rem
+    letter-spacing 0.2rem
 
+@media screen and (max-width: 1280px)
+  .links
+    flex-direction column-reverse
 </style>
 
 <script>
@@ -107,10 +112,10 @@ export default {
             }
             if (index >= 0 && children[index + 1]) {
               result.next = children[index + 1];
-            } else if (index >= 0 && tree[i+1] && tree[i+1].children) {
-              result.next = find(tree[i+1].children, x => {
-                return x.frontmatter && x.frontmatter.order !== false
-              })
+            } else if (index >= 0 && tree[i + 1] && tree[i + 1].children) {
+              result.next = find(tree[i + 1].children, x => {
+                return x.frontmatter && x.frontmatter.order !== false;
+              });
             }
             return search(item.children);
           }
