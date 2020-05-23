@@ -21,15 +21,15 @@
   "author": "",
   "license": "Apache 2.0",
   "dependencies": {
-    "@cosmos-ui/vue": "^0.23.0",
-    "@vuepress/plugin-google-analytics": "^1.4.1",
+    "@cosmos-ui/vue": "0.30.0",
+    "@vuepress/plugin-google-analytics": "1.5.0",
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "clipboard-copy": "^3.1.0",
-    "entities": "^2.0.0",
-    "fuse.js": "^5.2.3",
+    "entities": "2.0.2",
+    "fuse.js": "6.0.0",
     "gray-matter": "^4.0.2",
-    "hotkeys-js": "^3.7.6",
+    "hotkeys-js": "3.8.1",
     "jsonp": "^0.2.1",
     "markdown-it": "^10.0.0",
     "markdown-it-attrs": "^3.0.2",
@@ -39,7 +39,7 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "v-runtime-template": "^1.10.0",
-    "vuepress": "^1.4.1",
+    "vuepress": "1.5.0",
     "vuepress-plugin-sitemap": "^2.3.1"
   }
 }
