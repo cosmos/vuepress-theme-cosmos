@@ -28,7 +28,7 @@
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
-      section-search(@visible="searchPanel = $event" :algoliaConfig="$themeConfig.algolia" @select="searchSelect($event)" :query="searchQuery" @query="searchQuery = $event" :site="$site")
+      section-search(@visible="searchPanel = $event" @cancel="searchPanel = false" :algoliaConfig="algoliaConfig" @select="searchSelect($event)" :query="searchQuery" @query="searchQuery = $event" :site="$site")
     tm-sidebar(:visible="rsidebarVisible"  @visible="rsidebarVisible = $event" side="right").sheet__sidebar.sheet__sidebar__toc
       tm-toc-menu(@visible="rsidebarVisible = $event")
 </template>
@@ -271,7 +271,7 @@ import {
   isString,
   isArray,
   flattenDeep,
-  map,
+  map
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import { CookieBanner } from "@cosmos-ui/vue";
@@ -284,7 +284,7 @@ const outboundRE = /^[a-z]+:/i;
 export default {
   components: {
     CookieBanner,
-    SectionSearch,
+    SectionSearch
   },
   data: function() {
     return {
@@ -297,7 +297,7 @@ export default {
       prereq: null,
       bannersUrl: "https://cosmos.network/banners",
       banners: null,
-      heightBanners: null,
+      heightBanners: null
     };
   },
   async mounted() {
@@ -339,6 +339,11 @@ export default {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
   computed: {
+    algoliaConfig() {
+      const localhost = window.location.hostname === "localhost";
+      const algolia = this.$themeConfig.algolia;
+      return localhost ? {} : algolia;
+    },
     editLink() {
       if (this.$page.frontmatter.editLink === false) {
         return;
@@ -348,7 +353,7 @@ export default {
         editLinks,
         docsDir = "",
         docsBranch = "master",
-        docsRepo = repo,
+        docsRepo = repo
       } = this.$site.themeConfig;
       if (docsRepo && editLinks && this.$page.relativePath) {
         return this.createEditLink(
@@ -377,13 +382,13 @@ export default {
     },
     directoryTree() {
       const files = this.$site.pages;
-      const langDirs = Object.keys(this.$site.locales || {}).map((e) =>
+      const langDirs = Object.keys(this.$site.locales || {}).map(e =>
         e.replace(/\//g, "")
       );
       const langCurrent = (this.$localeConfig.path || "").replace(/\//g, "");
       const langOther = langCurrent.length > 0;
       let tree = {};
-      files.forEach((file) => {
+      files.forEach(file => {
         let location = file.relativePath.split("/");
         if (location.length === 1) {
           return (tree[location[0]] = file);
@@ -399,8 +404,8 @@ export default {
         }, tree);
       });
       tree = langOther ? tree[langCurrent] : omit(tree, langDirs);
-      tree = omitBy(tree, (e) => typeof e.key === "string");
-      const toArray = (object) => {
+      tree = omitBy(tree, e => typeof e.key === "string");
+      const toArray = object => {
         return map(object, (page, title) => {
           const properties =
             page.key && isString(page.key)
@@ -408,7 +413,7 @@ export default {
               : { children: this.sortedList(toArray(page)) };
           return {
             title,
-            ...properties,
+            ...properties
           };
         });
       };
@@ -421,7 +426,7 @@ export default {
           ? { title: "Reference", children: this.directoryTree } //{}
           : { title: "Reference", children: this.directoryTree };
       return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
-    },
+    }
   },
   methods: {
     searchSelect(e) {
@@ -476,7 +481,7 @@ export default {
     },
     indexFile(item) {
       if (!item.children) return false;
-      return find(item.children, (page) => {
+      return find(item.children, page => {
         const path = page.relativePath;
         if (!path) return false;
         return (
@@ -487,7 +492,7 @@ export default {
     },
     sortedList(val) {
       if (!isArray(val)) return val;
-      const sorted = sortBy(val, (item) => {
+      const sorted = sortBy(val, item => {
         if (item.frontmatter) return item.frontmatter.order;
         if (item.children) {
           const index = this.indexFile(item);
@@ -500,17 +505,17 @@ export default {
         }
       });
       return sorted;
-    },
+    }
   },
   props: {
     aside: {
       type: Boolean,
-      default: true,
+      default: true
     },
     search: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>
