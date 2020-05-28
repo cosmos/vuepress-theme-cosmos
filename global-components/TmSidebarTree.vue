@@ -75,7 +75,7 @@
 
     &__dir
       font-weight 400
-  
+
     &__alt
       color initial
       font-weight 500
@@ -112,7 +112,7 @@ export default {
   props: ["value", "title", "tree", "level"],
   data: function() {
     return {
-      show: null
+      show: null,
     };
   },
   mounted() {
@@ -127,7 +127,7 @@ export default {
       if (found) {
         this.revealParent(this.title);
       }
-    }
+    },
   },
   methods: {
     hide(item) {
@@ -144,7 +144,7 @@ export default {
       if (item.directory && !this.iconExpanded(item)) return true;
       return (
         !item.path &&
-        (this.show != item.title && (item.children || item.directory))
+        this.show != item.title && (item.children || item.directory)
       );
     },
     iconExpanded(item) {
@@ -180,7 +180,7 @@ export default {
     },
     indexFile(item) {
       if (!item.children) return false;
-      return find(item.children, page => {
+      return find(item.children, (page) => {
         const path = page.relativePath;
         if (!path) return false;
         return (
@@ -195,14 +195,20 @@ export default {
     titleText(item) {
       const index = this.indexFile(item);
       if (item.frontmatter) {
-        return item.frontmatter.title || item.title
+        return item.frontmatter.title || item.title;
       }
       if (index) {
-        if (index.frontmatter && index.frontmatter.parent && index.frontmatter.parent.title) return index.frontmatter.parent.title
-        if (index.title.match(/readme\.md/i) || index.title.match(/index\.md/i)) return item.title
-        return index.title
+        if (
+          index.frontmatter &&
+          index.frontmatter.parent &&
+          index.frontmatter.parent.title
+        )
+          return index.frontmatter.parent.title;
+        if (index.title.match(/readme\.md/i) || index.title.match(/index\.md/i))
+          return item.title;
+        return index.title;
       }
-      return item.title
+      return item.title;
     },
     revealChild(title) {
       this.show = this.show == title ? null : title;
@@ -213,14 +219,14 @@ export default {
     },
     directoryChildren(item) {
       if (item.directory === true) {
-        let result = item.path && item.path.split("/").filter(i => i != "");
+        let result = item.path && item.path.split("/").filter((i) => i != "");
         result = result.reduce((acc, cur) => {
           return find(acc.children || acc, ["title", cur]);
         }, this.tree);
         return result.children || [];
       }
       return [];
-    }
-  }
+    },
+  },
 };
 </script>
