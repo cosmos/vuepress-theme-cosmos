@@ -6,10 +6,10 @@
           .search__icon
             icon-search
           .search__text Search
-      .banners(v-if="banners")
-        .banners__item(v-for="banner in banners")
-          a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-            img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+      //- .banners(v-if="banners")
+      //-   .banners__item(v-for="banner in banners")
+      //-     a(:href="banner.href" target="_blank" rel="noreferrer noopener")
+      //-       img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
@@ -112,7 +112,7 @@ export default {
   props: ["selected", "banners", "bannersUrl", "prereq"],
   data: function() {
     return {
-      headerCurrent: null
+      headerCurrent: null,
     };
   },
   async mounted() {
@@ -125,26 +125,26 @@ export default {
   },
   computed: {
     headersFiltered() {
-      return this.$page.headers.filter(e => {
+      return this.$page.headers.filter((e) => {
         const notHidden = !e.title.match(/{hide}/);
         const notPrereq = !e.title.match(/pre-requisite/i);
         return notHidden && notPrereq;
       });
-    }
+    },
   },
   methods: {
     headerActive(e) {
       const middleY = window.scrollY + 50;
       if (!this.$page.headers) return;
       const headers = this.$page.headers
-        .map(h => ({
+        .map((h) => ({
           ...h,
-          y: document.getElementById(h.slug).getBoundingClientRect().top
+          y: document.getElementById(h.slug).getBoundingClientRect().top,
         }))
-        .filter(h => !h.title.match(/\{hide\}/))
-        .map(h => ({
+        .filter((h) => !h.title.match(/\{hide\}/))
+        .map((h) => ({
           ...h,
-          y: h.y + window.scrollY
+          y: h.y + window.scrollY,
         }));
       headers.forEach((h, i) => {
         const curr = headers[i];
@@ -159,7 +159,7 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

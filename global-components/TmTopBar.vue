@@ -6,9 +6,11 @@
           tm-icon-menu
       .logo
         router-link(to="/" tag="div").logo__wrapper
-          .logo__image
+          .logo__image__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
+            img(:src="$themeConfig.logo.src").logo__image__custom__img
+          .logo__image(v-else)
             component(:is="`tm-logo-${$themeConfig.label || 'sdk'}`")
-          .logo__text {{$site.title}}
+          .logo__text(v-if="!$themeConfig.logo") {{$site.title}}
       .toolbar
         .toolbar__item(@click="$emit('search', true)")
           .toolbar__item__icon
@@ -45,6 +47,14 @@
     width 2rem
     height 2rem
     fill var(--accent-color)
+
+    &__custom
+      display flex
+      align-items center
+
+      &__img
+        width 4rem
+        height 2rem
 
   &__text
     font-weight 500
