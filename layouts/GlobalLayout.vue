@@ -28,7 +28,7 @@
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
-      section-search(@visible="searchPanel = $event" @cancel="searchPanel = false" :algoliaConfig="algoliaConfig" @select="searchSelect($event)" :query="searchQuery" @query="searchQuery = $event" :site="$site")
+      section-search(@visible="searchPanel = $event" :base="$site.base" @cancel="searchPanel = false" :algoliaConfig="algoliaConfig" @select="searchSelect($event)" :query="searchQuery" @query="searchQuery = $event" :site="$site")
     tm-sidebar(:visible="rsidebarVisible"  @visible="rsidebarVisible = $event" side="right").sheet__sidebar.sheet__sidebar__toc
       tm-toc-menu(@visible="rsidebarVisible = $event")
 </template>
