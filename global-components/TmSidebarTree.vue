@@ -18,7 +18,7 @@
         tm-icon-hex(v-if="iconExpanded(item) && level < 1" :style="{'--icon-color': `var(--accent-color, black)`}").item__icon.item__icon__expanded
         tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: #ccc").item__icon.item__icon__collapsed
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
-        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleText(item)")
+        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
           tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
@@ -75,7 +75,7 @@
 
     &__dir
       font-weight 400
-  
+
     &__alt
       color initial
       font-weight 500
@@ -106,13 +106,14 @@
 
 <script>
 import { sortBy, find } from "lodash";
+import MarkdownIt from "markdown-it";
 
 export default {
   name: "tm-sidebar-tree",
   props: ["value", "title", "tree", "level"],
   data: function() {
     return {
-      show: null
+      show: null,
     };
   },
   mounted() {
@@ -127,7 +128,7 @@ export default {
       if (found) {
         this.revealParent(this.title);
       }
-    }
+    },
   },
   methods: {
     hide(item) {
@@ -144,7 +145,8 @@ export default {
       if (item.directory && !this.iconExpanded(item)) return true;
       return (
         !item.path &&
-        (this.show != item.title && (item.children || item.directory))
+        this.show != item.title &&
+        (item.children || item.directory)
       );
     },
     iconExpanded(item) {
@@ -180,7 +182,7 @@ export default {
     },
     indexFile(item) {
       if (!item.children) return false;
-      return find(item.children, page => {
+      return find(item.children, (page) => {
         const path = page.relativePath;
         if (!path) return false;
         return (
@@ -192,17 +194,27 @@ export default {
     setHeight(el) {
       el.style.setProperty("--max-height", el.scrollHeight + "px");
     },
+    titleFormatted(string) {
+      const md = new MarkdownIt({ html: true, linkify: true });
+      return `<div>${md.renderInline(string)}</div>`;
+    },
     titleText(item) {
       const index = this.indexFile(item);
       if (item.frontmatter) {
-        return item.frontmatter.title || item.title
+        return item.frontmatter.title || item.title;
       }
       if (index) {
-        if (index.frontmatter && index.frontmatter.parent && index.frontmatter.parent.title) return index.frontmatter.parent.title
-        if (index.title.match(/readme\.md/i) || index.title.match(/index\.md/i)) return item.title
-        return index.title
+        if (
+          index.frontmatter &&
+          index.frontmatter.parent &&
+          index.frontmatter.parent.title
+        )
+          return index.frontmatter.parent.title;
+        if (index.title.match(/readme\.md/i) || index.title.match(/index\.md/i))
+          return item.title;
+        return index.title;
       }
-      return item.title
+      return item.title;
     },
     revealChild(title) {
       this.show = this.show == title ? null : title;
@@ -213,14 +225,14 @@ export default {
     },
     directoryChildren(item) {
       if (item.directory === true) {
-        let result = item.path && item.path.split("/").filter(i => i != "");
+        let result = item.path && item.path.split("/").filter((i) => i != "");
         result = result.reduce((acc, cur) => {
           return find(acc.children || acc, ["title", cur]);
         }, this.tree);
         return result.children || [];
       }
       return [];
-    }
-  }
+    },
+  },
 };
 </script>
