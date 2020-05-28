@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    .wrapper
+    .wrapper(v-if="$themeConfig.footer")
       .container
         .footer__wrapper
           .questions(v-if="!full")
