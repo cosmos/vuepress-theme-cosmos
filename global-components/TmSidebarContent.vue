@@ -3,15 +3,17 @@
     .container
       router-link(to="/" v-if="!(compact === true)").logo__container
         .logo
-          .logo__img
+          .logo__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
+            img(:src="$themeConfig.logo.src")
+          .logo__img(v-else)
             component(:is="`logo-${$themeConfig.label || 'sdk'}`")
-          .logo__text {{$site.title || 'Documentation'}}
+          .logo__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" :style="{display: $themeConfig.autoSidebar === false && item.title == 'Reference' ? 'none' : 'block'}").sidebar
           .title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
-      .footer(:class="[`footer__compact__${!!(compact === true)}`]")
+      .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
         a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
           div.footer__item__title(v-html="md(product.name)")
@@ -32,6 +34,12 @@
     width 40px
     height 40px
     margin-right 0.75rem
+
+    &__custom
+      width 120px
+      height 40px
+      margin-top 1rem
+      margin-right 0.75rem
 
   &__text
     font-weight 500
@@ -134,7 +142,7 @@ import {
   sortBy,
   last,
   find,
-  omit
+  omit,
 } from "lodash";
 
 export default {
@@ -142,40 +150,40 @@ export default {
   data: function() {
     return {
       search: {
-        query: null
+        query: null,
       },
       products: [
         {
           label: "sdk",
           name: "Cosmos<br>SDK",
           url: "https://docs.cosmos.network/",
-          color: "#5064FB"
+          color: "#5064FB",
         },
         {
           label: "hub",
           name: "Cosmos<br>Hub",
           url: "https://hub.cosmos.network/",
-          color: "#BA3FD9"
+          color: "#BA3FD9",
         },
         {
           label: "ibc",
           name: "IBC<br>Protocol",
           url: "https://github.com/cosmos/ics/tree/master/ibc",
-          color: "#E6900A"
+          color: "#E6900A",
         },
         {
           label: "core",
           name: "Tendermint<br>Core",
           url: "https://docs.tendermint.com/",
-          color: "#00BB00"
-        }
-      ]
+          color: "#00BB00",
+        },
+      ],
     };
   },
   computed: {
     searchResults() {
-      return this.$site.pages.filter(page => {
-        const headers = page.headers ? page.headers.map(h => h.title) : [];
+      return this.$site.pages.filter((page) => {
+        const headers = page.headers ? page.headers.map((h) => h.title) : [];
         const title = page.title;
         return (
           title &&
@@ -191,7 +199,7 @@ export default {
     },
     sidebar() {
       return this.value;
-    }
-  }
+    },
+  },
 };
 </script>
