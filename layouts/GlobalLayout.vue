@@ -23,8 +23,8 @@
                 card-banner
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
-        .layout__main__footer
-          tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
+        .layout__main__footer(v-if="$themeConfig.footer")
+          tm-footer(:value="$themeConfig.footer")
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar

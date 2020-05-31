@@ -1,31 +1,31 @@
 <template lang="pug">
   div
-    .wrapper(v-if="$themeConfig.footer")
+    .wrapper(v-if="value")
       .container
         .footer__wrapper
-          .questions(v-if="!full && $themeConfig.footer.questionsText")
-            .questions__wrapper
-              .questions__h1 Questions?
-              .questions__p(v-html="md($themeConfig.footer.questionsText)")
-            tm-newsletter-form
-          .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
-            .links__item(v-for="item in $themeConfig.footer.links")
+          //- .questions(v-if="!full && $themeConfig.footer.questionsText")
+          //-   .questions__wrapper
+          //-     .questions__h1 Questions?
+          //-     .questions__p(v-html="md($themeConfig.footer.questionsText)")
+          //-   tm-newsletter-form
+          .links(v-if="value.links")
+            .links__item(v-for="item in value.links")
               .links__item__title {{item.title}}
               a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
             .logo__item
               router-link(to="/" tag="div").logo__image
-                img(v-if="$themeConfig.footer.logo && $themeConfig.footer.logo.src" :src="$themeConfig.footer.logo.src").logo__image__img
+                img(v-if="value.logo && value.logo.src" :src="value.logo.src").logo__image__img
                 component(:is="`logo-${$themeConfig.label}-text`" v-else-if="$themeConfig.label" fill="black")
                 component(:is="`logo-sdk-text`" v-else fill="black")
-            .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
-              a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
+            .logo__item.logo__link(v-if="value.services")
+              a(v-for="item in value.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
-          .smallprint(v-if="$themeConfig.footer")
+          .smallprint
             .smallprint__item.smallprint__item__links
-              a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
+              a(v-if="value.textLink && value.textLink.text && value.textLink.url" :href="value.textLink.url") {{value.textLink.text}}
+            .smallprint__item__desc.smallprint__item(v-if="value.smallprint") {{value.smallprint}}
 </template>
 
 <style lang="stylus" scoped>
@@ -151,7 +151,7 @@
 import { find } from "lodash";
 
 export default {
-  props: ["tree", "full"],
+  props: ["value"],
   methods: {
     serviceIcon(service) {
       const icons = [
