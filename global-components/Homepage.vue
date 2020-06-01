@@ -49,7 +49,7 @@
           div
             .stack__item__h1 {{item.title}}
             .stack__item__p {{item.desc}}
-    tm-help-support
+    tm-help-support(:value="$frontmatter.help" v-if="$frontmatter.help")
 </template>
 
 <style lang="stylus" scoped>

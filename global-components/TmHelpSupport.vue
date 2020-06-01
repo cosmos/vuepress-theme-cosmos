@@ -1,22 +1,22 @@
 <template lang="pug">
   div
-    .container(v-if="$themeConfig && $themeConfig.gutter")
+    .container
       .wrapper
-        .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
+        .title(v-if="value.title") {{value.title}}
         .links
-          a(:href="$themeConfig.gutter.chat.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
+          a(:href="value.chat.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': 'linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)'}").links__item.links__item__chat
             tm-logo-chat.links__item__logo(style="fill: white; width: 80px; height: 80px; padding: 10px;")
-            div(v-html="md($themeConfig.gutter.chat.title)").links__item__title
-            div(v-html="md($themeConfig.gutter.chat.text)").links__item__text
-          a(:href="$themeConfig.gutter.forum.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.forum.bg}").links__item.links__item__forum
-            component(:is="`tm-logo-${$themeConfig.gutter.forum.logo}`" style="fill: white; width: 100px; height: 100px;").links__item__logo
-            div(v-html="md($themeConfig.gutter.forum.title)").links__item__title
-            div(v-html="md($themeConfig.gutter.forum.text)").links__item__text
+            div(v-html="md(value.chat.title)").links__item__title
+            div(v-html="md(value.chat.text)").links__item__text
+          a(:href="value.forum.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': 'linear-gradient(225deg, #46509F -1.08%, #2F3564 95.88%)'}").links__item.links__item__forum
+            component(:is="`tm-logo-${value.forum.logo}`" style="fill: white; width: 100px; height: 100px;").links__item__logo
+            div(v-html="md(value.forum.title)").links__item__title
+            div(v-html="md(value.forum.text)").links__item__text
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item.links__item__regular
             tm-icon-paper-pen(fill="var(--accent-color").links__item__logo
-            div(v-html="md($themeConfig.gutter.github.title)").links__item__title
-            div(v-html="md($themeConfig.gutter.github.text)" style="color: rgba(22, 25, 49, 0.65)").links__item__text
-      .newsletter(v-if="$themeConfig.label == 'sdk'")
+            div(v-html="md(value.github.title)").links__item__title
+            div(v-html="md(value.github.text)" style="color: rgba(22, 25, 49, 0.65)").links__item__text
+      .newsletter(v-if="value.forum.logo == 'sdk'")
         .newsletter__image
           .newsletter__image__item(v-for="(item, index) in range(15)" :class="[`letter__${index}`]")
             image-letter
@@ -144,6 +144,7 @@ const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
 
 export default {
+  props: ["value"],
   computed: {
     editLink() {
       if (this.$page.frontmatter.editLink === false) {
@@ -166,13 +167,6 @@ export default {
         );
       }
     },
-    editLinkText() {
-      return (
-        this.$themeLocaleConfig.editLinkText ||
-        this.$site.themeConfig.editLinkText ||
-        `Edit this page`
-      );
-    }
   },
   methods: {
     createEditLink(repo, docsRepo, docsDir, docsBranch, path) {
