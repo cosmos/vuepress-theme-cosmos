@@ -43,6 +43,8 @@ Most of the configuration happens in the `.vuepress/config.js` file. All paramet
 module.exports = {
   // Enable the theme
   theme: "cosmos",
+  // Configure default title
+  title: "Default title",
   themeConfig: {
     // Logo in the top left corner, file in .vuepress/public/
     logo: "/logo.svg",
@@ -73,8 +75,48 @@ module.exports = {
             static: true
           }
         ]
+      },
+      // Configure Resources
+      {
+        title: "Resources",
+        children: [
+          {
+            title: "Default resource 1",
+            path: "https://github.com/cosmos/vuepress-theme-cosmos"
+          },
+          {
+            title: "Default resource 2",
+            path: "https://github.com/cosmos/vuepress-theme-cosmos"
+          }
+        ]
       }
-    ]
+    ],
+    sidebarFooter: [
+      {
+        label: "sdk",
+        name: "Cosmos<br>SDK",
+        url: "https://docs.cosmos.network/",
+        color: "#5064FB",
+      },
+      {
+        label: "hub",
+        name: "Cosmos<br>Hub",
+        url: "https://hub.cosmos.network/",
+        color: "#BA3FD9",
+      },
+      {
+        label: "ibc",
+        name: "IBC<br>Protocol",
+        url: "https://github.com/cosmos/ics/tree/master/ibc",
+        color: "#E6900A",
+      },
+      {
+        label: "core",
+        name: "Tendermint<br>Core",
+        url: "https://docs.tendermint.com/",
+        color: "#00BB00",
+      },
+    ],
   }
 }
 ```
