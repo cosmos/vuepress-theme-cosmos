@@ -6,10 +6,10 @@
           .search__icon
             icon-search
           .search__text Search
-      //- .banners(v-if="banners")
-      //-   .banners__item(v-for="banner in banners")
-      //-     a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-      //-       img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+      .banners(v-if="banners")
+        .banners__item(v-for="banner in banners")
+          a(:href="banner.href" target="_blank" rel="noreferrer noopener")
+            img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
