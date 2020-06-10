@@ -39,7 +39,7 @@
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "v-runtime-template": "^1.10.0",
-    "vuepress": "1.5.0",
+    "vuepress": "1.5.1",
     "vuepress-plugin-sitemap": "^2.3.1"
   }
 }
