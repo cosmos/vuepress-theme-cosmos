@@ -16,7 +16,7 @@
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
         tm-icon-hex(v-if="iconExpanded(item) && level < 1" :style="{'--icon-color': `var(--accent-color, black)`}").item__icon.item__icon__expanded
-        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: #ccc").item__icon.item__icon__collapsed
+        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: rgba(59, 66, 125, 0.12)").item__icon.item__icon__collapsed
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
       div(v-if="item.children || directoryChildren(item) || []")
@@ -46,8 +46,7 @@
   &:hover, &:focus
 
     .item__icon.item__icon__collapsed
-      stroke var(--accent-color, black)
-      fill none
+      fill rgba(59, 66, 125, 0.32)
 
   &:hover, &:focus
 
