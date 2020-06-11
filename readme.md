@@ -1,5 +1,7 @@
 # Cosmos theme for VuePress
 
+[![npm version](https://img.shields.io/npm/v/vuepress-theme-cosmos)](https://www.npmjs.com/package/vuepress-theme-cosmos)
+
 ## Install
 
 ```sh
