@@ -368,10 +368,12 @@
   ul, ol
     line-height 1.5
     margin-top 1rem
-    padding-left 0.75rem
     margin-bottom 1.5rem
+    margin-left 0
+    padding-left 0
+    list-style-position inside
 
-  li
+  ul > li
     padding-left 2rem
     list-style none
     margin-bottom 1rem
@@ -379,12 +381,16 @@
 
     &:before
       content ''
-      width 1rem
-      height 1rem
+      width 0.5rem
+      height 0.5rem
       background url('./images/bullet-list.svg') no-repeat top left
       position absolute
       top 0.35rem
       left 0
+
+  ol > li
+    margin-bottom 1rem
+    position relative
 
   code
     background-color rgba(176, 180, 207, 0.2)
