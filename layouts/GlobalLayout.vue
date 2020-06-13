@@ -413,10 +413,10 @@ export default {
     },
     tree() {
       const autoSidebar =
-        this.$themeConfig.autoSidebar == false
-          ? { children: this.directoryTree } //{}
-          : { children: this.directoryTree };
-      return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
+        this.$themeConfig.sidebar.auto == false
+          ? { title: "", children: this.directoryTree }
+          : { title: "", children: this.directoryTree };
+      return {autoSidebar, ...(this.$themeConfig.sidebar.nav || {})};
     }
   },
   methods: {

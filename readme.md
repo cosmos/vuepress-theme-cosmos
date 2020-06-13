@@ -92,33 +92,7 @@ module.exports = {
           }
         ]
       }
-    ],
-    sidebarFooter: [
-      {
-        label: "sdk",
-        name: "Cosmos<br>SDK",
-        url: "https://docs.cosmos.network/",
-        color: "#5064FB",
-      },
-      {
-        label: "hub",
-        name: "Cosmos<br>Hub",
-        url: "https://hub.cosmos.network/",
-        color: "#BA3FD9",
-      },
-      {
-        label: "ibc",
-        name: "IBC<br>Protocol",
-        url: "https://github.com/cosmos/ics/tree/master/ibc",
-        color: "#E6900A",
-      },
-      {
-        label: "core",
-        name: "Tendermint<br>Core",
-        url: "https://docs.tendermint.com/",
-        color: "#00BB00",
-      },
-    ],
+    ]
   }
 }
 ```

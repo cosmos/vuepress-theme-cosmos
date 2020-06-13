@@ -9,12 +9,12 @@
             component(:is="`logo-${$themeConfig.label || 'sdk'}`")
           .logo__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
-        div(v-for="item in value" :style="{display: $themeConfig.autoSidebar === false && item.title == 'Reference' ? 'none' : 'block'}").sidebar
+        div(v-for="item in value" :style="{display: $themeConfig.sidebar.auto === 'false' && item.title === '' ? 'none' : 'block'}").sidebar
           .title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
       .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
-        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in $themeConfig.sidebarFooter" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in $themeConfig.sidebar.footer" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
           .footer__item__title(v-html="md(product.name)")
 </template>
@@ -29,6 +29,9 @@
   padding 1rem 2rem
   display flex
   align-items center
+
+  &:active
+    outline none
 
   &__img
     width 40px
