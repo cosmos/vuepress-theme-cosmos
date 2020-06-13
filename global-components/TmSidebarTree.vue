@@ -15,8 +15,9 @@
         @keydown.enter="handleEnter(item)"
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
-        tm-icon-hex(v-if="iconExpanded(item) && level < 1" :style="{'--icon-color': `var(--accent-color, black)`}").item__icon.item__icon__expanded
+        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--accent-color, black)").item__icon.item__icon__expanded
         tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: rgba(59, 66, 125, 0.12)").item__icon.item__icon__collapsed
+        tm-icon-hex(v-else-if="!outboundLink(item.path) && level < 1 && !iconExpanded(item)").item__icon.item__icon__internal
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
       div(v-if="item.children || directoryChildren(item) || []")
@@ -47,8 +48,9 @@
 
     .item__icon.item__icon__collapsed
       fill rgba(59, 66, 125, 0.32)
+      stroke none
 
-  &:hover, &:focus
+  &:hover
 
     .item__icon.item__icon__expanded
       stroke none
@@ -57,6 +59,25 @@
       height 1px
       padding-top 1px
       margin-top 4px
+
+    .item__icon.item__icon__internal
+      opacity unset
+      stroke var(--accent-color, black)
+
+  &:focus
+
+    .item__icon.item__icon__expanded
+      stroke none
+      fill none
+      background var(--accent-color, black)
+      height 1px
+      padding-top 1px
+      margin-top 4px
+
+    .item__icon.item__icon__internal
+      stroke transparent
+      opacity unset
+      fill var(--accent-color, black)
 
   &:after
     content ''
@@ -70,7 +91,7 @@
 
   &__selected
     font-weight 500
-    color var(--accent-color)
+    color #000000
 
     &__dir
       font-weight 400
@@ -89,6 +110,11 @@
     width 12px
     height 12px
     fill var(--icon-color)
+
+    &__internal
+      stroke var(--accent-color, black)
+      opacity 0.12
+      fill none
 
 .reveal-enter-active, .reveal-leave-active
   transition all 0.25s
