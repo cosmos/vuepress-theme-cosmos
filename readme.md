@@ -21,8 +21,8 @@ Minimal config in `.vuepress/config.js` to enable the theme:
 
 ```js
 module.exports = {
-  theme: "cosmos"
-}
+  theme: "cosmos",
+};
 ```
 
 ### Run dev server
@@ -50,52 +50,77 @@ module.exports = {
   themeConfig: {
     // Logo in the top left corner, file in .vuepress/public/
     logo: "/logo.svg",
-    // Auto-sidebar, true by default
-    autoSidebar: true,
     // Configure the manual sidebar
-    sidebar: [
-      // Array of sections
-      {
-        title: "Section title",
-        children: [
-          {
-            title: "External link",
-            path: "https://example.org/"
-          },
-          {
-            title: "Internal link",
-            path: "/url/path/"
-          },
-          {
-            title: "Directory",
-            path: "/path/to/directory/",
-            directory: true
-          },
-          {
-            title: "Link to ./vuepress/public/foo/index.html",
-            path: "/foo/",
-            static: true
-          }
-        ]
+    header: {
+      img: {
+        // Image in ./vuepress/public/logo.svg
+        src: "/logo.svg",
+        // Image width relative to the sidebar
+        width: "75%",
       },
-      // Configure Resources
-      {
-        title: "Resources",
-        children: [
-          {
-            title: "Default resource 1",
-            path: "https://github.com/cosmos/vuepress-theme-cosmos"
-          },
-          {
-            title: "Default resource 2",
-            path: "https://github.com/cosmos/vuepress-theme-cosmos"
-          }
-        ]
-      }
-    ]
-  }
-}
+      title: "Documentation",
+    },
+    sidebar: {
+      // Auto-sidebar, true by default
+      auto: false,
+      children: [
+        // Array of sections
+        {
+          title: "Section title",
+          children: [
+            {
+              title: "External link",
+              path: "https://example.org/",
+            },
+            {
+              title: "Internal link",
+              path: "/url/path/",
+            },
+            {
+              title: "Directory",
+              path: "/path/to/directory/",
+              directory: true,
+            },
+            {
+              title: "Link to ./vuepress/public/foo/index.html",
+              path: "/foo/",
+              static: true,
+            },
+          ],
+        },
+        // Configure Resources
+        {
+          title: "Resources",
+          children: [
+            {
+              title: "Default resource 1",
+              path: "https://github.com/cosmos/vuepress-theme-cosmos",
+            },
+            {
+              title: "Default resource 2",
+              path: "https://github.com/cosmos/vuepress-theme-cosmos",
+            },
+          ],
+        },
+      ],
+    },
+  },
+};
 ```
+
+### Header
+
+`themeConfig.header` property is responsible for the sidebar header component.
+
+If `header` is `undefined`, then a default image (hexagon, width 40px) is used along with a title "Documentation".
+
+If `header` is a string, `header` is used as a path to the logo. For example, `"/logo.svg"` uses `.vuepress/public/logo.svg` in user's directory. Title string is hidden.
+
+If `header` is an object and has a `logo` property. If `logo` is a string, it is used as a path to the logo with the width of 50% and title string is hidden unless `header.title` is defined. If `logo` is an object and has `src` property, `logo.src` is used as a path string with a width of 50% unless `logo.width` is defined.
+
+Title string has a value of `header.title` if it is defined. If it is undefined and `header.logo` is defined, the value is "Documentation".
+
+## File configuration
 
 Markdown files can contain YAML frontmatter. Several properties (all of which are optional) are used by the theme:
 
@@ -110,6 +135,7 @@ parent:
   title: Directory title
   order: 1
 ---
+
 ```
 
 Setting `order: false` removes the item (file or directory) from the sidebar. It is, however, remains accessible by means other than the sidebar. It is valid use a `readme.md` to set an order of a parent-directory and hide the file with `order: false`.
