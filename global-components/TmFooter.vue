@@ -3,11 +3,11 @@
     .wrapper(v-if="$themeConfig.footer")
       .container
         .footer__wrapper
-          .questions(v-if="!full")
+          .questions(v-if="!full && $themeConfig.footer.question")
             .questions__wrapper
               .questions__h1 Questions?
-              .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.questionsText" v-html="md($themeConfig.footer.questionsText)")
-            tm-newsletter-form
+              .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
+            tm-newsletter-form(v-if="$themeConfig.footer")
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
               .links__item__title {{item.title}}
