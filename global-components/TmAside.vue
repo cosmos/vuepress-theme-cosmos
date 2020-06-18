@@ -6,7 +6,7 @@
           .search__icon
             icon-search
           .search__text Search
-      .banners(v-if="banners")
+      .banners(v-if="banners && !$themeConfig.custom")
         .banners__item(v-for="banner in banners")
           a(:href="banner.href" target="_blank" rel="noreferrer noopener")
             img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
