@@ -15,9 +15,9 @@
           .logo
             .logo__item
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                //- component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                //- component(:is="`logo-sdk-text`" v-else fill="black")
-                img(:src="$themeConfig.footer.logo")
+                component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
+                component(:is="`logo-sdk-text`" v-if="$themeConfig.label === 'sdk'" fill="black")
+                img(:src="$themeConfig.footer.logo" v-if="$themeConfig.custom")
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
@@ -122,7 +122,7 @@
     font-weight 500
 
     &__links
-      color var(--color-accent)
+      color var(--accent-color)
       font-size 0.875rem
 
       &__item
