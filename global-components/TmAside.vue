@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .container
-      .search__container
+      .search__container(v-if="!$themeConfig.custom")
         .search(@click="$emit('search', true)")
           .search__icon
             icon-search
