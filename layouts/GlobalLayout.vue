@@ -21,7 +21,7 @@
             .layout__main__content__aside__banners(ref="banners" v-if="editLink")
               a(:href="editLink" target="_blank")
                 card-banner
-        .layout__main__gutter(v-if="!($frontmatter.aside === false) && $themeConfig.footer.question && $themeConfig.footer.newsletter")
+        .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
         .layout__main__footer
           tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
@@ -414,9 +414,9 @@ export default {
     tree() {
       const autoSidebar =
         this.$themeConfig.sidebar.auto == false
-          ? { title: "", children: this.directoryTree }
+          ? { title: "", children: this.directoryTree } //{}
           : { title: "", children: this.directoryTree };
-      return {autoSidebar, ...(this.$themeConfig.sidebar.nav || {})};
+      return [autoSidebar, ...(this.$themeConfig.sidebar.nav || [])];
     }
   },
   methods: {
