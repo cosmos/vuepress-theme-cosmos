@@ -407,6 +407,12 @@
     code
       font-size inherit
 
+  h1, h2, h3, h4, h5, h6
+    a
+      color var(--accent-color)
+      outline none
+      position relative      
+
   p, ul, ol
     a
       color var(--accent-color)
