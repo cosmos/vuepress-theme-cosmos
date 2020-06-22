@@ -3,7 +3,7 @@
     .wrapper(v-if="$themeConfig.footer")
       .container
         .footer__wrapper
-          .questions(v-if="!full && $themeConfig.footer.question")
+          .questions(v-if="!full && !$themeConfig.custom")
             .questions__wrapper
               .questions__h1 Questions?
               .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
