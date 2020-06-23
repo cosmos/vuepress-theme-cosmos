@@ -1,5 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
 
+/* @reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
+@font-face
+  font-family 'Metropolis'
+  src url('/assets/fonts/metropolis-extralight.woff2') format('woff2')
+  font-weight 200
+
+@font-face
+  font-family 'Metropolis'
+  src url('/assets/fonts/metropolis-regular.woff2') format('woff2')
+  font-weight 400
+
+@font-face
+  font-family 'Metropolis'
+  src url('/assets/fonts/metropolis-semibold.woff2') format('woff2')
+  font-weight 600
+
+@font-face
+  font-family 'Metropolis'
+  src url('/assets/fonts/metropolis-bold.woff2') format('woff2')
+  font-weight 700
+
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, button, input
   font-weight inherit
   font-style inherit
@@ -16,21 +38,21 @@ a[href]
 
 html
   scrollbar-color #eee white
-    
+
 body
   margin 0
   font-weight 400
-  font-family 'Gotham A', 'Gotham B', 'Gotham', sans-serif
+  font-family 'Metropolis', 'Courier', sans-serif
   -webkit-font-smoothing antialiased
-  color #161931
+  color var(--color-text)
   text-rendering optimizeLegibility
 
 :root
   --sidebar-width 19rem
   --aside-width 280px
   --topbar-height 100px
-  // use .vuepress/styles's color vars: --accent-color
-  // --color-accent #5064FB
+  --color-text #000
+  --color-primary #5064FB
   --sidebar-bg #fff
   --sidebar-footer-height 100px
   --layout-width 1540px

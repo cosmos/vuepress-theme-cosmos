@@ -22,7 +22,7 @@
       &.menu__item__icon__active__true
         fill #5064FB
         background rgba(102, 161, 255, .15)
-    
+
     &__modal
       position absolute
       width 16rem
@@ -42,13 +42,21 @@
       &__item
         padding .625rem 1.5rem
         font-size .875rem
+        line-height 1.25rem
         outline none
         cursor pointer
 
+        &:hover
+          background-color rgba(176, 180, 207, 0.087)
+          color var(--color-text)
+
         &:active
-          color var(--accent-color)
-          font-weight 500
-          box-shadow inset 2px 0 0 0 var(--accent-color)
+          color var(--color-primary)
+          font-weight 600
+          box-shadow inset 2px 0 0 0 var(--color-primary)
+
+        &:last-child
+          margin-bottom 0.5rem
 </style>
 
 <script>

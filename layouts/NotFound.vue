@@ -7,21 +7,21 @@
 
 <style lang="stylus" scoped>
 a
-  color var(--accent-color)
+  color var(--color-primary)
 
 .h1
   font-size 2.25rem
-  font-weight 600
+  font-weight 700
   margin-bottom 1.5rem
 
 .h2
   font-size 1.5rem
-  font-weight 600
+  font-weight 700
   margin-top 2.5rem
   margin-bottom 2rem
 
 .p
   font-size 1.25rem
-  line-height 28px
+  line-height 1.75rem
   margin-bottom 1rem
 </style>

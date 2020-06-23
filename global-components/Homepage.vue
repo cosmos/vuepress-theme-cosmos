@@ -82,26 +82,30 @@
   max-width 800px
 
 .h1
-  font-size 2.5rem
-  font-weight 600
+  font-size 3rem
+  font-weight 700
   margin-bottom 1.5rem
+  line-height 3.25rem
+  letter-spacing -0.04em
   padding-top 2.5rem
 
 .h2
   font-size 2rem
-  font-weight 600
+  font-weight 700
   margin-top 4.5rem
   margin-bottom 1rem
+  line-height 2.25rem
+  letter-spacing -0.03em
 
 .p
   font-size 1.5rem
-  line-height 36px
+  line-height 2.25rem
 
   &__alt
     margin-top 0.75rem
     margin-bottom 2rem
     font-size 1.25rem
-    line-height 28px
+    line-height 1.75rem
 
 .features
   display grid
@@ -119,10 +123,16 @@
     position relative
     border-radius .5rem
     background linear-gradient(302.07deg, #FFFFFF 48.96%, #EBEDFF 100%)
-    transition box-shadow 0.25s
-    
-    &:hover
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
+
+    &:hover:not(:active)
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
     &__dark
       background linear-gradient(112.22deg, #161831 0%, #2E3148 100%)
@@ -155,10 +165,15 @@
       display flex
       align-items center
       justify-content center
+      transition transform 0.2s ease-out
 
       &__img
         max-height 232px
         max-width 160px
+
+    &:hover:not(:active) &__image
+      transform translateY(-0.25rem) scale(1.02)
+      transition-duration 0.1s
 
     &__text
       padding 1.75rem 2rem 2rem
@@ -169,16 +184,16 @@
         font-size .75rem
         letter-spacing 0.2em
         text-transform uppercase
-        color #161931
+        color var(--color-text)
         opacity .45
         margin-bottom .25rem
 
       &__h1
         font-size 1.25rem
-        color #161931
-        line-height 28px
+        color var(--color-text)
+        line-height 1.75rem
         letter-spacing -0.01em
-        font-weight 500
+        font-weight 600
         margin-top .25rem
         margin-bottom .75rem
 
@@ -186,7 +201,7 @@
         color rgba(22, 25, 49, 0.65)
         font-size .875rem
         letter-spacing 0.01em
-        line-height 20px
+        line-height 1.25rem
         margin-bottom 1.5rem
 
       &__tag
@@ -203,11 +218,11 @@
           color rgba(22, 25, 49, 0.65)
           letter-spacing 0.01em
           font-size .8125rem
-          line-height 18px
+          line-height 1.125rem
 
       &__label
         text-transform uppercase
-        font-weight 500
+        font-weight 600
         letter-spacing 0.02em
         flex-grow 1
         display flex
@@ -227,10 +242,16 @@
     border-radius 0.5rem
     padding 1.5rem 1.5rem 1.5rem 4.5rem
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
-    transition box-shadow 0.25s
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
-    &:hover
+    &:hover:not(:active)
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      transition-duration 0s
+      opacity 0.7
 
     &__icon
       position absolute
@@ -244,11 +265,12 @@
       height 2.5rem
 
     &__title
-      font-weight 500
+      font-weight 600
       margin-bottom 0.5rem
 
     &__desc
       font-size 0.875rem
+      line-height 1.25rem
       color rgba(22, 25, 49, 0.65)
 
 .stack
@@ -264,13 +286,19 @@
     align-items center
     padding 2rem 1rem
     border-radius 0.5rem
-    box-shadow inset 0 0 0 1px rgba(176, 180, 207, 0.2)
-    color #161931
+    box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+    color var(--color-text)
     background white
-    transition box-shadow 0.25s
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
-    &:hover
-      box-shadow inset 0 0 0 1px rgba(176, 180, 207, 0.2), 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+    &:hover:not(:active)
+      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
     &__icon
       position absolute
@@ -281,7 +309,7 @@
     &__h1
       font-size 1.25rem
       margin-bottom 0.75rem
-      font-weight 500
+      font-weight 600
 
     &__p
       font-size 0.875rem
@@ -312,7 +340,7 @@
 @media screen and (max-width: 1136px)
   .p
     font-size 1.25rem
-    line-height 28px
+    line-height 1.75rem
 
 @media screen and (max-width: 832px)
   .h1
@@ -383,9 +411,13 @@
 @media screen and (max-width: 480px)
   .h1
     font-size 2rem
+    line-height 2.25rem
+    margin-bottom 1rem
 
   .h2
     font-size 1.5rem
+    line-height 2rem
+    margin-bottom 0.75rem
 
   .p__alt
     font-size 1rem

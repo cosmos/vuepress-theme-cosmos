@@ -45,7 +45,7 @@
       margin-right 0.75rem
 
   &__text
-    font-weight 500
+    font-weight 600
 
 .logo__container
   position sticky
@@ -132,7 +132,7 @@
     &__title
       text-align center
       font-size 0.6875rem
-      line-height 14px
+      line-height 0.875rem
       letter-spacing 0.01em
 </style>
 

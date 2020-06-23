@@ -4,7 +4,7 @@
       component(
         tabindex="0"
         v-if="!hide(item)"
-        :style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--accent-color)' : 'rgba(176, 180, 207, 0.2)' }"
+        :style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--color-primary)' : 'rgba(176, 180, 207, 0.2)' }"
         :is="componentName(item)"
         :to="item.path"
         :target="outboundLink(item.path) && '_blank'"
@@ -15,8 +15,8 @@
         @keydown.enter="handleEnter(item)"
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
-        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--accent-color, black)").item__icon.item__icon__expanded
-        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: rgba(59, 66, 125, 0.12)").item__icon.item__icon__collapsed
+        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--color-primary, black)").item__icon.item__icon__expanded
+        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: #ccc").item__icon.item__icon__collapsed
         tm-icon-hex(v-else-if="!outboundLink(item.path) && level < 1 && !iconExpanded(item)").item__icon.item__icon__internal
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
@@ -35,14 +35,14 @@
   cursor pointer
   font-size .875rem
   letter-spacing 0.01em
-  line-height 20px
+  line-height 1.25rem
   outline none
 
   &__child
     color rgba(22, 25, 49, 0.65)
 
     &:hover, &:focus
-      color #161931
+      color var(--color-text)
 
   &:hover, &:focus
 
@@ -55,21 +55,21 @@
     .item__icon.item__icon__expanded
       stroke none
       fill none
-      background var(--accent-color, black)
+      background var(--color-primary, black)
       height 1px
       padding-top 1px
       margin-top 4px
 
     .item__icon.item__icon__internal
       opacity unset
-      stroke var(--accent-color, black)
+      stroke var(--color-primary, black)
 
   &:focus
 
     .item__icon.item__icon__expanded
       stroke none
       fill none
-      background var(--accent-color, black)
+      background var(--color-primary, black)
       height 1px
       padding-top 1px
       margin-top 4px
@@ -77,7 +77,7 @@
     .item__icon.item__icon__internal
       stroke transparent
       opacity unset
-      fill var(--accent-color, black)
+      fill var(--color-primary, black)
 
   &:after
     content ''
@@ -90,18 +90,18 @@
     left 5px
 
   &__selected
-    font-weight 500
-    color #000000
+    font-weight 600
+    color var(--color-primary)
 
     &__dir
       font-weight 400
 
     &__alt
       color initial
-      font-weight 500
+      font-weight 600
 
   &__dir
-    font-weight 500
+    font-weight 600
 
   &__icon
     position absolute
@@ -112,7 +112,7 @@
     fill var(--icon-color)
 
     &__internal
-      stroke var(--accent-color, black)
+      stroke var(--color-primary, black)
       opacity 0.12
       fill none
 

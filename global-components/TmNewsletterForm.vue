@@ -39,14 +39,16 @@
     padding-right 1.5rem
 
     &__h1
-      color #161931
-      font-size 1.25rem
-      font-weight 500
-      margin-bottom 1rem
-    
+      color var(--color-text)
+      font-size 1.5rem
+      line-height 2rem
+      font-weight 600
+      letter-spacing -0.02em
+      margin-bottom 0.5rem
+
     &__p
       font-size .875rem
-      line-height 20px
+      line-height 1.25rem
       color rgba(22, 25, 49, 0.9)
 
   &__input
@@ -62,12 +64,12 @@
 
       &:focus-within
         border-color #66A1FF
-        
+
       &__button
         padding .5rem
         text-transform uppercase
-        color var(--accent-color)
-        font-weight 500
+        color var(--color-primary)
+        font-weight 600
         cursor pointer
         background none
         border none
@@ -78,7 +80,7 @@
         outline none
         padding .5rem
         background none
-  
+
     &__p
       margin-top .5rem
       color rgba(22, 25, 49, 0.65)

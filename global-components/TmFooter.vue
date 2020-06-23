@@ -30,7 +30,7 @@
 <style lang="stylus" scoped>
 .container
   background-color white
-  color #161931
+  color var(--color-text)
   padding-top 3.5rem
   padding-bottom 3.5rem
 
@@ -47,21 +47,22 @@
   align-items flex-start
 
   & >>> a[href]
-    color var(--accent-color, #ccc)
+    color var(--color-primary, #ccc)
 
   &__wrapper
     margin-bottom 2rem
 
   &__h1
-    font-size 1.25rem
-    margin-bottom 1rem
-    font-weight 500
-    color #161931
+    font-size 1.5rem
+    line-height 2rem
+    margin-bottom 0.5rem
+    font-weight 600
+    color var(--color-text)
 
   &__p
     font-size 0.875rem
     color rgba(22, 25, 49, 0.9)
-    line-height 20px
+    line-height 1.25rem
 
 .links
   display grid
@@ -76,13 +77,13 @@
       font-size 0.75rem
       letter-spacing 0.2em
       text-transform uppercase
-      font-weight 600
+      font-weight 700
       margin-bottom 1rem
 
     &__link
       font-size 0.875rem
       letter-spacing 0.01em
-      line-height 20px
+      line-height 1.25rem
       margin-top 0.5rem
       margin-bottom 0.5rem
 
@@ -109,7 +110,7 @@
 
   &__link
     grid-column span 2
-    font-weight 500
+    font-weight 600
 
 .smallprint
   display grid
@@ -121,10 +122,10 @@
 
   &__item
     padding 1rem 0
-    font-weight 500
+    font-weight 600
 
     &__links
-      color var(--accent-color)
+      color var(--color-primary)
       font-size 0.875rem
 
       &__item

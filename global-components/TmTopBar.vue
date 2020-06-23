@@ -46,7 +46,7 @@
   &__image
     width 2rem
     height 2rem
-    fill var(--accent-color)
+    fill var(--color-primary)
 
     &__custom
       display flex
@@ -57,7 +57,7 @@
         height 2rem
 
   &__text
-    font-weight 500
+    font-weight 600
 
 .toolbar
   grid-column-start -2

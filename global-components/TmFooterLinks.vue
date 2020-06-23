@@ -65,14 +65,15 @@
 
     &__title
       margin-top 5px
-      font-weight 500
+      font-weight 600
       font-size 1.25rem
+      line-height 1.75rem
 
     &__desc
       color rgba(22, 25, 49, 0.65)
       margin-top 0.5rem
       font-size 0.875rem
-      line-height 20px
+      line-height 1.25rem
 
   &__label
     color rgba(22, 25, 49, 0.9)

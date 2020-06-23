@@ -44,11 +44,11 @@
   margin-top 0.875rem
   margin-bottom 0.25rem
   line-height 1.5
-  font-weight 500
+  font-weight 600
 
 .h2
   font-size 0.8125rem
-  line-height 18px
+  line-height 1.125rem
   color rgba(22, 25, 49, 0.65)
   letter-spacing 0.01em
 </style>

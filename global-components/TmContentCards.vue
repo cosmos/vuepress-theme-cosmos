@@ -15,7 +15,7 @@
 
 .title
   font-size 1.5rem
-  font-weight 600
+  font-weight 700
   margin-bottom 2rem
 
 .card
@@ -28,14 +28,14 @@
   color inherit
 
   &__title
-    color #161931
+    color var(--color-text)
     font-size 1.25rem
-    font-weight 600
+    font-weight 700
 
   &__description
     margin-top .75rem
     font-size .875rem
-    line-height 20px
+    line-height 1.25rem
 
   &__icon
     top 1.5rem

@@ -49,7 +49,7 @@
 
   a
     box-shadow none
-    color var(--accent-color)
+    color var(--color-primary)
 
 .container
   position relative
@@ -74,8 +74,8 @@
 
 /deep/
   .codeblock
-    margin-top 1rem
-    margin-bottom 1rem
+    margin-top 2.5rem
+    margin-bottom 2.5rem
 
   .custom-block
     &.danger, &.warning, &.tip
@@ -127,13 +127,14 @@
     text-align center
     box-sizing border-box
     color rgba(0, 0, 0, 0.5)
+    outline-color var(--color-primary)
     transition all 0.25s
 
     &:after
       transition all 0.25s
       border-radius 0.25rem
       content attr(data-header-anchor-text)
-      width 4rem
+      max-width 4rem
       color white
       position absolute
       top -2.4em
@@ -143,9 +144,10 @@
       transform translateX(-50%)
       font-size 0.8125rem
       line-height 1
+      letter-spacing 0
       opacity 0
       box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
-      background #161931
+      background var(--color-text)
 
     &:before
       transition all 0.25s
@@ -160,9 +162,12 @@
       transform translateX(-50%)
       opacity 0
 
+    &:focus,
+    &:focus:before,
     &:hover:before
       opacity 1
 
+    &:focus:after,
     &:hover:after
       opacity 1
 
@@ -202,10 +207,10 @@
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
     padding 1rem
     border-radius 0.5rem
-    color #161931
+    color var(--color-text)
     font-size 0.875rem
-    font-weight 500
-    line-height 20px
+    font-weight 600
+    line-height 1.25rem
     margin 1rem 0
     display block
     letter-spacing 0.01em
@@ -219,10 +224,9 @@
     border-radius 0.5rem
     margin-top 3rem
     margin-bottom 3rem
-    letter-spacing 0.01em
     color rgba(22, 25, 49, 0.9)
-    font-size 0.875rem
-    line-height 20px
+    font-size 1rem
+    line-height 1.625rem
 
     &:before
       content 'Synopsis'
@@ -234,36 +238,35 @@
       letter-spacing 0.2em
 
   [synopsis]
-    & a
-      box-shadow none
-
-    & a:hover
-      box-shadow none
-
     & a code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3)
 
     & a:hover code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 1), 0 0 0 3px #f8f8fb
+      box-shadow 0 1px 0 0 rgba(80, 100, 251, 1)
 
     & a:active code
       color rgba(80, 100, 251, 0.6)
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px #f8f8fb
 
-  a[target='_blank']:after
-    content '↗'
-    position absolute
-    top 50%
-    transform translateY(-50%)
-    padding-left 3px
-    font-size 0.75rem
+  a[target='_blank']
+    &:after
+      content '↗'
+      position absolute
+      bottom 0.166em
+      padding-left 0.1875em
+      font-size 0.75em
+      line-height 1
+      word-break none
+      transition transform 0.2s ease-out
+    &:hover:after,
+    &:focus:after
+      transform translate(2px, -2px)
 
   .icon.outbound
     display none
 
   table
     width 100%
-    line-height 24px
+    line-height 1.5rem
     margin-top 2rem
     margin-bottom 2rem
     box-shadow 0 0 0 1px rgba(140, 145, 177, 0.32)
@@ -275,7 +278,7 @@
 
   th
     text-align left
-    font-weight 600
+    font-weight 700
     font-size 0.875rem
 
   td, th
@@ -304,7 +307,7 @@
     width 100%
 
   h1, h2, h3, h4
-    font-weight 600
+    font-weight 700
 
   h1 code, h2 code, h3 code
     font-weight normal
@@ -324,7 +327,7 @@
   .tooltip
     h1
       font-size 0.875rem
-      font-weight 500
+      font-weight 600
       margin-bottom 0
 
     p
@@ -334,71 +337,67 @@
 
   strong
     font-weight 600
+    letter-spacing -0.01em
 
   em
     font-style italic
 
   h1
-    font-size 2.5rem
-    font-weight 600
-    margin-bottom 3rem
-    line-height 3.25rem
-    letter-spacing -0.03em
+    font-size 3rem
+    margin-bottom 4rem
+    line-height 3.5rem
+    letter-spacing -0.04em
 
   h2
-    font-size 1.5rem
-    font-weight 600
-    margin-top 3rem
-    margin-bottom 1.5rem
-    line-height 2rem
-    letter-spacing -0.01em
+    font-size 2rem
+    margin-top 3.75rem
+    margin-bottom 1.25rem
+    line-height 2.5rem
+    letter-spacing -0.03em
 
   h3
-    font-size 1.25rem
-    font-weight 600
-    margin-top 2rem
+    font-size 1.5rem
+    margin-top 2.5rem
     margin-bottom 1rem
+    line-height 2rem
+    letter-spacing -0.02em
+
+  h4
+    font-size 1.25rem
+    margin-top 2rem
+    margin-bottom 0.875rem
+    line-height 1.75rem
     letter-spacing -0.01em
 
+  p,ul,ol
+    font-size 1.125rem
+    line-height 1.8125rem
+
   p
-    margin-top 1rem
-    margin-bottom 1rem
-    line-height 1.5rem
+    margin-top 1em
+    margin-bottom 1em
 
   ul, ol
-    line-height 1.5
-    margin-top 1rem
-    margin-bottom 1.5rem
+    margin-top 1em
+    margin-bottom 1.5em
     margin-left 0
     padding-left 0
     list-style-position inside
 
-  ul > li
-    padding-left 2rem
-    list-style none
-    margin-bottom 1rem
-    position relative
-
-    &:before
-      content ''
-      width 0.5rem
-      height 0.5rem
-      background url('./images/bullet-list.svg') no-repeat top left
-      position absolute
-      top 0.35rem
-      left 0
-
-  ol > li
+  li
+    padding-left 0
+    margin-left 2rem
     margin-bottom 1rem
     position relative
 
   code
-    background-color rgba(176, 180, 207, 0.2)
+    background-color rgba(176, 180, 207, 0.175)
     border 1px solid rgba(176, 180, 207, 0.09)
-    border-radius 0.25rem
-    padding-left 0.25rem
-    padding-right 0.25rem
-    font-size 0.8125rem
+    border-radius 0.25em
+    padding-left 0.25em
+    padding-right 0.25em
+    font-size 0.8333em
+    line-height 1.06666em
     font-family 'Menlo', 'Monaco', 'Fira Code', monospace
     color #46509F
     margin-top 3rem
@@ -409,56 +408,35 @@
 
   h1, h2, h3, h4, h5, h6
     a
-      color var(--accent-color)
+      color var(--color-primary)
       outline none
-      position relative      
+      position relative
 
   p, ul, ol
     a
-      color var(--accent-color)
-      box-shadow inset 0 -0.5px 0 var(--accent-color)
-      outline none
-      transition box-shadow 0.25s
-      line-height 12px
+      color var(--color-primary)
+      outline-color var(--color-primary)
+      border-radius 0.25rem
       position relative
+      transition opacity 0.3s ease-out
 
     a[target='_blank']
-      margin-right 1rem
-
-    a:focus
-      box-shadow 0 0 0 3px rgba(102, 161, 255, 0.7)
-      border-radius 0.25rem
-
-    a:focus:hover
-      border-radius 0
+      margin-right 0.888em
 
     a:hover
-      box-shadow inset 0 -1px 0 inherit
+      text-decoration underline
 
     a:active
-      color var(--accent-color)
-      border-radius 0
-      box-shadow inset 0 -0.5px 0 var(--accent-color)
       opacity 0.65
+      transition-duration 0s
 
     a code
-      border-bottom none
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px white
-      color rgba(80, 100, 251, 1)
+      color inherit
+      transition background-color 0.15s ease-out
 
-    a:hover code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 1), 0 0 0 3px white
-
-    a:active code
-      color rgba(80, 100, 251, 0.6)
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3), 0 0 0 3px white
-      background-color rgba(176, 180, 207, 0.1)
-      border 1px solid rgba(176, 180, 207, 0.045)
-      border-bottom none
-      border-radius 0.25rem
-
+    a:hover code,
     a:focus code
-      box-shadow none
+      background-color rgba(59, 66, 125, 0.12)
 
 @media screen and (max-width: 1136px)
   >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
@@ -494,6 +472,41 @@
 
   >>> h1[id*='requisite'] + ul, >>> h2[id*='requisite'] + ul, >>> h3[id*='requisite'] + ul, >>> h4[id*='requisite'] + ul, >>> h5[id*='requisite'] + ul, >>> h6[id*='requisite'] + ul
     display block
+
+@media screen and (max-width: 480px)
+  >>> h1
+    font-size 2.5rem
+    margin-bottom 3rem
+    line-height 3rem
+
+  >>> h2
+    font-size 1.75rem
+    margin-top 3.5rem
+    margin-bottom 1rem
+    line-height 2.25rem
+
+  >>> h3
+    font-size 1.25rem
+    margin-top 2.25rem
+    margin-bottom 0.875rem
+    line-height 1.75rem
+
+  >>> h4
+    font-size 1.125rem
+    margin-top 2rem
+    margin-bottom 0.75rem
+    line-height 1.5rem
+
+  >>> p, >>> ul, >>> ol
+    font-size 1rem
+    line-height 1.625rem
+
+  >>> [synopsis]
+    padding 1rem
+    letter-spacing 0.01em
+    font-size 0.875rem
+    line-height 1.25rem
+
 </style>
 
 <script>
@@ -516,8 +529,8 @@ export default {
       event.target.setAttribute("data-header-anchor-text", "Copied!");
       copy(event.target.href);
       setTimeout(() => {
-        event.target.setAttribute("data-header-anchor-text", "Copy link!");
-      }, 1000);
+        event.target.setAttribute("data-header-anchor-text", "Copy link");
+      }, 3000);
       event.preventDefault();
     };
     document

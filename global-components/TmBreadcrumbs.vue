@@ -101,9 +101,9 @@
         cursor pointer
 
         &:active
-          color var(--accent-color)
-          font-weight 500
-          box-shadow inset 2px 0 0 0 var(--accent-color)
+          color var(--color-primary)
+          font-weight 600
+          box-shadow inset 2px 0 0 0 var(--color-primary)
 
 @media screen and (max-width: 1135px)
   .menu__item

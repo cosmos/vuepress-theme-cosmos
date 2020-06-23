@@ -58,12 +58,20 @@
     width 1.5rem
     margin-right 0.5rem
     fill #aaa
+    transition fill .15s ease-out
 
   &__text
     color rgba(22, 25, 49, 0.65)
+    transition fill .15s ease-out
+
+  &:hover &__icon
+    fill var(--color-text)
+
+  &:hover &__text
+    color var(--color-text)
 
 .selected
-  font-weight 600
+  font-weight 700
 
 .aside
   &__image
@@ -84,24 +92,24 @@
     padding-top 0.375rem
     padding-bottom 0.375rem
     font-size 0.875rem
-    line-height 18px
+    line-height 1.125rem
     letter-spacing 0.01em
 
-    &__active__true
-      color red
-      font-weight bold
+    &__href:hover
+      color var(--color-text)
 
-    &__href
-      color rgba(22, 25, 49, 0.65)
+    &__active__true
+      color var(--color-text)
+      font-weight bold
 
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
   padding 1rem
   border-radius 0.5rem
-  color #161931
+  color var(--color-text)
   font-size 0.875rem
-  font-weight 500
-  line-height 20px
+  font-weight 600
+  line-height 1.25rem
   margin 1rem 0
   display block
   letter-spacing 0.01em

@@ -13,7 +13,7 @@
             div(v-html="md($themeConfig.gutter.forum.title)").links__item__title
             div(v-html="md($themeConfig.gutter.forum.text)").links__item__text
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item.links__item__regular
-            tm-icon-paper-pen(fill="var(--accent-color").links__item__logo
+            tm-icon-paper-pen(fill="var(--color-primary").links__item__logo
             div(v-html="md($themeConfig.gutter.github.title)").links__item__title
             div(v-html="md($themeConfig.gutter.github.text)" style="color: rgba(22, 25, 49, 0.65)").links__item__text
       .newsletter(v-if="$themeConfig.label == 'sdk'")
@@ -70,13 +70,13 @@
 
 /deep/
   a[href]
-    color var(--accent-color)
+    color var(--color-primary)
 
   strong
-    font-weight 600
+    font-weight 700
 
 strong
-  font-weight 500
+  font-weight 600
 
 .container
   background var(--sidebar-bg)
@@ -86,12 +86,13 @@ strong
 
 .title
   font-size 2rem
-  color #161931
+  color var(--color-text)
   padding 1.5rem 0
-  font-weight 600
+  font-weight 700
 
 .links
   display grid
+  margin-top 1rem
   gap 2rem
   grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
 
@@ -103,28 +104,32 @@ strong
     text-align center
     border-radius 0.5rem
     padding 2rem
-    line-height 20px
+    line-height 1.25rem
     background var(--bg)
-    transition box-shadow .25s
+    transition box-shadow .25s ease-out, transform .25s ease-out
 
     &__text
       font-size .875rem
-      line-height 20px
+      line-height 1.25rem
       letter-spacing 0.01em
 
     &:hover
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
 
     &__title
       margin-top 1.5rem
-      margin-bottom 1rem
+      margin-bottom 0.75rem
+      font-size 1.25rem
+      line-height 1.75rem
       font-weight 600
 
 a.links__item
   color white
 
 a.links__item__regular
-  color #161931
+  color var(--color-text)
   background rgba(176, 180, 207, 0.09)
 
 @media screen and (max-width: 832px)
