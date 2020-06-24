@@ -2,8 +2,8 @@
   form(action="https://zcs1.maillist-manage.com/campaigns/weboptin.zc" method="POST" target="_blank" rel="noreferrer noopener").newsletter__form__component__internal
     .newsletter__desc
       .newsletter__desc__h1
-        label(for="newsletter-email-input") Get {{ $themeConfig.footer.newsletter.title }} updates
-      .newsletter__desc__p You’ll be notified with {{ $themeConfig.footer.newsletter.title }} updates, news and announcements.
+        label(for="newsletter-email-input") Get Cosmos updates
+      .newsletter__desc__p You’ll be notified with Cosmos updates, news and announcements.
     .newsletter__input
       .newsletter__input__input
         input(type="email" required name="CONTACT_EMAIL" id="newsletter-email-input" placeholder="Your email").newsletter__input__input__el
