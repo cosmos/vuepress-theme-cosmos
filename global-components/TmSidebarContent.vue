@@ -14,7 +14,7 @@
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
       .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
-        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in $themeConfig.sidebar.footer" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
           .footer__item__title(v-html="md(product.name)")
 </template>
@@ -154,7 +154,33 @@ export default {
     return {
       search: {
         query: null,
-      }
+      },
+      products: [
+        {
+          label: "sdk",
+          name: "Cosmos<br>SDK",
+          url: "https://docs.cosmos.network/",
+          color: "#5064FB",
+        },
+        {
+          label: "hub",
+          name: "Cosmos<br>Hub",
+          url: "https://hub.cosmos.network/",
+          color: "#BA3FD9",
+        },
+        {
+          label: "ibc",
+          name: "IBC<br>Protocol",
+          url: "https://github.com/cosmos/ics/tree/master/ibc",
+          color: "#E6900A",
+        },
+        {
+          label: "core",
+          name: "Tendermint<br>Core",
+          url: "https://docs.tendermint.com/",
+          color: "#00BB00",
+        },
+      ],
     };
   },
   computed: {
