@@ -68,7 +68,7 @@
       &__button
         padding .5rem
         text-transform uppercase
-        color var(--color-primary)
+        color var(--color-link)
         font-weight 600
         cursor pointer
         background none

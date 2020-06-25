@@ -13,7 +13,7 @@
             div(v-html="md($themeConfig.gutter.forum.title)").links__item__title
             div(v-html="md($themeConfig.gutter.forum.text)").links__item__text
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item.links__item__regular
-            tm-icon-paper-pen(fill="var(--color-primary").links__item__logo
+            tm-icon-paper-pen(fill="var(--color-link").links__item__logo
             div(v-html="md($themeConfig.gutter.github.title)").links__item__title
             div(v-html="md($themeConfig.gutter.github.text)" style="color: rgba(22, 25, 49, 0.65)").links__item__text
       .newsletter(v-if="$themeConfig.label == 'sdk'")
@@ -70,7 +70,7 @@
 
 /deep/
   a[href]
-    color var(--color-primary)
+    color var(--color-link)
 
   strong
     font-weight 700

@@ -16,5 +16,5 @@
 
 <style lang="stylus" scoped>
 .fill
-  stroke var(--color-primary)
+  stroke var(--color-link)
 </style>

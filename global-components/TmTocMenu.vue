@@ -51,9 +51,9 @@
           color var(--color-text)
 
         &:active
-          color var(--color-primary)
+          color var(--color-link)
           font-weight 600
-          box-shadow inset 2px 0 0 0 var(--color-primary)
+          box-shadow inset 2px 0 0 0 var(--color-link)
 
         &:last-child
           margin-bottom 0.5rem

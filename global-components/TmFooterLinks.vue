@@ -40,7 +40,6 @@
     align-items stretch
     display flex
     flex-direction column
-    // background red
 
   &__item
     margin-top 1rem
@@ -52,6 +51,16 @@
     flex-grow 1
     gap 2rem
     overflow-x hidden
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
+
+    &:hover:not(:active)
+      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
     &__left
       grid-template-columns 44px auto

@@ -1,22 +1,23 @@
 <template lang="pug">
   div
     div(v-for="item in value")
+      // todo: add event.preventDefault() somehow
       component(
-        tabindex="0"
         v-if="!hide(item)"
-        :style="{'--vline': level < 1 ? 0 : 1, '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--color-primary)' : 'rgba(176, 180, 207, 0.2)' }"
+        :style="{'--vline': level < 1 ? 'hidden' : 'visible', '--vline-color': (iconActive(item) || iconExpanded(item)) && !iconExpanded(item) ? 'var(--color-primary)' : 'rgba(0,0,0,0.1)' }"
         :is="componentName(item)"
         :to="item.path"
         :target="outboundLink(item.path) && '_blank'"
         :rel="outboundLink(item.path) && 'noreferrer noopener'"
-        :href="(outboundLink(item.path) || item.static) && item.path"
+        :href="(outboundLink(item.path) || item.static) ? item.path : '#'"
         :class="[level > 0 && 'item__child',{'item__dir': !item.path}]"
         tag="a"
+        :role="!item.path && 'button'"
         @keydown.enter="handleEnter(item)"
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
-        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--color-primary, black)").item__icon.item__icon__expanded
-        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: #ccc").item__icon.item__icon__collapsed
+        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--color-primary, blue)").item__icon.item__icon__expanded
+        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: rgba(0,0,0,0.18)").item__icon.item__icon__collapsed
         tm-icon-hex(v-else-if="!outboundLink(item.path) && level < 1 && !iconExpanded(item)").item__icon.item__icon__internal
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
@@ -36,62 +37,53 @@
   font-size .875rem
   letter-spacing 0.01em
   line-height 1.25rem
-  outline none
+  outline-color var(--color-primary, blue)
+  color rgba(0,0,0,0.8)
+  transition color .15s ease-out
 
-  &__child
-    color rgba(22, 25, 49, 0.65)
-
-    &:hover, &:focus
-      color var(--color-text)
+  &:hover,
+  &:hover &__icon
+    transition-duration 0s
 
   &:hover, &:focus
+    color var(--color-text, black)
 
+  &__child:not(.router-link-active)
+    &:hover:after,
+    &:focus:after
+      background rgba(0,0,0,0.2)
+
+  &:hover, &:focus
+    .item__icon.item__icon__outbound,
     .item__icon.item__icon__collapsed
-      fill rgba(59, 66, 125, 0.32)
+      fill var(--color-primary, blue)
       stroke none
 
   &:hover
-
-    .item__icon.item__icon__expanded
-      stroke none
-      fill none
-      background var(--color-primary, black)
-      height 1px
-      padding-top 1px
-      margin-top 4px
-
     .item__icon.item__icon__internal
-      opacity unset
-      stroke var(--color-primary, black)
+      visibility unset
+      stroke var(--color-primary, blue)
 
   &:focus
-
-    .item__icon.item__icon__expanded
-      stroke none
-      fill none
-      background var(--color-primary, black)
-      height 1px
-      padding-top 1px
-      margin-top 4px
-
     .item__icon.item__icon__internal
       stroke transparent
-      opacity unset
-      fill var(--color-primary, black)
+      visibility unset
+      fill var(--color-primary, blue)
 
   &:after
     content ''
     width 2px
     height 100%
-    opacity var(--vline)
+    visibility var(--vline)
     background var(--vline-color, black)
     position absolute
     top 0
     left 5px
+    transition background-color .15s ease-out
 
   &__selected
     font-weight 600
-    color var(--color-primary)
+    color var(--color-link, blue)
 
     &__dir
       font-weight 400
@@ -110,11 +102,23 @@
     width 12px
     height 12px
     fill var(--icon-color)
+    transition fill .15s ease-out, height .15s ease-out
+
+    &__expanded
+      stroke none
+      fill none
+      background var(--color-primary, blue)
+      height 1px
+      padding-top 1px
+      margin-top 4px
 
     &__internal
-      stroke var(--color-primary, black)
-      opacity 0.12
+      stroke rgba(0,0,0,0.2)
+      stroke-width 1.5px
       fill none
+
+    &__outbound
+      fill rgba(0,0,0,0.2)
 
 .reveal-enter-active, .reveal-leave-active
   transition all 0.25s
@@ -203,7 +207,7 @@ export default {
     componentName(item) {
       if (this.isInternalLink(item)) return "router-link";
       if (this.isOutboundLink(item)) return "a";
-      return "div";
+      return "a";
     },
     indexFile(item) {
       if (!item.children) return false;

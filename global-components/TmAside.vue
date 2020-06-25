@@ -62,7 +62,7 @@
 
   &__text
     color rgba(22, 25, 49, 0.65)
-    transition fill .15s ease-out
+    transition color .15s ease-out
 
   &:hover &__icon
     fill var(--color-text)

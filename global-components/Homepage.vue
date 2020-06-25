@@ -64,6 +64,10 @@
   padding-top 0.5rem
   width calc(var(--aside-width) - 6rem)
   cursor pointer
+  transition color .15s ease-out
+
+  &:hover
+    color var(--color-text)
 
   &__container
     display flex
@@ -76,6 +80,10 @@
     height 1.5rem
     fill #aaa
     margin-right 0.5rem
+    transition fill .15s ease-out
+
+  &:hover &__icon
+    fill var(--color-text)
 
 .intro
   width 100%

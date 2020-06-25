@@ -46,7 +46,7 @@
   &__image
     width 2rem
     height 2rem
-    fill var(--color-primary)
+    fill var(--color-link)
 
     &__custom
       display flex

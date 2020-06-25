@@ -49,7 +49,7 @@
 
   a
     box-shadow none
-    color var(--color-primary)
+    color var(--color-link)
 
 .container
   position relative
@@ -127,7 +127,7 @@
     text-align center
     box-sizing border-box
     color rgba(0, 0, 0, 0.5)
-    outline-color var(--color-primary)
+    outline-color var(--color-link)
     transition all 0.25s
 
     &:after
@@ -272,6 +272,7 @@
     box-shadow 0 0 0 1px rgba(140, 145, 177, 0.32)
     border-radius 0.5rem
     border-collapse collapse
+    font-size 1rem
 
   td
     word-break break-word
@@ -325,15 +326,25 @@
     display block
 
   .tooltip
+
+    // temporary fixes for tooltips coming from cosmos-ui
+    &__wrapper
+      background white
+      padding 1rem
+
     h1
       font-size 0.875rem
+      line-height 1.25rem
+      letter-spacing -0.01em
       font-weight 600
+      margin-top 0
       margin-bottom 0
 
     p
-      margin-top 0
+      font-size 0.8125rem
+      line-height 1.125rem
+      margin-top 0.375rem
       margin-bottom 0
-      line-height 1.5
 
   strong
     font-weight 600
@@ -382,13 +393,20 @@
     margin-bottom 1.5em
     margin-left 0
     padding-left 0
-    list-style-position inside
 
   li
     padding-left 0
     margin-left 2rem
     margin-bottom 1rem
     position relative
+
+  blockquote
+    padding-left 2rem
+    border-left 0.25rem solid rgba(0,0,0,0.1)
+    max-width 36em
+    color var(--color-text-dim)
+    margin-top 1.5rem
+    margin-bottom 1.5rem
 
   code
     background-color rgba(176, 180, 207, 0.175)
@@ -398,8 +416,7 @@
     padding-right 0.25em
     font-size 0.8333em
     line-height 1.06666em
-    font-family 'Menlo', 'Monaco', 'Fira Code', monospace
-    color #46509F
+    color var(--color-code, inherit)
     margin-top 3rem
 
   h1, h2, h3, h4, h5, h6
@@ -408,14 +425,14 @@
 
   h1, h2, h3, h4, h5, h6
     a
-      color var(--color-primary)
+      color var(--color-link)
       outline none
       position relative
 
   p, ul, ol
     a
-      color var(--color-primary)
-      outline-color var(--color-primary)
+      color var(--color-link)
+      outline-color var(--color-link)
       border-radius 0.25rem
       position relative
       transition opacity 0.3s ease-out

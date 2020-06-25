@@ -3,7 +3,7 @@
     .container
       .search-box
         .search-box__icon
-          icon-search(:stroke="query ? 'var(--color-primary)' : '#aaa'" :fill="query ? 'var(--color-primary)' : '#aaa'")
+          icon-search(:stroke="query ? 'var(--color-link)' : '#aaa'" :fill="query ? 'var(--color-link)' : '#aaa'")
         .search-box__input
           input(type="text" autocomplete="off" placeholder="Search" id="search-box-input" ref="search" :value="query" @input="$emit('query', $event.target.value)").search-box__input__input
         .search-box__clear
@@ -146,7 +146,7 @@ strong
 
   &__button
     text-transform uppercase
-    color var(--color-primary)
+    color var(--color-link)
     font-weight 600
     cursor pointer
     height 100%
@@ -200,7 +200,7 @@ strong
 
     &__a
       cursor pointer
-      color var(--color-primary)
+      color var(--color-link)
 
   &__item
     padding 0.75rem 2rem
@@ -212,7 +212,7 @@ strong
       background-color rgba(176, 180, 207, 0.087)
 
     &__title
-      color var(--color-primary)
+      color var(--color-link)
       line-height 1.5rem
 
     &__h2

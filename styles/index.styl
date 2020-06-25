@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
-
 /* @reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
 @font-face
   font-family 'Metropolis'
@@ -20,6 +18,15 @@
   font-family 'Metropolis'
   src url('/assets/fonts/metropolis-bold.woff2') format('woff2')
   font-weight 700
+
+@font-face
+    font-family 'JetBrains Mono'
+    src url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/web/eot/JetBrainsMono-Regular.eot') format('embedded-opentype'),
+         url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/web/woff2/JetBrainsMono-Regular.woff2') format('woff2'),
+         url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/web/woff/JetBrainsMono-Regular.woff') format('woff'),
+         url('https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/ttf/JetBrainsMono-Regular.ttf') format('truetype')
+    font-weight normal
+    font-style normal
 
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, button, input
@@ -52,10 +59,19 @@ body
   --aside-width 280px
   --topbar-height 100px
   --color-text #000
+  --color-text-dim rgba(0,0,0,0.667)
+  --color-link #5064FB
   --color-primary #5064FB
+  --color-code #9214B1
   --sidebar-bg #fff
   --sidebar-footer-height 100px
   --layout-width 1540px
+
+code
+  -webkit-font-feature-settings "liga" on, "calt" on
+  -webkit-font-smoothing antialiased
+  text-rendering optimizeLegibility
+  font-family 'JetBrains Mono', 'arial', 'Menlo', 'Monaco', monospace
 
 select
   font-size inherit

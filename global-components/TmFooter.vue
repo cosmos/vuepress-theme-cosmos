@@ -47,7 +47,7 @@
   align-items flex-start
 
   & >>> a[href]
-    color var(--color-primary, #ccc)
+    color var(--color-link, #ccc)
 
   &__wrapper
     margin-bottom 2rem
@@ -86,6 +86,12 @@
       line-height 1.25rem
       margin-top 0.5rem
       margin-bottom 0.5rem
+      align-self flex-start
+      color var(--color-text-dim, inherit)
+
+      &:hover,
+      &:focus
+        color var(--color-link, inherit)
 
 .footer__wrapper
   margin 0 auto
@@ -118,24 +124,33 @@
   align-items flex-end
 
   & >>> a[href]
-    color var(--accent-color, #ccc)
+    color var(--color-link, #ccc)
 
   &__item
     padding 1rem 0
     font-weight 600
 
     &__links
-      color var(--color-primary)
+      color var(--color-link)
       font-size 0.875rem
 
       &__item
         margin-right 1rem
+
+        svg
+          transition fill .15s ease-out
+          fill rgba(0,0,0,0.3)
+
+        &:hover svg,
+        &:focus svg
+          fill rgba(0,0,0,0.5)
 
     &__desc
       grid-column span 2
       font-size 0.8125rem
       line-height 1rem
       font-weight normal
+      color var(--color-text-dim)
 
 @media screen and (max-width: 732px)
   .questions

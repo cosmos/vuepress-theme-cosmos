@@ -7,7 +7,7 @@
 
 <style lang="stylus" scoped>
 a
-  color var(--color-primary)
+  color var(--color-link)
 
 .h1
   font-size 2.25rem
