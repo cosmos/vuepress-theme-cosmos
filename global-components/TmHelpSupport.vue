@@ -21,7 +21,7 @@
           .newsletter__image__item(v-for="(item, index) in range(15)" :class="[`letter__${index}`]")
             image-letter
         .newsletter__form
-          tm-newsletter-form(v-if="$themeConfig.footer.newsletter")
+          tm-newsletter-form
 </template>
 
 <style lang="stylus" scoped>
