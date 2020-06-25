@@ -24,7 +24,7 @@
           .smallprint(v-if="$themeConfig.footer")
             .smallprint__item.smallprint__item__links
               a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
+            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
 </template>
 
 <style lang="stylus" scoped>
@@ -115,6 +115,9 @@
   display grid
   grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
   align-items flex-end
+
+  & >>> a[href]
+    color var(--accent-color, #ccc)
 
   &__item
     padding 1rem 0
