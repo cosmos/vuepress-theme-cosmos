@@ -122,6 +122,10 @@ strong
       padding 1rem
       width 1rem
       height 1rem
+      opacity .35
+
+    &:hover &__icon
+      opacity .6
 
     &__text
       font-size .875rem
