@@ -1,8 +1,8 @@
 <template lang="pug">
   div
     .container
-      .search__container(v-if="!$themeConfig.custom")
-        .search(@click="$emit('search', true)")
+      .search__container
+        .search(@click="$emit('search', true)" v-if="!$themeConfig.custom")
           .search__icon
             icon-search
           .search__text Search
