@@ -39,11 +39,10 @@
     padding-right 1.5rem
 
     &__h1
-      color var(--color-text)
+      color var(--color-text, black)
       font-size 1.5rem
       line-height 2rem
       font-weight 600
-      letter-spacing -0.02em
       margin-bottom 0.5rem
 
     &__p
@@ -63,7 +62,7 @@
       border-radius .25rem
 
       &:focus-within
-        border-color #66A1FF
+        border-color var(--color-primary, blue)
 
       &__button
         padding .5rem

@@ -48,7 +48,7 @@
 
         &:hover
           background-color rgba(176, 180, 207, 0.087)
-          color var(--color-text)
+          color var(--color-text, black)
 
         &:active
           color var(--color-link)

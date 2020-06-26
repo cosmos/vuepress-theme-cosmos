@@ -194,6 +194,7 @@
         padding-right 1.75rem
 
       &__content
+        padding-top 1rem
         &__body
           padding-top 0
 

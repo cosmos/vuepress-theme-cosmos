@@ -26,7 +26,7 @@
   height 100%
 
 .logo
-  padding 1rem 2rem
+  padding 1.5rem 2rem
   display flex
   align-items center
 
@@ -34,15 +34,18 @@
     outline none
 
   &__img
-    width 40px
-    height 40px
+    width 2.5rem
+    height 2.5rem
     margin-right 0.75rem
 
     &__custom
-      width 120px
-      height 40px
-      margin-top 1rem
+      width 100%
+      height 2.5rem
       margin-right 0.75rem
+
+      img
+        max-width 100%
+        max-height 100%
 
   &__text
     font-weight 600
@@ -133,7 +136,7 @@
       text-align center
       font-size 0.6875rem
       line-height 0.875rem
-      letter-spacing 0.01em
+      letter-spacing 0.03em
 </style>
 
 <script>

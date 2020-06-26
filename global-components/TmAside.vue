@@ -38,6 +38,7 @@
     a
       display block
       transition transform 150ms ease-out, opacity 150ms ease-out, box-shadow 150ms ease-out
+      outline-color var(--color-primary, blue)
 
       &:hover:not(:active), &:focus:not(:active)
         transform translateY(-2px)
@@ -65,10 +66,10 @@
     transition color .15s ease-out
 
   &:hover &__icon
-    fill var(--color-text)
+    fill var(--color-text, black)
 
   &:hover &__text
-    color var(--color-text)
+    color var(--color-text, black)
 
 .selected
   font-weight 700
@@ -83,36 +84,49 @@
     font-size 0.75rem
     text-transform uppercase
     letter-spacing 0.2em
-    color #666
+    color var(--color-text-dim, inherit)
     margin-top 3rem
     margin-bottom 0.75rem
 
   &__link
-    color rgba(22, 25, 49, 0.65)
+    color var(--color-text-dim, inherit)
     padding-top 0.375rem
     padding-bottom 0.375rem
     font-size 0.875rem
     line-height 1.125rem
-    letter-spacing 0.01em
+    letter-spacing 0.03em
 
     &__href:hover
-      color var(--color-text)
+      color var(--color-text, black)
 
     &__active__true
-      color var(--color-text)
+      color var(--color-text, black)
       font-weight bold
 
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
   padding 1rem
   border-radius 0.5rem
-  color var(--color-text)
+  color var(--color-text, black)
   font-size 0.875rem
   font-weight 600
   line-height 1.25rem
   margin 1rem 0
   display block
-  letter-spacing 0.01em
+  letter-spacing 0.03em
+  transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
+
+  &:hover:not(:active)
+    color inherit
+    text-decoration none
+    box-shadow 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 2px 6px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
+    transform translateY(-2px)
+    transition-duration 0.1s
+
+  &:active
+    opacity 0.7
+    transition-duration 0s
+
 </style>
 
 <script>

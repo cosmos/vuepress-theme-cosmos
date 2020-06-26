@@ -15,13 +15,17 @@
   display flex
   align-items center
   color rgba(22, 25, 49, 0.65)
-  padding-top 0.5rem
+  padding-top 1rem
   width calc(var(--aside-width) - 6rem)
   cursor pointer
   position absolute
   top 1rem
   right 4rem
   justify-content flex-end
+  transition color .15s ease-out
+
+  &:hover
+    color var(--color-text, black)
 
   &__container
     visibility hidden
@@ -35,6 +39,10 @@
     height 1.5rem
     fill #aaa
     margin-right 0.5rem
+    transition fill .15s ease-out
+
+  &:hover &__icon
+    fill var(--color-text, black)
 
 .footer__links
   padding-top 5rem
@@ -49,12 +57,12 @@
 
   a
     box-shadow none
-    color var(--color-link)
+    color var(--color-link, blue)
 
 .container
   position relative
-  min-height 100vh
   width 100%
+  max-width 45rem
 
 .content
   padding-right var(--sidebar-width)
@@ -74,8 +82,8 @@
 
 /deep/
   .codeblock
-    margin-top 2.5rem
-    margin-bottom 2.5rem
+    margin-top 2rem
+    margin-bottom 2rem
 
   .custom-block
     &.danger, &.warning, &.tip
@@ -126,8 +134,8 @@
     width 1.5em
     text-align center
     box-sizing border-box
-    color rgba(0, 0, 0, 0.5)
-    outline-color var(--color-link)
+    color rgba(0, 0, 0, 0.4)
+    outline-color var(--color-link, blue)
     transition all 0.25s
 
     &:after
@@ -147,7 +155,7 @@
       letter-spacing 0
       opacity 0
       box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
-      background var(--color-text)
+      background var(--color-text, black)
 
     &:before
       transition all 0.25s
@@ -173,32 +181,30 @@
 
   h1[id*='requisite'], h2[id*='requisite'], h3[id*='requisite'], h4[id*='requisite'], h5[id*='requisite'], h6[id*='requisite']
     display none
-    align-items center
+    align-items baseline
     cursor pointer
 
     &:before
       content ''
-      width 24px
-      height 24px
+      width 1.5rem
+      height 1.5rem
       display block
-      margin-right 0.75rem
+      flex none
+      margin-right 0.5rem
       background url('./images/icon-chevron.svg')
-      transition all 0.25s
+      transition transform 0.2s ease-out
 
   h1[id*='requisite'].prereqTitleShow, h2[id*='requisite'].prereqTitleShow, h3[id*='requisite'].prereqTitleShow, h4[id*='requisite'].prereqTitleShow, h5[id*='requisite'].prereqTitleShow, h6[id*='requisite'].prereqTitleShow
     &:before
       transform rotate(90deg)
 
   h1[id*='requisite'] + ul, h2[id*='requisite'] + ul, h3[id*='requisite'] + ul, h4[id*='requisite'] + ul, h5[id*='requisite'] + ul, h6[id*='requisite'] + ul
-    padding-left initial
     display none
 
   li[prereq]
-    padding-left initial
     display none
-
-    &:before
-      display none
+    max-width 28rem
+    margin-left 2rem
 
   li[prereq].prereqLinkShow
     display block
@@ -207,16 +213,25 @@
     box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
     padding 1rem
     border-radius 0.5rem
-    color var(--color-text)
-    font-size 0.875rem
+    color var(--color-text, black)
+    font-size 1rem
     font-weight 600
     line-height 1.25rem
     margin 1rem 0
     display block
-    letter-spacing 0.01em
+    letter-spacing 0.03em
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
-    &:hover
+    &:hover:not(:active)
       color inherit
+      text-decoration none
+      box-shadow 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 2px 6px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
   [synopsis]
     padding 1.5rem 2rem
@@ -236,16 +251,6 @@
       font-size 0.75rem
       margin-bottom 0.5rem
       letter-spacing 0.2em
-
-  [synopsis]
-    & a code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 0.3)
-
-    & a:hover code
-      box-shadow 0 1px 0 0 rgba(80, 100, 251, 1)
-
-    & a:active code
-      color rgba(80, 100, 251, 0.6)
 
   a[target='_blank']
     &:after
@@ -335,7 +340,7 @@
     h1
       font-size 0.875rem
       line-height 1.25rem
-      letter-spacing -0.01em
+      letter-spacing .01em
       font-weight 600
       margin-top 0
       margin-bottom 0
@@ -348,7 +353,7 @@
 
   strong
     font-weight 600
-    letter-spacing -0.01em
+    letter-spacing .01em
 
   em
     font-style italic
@@ -357,28 +362,27 @@
     font-size 3rem
     margin-bottom 4rem
     line-height 3.5rem
-    letter-spacing -0.04em
+    letter-spacing -0.02em
 
   h2
     font-size 2rem
     margin-top 3.75rem
     margin-bottom 1.25rem
     line-height 2.5rem
-    letter-spacing -0.03em
+    letter-spacing -0.01em
 
   h3
     font-size 1.5rem
     margin-top 2.5rem
     margin-bottom 1rem
     line-height 2rem
-    letter-spacing -0.02em
 
   h4
     font-size 1.25rem
-    margin-top 2rem
+    margin-top 2.25rem
     margin-bottom 0.875rem
     line-height 1.75rem
-    letter-spacing -0.01em
+    letter-spacing .01em
 
   p,ul,ol
     font-size 1.125rem
@@ -402,11 +406,11 @@
 
   blockquote
     padding-left 2rem
+    padding-right 2rem
     border-left 0.25rem solid rgba(0,0,0,0.1)
-    max-width 36em
-    color var(--color-text-dim)
-    margin-top 1.5rem
-    margin-bottom 1.5rem
+    color var(--color-text-dim, inherit)
+    margin-top 1.75rem
+    margin-bottom 1.75rem
 
   code
     background-color rgba(176, 180, 207, 0.175)
@@ -418,6 +422,10 @@
     line-height 1.06666em
     color var(--color-code, inherit)
     margin-top 3rem
+    overflow-wrap break-word
+    word-wrap break-word
+    -ms-word-break break-all
+    word-break break-word
 
   h1, h2, h3, h4, h5, h6
     code
@@ -425,17 +433,26 @@
 
   h1, h2, h3, h4, h5, h6
     a
-      color var(--color-link)
+      color var(--color-link, blue)
       outline none
       position relative
 
   p, ul, ol
     a
-      color var(--color-link)
-      outline-color var(--color-link)
+      color var(--color-link, blue)
+      outline-color var(--color-link, blue)
       border-radius 0.25rem
       position relative
       transition opacity 0.3s ease-out
+      overflow-wrap break-word
+      word-wrap break-word
+      -ms-word-break break-all
+      word-break break-word
+      -ms-hyphens auto
+      -moz-hyphens auto
+      -webkit-hyphens auto
+      hyphens auto
+
 
     a[target='_blank']
       margin-right 0.888em
@@ -457,11 +474,12 @@
 
 @media screen and (max-width: 1136px)
   >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
-    padding-right 1.5rem
+    padding-right 1.75rem
 
   >>> a.header-anchor
     left initial
     right 0
+    text-align right
     opacity 1
 
     &:after
@@ -520,7 +538,7 @@
 
   >>> [synopsis]
     padding 1rem
-    letter-spacing 0.01em
+    letter-spacing 0.03em
     font-size 0.875rem
     line-height 1.25rem
 
@@ -547,7 +565,7 @@ export default {
       copy(event.target.href);
       setTimeout(() => {
         event.target.setAttribute("data-header-anchor-text", "Copy link");
-      }, 3000);
+      }, 4000);
       event.preventDefault();
     };
     document
@@ -580,6 +598,7 @@ export default {
       this.$emit("prereq", prereq);
     },
     prereqToggle(e) {
+      if (e.target.classList.contains('header-anchor')) return
       e.target.classList.toggle("prereqTitleShow");
       document.querySelectorAll("[prereq]").forEach(node => {
         node.classList.toggle("prereqLinkShow");

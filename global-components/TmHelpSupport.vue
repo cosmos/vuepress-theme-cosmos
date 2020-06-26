@@ -86,7 +86,7 @@ strong
 
 .title
   font-size 2rem
-  color var(--color-text)
+  color var(--color-text, black)
   padding 1.5rem 0
   font-weight 700
 
@@ -111,7 +111,7 @@ strong
     &__text
       font-size .875rem
       line-height 1.25rem
-      letter-spacing 0.01em
+      letter-spacing 0.03em
 
     &:hover
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
@@ -129,7 +129,7 @@ a.links__item
   color white
 
 a.links__item__regular
-  color var(--color-text)
+  color var(--color-text, black)
   background rgba(176, 180, 207, 0.09)
 
 @media screen and (max-width: 832px)

@@ -49,9 +49,10 @@ html
 body
   margin 0
   font-weight 400
-  font-family 'Metropolis', 'Courier', sans-serif
+  font-family "Metropolis",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Helvetica Neue",sans-serif
+  letter-spacing 0.01em
   -webkit-font-smoothing antialiased
-  color var(--color-text)
+  color var(--color-text, black)
   text-rendering optimizeLegibility
 
 :root
@@ -69,9 +70,7 @@ body
 
 code
   -webkit-font-feature-settings "liga" on, "calt" on
-  -webkit-font-smoothing antialiased
-  text-rendering optimizeLegibility
-  font-family 'JetBrains Mono', 'arial', 'Menlo', 'Monaco', monospace
+  font-family "JetBrains Mono","Menlo","Monaco","Lucida Console","Liberation Mono","DejaVu Sans Mono","Bitstream Vera Sans Mono","Courier New",monospace
 
 select
   font-size inherit

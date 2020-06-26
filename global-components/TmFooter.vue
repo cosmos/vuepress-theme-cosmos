@@ -30,7 +30,7 @@
 <style lang="stylus" scoped>
 .container
   background-color white
-  color var(--color-text)
+  color var(--color-text, black)
   padding-top 3.5rem
   padding-bottom 3.5rem
 
@@ -57,7 +57,7 @@
     line-height 2rem
     margin-bottom 0.5rem
     font-weight 600
-    color var(--color-text)
+    color var(--color-text, black)
 
   &__p
     font-size 0.875rem
@@ -82,7 +82,7 @@
 
     &__link
       font-size 0.875rem
-      letter-spacing 0.01em
+      letter-spacing 0.03em
       line-height 1.25rem
       margin-top 0.5rem
       margin-bottom 0.5rem
@@ -110,13 +110,19 @@
 
   &__image
     display inline-block
-    height 30px
-    max-width 200px
+    min-height 2rem
+    max-height 3rem
+    max-width 12.5rem
     cursor pointer
+
+    img
+      max-height 100%
+      max-width 100%
 
   &__link
     grid-column span 2
     font-weight 600
+    align-items center
 
 .smallprint
   display grid
