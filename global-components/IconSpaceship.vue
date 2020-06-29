@@ -9,39 +9,33 @@
     <path fill-rule="evenodd" clip-rule="evenodd" d="M106.575 217.245L99.4741 110.959L137.392 127.801L143.167 213.533L106.575 217.245Z" stroke="url(#paint6_linear)" stroke-width="0.7"/>
     <defs>
     <linearGradient id="paint0_linear" x1="127.81" y1="45.3403" x2="166.704" y2="94.5326" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1" stop-opacity="0.910609"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#4154E0" stop-opacity="0.910609"/>
+    <stop offset="1" stop-color="#ABB3ED"/>
     </linearGradient>
     <linearGradient id="paint1_linear" x1="117.107" y1="82.6653" x2="141.785" y2="129.845" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1" stop-opacity="0.910609"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#4154E0" stop-opacity="0.910609"/>
+    <stop offset="1" stop-color="#ABB3ED"/>
     </linearGradient>
     <linearGradient id="paint2_linear" x1="100.64" y1="139.499" x2="144.213" y2="188.995" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1" stop-opacity="0.910609"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#4154E0" stop-opacity="0.910609"/>
+    <stop offset="1" stop-color="#ABB3ED"/>
     </linearGradient>
     <linearGradient id="paint3_linear" x1="68.6015" y1="154.034" x2="110.557" y2="229.491" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1" stop-opacity="0.910609"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#4154E0" stop-opacity="0.910609"/>
+    <stop offset="1" stop-color="#ABB3ED"/>
     </linearGradient>
     <linearGradient id="paint4_linear" x1="129.742" y1="171.983" x2="171.85" y2="245.124" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1" stop-opacity="0.910609"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#4154E0" stop-opacity="0.910609"/>
+    <stop offset="1" stop-color="#ABB3ED"/>
     </linearGradient>
     <linearGradient id="paint5_linear" x1="64.2552" y1="100.861" x2="36.7986" y2="196.613" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#8997FF"/>
+    <stop offset="1" stop-color="#505EFF"/>
     </linearGradient>
     <linearGradient id="paint6_linear" x1="133.25" y1="120.644" x2="105.628" y2="216.973" gradientUnits="userSpaceOnUse">
-    <stop :stop-color="color1"/>
-    <stop offset="1" :stop-color="color2"/>
+    <stop stop-color="#8997FF"/>
+    <stop offset="1" stop-color="#505EFF"/>
     </linearGradient>
     </defs>
   </svg>
 </template>
-
-<script>
-export default {
-  props: ["color1", "color2"]
-};
-</script>
