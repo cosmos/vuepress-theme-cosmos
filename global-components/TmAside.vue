@@ -2,14 +2,14 @@
   div
     .container
       .search__container
-        .search(@click="$emit('search', true)")
+        .search(@click="$emit('search', true)" v-if="!$themeConfig.custom")
           .search__icon
             icon-search
           .search__text Search
-      //- .banners(v-if="banners")
-      //-   .banners__item(v-for="banner in banners")
-      //-     a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-      //-       img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+      .banners(v-if="banners && !$themeConfig.custom")
+        .banners__item(v-for="banner in banners")
+          a(:href="banner.href" target="_blank" rel="noreferrer noopener")
+            img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
@@ -38,6 +38,7 @@
     a
       display block
       transition transform 150ms ease-out, opacity 150ms ease-out, box-shadow 150ms ease-out
+      outline-color var(--color-primary, blue)
 
       &:hover:not(:active), &:focus:not(:active)
         transform translateY(-2px)
@@ -58,12 +59,20 @@
     width 1.5rem
     margin-right 0.5rem
     fill #aaa
+    transition fill .15s ease-out
 
   &__text
     color rgba(22, 25, 49, 0.65)
+    transition color .15s ease-out
+
+  &:hover &__icon
+    fill var(--color-text, black)
+
+  &:hover &__text
+    color var(--color-text, black)
 
 .selected
-  font-weight 600
+  font-weight 700
 
 .aside
   &__image
@@ -75,36 +84,49 @@
     font-size 0.75rem
     text-transform uppercase
     letter-spacing 0.2em
-    color #666
+    color var(--color-text-dim, inherit)
     margin-top 3rem
     margin-bottom 0.75rem
 
   &__link
-    color rgba(22, 25, 49, 0.65)
+    color var(--color-text-dim, inherit)
     padding-top 0.375rem
     padding-bottom 0.375rem
     font-size 0.875rem
-    line-height 18px
-    letter-spacing 0.01em
+    line-height 1.125rem
+    letter-spacing 0.03em
+
+    &__href:hover
+      color var(--color-text, black)
 
     &__active__true
-      color red
+      color var(--color-text, black)
       font-weight bold
-
-    &__href
-      color rgba(22, 25, 49, 0.65)
 
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
   padding 1rem
   border-radius 0.5rem
-  color #161931
+  color var(--color-text, black)
   font-size 0.875rem
-  font-weight 500
-  line-height 20px
+  font-weight 600
+  line-height 1.25rem
   margin 1rem 0
   display block
-  letter-spacing 0.01em
+  letter-spacing 0.03em
+  transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
+
+  &:hover:not(:active)
+    color inherit
+    text-decoration none
+    box-shadow 0px 10px 20px rgba(0, 0, 0, 0.05), 0px 2px 6px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
+    transform translateY(-2px)
+    transition-duration 0.1s
+
+  &:active
+    opacity 0.7
+    transition-duration 0s
+
 </style>
 
 <script>

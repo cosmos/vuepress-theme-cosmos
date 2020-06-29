@@ -3,7 +3,7 @@
     .container
       .search-box
         .search-box__icon
-          icon-search(:stroke="query ? '#66A1FF' : '#aaa'" :fill="query ? '#66A1FF' : '#aaa'")
+          icon-search(:stroke="query ? 'var(--color-link)' : '#aaa'" :fill="query ? 'var(--color-link)' : '#aaa'")
         .search-box__input
           input(type="text" autocomplete="off" placeholder="Search" id="search-box-input" ref="search" :value="query" @input="$emit('query', $event.target.value)").search-box__input__input
         .search-box__clear
@@ -89,7 +89,7 @@
         color rgba(22, 25, 49, 0.65)
 
 strong
-  font-weight 500
+  font-weight 600
 
 .container
   height 100vh
@@ -105,10 +105,13 @@ strong
   grid-auto-flow column
   align-items center
   box-shadow inset 0 -1px 0 0 rgba(176, 180, 207, 0.2)
-  padding-left 2rem
-  padding-right 2rem
-  grid-template-columns 1.5rem 1fr 1.25rem
-  gap 1rem
+  padding-left 1.5rem
+  padding-right 1.5rem
+  grid-template-columns 2rem 1fr 1.25rem
+  gap 0.5rem
+
+  &__icon
+    margin-left 0.5rem
 
   &__input
     &__input
@@ -120,7 +123,13 @@ strong
       padding 1.5rem 0.5rem
 
       &::-webkit-input-placeholder
-        color rgba(14, 33, 37, 0.26)
+        color rgba(0, 0, 0, 0.46)
+
+      &:hover::-webkit-input-placeholder
+        color rgba(0, 0, 0, 0.67)
+
+      &:focus::-webkit-input-placeholder
+        color rgba(0, 0, 0, 0.46)
 
   &__clear
     &__icon
@@ -132,14 +141,28 @@ strong
         fill rgba(0, 0, 0, 0.25)
         outline none
 
+      &:active
+        opacity 0.7
+
   &__button
     text-transform uppercase
-    color var(--accent-color)
-    font-weight 500
+    color var(--color-link)
+    font-weight 600
     cursor pointer
     height 100%
     display flex
+    padding-left 0.5rem
+    padding-right 0.5rem
     align-items center
+    outline 0
+    transition opacity .2s ease-out
+
+    &:focus
+      background-color rgba(176, 180, 207, 0.087)
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
 .results
   padding-bottom 3rem
@@ -177,24 +200,27 @@ strong
 
     &__a
       cursor pointer
-      color var(--accent-color)
+      color var(--color-link)
 
   &__item
-    padding 1rem 2rem
+    padding 0.75rem 2rem
     cursor pointer
 
+    &:hover,
     &:focus
       outline none
-      background-color white
+      background-color rgba(176, 180, 207, 0.087)
 
     &__title
-      color var(--accent-color)
+      color var(--color-link)
+      line-height 1.5rem
 
     &__h2
       margin-top 0.25rem
       margin-bottom 0.25rem
-      font-weight 500
+      font-weight 600
       font-size 0.875rem
+      line-height 1.25rem
 
       &__item
         display inline-block
@@ -214,17 +240,26 @@ strong
       overflow hidden
       position relative
       font-size 0.875rem
+      line-height 1.25rem
 
       &:after
         content ''
-        background linear-gradient(to right, rgba(248, 249, 252, 0.5) 0%, rgba(248, 249, 252, 1))
+        background linear-gradient(to right, transparent 0%, rgba(248, 249, 252, 1))
         height 1em
-        width 2em
+        width 2.5em
         padding-bottom 0.25rem
         text-align right
         position absolute
         top 0
         right 0
+
+@media screen and (max-width 768px)
+  .search-box
+    padding-left 1rem
+    padding-right 1rem
+
+  .shortcuts
+    display none
 </style>
 
 <script>

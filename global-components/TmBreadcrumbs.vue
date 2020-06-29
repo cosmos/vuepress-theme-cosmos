@@ -42,11 +42,17 @@
   padding-left .75rem
 
 .crumbs
-  letter-spacing 0.01em
-  
+  letter-spacing 0.03em
+
   &__item
     display inline-block
     font-size 0.8125rem
+    outline-color var(--color-primary, blue)
+
+    &:hover:not(:last-child)
+      color var(--color-link, blue)
+      &:after
+        color var(--color-text, black)
 
     &:after
       content '/'
@@ -54,7 +60,8 @@
       padding-right 0.25rem
 
     &:last-child
-      opacity 0.5
+      opacity 0.667
+      cursor default
 
       &:after
         content ''
@@ -101,9 +108,9 @@
         cursor pointer
 
         &:active
-          color var(--accent-color)
-          font-weight 500
-          box-shadow inset 2px 0 0 0 var(--accent-color)
+          color var(--color-link)
+          font-weight 600
+          box-shadow inset 2px 0 0 0 var(--color-link)
 
 @media screen and (max-width: 1135px)
   .menu__item

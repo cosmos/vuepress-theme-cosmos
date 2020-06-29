@@ -11,7 +11,7 @@ select
   background none
   text-transform uppercase
   letter-spacing 0.02em
-  font-weight 500
+  font-weight 600
   font-size 0.875rem
 
 .select

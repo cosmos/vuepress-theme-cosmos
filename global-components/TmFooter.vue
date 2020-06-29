@@ -3,11 +3,11 @@
     .wrapper(v-if="$themeConfig.footer")
       .container
         .footer__wrapper
-          .questions(v-if="!full")
+          .questions(v-if="!full && !$themeConfig.custom")
             .questions__wrapper
               .questions__h1 Questions?
-              .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.questionsText" v-html="md($themeConfig.footer.questionsText)")
-            tm-newsletter-form
+              .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
+            tm-newsletter-form(v-if="$themeConfig.footer")
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
               .links__item__title {{item.title}}
@@ -16,7 +16,7 @@
             .logo__item
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
                 component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                component(:is="`logo-sdk-text`" v-else fill="black")
+                img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
@@ -24,13 +24,13 @@
           .smallprint(v-if="$themeConfig.footer")
             .smallprint__item.smallprint__item__links
               a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") {{$themeConfig.footer.smallprint}}
+            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
 </template>
 
 <style lang="stylus" scoped>
 .container
   background-color white
-  color #161931
+  color var(--color-text, black)
   padding-top 3.5rem
   padding-bottom 3.5rem
 
@@ -47,21 +47,22 @@
   align-items flex-start
 
   & >>> a[href]
-    color var(--accent-color, #ccc)
+    color var(--color-link, #ccc)
 
   &__wrapper
     margin-bottom 2rem
 
   &__h1
-    font-size 1.25rem
-    margin-bottom 1rem
-    font-weight 500
-    color #161931
+    font-size 1.5rem
+    line-height 2rem
+    margin-bottom 0.5rem
+    font-weight 600
+    color var(--color-text, black)
 
   &__p
     font-size 0.875rem
     color rgba(22, 25, 49, 0.9)
-    line-height 20px
+    line-height 1.25rem
 
 .links
   display grid
@@ -76,15 +77,21 @@
       font-size 0.75rem
       letter-spacing 0.2em
       text-transform uppercase
-      font-weight 600
+      font-weight 700
       margin-bottom 1rem
 
     &__link
       font-size 0.875rem
-      letter-spacing 0.01em
-      line-height 20px
+      letter-spacing 0.03em
+      line-height 1.25rem
       margin-top 0.5rem
       margin-bottom 0.5rem
+      align-self flex-start
+      color var(--color-text-dim, inherit)
+
+      &:hover,
+      &:focus
+        color var(--color-link, inherit)
 
 .footer__wrapper
   margin 0 auto
@@ -103,35 +110,53 @@
 
   &__image
     display inline-block
-    height 30px
-    max-width 200px
+    min-height 2rem
+    max-height 3rem
+    max-width 12.5rem
     cursor pointer
+
+    img
+      max-height 100%
+      max-width 100%
 
   &__link
     grid-column span 2
-    font-weight 500
+    font-weight 600
+    align-items center
 
 .smallprint
   display grid
   grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
   align-items flex-end
 
+  & >>> a[href]
+    color var(--color-link, #ccc)
+
   &__item
     padding 1rem 0
-    font-weight 500
+    font-weight 600
 
     &__links
-      color var(--color-accent)
+      color var(--color-link)
       font-size 0.875rem
 
       &__item
         margin-right 1rem
+
+        svg
+          transition fill .15s ease-out
+          fill rgba(0,0,0,0.3)
+
+        &:hover svg,
+        &:focus svg
+          fill rgba(0,0,0,0.5)
 
     &__desc
       grid-column span 2
       font-size 0.8125rem
       line-height 1rem
       font-weight normal
+      color var(--color-text-dim)
 
 @media screen and (max-width: 732px)
   .questions
@@ -151,7 +176,13 @@ export default {
   props: ["tree", "full"],
   methods: {
     serviceIcon(service) {
+      // icons from https://iconmonstr.com
       const icons = [
+        {
+          service: "github",
+          icon:
+            "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+        },
         {
           service: "medium",
           icon:

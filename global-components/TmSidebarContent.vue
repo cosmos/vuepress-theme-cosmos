@@ -9,14 +9,14 @@
             component(:is="`logo-${$themeConfig.label || 'sdk'}`")
           .logo__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
-        div(v-for="item in value" :style="{display: $themeConfig.autoSidebar === false && item.title == 'Reference' ? 'none' : 'block'}").sidebar
+        div(v-for="item in value" :style="{display: $themeConfig.sidebar.auto == false && item.title === '' ? 'none' : 'block'}").sidebar
           .title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
       .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
         a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
-          div.footer__item__title(v-html="md(product.name)")
+          .footer__item__title(v-html="md(product.name)")
 </template>
 
 <style lang="stylus" scoped>
@@ -26,23 +26,29 @@
   height 100%
 
 .logo
-  padding 1rem 2rem
+  padding 1.5rem 2rem
   display flex
   align-items center
 
+  &:active
+    outline none
+
   &__img
-    width 40px
-    height 40px
+    width 2.5rem
+    height 2.5rem
     margin-right 0.75rem
 
     &__custom
-      width 120px
-      height 40px
-      margin-top 1rem
+      width 100%
+      height 2.5rem
       margin-right 0.75rem
 
+      img
+        max-width 100%
+        max-height 100%
+
   &__text
-    font-weight 500
+    font-weight 600
 
 .logo__container
   position sticky
@@ -129,8 +135,8 @@
     &__title
       text-align center
       font-size 0.6875rem
-      line-height 14px
-      letter-spacing 0.01em
+      line-height 0.875rem
+      letter-spacing 0.03em
 </style>
 
 <script>

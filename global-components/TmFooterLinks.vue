@@ -3,24 +3,30 @@
     .links
       .links__wrapper
         .links__container(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
-          .links__label Previous
           router-link.links__item.links__item__left(:to="$page.frontmatter.prev || linkPrevNext.prev.regularPath")
             .links__item__icon
-              svg(width="100%" height="100%" viewBox="0 0 44 32" fill="none" xmlns="http://www.w3.org/2000/svg")
-                path(d="M43 17C43.5523 17 44 16.5523 44 16C44 15.4477 43.5523 15 43 15L43 17ZM1.5 16L0.792896 15.2929L0.085789 16L0.792896 16.7071L1.5 16ZM15.7929 31.7071C16.1834 32.0976 16.8166 32.0976 17.2071 31.7071C17.5976 31.3166 17.5976 30.6834 17.2071 30.2929L15.7929 31.7071ZM17.2071 1.70711C17.5976 1.31658 17.5976 0.683419 17.2071 0.292895C16.8166 -0.0976288 16.1834 -0.0976289 15.7929 0.292895L17.2071 1.70711ZM43 15L1.5 15L1.5 17L43 17L43 15ZM0.792896 16.7071L15.7929 31.7071L17.2071 30.2929L2.20711 15.2929L0.792896 16.7071ZM15.7929 0.292895L0.792896 15.2929L2.20711 16.7071L17.2071 1.70711L15.7929 0.292895Z" fill="#0E2125" fill-opacity="0.26")
+              svg(xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 64 64")
+                title arrow-right
+                g(stroke-linecap="square" stroke-linejoin="miter" stroke-width="2")
+                  line(fill="none" stroke-miterlimit="10" x1="61" y1="32" x2="3" y2="32" stroke-linecap="butt")
+                  polyline(fill="none" stroke-miterlimit="10" points="21,14 3,32 21,50 ")
             div
+              .links__label Previous
               .links__item__title {{$page.frontmatter.prev || linkPrevNext.prev.title}}
               .links__item__desc(v-if="linkPrevNext.prev.frontmatter.description" v-html="shorten(linkPrevNext.prev.frontmatter.description)")
       .links__wrapper
         .links__container(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
-          .links__label Up next
           router-link.links__item.links__item__right(:to="$page.frontmatter.next || linkPrevNext.next.regularPath")
             div
+              .links__label Next
               .links__item__title {{$page.frontmatter.next || linkPrevNext.next.title}}
               .links__item__desc(v-if="linkPrevNext.next.frontmatter.description" v-html="shorten(linkPrevNext.next.frontmatter.description)")
             .links__item__icon
-              svg(width="100%" height="100%" viewBox="0 0 44 32" fill="none" xmlns="http://www.w3.org/2000/svg")
-                path(d="M0.999994 17C0.447709 17 -6.34082e-06 16.5523 -6.43738e-06 16C-6.53395e-06 15.4477 0.447709 15 0.999993 15L0.999994 17ZM42.5 16L43.2071 15.2929L43.9142 16L43.2071 16.7071L42.5 16ZM28.2071 31.7071C27.8166 32.0976 27.1834 32.0976 26.7929 31.7071C26.4024 31.3166 26.4024 30.6834 26.7929 30.2929L28.2071 31.7071ZM26.7929 1.70711C26.4024 1.31658 26.4024 0.683419 26.7929 0.292895C27.1834 -0.0976288 27.8166 -0.0976289 28.2071 0.292895L26.7929 1.70711ZM0.999993 15L42.5 15L42.5 17L0.999994 17L0.999993 15ZM43.2071 16.7071L28.2071 31.7071L26.7929 30.2929L41.7929 15.2929L43.2071 16.7071ZM28.2071 0.292895L43.2071 15.2929L41.7929 16.7071L26.7929 1.70711L28.2071 0.292895Z" fill="#0E2125" fill-opacity="0.26")
+              svg(xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 64 64")
+                title arrow-right
+                g(stroke-linecap="square" stroke-linejoin="miter" stroke-width="2")
+                  line(fill="none" stroke-miterlimit="10" x1="3" y1="32" x2="61" y2="32" stroke-linecap="butt")
+                  polyline(fill="none" stroke-miterlimit="10" points="43,14 61,32 43,50 ")
 </template>
 
 <style lang="stylus" scoped>
@@ -40,7 +46,6 @@
     align-items stretch
     display flex
     flex-direction column
-    // background red
 
   &__item
     margin-top 1rem
@@ -50,39 +55,82 @@
     display grid
     grid-auto-flow column
     flex-grow 1
+    align-items center
     gap 2rem
     overflow-x hidden
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
+
+    &:hover:not(:active)
+      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
     &__left
-      grid-template-columns 44px auto
+      grid-template-columns 2.75rem auto
 
     &__right
-      grid-template-columns auto 44px
+      grid-template-columns auto 2.75rem
 
     &__icon
       display flex
       align-items center
 
+      svg
+        stroke #aaa
+        transition fill .15s ease-out, transform .15s ease-out
+
+    &:hover &__icon,
+    &:focus &__icon
+      svg
+        stroke var(--color-link, #888)
+
+    &__left:hover &__icon svg
+      transform translateX(-0.25rem)
+
+    &__right:hover &__icon svg
+      transform translateX(0.25rem)
+
     &__title
       margin-top 5px
-      font-weight 500
+      font-weight 600
       font-size 1.25rem
+      line-height 1.75rem
 
     &__desc
-      color rgba(22, 25, 49, 0.65)
+      color var(--color-text-dim, inherit)
       margin-top 0.5rem
       font-size 0.875rem
-      line-height 20px
+      line-height 1.25rem
 
   &__label
-    color rgba(22, 25, 49, 0.9)
+    color var(--color-text-dim, inherit)
     text-transform uppercase
     font-size 0.75rem
+    line-height 1rem
     letter-spacing 0.2rem
+    margin-bottom 0.5rem
 
 @media screen and (max-width: 1280px)
   .links
     flex-direction column-reverse
+
+@media screen and (max-width: 480px)
+  .links__item
+    display flex
+    flex-direction column
+    align-items stretch
+
+    &__icon
+      order -1
+      width 2.5rem
+      height 2.5rem
+      align-self flex-end
+
+
 </style>
 
 <script>
