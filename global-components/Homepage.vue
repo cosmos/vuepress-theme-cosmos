@@ -11,21 +11,24 @@
     .h2 Getting Started
     .p__alt Read all about the {{$frontmatter.label}} or dive straight into the code with tutorials.
     .features
-      router-link(to="./intro/overview.html").features__item.features__item__light
+      router-link(:to="feature.url" v-for="feature in $frontmatter.read").features__item.features__item__light
         .features__item__image
-          icon-spaceship(color1="#8997FF" color2="#505EFF").features__item__image__img
-        .features__item__text(v-for="feature in $frontmatter.read")
+          icon-spaceship.features__item__image__img
+        .features__item__text
           .features__item__text__h2 {{feature.title}}
           .features__item__text__h1 {{feature.subtitle}}
           .features__item__text__p {{feature.desc}}
-      a(href="https://tutorials.cosmos.network" target="_blank" rel="noopener").features__item.features__item__dark
+          .features__item__text__tag(v-if="feature.tag")
+            .features__item__text__tag__text {{feature.tag}}
+      a(:href="feature.url" target="_blank" rel="noopener" v-for="feature in $frontmatter.use").features__item.features__item__dark
         icon-arrow.features__item__icon
         .features__item__image
-          icon-window(color1="#8997FF" color2="#505EFF").features__item__image__img
-        .features__item__text(v-for="feature in $frontmatter.use")
+          icon-window.features__item__image__img
+        .features__item__text
           .features__item__text__h2 {{feature.title}}
           .features__item__text__h1 {{feature.subtitle}}
           .features__item__text__p {{feature.desc}}
+          .features__item__text__label(v-if="feature.label") {{feature.label}}
     .sections__wrapper
       .h2 Explore the {{$frontmatter.label}}
       .p__alt Get familiar with the {{$frontmatter.label}} and explore its main concepts.
@@ -155,6 +158,9 @@
       color white
       opacity .8
 
+    &__dark &__text__label
+      color white
+
     &__icon
       position absolute
       top 0
@@ -211,6 +217,31 @@
         font-size .875rem
         letter-spacing 0.03em
         line-height 1.25rem
+        margin-bottom 1.5rem
+
+      &__tag
+        flex-grow 1
+        display flex
+        align-items flex-end
+
+        &__text
+          display inline-block
+          background rgba(176, 180, 207, 0.2)
+          border-radius .25rem
+          padding-left .5rem
+          padding-right .5rem
+          color rgba(22, 25, 49, 0.65)
+          letter-spacing 0.01em
+          font-size .8125rem
+          line-height 1.125rem
+
+      &__label
+        text-transform uppercase
+        font-weight 500
+        letter-spacing 0.02em
+        flex-grow 1
+        display flex
+        align-items flex-end
 
 .sections
   display grid
