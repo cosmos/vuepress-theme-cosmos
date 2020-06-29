@@ -1,9 +1,9 @@
 <template lang="pug">
   div
     .container
-      .menu
-        .menu__icon(@click="$emit('sidebar', true)")
-          tm-icon-menu
+      .menu(@click="$emit('sidebar', true)")
+        .menu__icon
+          tm-icon-menu(stroke="#888")
       .logo
         router-link(to="/" tag="div").logo__wrapper
           .logo__image__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
@@ -11,10 +11,10 @@
           .logo__image(v-else)
             component(:is="`tm-logo-${$themeConfig.label || 'sdk'}`")
           .logo__text(v-if="!$themeConfig.logo") {{$site.title}}
-      .toolbar
-        .toolbar__item(@click="$emit('search', true)")
+      .toolbar(@click="$emit('search', true)")
+        .toolbar__item
           .toolbar__item__icon
-            icon-search(fill="#aaa")
+            icon-search(fill="#888")
 </template>
 
 <style lang="stylus" scoped>
@@ -40,24 +40,22 @@
     gap .5rem
     align-items center
     cursor pointer
-    padding-top .75rem
-    padding-bottom .75rem
+    height 3.5rem
 
   &__image
     width 2rem
     height 2rem
-    fill var(--accent-color)
+    fill var(--color-primary, blue)
 
     &__custom
-      display flex
-      align-items center
+      height 2.5rem
 
       &__img
-        width 4rem
-        height 2rem
+        max-width 100%
+        max-height 100%
 
   &__text
-    font-weight 500
+    font-weight 600
 
 .toolbar
   grid-column-start -2
@@ -69,7 +67,7 @@
     display flex
     flex-direction row
     align-items center
-    padding .5rem
+    padding .75rem
 
     &__icon
       height 1.5rem
@@ -77,7 +75,7 @@
       margin-right .5rem
 
     &__text
-      color rgba(22, 25, 49, 0.65)
+      color var(--color-text-dim, inherit)
 
 @media screen and (max-width: 752px)
   .menu
@@ -93,4 +91,7 @@
 
   .toolbar
     visibility visible
+
+    &__item__icon
+      margin-right 0
 </style>

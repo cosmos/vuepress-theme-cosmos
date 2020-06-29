@@ -194,6 +194,7 @@
         padding-right 1.75rem
 
       &__content
+        padding-top 1rem
         &__body
           padding-top 0
 
@@ -413,10 +414,10 @@ export default {
     },
     tree() {
       const autoSidebar =
-        this.$themeConfig.autoSidebar == false
-          ? { title: "Reference", children: this.directoryTree } //{}
-          : { title: "Reference", children: this.directoryTree };
-      return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
+        this.$themeConfig.sidebar.auto == false
+          ? { title: "", children: this.directoryTree } //{}
+          : { title: "", children: this.directoryTree };
+      return [autoSidebar, ...(this.$themeConfig.sidebar.nav || [])];
     }
   },
   methods: {
