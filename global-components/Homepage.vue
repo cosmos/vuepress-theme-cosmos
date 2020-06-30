@@ -9,29 +9,29 @@
     .intro
       .p {{$frontmatter.description}}
     .h2 Getting Started
-    .p__alt Read all about the {{$frontmatter.label}} or dive straight into the code with tutorials.
+    .p__alt Read all about the SDK or dive straight into the code with tutorials.
     .features
-      router-link(:to="feature.url" v-for="feature in $frontmatter.read").features__item.features__item__light
+      router-link(to="/intro/overview.html").features__item.features__item__light
         .features__item__image
           icon-spaceship.features__item__image__img
         .features__item__text
-          .features__item__text__h2 {{feature.title}}
-          .features__item__text__h1 {{feature.subtitle}}
-          .features__item__text__p {{feature.desc}}
-          .features__item__text__tag(v-if="feature.tag")
-            .features__item__text__tag__text {{feature.tag}}
-      a(:href="feature.url" target="_blank" rel="noopener" v-for="feature in $frontmatter.use").features__item.features__item__dark
+          .features__item__text__h2 read
+          .features__item__text__h1 Introduction to Cosmos SDK
+          .features__item__text__p Learn about all the parts of the Cosmos SDK.
+          .features__item__text__tag
+            .features__item__text__tag__text 5 min
+      a(href="https://tutorials.cosmos.network" target="_blank" rel="noopener").features__item.features__item__dark
         icon-arrow.features__item__icon
         .features__item__image
           icon-window.features__item__image__img
         .features__item__text
-          .features__item__text__h2 {{feature.title}}
-          .features__item__text__h1 {{feature.subtitle}}
-          .features__item__text__p {{feature.desc}}
-          .features__item__text__label(v-if="feature.label") {{feature.label}}
+          .features__item__text__h2 use
+          .features__item__text__h1 SDK Tutorials
+          .features__item__text__p Build a complete blockchain application from scratch.
+          .features__item__text__label View Tutorials
     .sections__wrapper
-      .h2 Explore the {{$frontmatter.label}}
-      .p__alt Get familiar with the {{$frontmatter.label}} and explore its main concepts.
+      .h2 Explore the SDK
+      .p__alt Get familiar with the SDK and explore its main concepts.
       .sections
         router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
           component(:is="`tm-icon-${section.icon}`").sections__item__icon
@@ -39,7 +39,7 @@
             .sections__item__title {{section.title}}
             .sections__item__desc {{section.desc}}
     .h2 Explore the Stack
-    .p__alt Check out the docs for the various parts of the {{$frontmatter.label}} stack.
+    .p__alt Check out the docs for the various parts of the Cosmos stack.
     .stack
       a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
         .stack__item__wrapper
