@@ -86,6 +86,10 @@
     margin-bottom 2rem
 
   .custom-block
+    &.danger
+      margin-top 1.5rem
+      margin-bottom 1.5rem
+
     &.danger, &.warning, &.tip
       padding 1rem 1.5rem 1rem 3.5rem
       border-radius 0.5rem
@@ -329,6 +333,8 @@
     width 100%
     height auto
     display block
+    margin-bottom 2rem
+    margin-top 2rem
 
   .tooltip
 
@@ -350,6 +356,13 @@
       line-height 1.125rem
       margin-top 0.375rem
       margin-bottom 0
+
+  hr
+    border-width 1px
+    border-style solid
+    border-color rgba(0,0,0,0.1)
+    margin-top 2.5rem
+    margin-bottom 2.5rem
 
   strong
     font-weight 600
