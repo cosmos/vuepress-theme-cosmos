@@ -94,7 +94,6 @@
     padding-bottom 0.375rem
     font-size 0.875rem
     line-height 1.125rem
-    letter-spacing 0.03em
 
     &__href:hover
       color var(--color-text, black)
@@ -113,7 +112,6 @@
   line-height 1.25rem
   margin 1rem 0
   display block
-  letter-spacing 0.03em
   transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
   &:hover:not(:active)

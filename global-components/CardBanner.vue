@@ -53,5 +53,4 @@
   font-size 0.8125rem
   line-height 1.125rem
   color rgba(22, 25, 49, 0.65)
-  letter-spacing 0.03em
 </style>

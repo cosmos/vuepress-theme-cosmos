@@ -210,7 +210,6 @@
       &__p
         color var(--color-text-dim, inherit)
         font-size .875rem
-        letter-spacing 0.03em
         line-height 1.25rem
 
 .sections

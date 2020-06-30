@@ -82,7 +82,6 @@
 
     &__link
       font-size 0.875rem
-      letter-spacing 0.03em
       line-height 1.25rem
       margin-top 0.5rem
       margin-bottom 0.5rem

@@ -10,7 +10,7 @@ select
   border none
   background none
   text-transform uppercase
-  letter-spacing 0.02em
+  letter-spacing 0.03em
   font-weight 600
   font-size 0.875rem
 

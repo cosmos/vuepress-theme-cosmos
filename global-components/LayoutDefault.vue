@@ -84,6 +84,7 @@
   .codeblock
     margin-top 2rem
     margin-bottom 2rem
+    letter-spacing 0
 
   .custom-block
     &.danger
@@ -223,7 +224,6 @@
     line-height 1.25rem
     margin 1rem 0
     display block
-    letter-spacing 0.03em
     transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
     &:hover:not(:active)
@@ -373,9 +373,13 @@
 
   h1
     font-size 3rem
+    margin-top 4rem
     margin-bottom 4rem
     line-height 3.5rem
     letter-spacing -0.02em
+
+    &:first-child
+      margin-top 0
 
   h2
     font-size 2rem
@@ -388,6 +392,7 @@
     font-size 1.5rem
     margin-top 2.5rem
     margin-bottom 1rem
+    letter-spacing 0
     line-height 2rem
 
   h4
@@ -433,6 +438,7 @@
     padding-right 0.25em
     font-size 0.8333em
     line-height 1.06666em
+    letter-spacing 0
     color var(--color-code, inherit)
     margin-top 3rem
     overflow-wrap break-word
@@ -546,7 +552,6 @@
 
   >>> [synopsis]
     padding 1rem
-    letter-spacing 0.03em
     font-size 0.875rem
     line-height 1.25rem
 

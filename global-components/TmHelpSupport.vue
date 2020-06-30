@@ -131,7 +131,6 @@ strong
     &__text
       font-size .875rem
       line-height 1.25rem
-      letter-spacing 0.03em
 
     &:hover:not(:active),
     &:focus:not(:active)
