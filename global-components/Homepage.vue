@@ -9,29 +9,26 @@
     .intro
       .p {{$frontmatter.description}}
     .h2 Getting Started
-    .p__alt Read all about the {{$frontmatter.label}} or dive straight into the code with tutorials.
+    .p__alt Read all about the SDK or dive straight into the code with tutorials.
     .features
-      router-link(:to="feature.url" v-for="feature in $frontmatter.read").features__item.features__item__light
+      router-link(to="/intro/overview.html").features__item.features__item__light
         .features__item__image
           icon-spaceship.features__item__image__img
         .features__item__text
-          .features__item__text__h2 {{feature.title}}
-          .features__item__text__h1 {{feature.subtitle}}
-          .features__item__text__p {{feature.desc}}
-          .features__item__text__tag(v-if="feature.tag")
-            .features__item__text__tag__text {{feature.tag}}
-      a(:href="feature.url" target="_blank" rel="noopener" v-for="feature in $frontmatter.use").features__item.features__item__dark
+          .features__item__text__h2 read
+          .features__item__text__h1 Introduction to Cosmos SDK
+          .features__item__text__p Learn about all the parts of the Cosmos SDK.
+      a(href="https://tutorials.cosmos.network" target="_blank" rel="noopener").features__item.features__item__dark
         icon-arrow.features__item__icon
         .features__item__image
           icon-window.features__item__image__img
         .features__item__text
-          .features__item__text__h2 {{feature.title}}
-          .features__item__text__h1 {{feature.subtitle}}
-          .features__item__text__p {{feature.desc}}
-          .features__item__text__label(v-if="feature.label") {{feature.label}}
+          .features__item__text__h2 use
+          .features__item__text__h1 SDK Tutorials
+          .features__item__text__p Build a complete blockchain application from scratch.
     .sections__wrapper
-      .h2 Explore the {{$frontmatter.label}}
-      .p__alt Get familiar with the {{$frontmatter.label}} and explore its main concepts.
+      .h2 Explore the SDK
+      .p__alt Get familiar with the SDK and explore its main concepts.
       .sections
         router-link.sections__item(tag="a" :to="section.url" v-for="section in $frontmatter.sections")
           component(:is="`tm-icon-${section.icon}`").sections__item__icon
@@ -39,13 +36,13 @@
             .sections__item__title {{section.title}}
             .sections__item__desc {{section.desc}}
     .h2 Explore the Stack
-    .p__alt Check out the docs for the various parts of the {{$frontmatter.label}} stack.
+    .p__alt Check out the docs for the various parts of the Cosmos stack.
     .stack
       a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
         .stack__item__wrapper
           component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
           svg(width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg").stack__item__icon
-            path(d="M1.07239 14.4697C0.779499 14.7626 0.779499 15.2374 1.07239 15.5303C1.36529 15.8232 1.84016 15.8232 2.13305 15.5303L1.07239 14.4697ZM15.7088 1.95457C16.0017 1.66168 16.0017 1.18681 15.7088 0.893912C15.4159 0.601019 14.941 0.601019 14.6482 0.893912L15.7088 1.95457ZM15.6027 1H16.3527C16.3527 0.585786 16.0169 0.25 15.6027 0.25V1ZM5.4209 0.25C5.00669 0.25 4.6709 0.585786 4.6709 1C4.6709 1.41421 5.00669 1.75 5.4209 1.75V0.25ZM14.8527 11.1818C14.8527 11.596 15.1885 11.9318 15.6027 11.9318C16.0169 11.9318 16.3527 11.596 16.3527 11.1818H14.8527ZM2.13305 15.5303L15.7088 1.95457L14.6482 0.893912L1.07239 14.4697L2.13305 15.5303ZM15.6027 0.25H5.4209V1.75H15.6027V0.25ZM16.3527 11.1818V1H14.8527V11.1818H16.3527Z" fill="#DADCE6")
+            path(d="M1.07239 14.4697C0.779499 14.7626 0.779499 15.2374 1.07239 15.5303C1.36529 15.8232 1.84016 15.8232 2.13305 15.5303L1.07239 14.4697ZM15.7088 1.95457C16.0017 1.66168 16.0017 1.18681 15.7088 0.893912C15.4159 0.601019 14.941 0.601019 14.6482 0.893912L15.7088 1.95457ZM15.6027 1H16.3527C16.3527 0.585786 16.0169 0.25 15.6027 0.25V1ZM5.4209 0.25C5.00669 0.25 4.6709 0.585786 4.6709 1C4.6709 1.41421 5.00669 1.75 5.4209 1.75V0.25ZM14.8527 11.1818C14.8527 11.596 15.1885 11.9318 15.6027 11.9318C16.0169 11.9318 16.3527 11.596 16.3527 11.1818H14.8527ZM2.13305 15.5303L15.7088 1.95457L14.6482 0.893912L1.07239 14.4697L2.13305 15.5303ZM15.6027 0.25H5.4209V1.75H15.6027V0.25ZM16.3527 11.1818V1H14.8527V11.1818H16.3527Z" fill="#000")
           div
             .stack__item__h1 {{item.title}}
             .stack__item__p {{item.desc}}
@@ -135,7 +132,7 @@
     transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
     &:hover:not(:active),
-    &:focus
+    &:focus:not(:active)
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
       transform translateY(-2px)
       transition-duration 0.1s
@@ -157,9 +154,6 @@
     &__dark &__text__p
       color white
       opacity .8
-
-    &__dark &__text__label
-      color white
 
     &__icon
       position absolute
@@ -195,6 +189,7 @@
       padding 1.75rem 2rem 2rem
       display flex
       flex-direction column
+      justify-content center
 
       &__h2
         font-size .75rem
@@ -215,33 +210,7 @@
       &__p
         color var(--color-text-dim, inherit)
         font-size .875rem
-        letter-spacing 0.03em
         line-height 1.25rem
-        margin-bottom 1.5rem
-
-      &__tag
-        flex-grow 1
-        display flex
-        align-items flex-end
-
-        &__text
-          display inline-block
-          background rgba(176, 180, 207, 0.2)
-          border-radius .25rem
-          padding-left .5rem
-          padding-right .5rem
-          color rgba(22, 25, 49, 0.65)
-          letter-spacing 0.01em
-          font-size .8125rem
-          line-height 1.125rem
-
-      &__label
-        text-transform uppercase
-        font-weight 500
-        letter-spacing 0.02em
-        flex-grow 1
-        display flex
-        align-items flex-end
 
 .sections
   display grid
@@ -319,10 +288,11 @@
       top 0
       right 0
       padding 1rem
-      opacity .35
+      opacity .26
+      transition opacity .15s
 
     &:hover &__icon
-      opacity .6
+      opacity .36
 
     &__h1
       font-size 1.25rem

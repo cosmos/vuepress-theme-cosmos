@@ -35,7 +35,6 @@
   padding-bottom .375rem
   cursor pointer
   font-size .875rem
-  letter-spacing 0.03em
   line-height 1.25rem
   outline-color var(--color-primary, blue)
   color rgba(0,0,0,0.8)
