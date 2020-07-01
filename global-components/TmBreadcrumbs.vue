@@ -42,7 +42,6 @@
   padding-left .75rem
 
 .crumbs
-  letter-spacing 0.03em
 
   &__item
     display inline-block

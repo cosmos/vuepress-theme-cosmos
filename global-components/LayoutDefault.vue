@@ -84,8 +84,13 @@
   .codeblock
     margin-top 2rem
     margin-bottom 2rem
+    letter-spacing 0
 
   .custom-block
+    &.danger
+      margin-top 1.5rem
+      margin-bottom 1.5rem
+
     &.danger, &.warning, &.tip
       padding 1rem 1.5rem 1rem 3.5rem
       border-radius 0.5rem
@@ -219,7 +224,6 @@
     line-height 1.25rem
     margin 1rem 0
     display block
-    letter-spacing 0.03em
     transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
     &:hover:not(:active)
@@ -329,6 +333,8 @@
     width 100%
     height auto
     display block
+    margin-bottom 2rem
+    margin-top 2rem
 
   .tooltip
 
@@ -351,6 +357,13 @@
       margin-top 0.375rem
       margin-bottom 0
 
+  hr
+    border-width 1px
+    border-style solid
+    border-color rgba(0,0,0,0.1)
+    margin-top 2.5rem
+    margin-bottom 2.5rem
+
   strong
     font-weight 600
     letter-spacing .01em
@@ -360,9 +373,13 @@
 
   h1
     font-size 3rem
+    margin-top 4rem
     margin-bottom 4rem
     line-height 3.5rem
     letter-spacing -0.02em
+
+    &:first-child
+      margin-top 0
 
   h2
     font-size 2rem
@@ -375,6 +392,7 @@
     font-size 1.5rem
     margin-top 2.5rem
     margin-bottom 1rem
+    letter-spacing 0
     line-height 2rem
 
   h4
@@ -420,6 +438,7 @@
     padding-right 0.25em
     font-size 0.8333em
     line-height 1.06666em
+    letter-spacing 0
     color var(--color-code, inherit)
     margin-top 3rem
     overflow-wrap break-word
@@ -448,11 +467,6 @@
       word-wrap break-word
       -ms-word-break break-all
       word-break break-word
-      -ms-hyphens auto
-      -moz-hyphens auto
-      -webkit-hyphens auto
-      hyphens auto
-
 
     a[target='_blank']
       margin-right 0.888em
@@ -538,7 +552,6 @@
 
   >>> [synopsis]
     padding 1rem
-    letter-spacing 0.03em
     font-size 0.875rem
     line-height 1.25rem
 

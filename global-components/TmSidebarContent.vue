@@ -136,7 +136,6 @@
       text-align center
       font-size 0.6875rem
       line-height 0.875rem
-      letter-spacing 0.03em
 </style>
 
 <script>
