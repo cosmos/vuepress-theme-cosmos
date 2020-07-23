@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     cookie-banner
-    .navbar
+    .navbar(v-if="this.$themeConfig.topbar.banner && this.$themeConfig.topbar.banner === true")
       tm-top-banner
     .layout
       .layout__sidebar
