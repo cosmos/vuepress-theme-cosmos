@@ -1,7 +1,7 @@
 <template lang="pug">
   transition(name="fade" v-on:before-leave="beforeLeave" appear)
     .banner(v-if="show")
-      a.banner__content(:href="this.url" v-html="md(this.content)" target="_blank" rel="noreferrer noopener")
+      a.banner__content(:href="topBanner.url" v-html="md(topBanner.content)" target="_blank" rel="noreferrer noopener")
       a.banner__dismiss(@click.prevent="close" href="#")
         .banner__dismiss__icon
           svg(width='16', height='16', viewBox='0 0 14 14', fill='none', xmlns='http://www.w3.org/2000/svg')
@@ -17,6 +17,7 @@ export default {
     return {
       show: true,
       // uncomment for local testing
+      // url: "https://stargate.cosmos.network?utm_source=docs",
       // content: "Prepare for <a href='https://stargate.cosmos.network?utm_source=docs' target='blank_' rel='noreferrer noopener'>Stargate tesnet</a>, coming soon &#8594;"
     }
   },
