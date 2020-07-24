@@ -1,12 +1,11 @@
 <template lang="pug">
-  div
-    .container
-      .banner(v-if="show")
-        .banner__content(v-html="md(topBanner.content)")
-        .banner__icon(@click="close")
+  transition(name="fade" v-on:before-leave="beforeLeave" appear)
+    .banner(v-if="show")
+      a.banner__content(:href="this.url" v-html="md(this.content)" target="_blank" rel="noreferrer noopener")
+      a.banner__dismiss(@click.prevent="close" href="#")
+        .banner__dismiss__icon
           svg(width='16', height='16', viewBox='0 0 14 14', fill='none', xmlns='http://www.w3.org/2000/svg')
-            g(opacity="0.4")
-              path(d='M1.66669 1.66669L12.3334 12.3334M12.3334 1.66669L1.66664 12.3334', stroke='black', stroke-width='1.5', stroke-linecap='round')
+            path(d='M1.66669 1.66669L12.3334 12.3334M12.3334 1.66669L1.66664 12.3334', stroke='black', stroke-width='1.5', stroke-linecap='round')
 </template>
 
 <script>
@@ -31,26 +30,26 @@ export default {
       // reset every 7 days
       Cookie.set("top-banner-hidden", true, { expires: '7D' })
     },
+    beforeLeave: function(el) {
+      el.style.marginTop = `-${el.offsetHeight}px`;
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
 /deep/
-  a[href]
+  strong
     color var(--color-link)
     font-weight 700
 
 .banner
   display flex
-  align-items center
+  align-items stretch
   justify-content center
   position relative
   width 100%
-  height 36px
-  background-color #F8F9FC
-  transform-origin top center
-  transition transform 200ms linear
+  z-index 2
 
 .banner__content
   font-size 0.875rem
@@ -59,40 +58,58 @@ export default {
   color #000000
   text-align center
   display flex
+  flex auto
+  padding 0.5rem 4rem
   align-items center
   justify-content center
-  position relative
+  background-color #F8F9FC
+  transition background-color 0.15s ease-out
 
-.banner__icon
+  &:hover,
+  &:focus
+    background-color #F1F2F7
+
+.banner__dismiss
   position absolute
+  top 0
   right 0
-  padding-left 1rem
-  padding-right 1rem
-  cursor pointer
+  bottom 0
+  padding 0 1rem
+  display flex
+  align-items center
+
+  &__icon
+    padding 0.5rem
+    border-radius 50%
+    opacity 0.4
+    transition opacity 0.15s ease-out, background-color 0.2s
+
+    svg
+      display block
+
+  &:hover &__icon,
+  &:focus &__icon
+    opacity 0.7
+    background-color rgba(0,0,0,0.1)
+
+.fade-leave-active
+  transition opacity 0.3s cubic-bezier(0.32, 0, 0.67, 0), margin 0.3s cubic-bezier(0.32, 0, 0.67, 0)
+
+.fade-leave-to
+  opacity 0
 
 @media screen and (max-width: 414px)
-  .banner
-    padding-left 16px
-    padding-top 8px
-    padding-bottom 8px
-    height auto
-
   .banner__content
-    text-align start
-
-  .banner__icon
-    position relative
+    text-align left
+    justify-content flex-start
+    padding-left 1rem
+    padding-right 3rem
 
 @media screen and (max-width: 320px)
   .banner__content
-    font-size 13px
-    line-height 18px
+    font-size 0.8125rem
+    line-height 1.125rem
 
-  .banner__icon
-    display flex
-    justify-content center
-    align-items center
-    flex 0 0 35px
-    flex-direction column
-    padding 0
+  .banner__dismiss
+    padding 0 0.5rem
 </style>

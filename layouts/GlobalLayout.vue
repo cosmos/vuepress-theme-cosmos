@@ -1,8 +1,7 @@
 <template lang="pug">
   div
     cookie-banner
-    .navbar(v-if="this.$themeConfig.topbar.banner && this.$themeConfig.topbar.banner === true")
-      tm-top-banner
+    tm-top-banner(v-if="this.$themeConfig.topbar.banner && this.$themeConfig.topbar.banner === true")
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
