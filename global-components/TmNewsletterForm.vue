@@ -1,27 +1,15 @@
 <template lang="pug">
-  form(action="https://zcs1.maillist-manage.com/campaigns/weboptin.zc" method="POST" target="_blank" rel="noreferrer noopener").newsletter__form__component__internal
+  form(action="https://app.mailerlite.com/webforms/submit/u7o3l7" data-code="u7o3l7" method="POST" target="_blank" rel="noreferrer noopener").newsletter__form__component__internal
     .newsletter__desc
       .newsletter__desc__h1
         label(for="newsletter-email-input") Get Cosmos updates
       .newsletter__desc__p You’ll be notified with Cosmos updates, news and announcements.
     .newsletter__input
       .newsletter__input__input
-        input(type="email" required name="CONTACT_EMAIL" id="newsletter-email-input" placeholder="Your email").newsletter__input__input__el
+        input(type="email" required name="fields[email]" id="newsletter-email-input" placeholder="Your email").newsletter__input__input__el
         button(type="submit").newsletter__input__input__button Sign up
-        input#submitType(type="hidden" name="submitType" value="optinCustomView")
-        input#lD(type="hidden" name="lD" value="16352f88325b24db")
-        input#emailReportId(type="hidden" name="emailReportId" value="")
-        input#cmpZuid(type="hidden" name="zx" value="129a50c11")
-        input(type="hidden" name="zcvers" value="2.0")
-        input#allCheckedListIds(type="hidden" name="oldListIds" value="")
-        input#mode(type="hidden" name="mode" value="OptinCreateView")
-        input#zcld(type="hidden" name="zcld" value="16352f88325b24db")
-        input#document_domain(type="hidden" value="zoho.com")
-        input#zc_Url(type="hidden" value="zcs1.maillist-manage.com")
-        input#new_optin_response_in(type="hidden" value="1")
-        input#duplicate_optin_response_in(type="hidden" value="1")
-        input#zc_formIx(type="hidden" name="zc_formIx" value="4ef47fbb86ab66681d4cb3275283cf70ab16e7ccaa8dd327")
-        input#scriptless(type="hidden" name="scriptless" value="yes")
+        input(type="hidden" name="ml-submit" value="1")
+
       .newsletter__input__p You can unsubscribe at any time.
 </template>
 
