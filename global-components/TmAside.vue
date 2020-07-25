@@ -6,10 +6,10 @@
           .search__icon
             icon-search
           .search__text Search
-      .banners(v-if="banners && !$themeConfig.custom")
-        .banners__item(v-for="banner in banners")
+      .banners(v-if="asideBanners && !$themeConfig.custom")
+        .banners__item(v-for="banner in asideBanners")
           a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-            img(:src="`${bannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+            img(:src="`${asideBannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       div(v-if="prereq && prereq.length > 0")
         .aside__title Pre-requisite reading
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
@@ -129,7 +129,7 @@
 
 <script>
 export default {
-  props: ["selected", "banners", "bannersUrl", "prereq"],
+  props: ["selected", "asideBanners", "asideBannersUrl", "prereq"],
   data: function() {
     return {
       headerCurrent: null,
