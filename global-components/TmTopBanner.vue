@@ -1,11 +1,12 @@
 <template lang="pug">
-  transition(name="fade" v-on:before-leave="beforeLeave" appear)
-    .banner(v-if="show")
-      a.banner__content(:href="topBanner.url" v-html="md(topBanner.content)" target="_blank" rel="noreferrer noopener")
-      a.banner__dismiss(@click.prevent="close" href="#")
-        .banner__dismiss__icon
-          svg(width='16', height='16', viewBox='0 0 14 14', fill='none', xmlns='http://www.w3.org/2000/svg')
-            path(d='M1.66669 1.66669L12.3334 12.3334M12.3334 1.66669L1.66664 12.3334', stroke='black', stroke-width='1.5', stroke-linecap='round')
+  div
+    transition(name="fade" v-on:before-leave="beforeLeave" appear)
+      .banner(v-if="show")
+        a.banner__content(:href="topBanner.url" v-html="md(topBanner.content)" target="_blank" rel="noreferrer noopener")
+        a.banner__dismiss(@click.prevent="close" href="#")
+          .banner__dismiss__icon
+            svg(width='16', height='16', viewBox='0 0 14 14', fill='none', xmlns='http://www.w3.org/2000/svg')
+              path(d='M1.66669 1.66669L12.3334 12.3334M12.3334 1.66669L1.66664 12.3334', stroke='black', stroke-width='1.5', stroke-linecap='round')
 </template>
 
 <script>
@@ -15,10 +16,10 @@ export default {
   props: ["topBanner"],
   data() {
     return {
-      show: true,
+      show: null,
       // uncomment for local testing
       // url: "https://stargate.cosmos.network?utm_source=docs",
-      // content: "Prepare for <a href='https://stargate.cosmos.network?utm_source=docs' target='blank_' rel='noreferrer noopener'>Stargate tesnet</a>, coming soon &#8594;"
+      // content: "Prepare for <strong>Stargate tesnet</strong>, coming soon &#8594;"
     }
   },
   mounted () {
@@ -28,10 +29,11 @@ export default {
   methods: {
     close() {
       this.show = false
+
       // reset every 7 days
       Cookie.set("top-banner-hidden", true, { expires: '7D' })
     },
-    beforeLeave: function(el) {
+    beforeLeave(el) {
       el.style.marginTop = `-${el.offsetHeight}px`;
     }
   }
