@@ -36,7 +36,7 @@
     transition all .25s
 
     &:focus
-      border 1px solid #66A1FF
+      border 1px solid var(--color-primary, blue)
       background white
 </style>
 

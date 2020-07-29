@@ -1,6 +1,7 @@
 <template lang="pug">
   div
     cookie-banner
+    tm-top-banner(v-if="this.$themeConfig.topbar.banner && this.$themeConfig.topbar.banner === true" v-bind="{topBanner}")
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
@@ -17,7 +18,7 @@
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
               client-only
-                tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="banners = null" v-bind="{banners, bannersUrl, prereq}")
+                tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
             .layout__main__content__aside__banners(ref="banners" v-if="editLink")
               a(:href="editLink" target="_blank")
                 card-banner
@@ -194,6 +195,7 @@
         padding-right 1.75rem
 
       &__content
+        padding-top 1rem
         &__body
           padding-top 0
 
@@ -295,19 +297,29 @@ export default {
       asideBottom: null,
       searchQuery: null,
       prereq: null,
-      bannersUrl: "https://cosmos.network/banners",
-      banners: null,
+      asideBannersUrl: "https://cosmos.network/aside-banners",
+      topBannerUrl: "https://cosmos.network/top-banner",
+      asideBanners: null,
+      topBanner: null,
       heightBanners: null
     };
   },
-  async mounted() {
-    try {
-      this.banners = (await axios.get(`${this.bannersUrl}/index.json`)).data;
-    } catch {
-      console.log(`Error in fetching data from ${this.bannersUrl}`);
-    }
+  mounted() {
+    const fetchTopBanner = axios.get(`${this.topBannerUrl}/index.json`)
+      .then(response => response.data)
+      .catch(() => console.log(`Error in fetching data from ${this.topBannerUrl}`))
+
+    const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
+      .then(response => response.data)
+      .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
+
+    Promise.all([fetchTopBanner, fetchAsideBanner]).then(responses => {
+      this.topBanner = responses[0]
+      this.asideBanners = responses[1]
+    })
+
     document.addEventListener("scroll", () => {
-      const banners = this.$refs.banners;
+      const banners = this.$refs.asideBanners;
       if (banners) {
         this.heightBanners = banners.offsetHeight;
       }
@@ -422,10 +434,10 @@ export default {
     },
     tree() {
       const autoSidebar =
-        this.$themeConfig.autoSidebar == false
-          ? { title: "Reference", children: this.directoryTree } //{}
-          : { title: "Reference", children: this.directoryTree };
-      return [autoSidebar, ...(this.$themeConfig.sidebar || [])];
+        this.$themeConfig.sidebar.auto == false
+          ? { title: "", children: this.directoryTree } //{}
+          : { title: "", children: this.directoryTree };
+      return [autoSidebar, ...(this.$themeConfig.sidebar.nav || [])];
     }
   },
   methods: {

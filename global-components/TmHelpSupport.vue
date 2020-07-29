@@ -5,15 +5,21 @@
         .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
         .links
           a(:href="$themeConfig.gutter.chat.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
-            tm-logo-chat.links__item__logo(style="fill: white; width: 80px; height: 80px; padding: 10px;")
+            tm-logo-chat(style="fill: white; width: 80px; height: 80px; padding: 10px;").links__item__logo
+            svg(width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg").links__item__icon
+              path(d="M1.16962 13.7697C0.876728 14.0626 0.876728 14.5374 1.16962 14.8303C1.46252 15.1232 1.93739 15.1232 2.23028 14.8303L1.16962 13.7697ZM15.106 1.95457C15.3989 1.66168 15.3989 1.1868 15.106 0.893912C14.8131 0.601019 14.3382 0.601019 14.0454 0.893913L15.106 1.95457ZM14.9999 1H15.7499V0.25H14.9999V1ZM4.81811 0.25C4.4039 0.25 4.06811 0.585786 4.06811 1C4.06811 1.41421 4.4039 1.75 4.81811 1.75V0.25ZM14.2499 11.1818C14.2499 11.596 14.5857 11.9318 14.9999 11.9318C15.4141 11.9318 15.7499 11.596 15.7499 11.1818H14.2499ZM2.23028 14.8303L15.106 1.95457L14.0454 0.893913L1.16962 13.7697L2.23028 14.8303ZM14.9999 0.25H4.81811V1.75H14.9999V0.25ZM15.7499 11.1818V1H14.2499V11.1818H15.7499Z" fill="white")
             div(v-html="md($themeConfig.gutter.chat.title)").links__item__title
             div(v-html="md($themeConfig.gutter.chat.text)").links__item__text
           a(:href="$themeConfig.gutter.forum.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.forum.bg}").links__item.links__item__forum
-            component(:is="`tm-logo-${$themeConfig.gutter.forum.logo}`" style="fill: white; width: 100px; height: 100px;").links__item__logo
+            component(:is="`tm-logo-${$themeConfig.gutter.forum.logo}`" style="fill: white; width: 80px; height: 80px;").links__item__logo
+            svg(width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg").links__item__icon
+              path(d="M1.16962 13.7697C0.876728 14.0626 0.876728 14.5374 1.16962 14.8303C1.46252 15.1232 1.93739 15.1232 2.23028 14.8303L1.16962 13.7697ZM15.106 1.95457C15.3989 1.66168 15.3989 1.1868 15.106 0.893912C14.8131 0.601019 14.3382 0.601019 14.0454 0.893913L15.106 1.95457ZM14.9999 1H15.7499V0.25H14.9999V1ZM4.81811 0.25C4.4039 0.25 4.06811 0.585786 4.06811 1C4.06811 1.41421 4.4039 1.75 4.81811 1.75V0.25ZM14.2499 11.1818C14.2499 11.596 14.5857 11.9318 14.9999 11.9318C15.4141 11.9318 15.7499 11.596 15.7499 11.1818H14.2499ZM2.23028 14.8303L15.106 1.95457L14.0454 0.893913L1.16962 13.7697L2.23028 14.8303ZM14.9999 0.25H4.81811V1.75H14.9999V0.25ZM15.7499 11.1818V1H14.2499V11.1818H15.7499Z" fill="white")
             div(v-html="md($themeConfig.gutter.forum.title)").links__item__title
             div(v-html="md($themeConfig.gutter.forum.text)").links__item__text
           a(:href="editLink" target="_blank" rel="noreferrer noopener").links__item.links__item__regular
-            tm-icon-paper-pen(fill="var(--accent-color").links__item__logo
+            tm-icon-paper-pen(fill="var(--color-link)" style="width: 80px; height: 80px;").links__item__logo
+            svg(width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg").links__item__icon
+              path(d="M1.16962 13.7697C0.876728 14.0626 0.876728 14.5374 1.16962 14.8303C1.46252 15.1232 1.93739 15.1232 2.23028 14.8303L1.16962 13.7697ZM15.106 1.95457C15.3989 1.66168 15.3989 1.1868 15.106 0.893912C14.8131 0.601019 14.3382 0.601019 14.0454 0.893913L15.106 1.95457ZM14.9999 1H15.7499V0.25H14.9999V1ZM4.81811 0.25C4.4039 0.25 4.06811 0.585786 4.06811 1C4.06811 1.41421 4.4039 1.75 4.81811 1.75V0.25ZM14.2499 11.1818C14.2499 11.596 14.5857 11.9318 14.9999 11.9318C15.4141 11.9318 15.7499 11.596 15.7499 11.1818H14.2499ZM2.23028 14.8303L15.106 1.95457L14.0454 0.893913L1.16962 13.7697L2.23028 14.8303ZM14.9999 0.25H4.81811V1.75H14.9999V0.25ZM15.7499 11.1818V1H14.2499V11.1818H15.7499Z" fill="black")
             div(v-html="md($themeConfig.gutter.github.title)").links__item__title
             div(v-html="md($themeConfig.gutter.github.text)" style="color: rgba(22, 25, 49, 0.65)").links__item__text
       .newsletter(v-if="$themeConfig.label == 'sdk'")
@@ -70,13 +76,13 @@
 
 /deep/
   a[href]
-    color var(--accent-color)
+    color var(--color-link)
 
   strong
-    font-weight 600
+    font-weight 700
 
 strong
-  font-weight 500
+  font-weight 600
 
 .container
   background var(--sidebar-bg)
@@ -86,12 +92,13 @@ strong
 
 .title
   font-size 2rem
-  color #161931
+  color var(--color-text, black)
   padding 1.5rem 0
-  font-weight 600
+  font-weight 700
 
 .links
   display grid
+  margin-top 1rem
   gap 2rem
   grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
 
@@ -103,28 +110,50 @@ strong
     text-align center
     border-radius 0.5rem
     padding 2rem
-    line-height 20px
+    line-height 1.25rem
     background var(--bg)
-    transition box-shadow .25s
+    transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
+    position relative
+
+    &__icon
+      position absolute
+      top 0
+      right 0
+      padding 1rem
+      width 1rem
+      height 1rem
+      opacity .26
+      transition opacity .15s
+
+    &:hover &__icon
+      opacity .36
 
     &__text
       font-size .875rem
-      line-height 20px
-      letter-spacing 0.01em
+      line-height 1.25rem
 
-    &:hover
+    &:hover:not(:active),
+    &:focus:not(:active)
       box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      transform translateY(-2px)
+      transition-duration 0.1s
+
+    &:active
+      opacity 0.7
+      transition-duration 0s
 
     &__title
       margin-top 1.5rem
-      margin-bottom 1rem
+      margin-bottom 0.75rem
+      font-size 1.25rem
+      line-height 1.75rem
       font-weight 600
 
 a.links__item
   color white
 
 a.links__item__regular
-  color #161931
+  color var(--color-text, black)
   background rgba(176, 180, 207, 0.09)
 
 @media screen and (max-width: 832px)

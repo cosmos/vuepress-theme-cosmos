@@ -16,5 +16,5 @@
 
 <style lang="stylus" scoped>
 .fill
-  stroke var(--accent-color)
+  stroke var(--color-link)
 </style>
