@@ -22,8 +22,8 @@
   "license": "Apache 2.0",
   "dependencies": {
     "@cosmos-ui/vue": "^0.33.0",
-    "@vuepress/plugin-google-analytics": "1.5.0",
     "algoliasearch": "^4.2.0",
+    "@vuepress/plugin-google-analytics": "1.5.3",
     "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.3",
     "clipboard-copy": "^3.1.0",
@@ -41,7 +41,7 @@
     "stylus-loader": "^3.0.2",
     "tiny-cookie": "^2.3.2",
     "v-runtime-template": "^1.10.0",
-    "vuepress": "1.5.0",
+    "vuepress": "1.5.3",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "devDependencies": {
