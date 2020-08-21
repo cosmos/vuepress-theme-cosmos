@@ -94,6 +94,7 @@
     padding-bottom 0.375rem
     font-size 0.875rem
     line-height 1.125rem
+    word-break break-word
 
     &__href:hover
       color var(--color-text, black)
