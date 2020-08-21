@@ -456,6 +456,10 @@
       outline none
       position relative
 
+    a[target='_blank']
+      &:after
+        position relative
+
   p, ul, ol
     a
       color var(--color-link, blue)
