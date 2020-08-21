@@ -274,7 +274,11 @@
     display none
 
   table
-    width 100%
+    display block
+    width 100% // fallback
+    width max-content
+    max-width 100%
+    overflow auto
     line-height 1.5rem
     margin-top 2rem
     margin-bottom 2rem
@@ -282,9 +286,6 @@
     border-radius 0.5rem
     border-collapse collapse
     font-size 1rem
-
-  td
-    word-break break-word
 
   th
     text-align left
