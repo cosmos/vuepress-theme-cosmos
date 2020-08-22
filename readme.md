@@ -60,7 +60,7 @@ module.exports = {
       },
       title: "Documentation",
     },
-    // Appears when top.banner is true and not custom
+    // custom must be false, topbar.banner is true to enable
     topbar: {
       banner: false
     },

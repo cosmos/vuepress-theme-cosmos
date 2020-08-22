@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div(v-if="$themeConfig.topbar.banner && $themeConfig.topbar.banner === true && !$themeConfig.custom")
     transition(name="fade" v-on:before-leave="beforeLeave" appear)
       .banner(v-if="show")
         a.banner__content(:href="topBanner.url" v-html="md(topBanner.content)" target="_blank" rel="noreferrer noopener")
