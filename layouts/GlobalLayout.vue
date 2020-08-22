@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     cookie-banner
-    tm-top-banner(v-if="this.$themeConfig.topbar.banner && this.$themeConfig.topbar.banner === true" v-bind="{topBanner}")
+    tm-top-banner(v-bind="{topBanner}")
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
@@ -276,9 +276,8 @@ import {
   map
 } from "lodash";
 import hotkeys from "hotkeys-js";
-import { CookieBanner } from "@cosmos-ui/vue";
+import { CookieBanner, SectionSearch } from "@cosmos-ui/vue";
 import axios from "axios";
-import { SectionSearch } from "@cosmos-ui/vue";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
