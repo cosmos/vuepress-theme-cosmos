@@ -47,11 +47,13 @@
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "devDependencies": {
+    "core-js": "^3.6.5",
     "serialize-javascript": "^4.0.0",
     "set-value": "^3.0.2",
     "watchpack": "1.6.1"
   },
   "resolutions": {
+    "core-js": "^3.6.5",
     "serialize-javascript": "^4.0.0",
     "set-value": "^3.0.2"
   }
