@@ -2,7 +2,7 @@
   div
     .container
       .search__container
-        .search(@click="$emit('search', true)" v-if="!$themeConfig.custom")
+        .search(@click="$emit('search', true)")
           .search__icon
             icon-search
           .search__text Search
