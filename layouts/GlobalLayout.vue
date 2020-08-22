@@ -276,9 +276,8 @@ import {
   map
 } from "lodash";
 import hotkeys from "hotkeys-js";
-import { CookieBanner } from "@cosmos-ui/vue";
+import { CookieBanner, SectionSearch } from "@cosmos-ui/vue";
 import axios from "axios";
-import { SectionSearch } from "@cosmos-ui/vue";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
