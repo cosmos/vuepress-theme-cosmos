@@ -60,6 +60,10 @@ module.exports = {
       },
       title: "Documentation",
     },
+    // Appears when top.banner is true and not custom
+    topbar: {
+      banner: false
+    },
     sidebar: {
       // Auto-sidebar, true by default
       auto: false,
@@ -139,3 +143,15 @@ parent:
 ```
 
 Setting `order: false` removes the item (file or directory) from the sidebar. It is, however, remains accessible by means other than the sidebar. It is valid use a `readme.md` to set an order of a parent-directory and hide the file with `order: false`.
+
+## Docs search
+
+The search bar is currently using Fuse.js by default. We have since integrated with [Algolia Docsearch](https://github.com/cosmos/vuepress-theme-cosmos/pull/48) to improve the search experience. In order to use Algolia Docssearch, you're required to [join the program](https://docsearch.algolia.com). Once you have acquired all the necessary Algolia config keys, you can modify the themeConfig.algolia in the `config.js` as such:
+
+```
+algolia: {
+  id: "BH4D9OD16A",
+  key: "ac317234e6a42074175369b2f42e9754",
+  index: "cosmos-sdk"
+},
+```
