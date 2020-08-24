@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     cookie-banner
-    tm-top-banner(v-if="this.$themeConfig.topbar.banner && this.$themeConfig.topbar.banner === true" v-bind="{topBanner}")
+    tm-top-banner(v-bind="{topBanner}")
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
@@ -29,7 +29,7 @@
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
-      section-search(@visible="searchPanel = $event" :query="searchQuery" @query="searchQuery = $event")
+      section-search(@visible="searchPanel = $event" :base="$site.base" @cancel="searchPanel = false" :algoliaConfig="algoliaConfig" @select="searchSelect($event)" :query="searchQuery" @query="searchQuery = $event" :site="$site")
     tm-sidebar(:visible="rsidebarVisible"  @visible="rsidebarVisible = $event" side="right").sheet__sidebar.sheet__sidebar__toc
       tm-toc-menu(@visible="rsidebarVisible = $event")
 </template>
@@ -276,14 +276,17 @@ import {
   map
 } from "lodash";
 import hotkeys from "hotkeys-js";
-import { CookieBanner } from "@cosmos-ui/vue";
+import { CookieBanner, SectionSearch } from "@cosmos-ui/vue";
 import axios from "axios";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
 
 export default {
-  components: { CookieBanner },
+  components: {
+    CookieBanner,
+    SectionSearch
+  },
   data: function() {
     return {
       sidebarVisible: null,
@@ -347,6 +350,11 @@ export default {
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   },
   computed: {
+    algoliaConfig() {
+      const localhost = window.location.hostname === "localhost";
+      const algolia = this.$themeConfig.algolia;
+      return localhost ? {} : algolia;
+    },
     editLink() {
       if (this.$page.frontmatter.editLink === false) {
         return;
@@ -432,6 +440,19 @@ export default {
     }
   },
   methods: {
+    searchSelect(e) {
+      if (e.id) {
+        const page = find(this.$site.pages, ["key", e.id]);
+        if (page && page.regularPath) {
+          if (this.$page.regularPath != page.regularPath) {
+            this.$router.push(page.regularPath);
+            this.searchPanel = false;
+          }
+        }
+      } else if (e.url) {
+        window.location.assign(e.url);
+      }
+    },
     createEditLink(repo, docsRepo, docsDir, docsBranch, path) {
       const bitbucket = /bitbucket.org/;
       if (bitbucket.test(repo)) {
@@ -456,9 +477,6 @@ export default {
         path
       );
     },
-    log(e) {
-      console.log(e);
-    },
     searchVisible(bool) {
       this.searchPanel = bool;
     },
@@ -466,9 +484,6 @@ export default {
       this.sidebarVisible = false;
       this.rsidebarVisible = false;
       this.searchPanel = false;
-      // this.$nextTick(() => {
-      //   document.elementFromPoint(e.clientX, e.clientY).click();
-      // });
     },
     selectHeader(elements) {
       if (elements.length > 0) {
