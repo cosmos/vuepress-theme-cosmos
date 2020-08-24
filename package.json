@@ -1,11 +1,10 @@
 {
   "name": "vuepress-theme-cosmos",
-  "version": "1.0.170",
+  "version": "1.0.171",
   "description": "Theme for VuePress static site generator used by Tendermint and Cosmos projects.",
   "main": "index.js",
   "scripts": {
-    "postversion": "git push && git push --tags",
-    "preinstall": "npx npm-force-resolutions"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
@@ -43,18 +42,12 @@
     "stylus-loader": "^3.0.2",
     "tiny-cookie": "^2.3.2",
     "v-runtime-template": "^1.10.0",
-    "vuepress": "1.5.3",
+    "vuepress": "^1.5.4",
     "vuepress-plugin-sitemap": "^2.3.1"
   },
   "devDependencies": {
     "core-js": "^3.6.5",
-    "serialize-javascript": "^4.0.0",
     "set-value": "^3.0.2",
     "watchpack": "1.6.1"
-  },
-  "resolutions": {
-    "core-js": "^3.6.5",
-    "serialize-javascript": "^4.0.0",
-    "set-value": "^3.0.2"
   }
 }
