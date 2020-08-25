@@ -351,9 +351,8 @@ export default {
   },
   computed: {
     algoliaConfig() {
-      const localhost = window.location.hostname === "localhost";
       const algolia = this.$themeConfig.algolia;
-      return localhost ? {} : algolia;
+      return algolia ? algolia : {};
     },
     editLink() {
       if (this.$page.frontmatter.editLink === false) {
