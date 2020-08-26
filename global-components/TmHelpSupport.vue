@@ -5,7 +5,7 @@
         .title(v-if="$themeConfig.gutter.title") {{$themeConfig.gutter.title}}
         .links
           a(:href="$themeConfig.gutter.chat.url" target="_blank" rel="noreferrer noopener" :style="{'--bg': $themeConfig.gutter.chat.bg}").links__item.links__item__chat
-            tm-logo-chat(style="fill: white; width: 80px; height: 80px; padding: 10px;").links__item__logo
+            tm-logo-chat(style="fill: white; width: 80px; height: 80px;").links__item__logo
             svg(width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg").links__item__icon
               path(d="M1.16962 13.7697C0.876728 14.0626 0.876728 14.5374 1.16962 14.8303C1.46252 15.1232 1.93739 15.1232 2.23028 14.8303L1.16962 13.7697ZM15.106 1.95457C15.3989 1.66168 15.3989 1.1868 15.106 0.893912C14.8131 0.601019 14.3382 0.601019 14.0454 0.893913L15.106 1.95457ZM14.9999 1H15.7499V0.25H14.9999V1ZM4.81811 0.25C4.4039 0.25 4.06811 0.585786 4.06811 1C4.06811 1.41421 4.4039 1.75 4.81811 1.75V0.25ZM14.2499 11.1818C14.2499 11.596 14.5857 11.9318 14.9999 11.9318C15.4141 11.9318 15.7499 11.596 15.7499 11.1818H14.2499ZM2.23028 14.8303L15.106 1.95457L14.0454 0.893913L1.16962 13.7697L2.23028 14.8303ZM14.9999 0.25H4.81811V1.75H14.9999V0.25ZM15.7499 11.1818V1H14.2499V11.1818H15.7499Z" fill="white")
             div(v-html="md($themeConfig.gutter.chat.title)").links__item__title
