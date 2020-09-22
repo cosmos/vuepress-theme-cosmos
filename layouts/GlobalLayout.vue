@@ -11,6 +11,7 @@
         .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
           .layout__main__content__body(id="content-scroll")
             .layout__main__content__body__breadcrumbs(v-if="!($frontmatter.aside === false)")
+              tm-select-version
               tm-breadcrumbs(@visible="rsidebarVisible = $event")
             .layout__main__content__body__wrapper
               component(:is="layout" :key="$route.path" @search="searchPanel = $event" @prereq="prereq = $event")

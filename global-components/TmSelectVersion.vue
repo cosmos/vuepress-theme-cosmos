@@ -1,15 +1,18 @@
 <template lang="pug">
   div
-    .select(v-if="versions.length > 1")
-      select(@input="select")
-        option(v-for="item in versions" :value="item") {{item}}
+    .container
+      .select(v-if="versions.length > 1")
+        select(@input="select")
+          option(v-for="item in versions" :value="item") {{item}}
 </template>
 
 <style lang="stylus" scoped>
+.container
+  padding-left 0.75rem
+
 select
   border none
   background none
-  text-transform uppercase
   letter-spacing 0.03em
   font-weight 600
   font-size 0.875rem
@@ -19,6 +22,7 @@ select
   padding 0.25rem 0.5rem
   border-radius 6px
   background-color transparent
+  width fit-content
 </style>
 
 <script>
@@ -30,9 +34,21 @@ export default {
   },
   methods: {
     select(e) {
-      // this.$router.push(
-      //   this.$page.path.replace(this.$localeConfig.path, e.target.value)
-      // );
+      // console.log(e.target.value)
+      if (e.target.value === 'master') {
+        this.$router.push(
+          this.$page.path.replace(this.$site.base, e.target.value + '/introduction/quick-start.html')
+        )
+      } else {
+        this.$router.push(
+          this.$page.path.replace(this.$site.base, e.target.value + '/docs/DOCS_README.html')
+        )
+      }
+      // if (e.targate.value === 'master') {
+      //   this.$router.push(
+      //     this.$page.path.replace(this.$localeConfig.path, e.target.value)
+      //   );
+      // }
     }
   }
 };
