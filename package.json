@@ -21,7 +21,7 @@
   "author": "",
   "license": "Apache 2.0",
   "dependencies": {
-    "@cosmos-ui/vue": "^0.33.0",
+    "@cosmos-ui/vue": "^0.35.0",
     "@vuepress/plugin-google-analytics": "1.5.4",
     "algoliasearch": "^4.2.0",
     "axios": "^0.20.0",
@@ -48,6 +48,6 @@
   "devDependencies": {
     "core-js": "^3.6.5",
     "set-value": "^3.0.2",
-    "watchpack": "1.6.1"
+    "watchpack": "^2.0.0"
   }
 }
