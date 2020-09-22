@@ -155,3 +155,32 @@ algolia: {
   index: "cosmos-sdk"
 },
 ```
+
+## Used by
+
+1. [Cosmos SDK Documentation](https://docs.cosmos.network) — [`github`](https://github.com/cosmos/cosmos-sdk) — [`.vuepress/config.js`](https://github.com/cosmos/cosmos-sdk/blob/master/docs/.vuepress/config.js)
+2. [Cosmos SDK Tutorials](https://tutorials.cosmos.network) — [`github`](https://github.com/cosmos/sdk-tutorials) — [`.vuepress/config.js`](https://github.com/cosmos/sdk-tutorials/blob/master/.vuepress/config.js)
+3. [Cosmos Hub](https://hub.cosmos.network) — [`github`](https://github.com/cosmos/gaia/tree/master/docs) — [`.vuepress/config.js`](https://github.com/cosmos/gaia/blob/master/docs/.vuepress/config.js)
+4. [Tendermint Core Documentation](https://docs.tendermint.com) — [`github`](https://github.com/tendermint/tendermint/tree/master/docs) — [`.vuepress/config.js`](https://github.com/tendermint/tendermint/blob/master/docs/.vuepress/config.js)
+5. [Kava Documentation](https://docs.kava.io) — [`github`](https://github.com/Kava-Labs/kava/tree/master/docs) — [`.vuepress/config.js`](https://github.com/Kava-Labs/kava/blob/master/docs/.vuepress/config.js)
+6. [Ethermint Documentation](https://docs.ethermint.zone) — [`github`](https://github.com/ChainSafe/ethermint/tree/development/docs) — [`.vuepress/config.js`](https://github.com/ChainSafe/ethermint/blob/development/docs/.vuepress/config.js)
+7. [Cosmwasm Documentation](https://docs.cosmwasm.com) — [`github`](https://github.com/CosmWasm/docs2) — [`.vuepress/config.js`](https://github.com/CosmWasm/docs2/blob/master/.vuepress/config.js)
+
+## Contributing
+
+```md
+<!-- after cloning vuepress-theme-cosmos -->
+$ git clone https://github.com/cosmos/vuepress-theme-cosmos.git
+
+<!-- example: project using vuepress-cosmos-theme -->
+$ git clone https://github.com/cosmos/cosmos-sdk.git
+$ cd cosmos-sdk
+$ cd docs
+$ npm i
+$ npm link vuepress-theme-cosmos
+$ npm run serve
+```
+
+## License
+
+vuepress-theme-cosmos is licensed under [Apache 2.0](./LICENSE).
