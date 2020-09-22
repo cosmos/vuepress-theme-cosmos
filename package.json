@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "core-js": "^3.6.5",
+    "node-forge": "^0.10.0",
     "set-value": "^3.0.2",
     "watchpack": "^2.0.0"
   }
