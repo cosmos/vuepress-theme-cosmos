@@ -34,21 +34,7 @@ export default {
   },
   methods: {
     select(e) {
-      // console.log(e.target.value)
-      if (e.target.value === 'master') {
-        this.$router.push(
-          this.$page.path.replace(this.$site.base, e.target.value + '/introduction/quick-start.html')
-        )
-      } else {
-        this.$router.push(
-          this.$page.path.replace(this.$site.base, e.target.value + '/docs/DOCS_README.html')
-        )
-      }
-      // if (e.targate.value === 'master') {
-      //   this.$router.push(
-      //     this.$page.path.replace(this.$localeConfig.path, e.target.value)
-      //   );
-      // }
+      this.$router.push({ path: `/${e.target.value}` })
     }
   }
 };
