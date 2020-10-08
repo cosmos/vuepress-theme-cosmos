@@ -60,6 +60,13 @@ module.exports = {
       },
       title: "Documentation",
     },
+    // algolia docsearch
+    // https://docsearch.algolia.com/
+    algolia: {
+      id: "BH4D9OD16A",
+      key: "ac317234e6a42074175369b2f42e9754",
+      index: "cosmos-sdk"
+    },
     // custom must be false, topbar.banner is true to enable
     topbar: {
       banner: false
