@@ -33,7 +33,7 @@
     "gray-matter": "^4.0.2",
     "hotkeys-js": "3.8.1",
     "jsonp": "^0.2.1",
-    "markdown-it": "^11.0.1",
+    "markdown-it": "^12.0.0",
     "markdown-it-attrs": "^3.0.3",
     "prismjs": "^1.21.0",
     "pug": "^2.0.4",
