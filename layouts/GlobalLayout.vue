@@ -303,7 +303,7 @@ export default {
       heightBanners: null
     };
   },
-  mounted() {
+  beforeMount() {
     const fetchTopBanner = axios.get(`${this.topBannerUrl}/index.json`)
       .then(response => response.data)
       .catch(() => console.log(`Error in fetching data from ${this.topBannerUrl}`))
@@ -316,7 +316,8 @@ export default {
       this.topBanner = responses[0]
       this.asideBanners = responses[1]
     })
-
+  },
+  mounted() {
     document.addEventListener("scroll", () => {
       const banners = this.$refs.asideBanners;
       if (banners) {
