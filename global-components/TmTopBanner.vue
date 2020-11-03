@@ -2,7 +2,7 @@
   div(v-if="$themeConfig.topbar.banner && $themeConfig.topbar.banner === true && !$themeConfig.custom")
     transition(name="fade" v-on:before-leave="beforeLeave" appear)
       .banner(v-if="show")
-        a.banner__content(:href="topBanner.url" v-html="md(topBanner.content)" target="_blank" rel="noreferrer noopener")
+        a(:href="topBanner.url" target="_blank" rel="noreferrer noopener" v-html="md(topBanner.content)").banner__content
         a.banner__dismiss(@click.prevent="close" href="#")
           .banner__dismiss__icon
             svg(width='16', height='16', viewBox='0 0 14 14', fill='none', xmlns='http://www.w3.org/2000/svg')
