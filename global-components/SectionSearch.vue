@@ -264,15 +264,15 @@ strong
 
 <script>
 import { find, last, debounce } from "lodash";
-import Fuse from "fuse.js";
+//- import Fuse from "fuse.js";
 
 export default {
   props: ["visible", "query"],
   data: function() {
     return {
       searchResults: null,
-      searchQuery: null,
-      fuse: null,
+      //- searchQuery: null,
+      //- fuse: null,
     };
   },
   watch: {
@@ -303,33 +303,33 @@ export default {
         return;
       }
     });
-    const fuseIndex = this.$site.pages
-      .map((doc) => {
-        return {
-          key: doc.key,
-          title: doc.title,
-          headers: doc.headers && doc.headers.map((h) => h.title).join(" "),
-          // description: doc.frontmatter && doc.frontmatter.description,
-          path: doc.path,
-        };
-      })
-      .filter((doc) => {
-        return !(
-          Object.keys(this.$site.locales || {}).indexOf(
-            doc.path.split("/")[1]
-          ) > -1
-        );
-      });
-    const fuseOptions = {
-      keys: ["title", "headers", "description", "path"],
-      shouldSort: true,
-      includeScore: true,
-      includeMatches: true,
-      threshold: 1,
-    };
-    this.fuse = new Fuse(fuseIndex, fuseOptions);
+    //- const fuseIndex = this.$site.pages
+    //-   .map((doc) => {
+    //-     return {
+    //-       key: doc.key,
+    //-       title: doc.title,
+    //-       headers: doc.headers && doc.headers.map((h) => h.title).join(" "),
+    //-       // description: doc.frontmatter && doc.frontmatter.description,
+    //-       path: doc.path,
+    //-     };
+    //-   })
+    //-   .filter((doc) => {
+    //-     return !(
+    //-       Object.keys(this.$site.locales || {}).indexOf(
+    //-         doc.path.split("/")[1]
+    //-       ) > -1
+    //-     );
+    //-   });
+    //- const fuseOptions = {
+    //-   keys: ["title", "headers", "description", "path"],
+    //-   shouldSort: true,
+    //-   includeScore: true,
+    //-   includeMatches: true,
+    //-   threshold: 1,
+    //- };
+    //- this.fuse = new Fuse(fuseIndex, fuseOptions);
     if (this.$refs.search) this.$refs.search.focus();
-    this.search();
+    //- this.search();
   },
   methods: {
     resultTitle(result) {
@@ -358,16 +358,16 @@ export default {
       );
       if (headers && headers.length) return headers[0];
     },
-    search(e) {
-      if (!this.query) return;
-      const fuse = this.fuse.search(this.query).map((result) => {
-        return {
-          ...result,
-          item: find(this.$site.pages, { key: result.item.key }),
-        };
-      });
-      this.searchResults = fuse;
-    },
+    //- search(e) {
+    //-   if (!this.query) return;
+    //-   const fuse = this.fuse.search(this.query).map((result) => {
+    //-     return {
+    //-       ...result,
+    //-       item: find(this.$site.pages, { key: result.item.key }),
+    //-     };
+    //-   });
+    //-   this.searchResults = fuse;
+    //- },
     itemByKey(key) {
       return find(this.$site.pages, { key });
     },
