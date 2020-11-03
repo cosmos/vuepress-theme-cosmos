@@ -300,7 +300,8 @@ export default {
       topBannerUrl: "https://cosmos.network/top-banner",
       asideBanners: null,
       topBanner: null,
-      heightBanners: null
+      heightBanners: null,
+      status: null
     };
   },
   beforeMount() {
@@ -466,16 +467,33 @@ export default {
           `?mode=edit&spa=0&at=${docsBranch}&fileviewer=file-view-default`
         );
       }
-      const base = outboundRE.test(docsRepo)
-        ? docsRepo
-        : `https://github.com/${docsRepo}`;
-      return (
-        base.replace(endingSlashRE, "") +
-        `/edit` +
+      
+      const rawBase = 'https://raw.githubusercontent.com/' + docsRepo +
         `/${docsBranch}/` +
         (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
         path
-      );
+
+      // Unable to XHR GitHub URL due to CORS
+      // Use raw.githubusercontent.com instead
+      const checkUrl = axios.get(rawBase)
+        .then(response => this.status = response.status)
+        .catch(() => this.status = 404)
+
+      const base = outboundRE.test(docsRepo)
+        ? docsRepo
+        : `https://github.com/${docsRepo}`;
+
+      if (this.status !== 200) {
+        return `https://github.com/${docsRepo}/issues`
+      } else {
+        return (
+          base.replace(endingSlashRE, "") +
+          `/edit` +
+          `/${docsBranch}/` +
+          (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+          path
+        );
+      }
     },
     searchVisible(bool) {
       this.searchPanel = bool;
