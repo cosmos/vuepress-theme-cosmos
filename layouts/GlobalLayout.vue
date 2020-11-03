@@ -475,7 +475,7 @@ export default {
 
       // Unable to XHR GitHub URL due to CORS
       // Use raw.githubusercontent.com instead
-      const checkUrl = axios.get(rawBase)
+      axios.get(rawBase)
         .then(response => this.status = response.status)
         .catch(() => this.status = 404)
 
