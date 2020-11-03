@@ -1,9 +1,8 @@
-import { Tooltip, CodeBlock } from "@cosmos-ui/vue";
+import { Tooltip } from "@cosmos-ui/vue";
 import MarkdownIt from "markdown-it";
 
 export default ({ Vue }) => {
   Vue.component("df", Tooltip);
-  Vue.component("code-block", CodeBlock);
   Vue.mixin({
     methods: {
       md: string => {

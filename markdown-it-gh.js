@@ -42,7 +42,7 @@ module.exports = function asciiDiagram(md, options) {
       }
       const lang = golang && "go";
       const base64 = Buffer.from(escapeHtml(data)).toString("base64");
-      return `<code-block class="codeblock" language="${lang}" base64="${base64}"></code-block>`;
+      return `<tm-code-block class="codeblock" language="${lang}" base64="${base64}"></tm-code-block>`;
     }
     return escapeHtml(tokens[idx].content);
   };
