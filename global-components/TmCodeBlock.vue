@@ -469,17 +469,17 @@ export default {
         .replace(/\#.*$/, "")
         .split("/")
         .slice(7);
-      // if (tokens.length > 4) {
-      //   return [
-      //     tokens[0],
-      //     tokens[1],
-      //     "...",
-      //     tokens.slice(-2)[0],
-      //     tokens.slice(-2)[1],
-      //   ].join(" / ");
-      // } else {
-      return tokens.join(" / ");
-      // }
+      if (tokens.length > 4) {
+        return [
+          tokens[0],
+          tokens[1],
+          "...",
+          tokens.slice(-2)[0],
+          tokens.slice(-2)[1],
+        ].join(" / ");
+      } else {
+        return tokens.join(" / ");
+      }
     },
     copy(value) {
       const val = value
@@ -498,11 +498,11 @@ export default {
       // console.log(source)
       if (supportedSyntax) {
         return Prism.highlight(
-          source,
-            // .replace(/&quot;/g, '"')
-            // .replace(/&lt;/g, "<")
-            // .replace(/&gt;/g, ">")
-            // .replace(/&amp;/g, "&"),
+          source
+            .replace(/&quot;/g, '"')
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, ">")
+            .replace(/&amp;/g, "&"),
           supportedSyntax
         );
       } else {
