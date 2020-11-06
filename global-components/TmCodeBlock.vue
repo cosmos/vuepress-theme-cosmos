@@ -495,7 +495,6 @@ export default {
     },
     highlighted(source) {
       const supportedSyntax = Prism.languages[this.language];
-      // console.log(source)
       if (supportedSyntax) {
         return Prism.highlight(
           source
