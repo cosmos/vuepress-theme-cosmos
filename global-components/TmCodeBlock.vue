@@ -407,6 +407,7 @@ import "prismjs/components/prism-bash.min.js";
 import "prismjs/components/prism-json.min.js";
 import "prismjs/components/prism-protobuf.min.js";
 import "prismjs/components/prism-solidity.min.js";
+import "prismjs/components/prism-python.min.js";
 import copy from "clipboard-copy";
 import { Base64 } from "js-base64";
 
