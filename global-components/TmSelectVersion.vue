@@ -34,6 +34,9 @@ select
   &:focus
     outline none
 
+  &:hover
+    cursor pointer
+
 .select
   padding 0.5rem 0
   background-color transparent
