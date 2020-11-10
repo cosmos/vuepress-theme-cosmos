@@ -491,6 +491,19 @@
     a:focus code
       background-color rgba(59, 66, 125, 0.12)
 
+  td
+    a
+      color var(--color-link, blue)
+      position relative
+      transition opacity 0.3s ease-out
+      overflow-wrap break-word
+      word-wrap break-word
+      -ms-word-break break-all
+      word-break inherit
+    a[target='_blank']
+      &:after
+        display none
+
 @media screen and (max-width: 1136px)
   >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
     padding-right 1.75rem

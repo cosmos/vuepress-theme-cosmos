@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .search__container
-      .search(@click="$emit('search', true)")
+      .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")
         .search__icon
           icon-search
         .search__text Search
