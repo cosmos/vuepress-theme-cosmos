@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .container
-      .select(v-if="versions.length > 1")
+      .select(v-if="versions")
         select(@input="select")
           option(v-for="item in versions" :value="item") {{item}}
 </template>
