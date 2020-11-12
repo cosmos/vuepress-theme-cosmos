@@ -1,25 +1,10 @@
 <template lang="pug">
   div
-    .select(v-if="versions.length > 1")
-      select(@input="select")
-        option(v-for="item in versions" :value="item") {{item}}
+    .container
+      .select(v-if="versions")
+        select(@input="select")
+          option(v-for="item in versions" :value="item") {{item}}
 </template>
-
-<style lang="stylus" scoped>
-select
-  border none
-  background none
-  text-transform uppercase
-  letter-spacing 0.03em
-  font-weight 600
-  font-size 0.875rem
-
-.select
-  border 2px solid rgba(140, 145, 177, 0.32)
-  padding 0.25rem 0.5rem
-  border-radius 6px
-  background-color transparent
-</style>
 
 <script>
 export default {
@@ -30,10 +15,30 @@ export default {
   },
   methods: {
     select(e) {
-      // this.$router.push(
-      //   this.$page.path.replace(this.$localeConfig.path, e.target.value)
-      // );
+      this.$router.push({ path: `/${e.target.value}` })
     }
   }
 };
 </script>
+
+<style lang="stylus" scoped>
+select
+  border none
+  background none
+  letter-spacing 0.03em
+  font-weight 600
+  font-size 0.875rem
+  line-height 1.25rem
+  color rgba(0, 0, 0, 0.667)
+
+  &:focus
+    outline none
+
+  &:hover
+    cursor pointer
+
+.select
+  padding 0.5rem 0
+  background-color transparent
+  width fit-content
+</style>

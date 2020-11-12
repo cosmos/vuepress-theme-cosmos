@@ -2,6 +2,7 @@
   div
     .container
       .search__container
+        tm-select-version(v-if="$themeConfig.versions")
         .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")
           .search__icon
             icon-search
@@ -25,7 +26,7 @@
 
 .search__container
   display flex
-  justify-content flex-start
+  justify-content space-between
   padding-top 0.5rem
   padding-bottom 3.5rem
 

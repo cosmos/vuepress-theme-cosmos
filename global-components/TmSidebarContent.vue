@@ -13,6 +13,8 @@
           .title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
+        .sidebar.version
+          tm-select-version
       .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
         a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
@@ -70,6 +72,10 @@
   padding-left 2rem
   padding-right 2rem
   overflow-x hidden
+
+.version
+  margin-top 2rem
+  display none
 
 .items
   flex-grow 1
@@ -136,6 +142,10 @@
       text-align center
       font-size 0.6875rem
       line-height 0.875rem
+
+@media screen and (max-width: 1135px)
+  .version
+    display block
 </style>
 
 <script>

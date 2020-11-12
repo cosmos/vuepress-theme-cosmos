@@ -1,10 +1,12 @@
 <template lang="pug">
   div
     .search__container
-      .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")
-        .search__icon
-          icon-search
-        .search__text Search
+      .search__container__right
+        tm-select-version
+        .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")
+          .search__icon
+            icon-search
+          .search__text Search
     .h1 {{$frontmatter.title}}
     .intro
       .p {{$frontmatter.description}}
@@ -58,8 +60,7 @@
   display flex
   align-items center
   color rgba(22, 25, 49, 0.65)
-  padding-top 1rem
-  width calc(var(--aside-width) - 6rem)
+  //- width calc(var(--aside-width) - 6rem)
   cursor pointer
   transition color .15s ease-out
 
@@ -71,6 +72,12 @@
     justify-content flex-end
     margin-top 1rem
     margin-bottom 1rem
+    padding-top 1rem
+
+    &__right
+      display grid
+      grid-auto-flow column
+      gap 2rem
 
   &__icon
     width 1.5rem
