@@ -27,7 +27,7 @@ module.exports = (md) => {
     }
     const base64 = Buffer.from(escapeHtml(token.content)).toString("base64");
     return `
-    <code-block class="codeblock" language="${token.info}" base64="${base64}"></code-block>
+    <tm-code-block class="codeblock" language="${token.info}" base64="${base64}"></tm-code-block>
     `;
   };
 };

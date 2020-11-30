@@ -155,13 +155,17 @@ Setting `order: false` removes the item (file or directory) from the sidebar. It
 
 We're currently using [Algolia Docsearch](https://github.com/cosmos/vuepress-theme-cosmos/pull/48) to improve the search experience. You're required to [join the program](https://docsearch.algolia.com) to use Algolia Docssearch. Once you have acquired all the necessary Algolia config keys, you can modify the `$themeConfig.algolia` in the `config.js` as such:
 
-```json
+```js
 algolia: {
   id: "BH4D9OD16A",
   key: "ac317234e6a42074175369b2f42e9754",
   index: "cosmos-sdk"
 },
 ```
+
+## Syntax highlighter
+
+`vuepress-theme-cosmos` uses [Prism](https://prismjs.com/) to highlight language syntax in Markdown code blocks. Modify the manually imported files in `TmCodeBlock.vue` to [support different languages](https://prismjs.com/#supported-languages).
 
 ## Used by
 
