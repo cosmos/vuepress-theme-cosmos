@@ -2,7 +2,7 @@
   div
     .container
       .select(v-if="versions")
-        select(@input="select")
+        select(@input="versionChange($event.target.value)")
           option(v-for="item in versions" :value="item") {{item}}
 </template>
 
@@ -14,8 +14,8 @@ export default {
     }
   },
   methods: {
-    select(e) {
-      this.$router.push({ path: `/${e.target.value}` })
+    versionChange(version) {
+      this.$router.push({ path: `/${version}` }, () => {})
     }
   }
 };
