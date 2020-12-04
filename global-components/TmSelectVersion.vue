@@ -3,7 +3,8 @@
     .container
       .select(v-if="versions")
         select(@input="versionChange($event.target.value)")
-          option(v-for="item in versions" :value="item") {{item}}
+          option(value="" selected disabled hidden) Versions
+          option(v-for="item in versions" :value="item.key") {{ item.label }}
 </template>
 
 <script>
@@ -15,7 +16,11 @@ export default {
   },
   methods: {
     versionChange(version) {
-      this.$router.push({ path: `/${version}` }, () => {})
+      // vue router won't work because of the generated path prefix in makefile
+      // this.$router.push({ path: `/${version.key}` }, () => {})
+      // to fix urls with path prefixes: https://docs.staging-cosmos.network/master/master
+      // window.open(`${window.location.origin}/${version}`)
+      window.location.href = `${window.location.origin}/${version}`
     }
   }
 };
