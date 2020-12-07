@@ -3,7 +3,7 @@
     .container
       .select(v-if="versions")
         select(@input="versionChange($event.target.value)")
-          option(value="" selected disabled hidden) Versions
+          option(value="" selected disabled hidden) Version
           option(v-for="item in versions" :value="item.key") {{ item.label }}
 </template>
 
