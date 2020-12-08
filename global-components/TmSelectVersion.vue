@@ -3,22 +3,58 @@
     .container
       span.sr-only Docs Version Switcher
       .select(v-if="versions")
-        select(@input="versionChange($event.target.value)")
-          option(value="" selected disabled hidden) Version
+        select(@input="versionChange($event.target.value)" v-model="selectedItem")
+          option(value="" disabled) Version
           option(v-for="item in versions" :value="item.key") {{ item.label }}
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      selectedItem: "",
+    }
+  },
+  created() {
+    const emptyVal = ""
+    const pathName = window.location.pathname.replace("/", "")
+    const pathRe = /[a-zA-Z]{1}\d+(\.\d+)+/g
+    const versionPathName = window.location.href.match(pathRe)
+
+    // match values in select option
+    // e.g. http://docs.cosmos.network/master
+    if (this.versionValue === this.versionValue) {
+      // check if input has a pathname
+      // extract version number from string
+      // point to the selectedItem
+      // e.g. https://docs.cosmos.network/v0.39/intro/overview.html
+      if (versionPathName !== null) {
+        this.selectedItem = versionPathName[0]
+      } else {
+        this.selectedItem = pathName
+      }
+    }
+    // e.g. http://docs.cosmos.network
+    else {
+      this.selectedItem = emptyVal
+    }
+  },
   computed: {
     versions() {
       return this.$themeConfig.versions;
+    },
+    versionValue() {
+      for (var key in this.versions) {
+        var value = this.versions[key];
+
+        return value.key
+      }
     }
   },
   methods: {
     versionChange(version) {
       // vue router won't work because of the generated path prefix in makefile
-      // this.$router.push({ path: `/${version.key}` }, () => {})
+      // this.$router.push({ path: `/${version}` }, () => {})
       // to fix urls with path prefixes: https://docs.staging-cosmos.network/master/master
       // window.open(`${window.location.origin}/${version}`)
       window.location.href = `${window.location.origin}/${version}`
