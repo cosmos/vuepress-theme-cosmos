@@ -15,7 +15,7 @@ export default {
       selectedItem: "",
     }
   },
-  created() {
+  mounted() {
     const emptyVal = ""
     const pathName = window.location.pathname.replace("/", "")
     const pathRe = /[a-zA-Z]{1}\d+(\.\d+)+/g
