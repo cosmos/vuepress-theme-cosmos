@@ -204,6 +204,8 @@ master              master
 launchpad/backports v0.39
 ```
 
+> 🔔 There must be a newline at the end of `versions` file otherwise it will prevent `make build-docs` script from reading both lines (versions) of the file. cc: https://github.com/cosmos/cosmos-sdk/pull/7938
+
 3. `Makefile`
 
 https://github.com/cosmos/cosmos-sdk/blob/master/Makefile#L195 to build versioned docs and docs with path prefixes in the deployment.
