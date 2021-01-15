@@ -167,6 +167,46 @@ algolia: {
 
 `vuepress-theme-cosmos` uses [Prism](https://prismjs.com/) to highlight language syntax in Markdown code blocks. Modify the manually imported files in `TmCodeBlock.vue` to [support different languages](https://prismjs.com/#supported-languages).
 
+## Versioning
+
+### Prerequisites
+
+0. Make sure the versioned branches exist.
+1. `.vuepress/config.js` - to edit versions shown on version switcher
+2. `docs/versions` - to loop through versions and generate versioned docs
+3. `Makefile`/ `GitHub Actions` - to build versioned docs and docs with path prefixes.
+    - You can use [Makefile](https://github.com/cosmos/cosmos-sdk/blob/master/Makefile#L195) directly or
+    - [GitHub Actions](https://github.com/cosmos/cosmos-sdk/blob/master/.github/workflows/docs.yml#L24) to run `make build-docs` depending on your setup.
+
+#### Steps
+1. add versions to `.vuepress/config.js`
+
+```
+versions: [
+  {
+    "label": "v0.39",
+    "key": "v0.39"
+  },
+  {
+    "label": "master",
+    "key": "master"
+  }
+],
+```
+
+2. edit `docs/versions` for Makefile to loop through and generate versioned docs.
+
+```
+master              master
+launchpad/backports v0.39
+```
+
+> 🔔 There must be a newline at the end of `versions` file otherwise it will prevent `make build-docs` script from reading both lines (versions) of the file. cc: https://github.com/cosmos/cosmos-sdk/pull/7938
+
+3. `Makefile`
+
+https://github.com/cosmos/cosmos-sdk/blob/master/Makefile#L195 to build versioned docs and docs with path prefixes in the deployment.
+
 ## Used by
 
 1. [Cosmos SDK Documentation](https://docs.cosmos.network) — [`github`](https://github.com/cosmos/cosmos-sdk) — [`.vuepress/config.js`](https://github.com/cosmos/cosmos-sdk/blob/master/docs/.vuepress/config.js)
