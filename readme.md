@@ -169,19 +169,16 @@ algolia: {
 
 ## Versioning
 
-1. *Current approach*: Makefile and versions file to generate version prefixes to the docs url: (`/master`, `/v0.39`) and deployed on S3.
-2. *Another approach*: GitHub Actions to generate version prefixes and deployed on Netlify. Refer to [this PR](https://github.com/CosmWasm/docs/pull/132) if you're deployed on Netlify.
+### Prerequisites
 
----
+0. Make sure the versioned branches exist.
+1. `.vuepress/config.js` - to edit versions shown on version switcher
+2. `docs/versions` - to loop through versions and generate versioned docs
+3. `Makefile`/ `GitHub Actions` - to build versioned docs and docs with path prefixes.
+    - You can use [Makefile](https://github.com/cosmos/cosmos-sdk/blob/master/Makefile#L195) directly or
+    - [GitHub Actions](https://github.com/cosmos/cosmos-sdk/blob/master/.github/workflows/docs.yml#L24) to run `make build-docs` depending on your setup.
 
-### Current Approach
-
-1. `.vuepress/config.js`
-2. `docs/versions`
-3. Build versioned docs and docs with path prefixes. You can use [Makefile](https://github.com/cosmos/cosmos-sdk/blob/master/Makefile#L195) or [GitHub Actions](https://github.com/CosmWasm/docs/blob/f5298a88566d6cb5035c935926007265c5554fd0/.github/workflows/main.yml#L15) depending on your setup.
-
-#### Steps to implement versioning w/ Makefile + S3 Deployment
-
+#### Steps
 1. add versions to `.vuepress/config.js`
 
 ```
@@ -209,12 +206,6 @@ launchpad/backports v0.39
 3. `Makefile`
 
 https://github.com/cosmos/cosmos-sdk/blob/master/Makefile#L195 to build versioned docs and docs with path prefixes in the deployment.
-
-### Another Approach
-
-#### Steps to implement versioning w/ GitHub Actions + Netlify Deployment
-
-Kindly refer to the Files Changed of [this PR](https://github.com/CosmWasm/docs/pull/132) if you're deployed on Netlify.
 
 ## Used by
 
