@@ -17,24 +17,28 @@ export default {
   },
   mounted() {
     const emptyVal = ""
-    const pathName = window.location.pathname.replace("/", "")
+    // #91: remove trailing slash to fix cloudfront, netlify, gh-pages's deployed URLs
+    const pathName = window.location.pathname.replace("/", "").replace(/\/$/, "")
     const pathRe = /[a-zA-Z]{1}\d+(\.\d+)+/g
     const versionPathName = window.location.href.match(pathRe)
 
     // match values in select option
-    // e.g. http://docs.cosmos.network/master
+    // input: https://docs.cosmos.network/master
+    // output: null
     if (this.versionValue === this.versionValue) {
       // check if input has a pathname
       // extract version number from string
       // point to the selectedItem
-      // e.g. https://docs.cosmos.network/v0.39/intro/overview.html
+      // input: https://docs.cosmos.network/v0.39/intro/overview.html
+      // output: [ 'v0.39' ]
       if (versionPathName !== null) {
         this.selectedItem = versionPathName[0]
       } else {
         this.selectedItem = pathName
       }
     }
-    // e.g. http://docs.cosmos.network
+    // input: http://docs.cosmos.network
+    // expected: 'Version'
     else {
       this.selectedItem = emptyVal
     }
