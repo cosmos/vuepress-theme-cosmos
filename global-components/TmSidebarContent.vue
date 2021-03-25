@@ -183,7 +183,7 @@ export default {
         {
           label: "ibc",
           name: "IBC<br>Protocol",
-          url: "https://github.com/cosmos/ics/tree/master/ibc",
+          url: "https://ibcprotocol.org",
           color: "#E6900A",
         },
         {
