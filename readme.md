@@ -25,16 +25,25 @@ module.exports = {
 };
 ```
 
+Modify `scripts` property in `package.json`:
+
+```js
+  "scripts": {
+    "serve": "vuepress dev",
+    "build": "vuepress build"
+  },
+```
+
 ### Run dev server
 
 ```sh
-vupress dev
+npm run serve
 ```
 
 ### Build the website
 
 ```
-vuepress build
+npm run build
 ```
 
 ## Configuration
