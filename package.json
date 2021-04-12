@@ -47,8 +47,10 @@
   },
   "devDependencies": {
     "core-js": "^3.6.5",
+    "is-svg": "^4.2.2",
     "node-forge": "^0.10.0",
     "set-value": "^3.0.2",
+    "ssri": "^8.0.1",
     "watchpack": "^2.0.0"
   }
 }
