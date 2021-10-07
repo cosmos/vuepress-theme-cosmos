@@ -78,10 +78,10 @@
       height 1.5rem
       padding 0.75rem
       border-radius 0.25rem
-      fill rgba(51, 54, 74, 0.4)
+      fill var(--color-text-dim)
 
       &:active
-        fill #5064FB
+        fill var(--color-primary)
         background rgba(102, 161, 255, 0.15)
 
     &__modal
@@ -91,10 +91,10 @@
       box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
       right 0
       border-radius 0.25rem
-      background-color white
+      background-color var(--background-color-secondary)
 
-      &__title
-        color rgba(22, 25, 49, 0.65)
+      &__title 
+        color var(--color-text-dim)
         text-transform uppercase
         letter-spacing 0.2em
         font-size 0.75rem

@@ -30,10 +30,10 @@
       right 0
       z-index 1000
       border-radius .25rem
-      background-color white
+      background-color var(--background-color-primary)
 
       &__title
-        color rgba(22, 25, 49, 0.65)
+        color var(--color-text-dim);
         text-transform uppercase
         letter-spacing 0.2em
         font-size .75rem

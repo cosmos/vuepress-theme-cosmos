@@ -3,7 +3,7 @@
     <transition name="overlay" appear>
       <div class="overlay"
            ref="overlay"
-           :style="{'background-color': backgroundColor || 'rgba(0, 0, 0, 0.35)'}"
+           :style="{'background-color': backgroundColor || 'var(--background-color-primary)'}"
            v-if="visible && visibleLocal"
            @click="close"
            @touchstart="touchstart"

@@ -17,7 +17,7 @@
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
         tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--color-primary, blue)").item__icon.item__icon__expanded
-        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: rgba(0,0,0,0.18)").item__icon.item__icon__collapsed
+        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: var(--semi-transparent-color, rgba(0,0,0,0.18))").item__icon.item__icon__collapsed
         tm-icon-hex(v-else-if="!outboundLink(item.path) && level < 1 && !iconExpanded(item)").item__icon.item__icon__internal
         tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
@@ -37,7 +37,7 @@
   font-size .875rem
   line-height 1.25rem
   outline-color var(--color-primary, blue)
-  color rgba(0,0,0,0.8)
+  color var(--color-text, rgba(0,0,0,0.8))
   transition color .15s ease-out
 
   &:hover,
@@ -88,7 +88,7 @@
       font-weight 400
 
     &__alt
-      color initial
+      color var(--color-text)
       font-weight 600
 
   &__dir

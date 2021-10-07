@@ -1,6 +1,7 @@
 <template lang="pug">
   div
     .container
+      tm-mode-switch
       .search__container
         tm-select-version(v-if="$themeConfig.versions")
         .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")

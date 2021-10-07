@@ -55,7 +55,7 @@
 .logo__container
   position sticky
   display block
-  background white
+  background var(--background-color-primary)
   z-index 1
   top 0
 
@@ -65,7 +65,7 @@
     top 100%
     left 0
     right 0
-    background linear-gradient(to bottom, white, rgba(255, 255, 255, 0))
+    background linear-gradient(to bottom, var(--background-color-primary), var(--background-color-primary))
     height 25px
 
 .sidebar
@@ -88,7 +88,7 @@
   font-size 0.75rem
   text-transform uppercase
   letter-spacing 0.2em
-  color #666
+  color var(--color-text-dim)
   margin-top 2rem
   margin-bottom 0.5rem
 
@@ -121,7 +121,7 @@
     left 0
     right 0
     bottom 100%
-    background linear-gradient(to top, white, rgba(255, 255, 255, 0))
+    background linear-gradient(to top, var(--background-color-primary), var(--background-color-primary))
     pointer-events none
 
   &__item
@@ -129,7 +129,7 @@
     display flex
     align-items center
     flex-direction column
-    fill rgba(51, 54, 74, 0.4)
+    fill var(--color-text-dim)
 
     &__icon
       height 32px

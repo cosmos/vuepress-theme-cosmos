@@ -42,7 +42,7 @@ a[href]
   text-decoration initial
 
 html
-  scrollbar-color #eee white
+  scrollbar-color var(--background-color-primary) var(--background-color-secondary)
 
 body
   margin 0
@@ -52,8 +52,11 @@ body
   -webkit-font-smoothing antialiased
   color var(--color-text, black)
   text-rendering optimizeLegibility
+  background-color var(--background-color-secondary)
 
 :root
+  --background-color-primary: white
+  --background-color-secondary: #F8F9FC
   --sidebar-width 19rem
   --aside-width 280px
   --topbar-height 100px
@@ -65,6 +68,25 @@ body
   --sidebar-bg #fff
   --sidebar-footer-height 100px
   --layout-width 1540px
+  --element-size: 5rem
+  --semi-transparent-color: rgba(0,0,0,0.18)
+
+:root.dark-theme
+  --background-color-primary: #111111
+  --background-color-secondary: #171717
+  --sidebar-width 19rem
+  --aside-width 280px
+  --topbar-height 100px
+  --color-text #FFFFFFD1
+  --color-text-dim #ddd
+  --color-link #5064FB
+  --color-primary #5064FB
+  --color-code inherit
+  --sidebar-bg #111111
+  --sidebar-footer-height 100px
+  --layout-width 1540px
+  --semi-transparent-color: rgba(255,255,255,0.18)
+
 
 code
   -webkit-font-feature-settings "liga" on, "calt" on
