@@ -37,7 +37,7 @@
   position: fixed;
   top: 0;
   height: 100vh;
-  background: white;
+  background: var(--background-color-primary);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   transform: translateX(var(--translate-x-component-internal));
