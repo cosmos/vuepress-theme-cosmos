@@ -1,23 +1,5 @@
 /* @reference: https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight */
-@font-face
-  font-family 'Metropolis'
-  src url('https://raw.githubusercontent.com/lovincyrus/Metropolis/master/Fonts/Webfonts/WOFF2/Metropolis-ExtraLight.woff2') format('woff2')
-  font-weight 200
-
-@font-face
-  font-family 'Metropolis'
-  src url('https://raw.githubusercontent.com/lovincyrus/Metropolis/master/Fonts/Webfonts/WOFF2/Metropolis-Regular.woff2') format('woff2')
-  font-weight 400
-
-@font-face
-  font-family 'Metropolis'
-  src url('https://raw.githubusercontent.com/lovincyrus/Metropolis/master/Fonts/Webfonts/WOFF2/Metropolis-SemiBold.woff2') format('woff2')
-  font-weight 600
-
-@font-face
-  font-family 'Metropolis'
-  src url('https://raw.githubusercontent.com/lovincyrus/Metropolis/master/Fonts/Webfonts/WOFF2/Metropolis-Bold.woff2') format('woff2')
-  font-weight 700
+@import url(https://fonts.googleapis.com/css?family=Inter);
 
 @font-face
     font-family 'JetBrains Mono'
@@ -28,10 +10,14 @@
     font-style normal
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, button, input
-  font-weight inherit
-  font-style inherit
-  font-family inherit
-  font-size 100%
+  font-style: normal;
+  font-size: 16px;
+  line-height: 128.7%;
+  letter-spacing: -0.007em;
+  font-feature-settings: 'zero' on;
+  font-weight 400
+  font-family "Inter"
+  
   vertical-align baseline
   margin 0
   padding 0
@@ -46,9 +32,7 @@ html
 
 body
   margin 0
-  font-weight 400
-  font-family "Metropolis",-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Helvetica Neue",sans-serif
-  letter-spacing 0.03em
+  
   -webkit-font-smoothing antialiased
   color var(--color-text, black)
   text-rendering optimizeLegibility
@@ -61,15 +45,17 @@ body
   --aside-width 280px
   --topbar-height 100px
   --color-text #000
-  --color-text-dim rgba(0,0,0,0.667)
+  --color-text-di rgba(0,0,0,0.667)
   --color-link #5064FB
   --color-primary #5064FB
+  --color-danger #CC0025
   --color-code inherit
   --sidebar-bg #fff
   --sidebar-footer-height 100px
   --layout-width 1540px
   --element-size: 5rem
   --semi-transparent-color: rgba(0,0,0,0.18)
+  --img-filter: brightness(0.2)
 
 :root.dark-theme
   --background-color-primary: #111111
@@ -78,14 +64,16 @@ body
   --aside-width 280px
   --topbar-height 100px
   --color-text #FFFFFFD1
-  --color-text-dim #ddd
-  --color-link #5064FB
-  --color-primary #5064FB
+  --color-text-di #ddd
+  --color-link #4251FA
+  --color-primary #4251FA
+  --color-danger #CC0025
   --color-code inherit
   --sidebar-bg #111111
   --sidebar-footer-height 100px
   --layout-width 1540px
   --semi-transparent-color: rgba(255,255,255,0.18)
+  --img-filter: brightness(0) invert(1)
 
 
 code
