@@ -148,7 +148,7 @@
       border-radius 0.25rem
       content attr(data-header-anchor-text)
       max-width 4rem
-      color var(--color-text, white)
+      color var(--background-color-secondary)
       position absolute
       top -2.4em
       padding 7px 12px

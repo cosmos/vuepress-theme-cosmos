@@ -50,7 +50,7 @@
   &__child:not(.router-link-active)
     &:hover:after,
     &:focus:after
-      background rgba(0,0,0,0.2)
+      background var(--color-text)
 
   &:hover, &:focus
     .item__icon.item__icon__outbound,
@@ -74,7 +74,7 @@
     width 2px
     height 100%
     visibility var(--vline)
-    background var(--vline-color, black)
+    background var(--semi-transparent-color, black)
     position absolute
     top 0
     left 5px
