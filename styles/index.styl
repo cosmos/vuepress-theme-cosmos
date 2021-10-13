@@ -10,14 +10,13 @@
     font-style normal
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, button, input
-  font-style: normal;
-  font-size: 16px;
+  font-weight inherit
+  font-style inherit
+  font-family inherit
+  font-size: 100%
   line-height: 128.7%;
   letter-spacing: -0.007em;
   font-feature-settings: 'zero' on;
-  font-weight 400
-  font-family "Inter"
-  
   vertical-align baseline
   margin 0
   padding 0
@@ -32,7 +31,10 @@ html
 
 body
   margin 0
-  
+  font-style: normal;
+  font-size: 16px;
+  font-weight 400
+  font-family "Inter"
   -webkit-font-smoothing antialiased
   color var(--color-text, black)
   text-rendering optimizeLegibility
@@ -44,8 +46,8 @@ body
   --sidebar-width 19rem
   --aside-width 280px
   --topbar-height 100px
-  --color-text #000
-  --color-text-di rgba(0,0,0,0.667)
+  --color-text #000000D1
+  --color-text-strong #000000
   --color-link #5064FB
   --color-primary #5064FB
   --color-danger #CC0025
@@ -64,7 +66,7 @@ body
   --aside-width 280px
   --topbar-height 100px
   --color-text #FFFFFFD1
-  --color-text-di #ddd
+  --color-text-strong #FFFFFF
   --color-link #4251FA
   --color-primary #4251FA
   --color-danger #CC0025

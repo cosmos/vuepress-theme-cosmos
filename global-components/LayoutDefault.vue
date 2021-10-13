@@ -14,7 +14,7 @@
 .search
   display flex
   align-items center
-  color var(--color-text-dim)
+  color var(--color-text)
   padding-top 1rem
   width calc(var(--aside-width) - 6rem)
   cursor pointer
@@ -427,7 +427,7 @@
     padding-left 2rem
     padding-right 2rem
     border-left 0.25rem solid rgba(0,0,0,0.1)
-    color var(--color-text-dim, inherit)
+    color var(--color-text, inherit)
     margin-top 1.75rem
     margin-bottom 1.75rem
 

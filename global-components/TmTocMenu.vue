@@ -33,7 +33,7 @@
       background-color var(--background-color-primary)
 
       &__title
-        color var(--color-text-dim);
+        color var(--color-text);
         text-transform uppercase
         letter-spacing 0.2em
         font-size .75rem

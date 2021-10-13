@@ -86,7 +86,7 @@
       margin-top 0.5rem
       margin-bottom 0.5rem
       align-self flex-start
-      color var(--color-text-dim, inherit)
+      color var(--color-text, inherit)
 
       &:hover,
       &:focus
@@ -155,7 +155,7 @@
       font-size 0.8125rem
       line-height 1rem
       font-weight normal
-      color var(--color-text-dim)
+      color var(--color-text)
 
 @media screen and (max-width: 732px)
   .questions

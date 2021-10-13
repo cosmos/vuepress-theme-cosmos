@@ -78,7 +78,7 @@
       height 1.5rem
       padding 0.75rem
       border-radius 0.25rem
-      fill var(--color-text-dim)
+      fill var(--color-text)
 
       &:active
         fill var(--color-primary)
@@ -94,7 +94,7 @@
       background-color var(--background-color-secondary)
 
       &__title 
-        color var(--color-text-dim)
+        color var(--color-text)
         text-transform uppercase
         letter-spacing 0.2em
         font-size 0.75rem

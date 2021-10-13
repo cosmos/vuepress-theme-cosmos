@@ -101,13 +101,13 @@
       line-height 1.75rem
 
     &__desc
-      color var(--color-text-dim, inherit)
+      color var(--color-text, inherit)
       margin-top 0.5rem
       font-size 0.875rem
       line-height 1.25rem
 
   &__label
-    color var(--color-text-dim, inherit)
+    color var(--color-text, inherit)
     text-transform uppercase
     font-size 0.75rem
     line-height 1rem

@@ -88,7 +88,7 @@
   font-size 0.75rem
   text-transform uppercase
   letter-spacing 0.2em
-  color var(--color-text-dim)
+  color var(--color-text)
   margin-top 2rem
   margin-bottom 0.5rem
 
@@ -129,7 +129,7 @@
     display flex
     align-items center
     flex-direction column
-    fill var(--color-text-dim)
+    fill var(--color-text)
 
     &__icon
       height 32px
