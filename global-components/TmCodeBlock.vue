@@ -453,8 +453,6 @@ export default {
   },
   methods: {
     filename(url) {
-      if (url) return url; 
-
       const tokens = url
         .replace(/\#.*$/, "")
         .split("/")
