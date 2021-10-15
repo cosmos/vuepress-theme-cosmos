@@ -2,8 +2,8 @@
   div
     cookie-banner
     tm-top-banner(v-bind="{topBanner}")
-    .layout__main__content__body__wrapper
-      component(:is="layout" :key="$route.path" @prereq="prereq = $event")
+    div
+      component(:is="layout" :key="$route.path")
         Content
 </template>
 
@@ -17,7 +17,6 @@ export default {
   },
   data: function() {
     return {
-      prereq: null,
       topBannerUrl: "https://v1.cosmos.network/top-banner",
       topBanner: null
     };
@@ -47,16 +46,6 @@ export default {
         this.$site.locales && Object.entries(this.$site.locales).length > 1
       );
     },
-  },
-  props: {
-    aside: {
-      type: Boolean,
-      default: true
-    },
-    search: {
-      type: Boolean,
-      default: false
-    }
   }
 };
 </script>

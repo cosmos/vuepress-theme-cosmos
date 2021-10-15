@@ -17,7 +17,7 @@
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
         .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
-          a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
+          a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href {{link.title}}
 </template>
 
 <style lang="stylus" scoped>
