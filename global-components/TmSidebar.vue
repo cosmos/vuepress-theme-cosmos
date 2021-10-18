@@ -3,7 +3,7 @@
     <transition name="overlay" appear>
       <div class="overlay"
            ref="overlay"
-           :style="{'background-color': backgroundColor || 'rgba(0, 0, 0, 0.35)'}"
+           :style="{'background-color': backgroundColor || 'var(--background-color-primary)'}"
            v-if="visible && visibleLocal"
            @click="close"
            @touchstart="touchstart"
@@ -37,7 +37,7 @@
   position: fixed;
   top: 0;
   height: 100vh;
-  background: white;
+  background: var(--background-color-primary);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   transform: translateX(var(--translate-x-component-internal));

@@ -6,6 +6,8 @@
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
       .layout__main
+        .mode-switch-container
+          tm-mode-switch
         .layout__main__navbar
           tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
         .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
@@ -35,11 +37,16 @@
 </template>
 
 <style lang="stylus" scoped>
+.mode-switch-container
+  position absolute
+  padding-top 1rem
+  top 1rem
+  left 4rem
+
 .sheet
   &__sidebar
     z-index 10000
     position relative
-    scrollbar-color #eee white
 
     &__toc
       display none
@@ -63,13 +70,13 @@
   margin-left auto
   margin-right auto
   position relative
+  background-color  var(--background-color-primary)
 
   &__sidebar
     position sticky
     top 0
     height 100vh
     overflow-y scroll
-    scrollbar-color #eee white
 
     &::-webkit-scrollbar
       background rgba(255, 255, 255, 0)
@@ -89,6 +96,8 @@
         background #eee
 
   &__main
+    position relative
+    
     &__navbar
       padding-left 2.5rem
       padding-right 2.5rem
@@ -96,7 +105,7 @@
       position sticky
       top 0
       width 100%
-      background white
+      background var(--background-color-primary)
       z-index 500
 
     &__content
@@ -118,7 +127,6 @@
         top 0
         max-height 100vh
         overflow-y scroll
-        scrollbar-color #eee white
 
         &::-webkit-scrollbar
           background rgba(255, 255, 255, 0)

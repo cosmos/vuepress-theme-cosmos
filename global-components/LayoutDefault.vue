@@ -14,7 +14,7 @@
 .search
   display flex
   align-items center
-  color rgba(22, 25, 49, 0.65)
+  color var(--color-text)
   padding-top 1rem
   width calc(var(--aside-width) - 6rem)
   cursor pointer
@@ -139,7 +139,7 @@
     width 1.5em
     text-align center
     box-sizing border-box
-    color rgba(0, 0, 0, 0.4)
+    color var(--semi-transparent-color)
     outline-color var(--color-link, blue)
     transition all 0.25s
 
@@ -148,7 +148,7 @@
       border-radius 0.25rem
       content attr(data-header-anchor-text)
       max-width 4rem
-      color white
+      color var(--background-color-secondary)
       position absolute
       top -2.4em
       padding 7px 12px
@@ -427,7 +427,7 @@
     padding-left 2rem
     padding-right 2rem
     border-left 0.25rem solid rgba(0,0,0,0.1)
-    color var(--color-text-dim, inherit)
+    color var(--color-text, inherit)
     margin-top 1.75rem
     margin-bottom 1.75rem
 

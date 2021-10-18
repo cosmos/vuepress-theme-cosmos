@@ -50,7 +50,7 @@
   &__item
     margin-top 1rem
     padding 2rem
-    box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
+    box-shadow 0px 2px 4px var(--semi-transparent-color), 0px 0px 1px var(--semi-transparent-color), 0px 0.5px 0px var(--semi-transparent-color)
     border-radius 0.5rem
     display grid
     grid-auto-flow column
@@ -61,7 +61,7 @@
     transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
     &:hover:not(:active)
-      box-shadow 0px 12px 24px rgba(22, 25, 49, 0.07), 0px 4px 8px rgba(22, 25, 49, 0.05), 0px 1px 0px rgba(22, 25, 49, 0.05)
+      box-shadow 0px 12px 24px var(--semi-transparent-color), 0px 4px 8px var(--semi-transparent-color), 0px 1px 0px var(--semi-transparent-color)
       transform translateY(-2px)
       transition-duration 0.1s
 
@@ -101,13 +101,13 @@
       line-height 1.75rem
 
     &__desc
-      color var(--color-text-dim, inherit)
+      color var(--color-text, inherit)
       margin-top 0.5rem
       font-size 0.875rem
       line-height 1.25rem
 
   &__label
-    color var(--color-text-dim, inherit)
+    color var(--color-text, inherit)
     text-transform uppercase
     font-size 0.75rem
     line-height 1rem

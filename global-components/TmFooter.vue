@@ -29,7 +29,7 @@
 
 <style lang="stylus" scoped>
 .container
-  background-color white
+  background-color var(--background-color-primary)
   color var(--color-text, black)
   padding-top 3.5rem
   padding-bottom 3.5rem
@@ -61,7 +61,7 @@
 
   &__p
     font-size 0.875rem
-    color rgba(22, 25, 49, 0.9)
+    color var(--color-text)
     line-height 1.25rem
 
 .links
@@ -86,7 +86,7 @@
       margin-top 0.5rem
       margin-bottom 0.5rem
       align-self flex-start
-      color var(--color-text-dim, inherit)
+      color var(--color-text, inherit)
 
       &:hover,
       &:focus
@@ -144,18 +144,18 @@
 
         svg
           transition fill .15s ease-out
-          fill rgba(0,0,0,0.3)
+          fill var(--semi-transparent-color)
 
         &:hover svg,
         &:focus svg
-          fill rgba(0,0,0,0.5)
+          fill var(--semi-transparent-color)
 
     &__desc
       grid-column span 2
       font-size 0.8125rem
       line-height 1rem
       font-weight normal
-      color var(--color-text-dim)
+      color var(--color-text)
 
 @media screen and (max-width: 732px)
   .questions

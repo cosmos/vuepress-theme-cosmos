@@ -19,7 +19,7 @@
   grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
   width 100%
   align-items flex-end
-  background-color white
+  background-color var(--background-color-primary)
 
 .newsletter
 
@@ -36,7 +36,7 @@
     &__p
       font-size .875rem
       line-height 1.25rem
-      color rgba(22, 25, 49, 0.9)
+      color var(--color-text, rgba(22, 25, 49, 0.9))
 
   &__input
     padding-top 1rem
@@ -70,7 +70,7 @@
 
     &__p
       margin-top .5rem
-      color rgba(22, 25, 49, 0.65)
+      color var(--color-text, rgba(22, 25, 49, 0.65))
       font-size .8125rem
 
 @media screen and (max-width: 832px)

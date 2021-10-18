@@ -93,7 +93,7 @@ export default {
   &:hover &__icon,
   &:focus &__icon
     opacity 0.7
-    background-color rgba(0,0,0,0.1)
+    background-color var(--background-color-primary)
 
 .fade-leave-active
   transition opacity 0.3s cubic-bezier(0.32, 0, 0.67, 0), margin 0.3s cubic-bezier(0.32, 0, 0.67, 0)
