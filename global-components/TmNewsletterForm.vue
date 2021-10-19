@@ -18,23 +18,24 @@
   justify-content space-between
   background-color var(--background-color-primary)
   border-bottom 1px solid var(--semi-transparent-color-2)
-  margin-inline -24px
   padding-block 64px
+  padding-inline 24px
 
   @media screen and (min-width: 832px)
-    padding-inline 100px
+    padding-inline 50px
 
   @media screen and (max-width: 480px)
     flex-direction column
     padding-block 24px
+    margin-inline -24px
 
 
 .newsletter
 
   &__input
     width 50%
-    padding-inline 24px
     margin-block 32px
+    padding-left 24px
 
     &__input
       background var(--background-color-secondary)
@@ -70,6 +71,7 @@
 
     &__input
       width 100%
+      padding-left 0px
 
     &__desc
       width 100%
