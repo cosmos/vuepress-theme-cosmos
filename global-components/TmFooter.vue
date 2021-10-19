@@ -4,10 +4,10 @@
       .container
         .footer__wrapper
           .questions(v-if="!full && !$themeConfig.custom")
-            .questions__wrapper
-              .questions__h1 Questions?
-              .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
-            tm-newsletter-form(v-if="$themeConfig.footer")
+            //- .questions__wrapper
+            //-   .questions__h1 Questions?
+            //-   .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
+          tm-newsletter-form(v-if="$themeConfig.footer")
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item(v-for="item in $themeConfig.footer.links")
               .links__item__title {{item.title}}
@@ -79,6 +79,7 @@
       text-transform uppercase
       font-weight 700
       margin-bottom 1rem
+      color var(--color-text-strong)
 
     &__link
       font-size 0.875rem
@@ -100,6 +101,8 @@
 .logo
   display grid
   grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+
+  filter var(--img-filter)
 
   &__item
     padding 1.5rem 0
@@ -144,7 +147,6 @@
 
         svg
           transition fill .15s ease-out
-          fill var(--semi-transparent-color)
 
         &:hover svg,
         &:focus svg
