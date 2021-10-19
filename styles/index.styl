@@ -46,11 +46,18 @@ h3
 h4
   color: var(--color-text-strong)
   font-weight: bold
+  font-size: 28px
+  line-height: 127%
+  letter-spacing: -0.016em
+
+h5
+  color: var(--color-text-strong)
+  font-weight: bold
   font-size: 21px
   line-height: 128.7%
 
 
-@media screen and (min-width: 481px) and (max-width: 800px)
+@media screen and (min-width: 481px) and (max-width: 832px)
   h1
     font-size 51px
     line-height 124.7%
@@ -60,6 +67,12 @@ h4
     font-size 38px
     line-height 124.7%
     letter-spacing -0.027em
+
+  h4
+    font-weight: bold
+    font-size: 21px
+    line-height: 128.7%
+    letter-spacing: -0.007em
 
 @media screen and (max-width: 480px)
   h1
@@ -80,6 +93,12 @@ h4
     letter-spacing: -0.016em;
 
   h4
+    font-weight: bold
+    font-size: 21px
+    line-height: 128.7%
+    letter-spacing: -0.007em
+
+  h5
     font-weight bold
     font-size 21px
     line-height 128.7%
@@ -102,7 +121,7 @@ body
   -webkit-font-smoothing antialiased
   color var(--color-text, black)
   text-rendering optimizeLegibility
-  background-color var(--background-color-secondary)
+  background-color var(--background-color-primary)
 
 :root
   --background-color-primary: white
@@ -122,6 +141,7 @@ body
   --element-size: 5rem
   --semi-transparent-color: rgba(0,0,0,0.18)
   --semi-transparent-color-2: #00000055
+  --semi-transparent-color-3: #00000080
   --img-filter: brightness(0)
   --color-light-gray #333333
 
@@ -142,6 +162,7 @@ body
   --layout-width 1540px
   --semi-transparent-color: rgba(255,255,255,0.18)
   --semi-transparent-color-2: #FFFFFF55
+  --semi-transparent-color-3: #FFFFFF80
   --img-filter: brightness(0) invert(1)
 
 
@@ -155,3 +176,16 @@ select
 
 [hide]
   display none
+
+.overline-label
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 130.7%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+.info-label
+  font-size: 13px;
+  line-height: 130.7%;
+  letter-spacing: 0.005em;
+  color: var(--semi-transparent-color-3)
