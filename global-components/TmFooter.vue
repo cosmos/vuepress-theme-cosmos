@@ -9,9 +9,11 @@
             //-   .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
           tm-newsletter-form(v-if="$themeConfig.footer")
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
-            .links__item(v-for="item in $themeConfig.footer.links")
-              .links__item__title {{item.title}}
-              a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
+            .links__item.accordion(v-for="(item, index) in $themeConfig.footer.links" @click="onAccordionClick(index)")
+              .links__item__title.accordion__title {{item.title}}
+                icon-arrow(type="bottom").accordion__title__icon(:class="selectedAccordion == index ? 'accordion__title__icon__opened' : ''")
+              .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
+                a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
             .logo__item
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
@@ -65,33 +67,45 @@
     line-height 1.25rem
 
 .links
-  display grid
-  grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
+  display flex
+  flex-wrap wrap
+  justify-content space-between
+  padding-top 96px
+  padding-bottom 48px
+
+  @media screen and (min-width: 481px)
+    border-bottom 1px solid var(--semi-transparent-color-2)
 
   &__item
-    display flex
-    flex-direction column
-    margin 1.5rem 0
 
     &__title
-      font-size 0.75rem
-      letter-spacing 0.2em
-      text-transform uppercase
-      font-weight 700
-      margin-bottom 1rem
+      font-weight 500
+      margin-bottom 16px
       color var(--color-text-strong)
+      line-height 130%
+
+      &__icon
+        display none
 
     &__link
-      font-size 0.875rem
-      line-height 1.25rem
+      line-height 162.5%
       margin-top 0.5rem
       margin-bottom 0.5rem
       align-self flex-start
-      color var(--color-text, inherit)
+      color var(--semi-transparent-color-3, inherit)
 
       &:hover,
       &:focus
         color var(--color-link, inherit)
+
+    &__links
+      display flex
+      flex-direction column
+      margin-bottom 48px
+      justify-content space-between
+
+.accordion__title__icon
+  display none
 
 .footer__wrapper
   margin 0 auto
@@ -168,6 +182,37 @@
   .footer__links
     margin-left 1.5rem
     margin-right 1.5rem
+  .links
+    flex-direction column
+  .accordion
+    margin-top 32px
+    border-bottom 1px solid var(--semi-transparent-color-2)
+
+    &__title
+      display flex
+      justify-content space-between
+
+      &__icon
+        display block
+        margin-block auto
+        width 15px
+        height 15px
+
+        &__opened
+          transform: rotate(180deg);
+          -webkit-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          transition: transform 0.2s linear;
+
+    &__content
+      margin-bottom 24px
+      display none
+
+      &__visible
+        display flex
+        flex-direction column
+
+      
 </style>
 
 <script>
@@ -175,7 +220,20 @@ import { find } from "lodash";
 
 export default {
   props: ["tree", "full"],
+  data: function() {
+    return {
+      selectedAccordion: null,
+    };
+  },
   methods: {
+    onAccordionClick(index) {
+      if (this.selectedAccordion != index) {
+        this.selectedAccordion = null;
+      } else {
+        this.selectedAccordion = index;
+      }
+      
+    },
     serviceIcon(service) {
       // icons from https://iconmonstr.com
       const icons = [

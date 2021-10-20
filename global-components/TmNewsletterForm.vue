@@ -7,7 +7,8 @@
     .newsletter__input
       .newsletter__input__input
         input(type="email" required name="fields[email]" id="newsletter-email-input" placeholder="Enter your email").newsletter__input__input__el
-        button(type="submit").newsletter__input__input__button →
+        button(type="submit").newsletter__input__input__button
+          icon-arrow(type="right").newsletter__input__input__button__icon
         input(type="hidden" name="ml-submit" value="1")
 </template>
 
@@ -52,6 +53,12 @@
         background none
         border none
 
+        &__icon
+          margin-block auto
+          margin-left 10px
+          width 15px
+          height 15px
+
       &__el
         border none
         width 100%
@@ -62,6 +69,9 @@
 
   &__desc
     width 50%
+
+    &__h1
+      margin-bottom 10px
 
 @media screen and (max-width: 480px)
   .info-label
