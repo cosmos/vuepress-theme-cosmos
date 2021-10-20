@@ -20,7 +20,6 @@ export default {
         background-position right
         padding 48px
         margin-top 50px
-        position relative
         display flex
 
         &__image

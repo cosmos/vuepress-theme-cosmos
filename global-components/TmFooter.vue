@@ -19,13 +19,16 @@
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
                 component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                 img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
+            .logo__item.logo__item__privacy
+              a.logo__item__anchor Privacy
+              a.logo__item__anchor Trademark
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
           .smallprint(v-if="$themeConfig.footer")
-            .smallprint__item.smallprint__item__links
-              a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
+            //- .smallprint__item.smallprint__item__links
+            //-   a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
             .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
 </template>
 
@@ -113,8 +116,8 @@
   // padding-right 0.5rem
 
 .logo
-  display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+  display flex
+  justify-content space-between
 
   filter var(--img-filter)
 
@@ -122,7 +125,16 @@
     padding 1.5rem 0
     display flex
     align-items flex-start
-    justify-content flex-start
+    justify-content space-between
+
+    &__privacy
+      flex-grow 1
+      justify-content start
+
+    &__anchor
+      margin-block auto
+      margin-right 24px
+      color var(--color-text-strong)
 
   &__image
     display inline-block
@@ -130,6 +142,9 @@
     max-height 3rem
     max-width 12.5rem
     cursor pointer
+    border-right 1px solid var(--semi-transparent-color-2)
+    padding-right 24px
+    margin-right 24px
 
     img
       max-height 100%
@@ -157,7 +172,7 @@
       font-size 0.875rem
 
       &__item
-        margin-right 1rem
+        margin-right 16px
 
         svg
           transition fill .15s ease-out
@@ -211,6 +226,20 @@
       &__visible
         display flex
         flex-direction column
+
+  .smallprint__item__desc
+    text-align center
+
+  .logo
+    flex-direction column
+
+    &__item
+      justify-content center
+
+    &__image
+      border-right none
+      padding-right 0px
+      margin-right 0px
 
       
 </style>

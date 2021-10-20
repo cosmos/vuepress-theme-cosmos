@@ -22,7 +22,7 @@
   padding-block 64px
   padding-inline 24px
 
-  @media screen and (min-width: 832px)
+  @media screen and (min-width: 1025px)
     padding-inline 50px
 
   @media screen and (max-width: 480px)
