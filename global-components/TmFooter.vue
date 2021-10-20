@@ -227,7 +227,7 @@ export default {
   },
   methods: {
     onAccordionClick(index) {
-      if (this.selectedAccordion != index) {
+      if (this.selectedAccordion == index) {
         this.selectedAccordion = null;
       } else {
         this.selectedAccordion = index;
