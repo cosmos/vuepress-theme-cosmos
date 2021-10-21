@@ -120,6 +120,9 @@
                     width 15px
                     height 15px
 
+        &__content
+            flex-grow 1
+            margin-left 16px
 
     @media screen and (max-width: 480px)
         .module
@@ -142,6 +145,8 @@
                         width fit-content
 
             &__content
+                margin-left 0px
+
                 &__title
                     margin-block 8px
 
