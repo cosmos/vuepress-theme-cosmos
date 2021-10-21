@@ -29,7 +29,9 @@
           .smallprint(v-if="$themeConfig.footer")
             //- .smallprint__item.smallprint__item__links
             //-   a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
+            .smallprint__item__desc.info-label.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
+            .smallprint__item__desc.info-label.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") Cosmos is a registered trademark of the 
+              a(href="https://interchain.io/") Interchain Foundation.            
 </template>
 
 <style lang="stylus" scoped>
@@ -116,6 +118,7 @@
   // padding-right 0.5rem
 
 .logo
+  padding-top 24px
   display flex
   justify-content space-between
 
@@ -156,12 +159,11 @@
     align-items center
 
 .smallprint
-  display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
-  align-items flex-end
+  display flex
+  flex-direction column
 
   & >>> a[href]
-    color var(--color-link, #ccc)
+    color var(--color-text-strong, #ccc)
 
   &__item
     padding 1rem 0
@@ -180,13 +182,6 @@
         &:hover svg,
         &:focus svg
           fill var(--semi-transparent-color)
-
-    &__desc
-      grid-column span 2
-      font-size 0.8125rem
-      line-height 1rem
-      font-weight normal
-      color var(--color-text)
 
 @media screen and (max-width: 732px)
   .questions
