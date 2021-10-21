@@ -38,11 +38,13 @@
             margin-top 1rem
             margin-bottom 1rem
 
+        &__text
+            margin-left 0.5rem
+
         &__icon
             width 1.5rem
             height 1.5rem
             fill #aaa
-            margin-right 0.5rem
             transition fill .15s ease-out
 
         &:hover &__icon
