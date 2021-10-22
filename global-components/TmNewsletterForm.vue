@@ -44,7 +44,6 @@
       padding-block 10px
       border-radius 8px
       color var(--color-text-strong)
-      opacity 0.6
       display flex
 
       &__button
