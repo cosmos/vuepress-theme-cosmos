@@ -124,6 +124,10 @@
             flex-grow 1
             margin-left 16px
 
+            &__desc
+                margin-top 8px
+                font-size 21px
+
     @media screen and (max-width: 480px)
         .module
             flex-direction column
