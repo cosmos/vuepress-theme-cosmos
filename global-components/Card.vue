@@ -1,8 +1,7 @@
 <template lang="pug">
     .card(v-bind:style="this.imageUrl ? {'background-image': `url(${this.imageUrl})`} : {}")
-        .card__content(:class="this.imageUrl ? 'card__content__small' : ''")
+        .card__content(:class="!this.imageUrl ? 'card__content__small' : ''")
             slot
-        img(v-if="this.mobileImageUrl" :src="this.mobileImageUrl").card__image
 </template>
 
 <script>
@@ -18,7 +17,7 @@ export default {
         background-color var(--background-color-secondary)
         background-repeat no-repeat
         background-position right
-        background-size cover
+        background-size auto 120%
         padding 48px
         margin-top 50px
         display flex
@@ -26,10 +25,18 @@ export default {
         &__image
             display none
 
-        @media screen and (max-width: 480px)
+        &__content
+            width 60%
+
+            &__small
+                width 100%
+
+    @media screen and (max-width: 480px)
+        .card
             padding 24px
             flex-direction column
-            background-image none !important
+            background-position bottom
+            background-size auto 70%
 
             &__image
                 display block
@@ -37,12 +44,16 @@ export default {
                 border-bottom-left-radius 20px
                 border-bottom-right-radius 20px
 
-        &__content
+            &__content
+                padding-bottom 400px
+                width 100%
 
-            &__small
-                width 60%
+                &__small
+                    padding-bottom 0px
 
-                @media screen and (max-width: 480px)
-                    width 100%
+    @media screen and (min-width: 480px) and (max-width: 1024px)
+        .card
+            background-size auto 100%
+
 
 </style>
