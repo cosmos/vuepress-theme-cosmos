@@ -182,8 +182,8 @@ export default {
         },
         {
           label: "ibc",
-          name: "IBC<br>Protocol",
-          url: "https://ibcprotocol.org",
+          name: "IBC<br>Go",
+          url: "https://ibc.cosmos.network",
           color: "#E6900A",
         },
         {
