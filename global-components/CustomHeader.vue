@@ -6,7 +6,7 @@
                     component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                     img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .header__nav__actions
-                .header__nav__actions__item(v-for="item in $frontmatter.nav.items")
+                .header__nav__actions__item(v-for="item in navItems")
                     a.overline-label(:href="item.url") {{item.name}}
             .header__nav__links
                 a.overline-label Get ATOM
@@ -88,3 +88,26 @@
             &__mobile__menu
                 display flex
 </style>
+
+<script>
+export default {
+    data() {
+        return {
+            navItems: [
+                {
+                    name: 'Learn',
+                    url: '/'
+                },
+                {
+                    name: 'Explore',
+                    url: '/'
+                },
+                {
+                    name: 'Build',
+                    url: '/'
+                }
+            ] 
+        }
+    }
+}
+</script>

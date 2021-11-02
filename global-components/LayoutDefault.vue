@@ -19,7 +19,7 @@
                     .search__icon
                       icon-search
                     .search__text Search
-                .container
+                .container.content__default
                   slot
                   tm-content-cards(v-if="$frontmatter.cards")
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
@@ -876,34 +876,6 @@ export default {
       asideBanners: null,
     };
   },
-  mounted() {
-    this.emitPrereqLinks();
-    const headerAnchorClick = event => {
-      event.target.setAttribute("data-header-anchor-text", "Copied!");
-      copy(event.target.href);
-      setTimeout(() => {
-        event.target.setAttribute("data-header-anchor-text", "Copy link");
-      }, 4000);
-      event.preventDefault();
-    };
-    document
-      .querySelectorAll(
-        'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
-      )
-      .forEach(node => {
-        node.addEventListener("click", this.prereqToggle);
-      });
-    document
-      .querySelectorAll(".content__default a.header-anchor")
-      .forEach(node => {
-        node.setAttribute("data-header-anchor-text", "Copy link");
-        node.addEventListener("click", headerAnchorClick);
-      });
-    if (window.location.hash) {
-      const elementId = document.querySelector(window.location.hash);
-      if (elementId) elementId.scrollIntoView();
-    }
-  },
   methods: {
     emitPrereqLinks() {
       const prereq = [...document.querySelectorAll("[prereq]")].map(item => {
@@ -1028,6 +1000,32 @@ export default {
     })
   },
   mounted() {
+    this.emitPrereqLinks();
+    const headerAnchorClick = event => {
+      event.target.setAttribute("data-header-anchor-text", "Copied!");
+      copy(event.target.href);
+      setTimeout(() => {
+        event.target.setAttribute("data-header-anchor-text", "Copy link");
+      }, 4000);
+      event.preventDefault();
+    };
+    document
+      .querySelectorAll(
+        'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
+      )
+      .forEach(node => {
+        node.addEventListener("click", this.prereqToggle);
+      });
+    document
+      .querySelectorAll("content__default, a.header-anchor")
+      .forEach(node => {
+        node.setAttribute("data-header-anchor-text", "Copy link");
+        node.addEventListener("click", headerAnchorClick);
+      });
+    if (window.location.hash) {
+      const elementId = document.querySelector(window.location.hash);
+      if (elementId) elementId.scrollIntoView();
+    }
     document.addEventListener("scroll", () => {
       const banners = this.$refs.asideBanners;
       if (banners) {
