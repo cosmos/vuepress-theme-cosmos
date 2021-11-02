@@ -2,31 +2,19 @@
   div
     .links
       .links__wrapper
-        .links__container(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
-          router-link.links__item.links__item__left(:to="$page.frontmatter.prev || linkPrevNext.prev.regularPath")
-            .links__item__icon
-              svg(xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 64 64")
-                title arrow-right
-                g(stroke-linecap="square" stroke-linejoin="miter" stroke-width="2")
-                  line(fill="none" stroke-miterlimit="10" x1="61" y1="32" x2="3" y2="32" stroke-linecap="butt")
-                  polyline(fill="none" stroke-miterlimit="10" points="21,14 3,32 21,50 ")
-            div
-              .links__label Previous
-              .links__item__title {{$page.frontmatter.prev || linkPrevNext.prev.title}}
-              .links__item__desc(v-if="linkPrevNext.prev.frontmatter.description" v-html="shorten(linkPrevNext.prev.frontmatter.description)")
+        .overline-label previous
+        .links__content(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
+          router-link.links__item(:to="$page.frontmatter.prev || linkPrevNext.prev.regularPath")
+            .links__item__icon.links__item__icon__previous
+              icon-arrow(type="right")
+            h5 {{$page.frontmatter.prev || linkPrevNext.prev.title}}
       .links__wrapper
-        .links__container(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
-          router-link.links__item.links__item__right(:to="$page.frontmatter.next || linkPrevNext.next.regularPath")
-            div
-              .links__label Next
-              .links__item__title {{$page.frontmatter.next || linkPrevNext.next.title}}
-              .links__item__desc(v-if="linkPrevNext.next.frontmatter.description" v-html="shorten(linkPrevNext.next.frontmatter.description)")
+        .overline-label up next
+        .links__content(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
+          router-link.links__item(:to="$page.frontmatter.next || linkPrevNext.next.regularPath")
+            h5 {{$page.frontmatter.next || linkPrevNext.next.title}}
             .links__item__icon
-              svg(xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 64 64")
-                title arrow-right
-                g(stroke-linecap="square" stroke-linejoin="miter" stroke-width="2")
-                  line(fill="none" stroke-miterlimit="10" x1="3" y1="32" x2="61" y2="32" stroke-linecap="butt")
-                  polyline(fill="none" stroke-miterlimit="10" points="43,14 61,32 43,50 ")
+              icon-arrow(type="right")
 </template>
 
 <style lang="stylus" scoped>
@@ -35,100 +23,52 @@
 
   &__wrapper
     display flex
+    flex-direction column
     width 100%
     margin-bottom 2rem
+    justify-content space-between
 
     &:first-child
-      margin-right 2rem
+      margin-right 32px
 
-  &__container
+  &__content
     width 100%
-    align-items stretch
+    height 100%
     display flex
     flex-direction column
 
   &__item
+    height 100%
     margin-top 1rem
-    padding 2rem
-    box-shadow 0px 2px 4px var(--semi-transparent-color), 0px 0px 1px var(--semi-transparent-color), 0px 0.5px 0px var(--semi-transparent-color)
-    border-radius 0.5rem
-    display grid
-    grid-auto-flow column
-    flex-grow 1
-    align-items center
-    gap 2rem
-    overflow-x hidden
+    padding 24px
+    background var(--background-color-secondary)
+    border-radius 8px
+    display flex
+    align-items: center
+    justify-content space-between
     transition box-shadow 0.25s ease-out, transform 0.25s ease-out, opacity 0.4s ease-out
 
+    h5
+      width 100%
+
     &:hover:not(:active)
-      box-shadow 0px 12px 24px var(--semi-transparent-color), 0px 4px 8px var(--semi-transparent-color), 0px 1px 0px var(--semi-transparent-color)
       transform translateY(-2px)
       transition-duration 0.1s
 
-    &:active
-      opacity 0.7
-      transition-duration 0s
-
-    &__left
-      grid-template-columns 2.75rem auto
-
-    &__right
-      grid-template-columns auto 2.75rem
-
     &__icon
-      display flex
-      align-items center
+      margin-block auto
+      margin-left 32px
+      width 20px
+      height 20px
 
-      svg
-        stroke #aaa
-        transition fill .15s ease-out, transform .15s ease-out
-
-    &:hover &__icon,
-    &:focus &__icon
-      svg
-        stroke var(--color-link, #888)
-
-    &__left:hover &__icon svg
-      transform translateX(-0.25rem)
-
-    &__right:hover &__icon svg
-      transform translateX(0.25rem)
-
-    &__title
-      margin-top 5px
-      font-weight 600
-      font-size 1.25rem
-      line-height 1.75rem
-
-    &__desc
-      color var(--color-text, inherit)
-      margin-top 0.5rem
-      font-size 0.875rem
-      line-height 1.25rem
-
-  &__label
-    color var(--color-text, inherit)
-    text-transform uppercase
-    font-size 0.75rem
-    line-height 1rem
-    letter-spacing 0.2rem
-    margin-bottom 0.5rem
-
-@media screen and (max-width: 1280px)
-  .links
-    flex-direction column-reverse
+      &__previous
+        transform rotate(180deg)
+        margin-right 32px
+        margin-left 0px
 
 @media screen and (max-width: 480px)
-  .links__item
-    display flex
+  .links
     flex-direction column
-    align-items stretch
-
-    &__icon
-      order -1
-      width 2.5rem
-      height 2.5rem
-      align-self flex-end
 
 
 </style>
