@@ -2,14 +2,14 @@
   div
     .links
       .links__wrapper
-        .overline-label previous
+        .overline-label(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)") previous
         .links__content(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
           router-link.links__item(:to="$page.frontmatter.prev || linkPrevNext.prev.regularPath")
             .links__item__icon.links__item__icon__previous
               icon-arrow(type="right")
             h5 {{$page.frontmatter.prev || linkPrevNext.prev.title}}
       .links__wrapper
-        .overline-label up next
+        .overline-label(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)") up next
         .links__content(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
           router-link.links__item(:to="$page.frontmatter.next || linkPrevNext.next.regularPath")
             h5 {{$page.frontmatter.next || linkPrevNext.next.title}}
@@ -40,7 +40,8 @@
   &__item
     height 100%
     margin-top 1rem
-    padding 24px
+    padding-inline 24px
+    padding-block 48px
     background var(--background-color-secondary)
     border-radius 8px
     display flex

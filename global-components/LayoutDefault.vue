@@ -11,12 +11,12 @@
                 .container.content__default
                   slot
                   tm-content-cards(v-if="$frontmatter.cards")
-            .layout__main__gutter(v-if="!($frontmatter.aside === false)")
-              tm-footer-links(:tree="tree")
-          .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
-            .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
-              client-only
-                tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
+        .layout__main__gutter(v-if="!($frontmatter.aside === false)")
+          tm-footer-links(:tree="tree")
+      .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
+        .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
+          client-only
+            tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
@@ -77,7 +77,8 @@
 .container
   position relative
   width 100%
-  max-width 45rem
+  max-width var(--content-max-width)
+  margin-inline auto
 
 .content
   padding-right var(--sidebar-width)
@@ -390,6 +391,9 @@
     line-height 2.5rem
     letter-spacing -0.01em
 
+    &:first-child
+      margin-top 0
+
   h3
     font-size 1.5rem
     margin-top 2.5rem
@@ -588,28 +592,20 @@
     &__toc
       display none
 
-.layout__main__content__aside.aside__bottom__true
-  position absolute
-  bottom var(--height-banners, 0)
-  right 0
-  max-height initial
-  top initial
-  height initial
 
 .layout__main__content.aside__false
   display block
 
 .layout
-  display grid
+  display flex
   width 100%
-  grid-template-columns var(--sidebar-width) calc(100% - var(--sidebar-width))
-  max-width var(--layout-max-width, 1540px)
   margin-left auto
   margin-right auto
   position relative
   background-color  var(--background-color-primary)
 
   &__sidebar
+    width 20%
     position sticky
     top 0
     height 100vh
@@ -634,6 +630,8 @@
 
   &__main
     position relative
+    width: 60%
+    padding-top 2rem
     
     &__navbar
       padding-left 2.5rem
@@ -647,6 +645,9 @@
 
     &__content
       display flex
+
+      &__body
+        width 100%
 
       &__aside
 
@@ -668,9 +669,13 @@
             background #eee
 
         &__container
-          position relative
-          height 100%
-          padding-bottom var(--height-banners, 0)
+          position sticky
+          top 0
+          right 0
+          overflow-y scroll
+          width 20%
+          height 100vh
+          padding-top 2rem
 
         &__banners
           width 100%
@@ -681,12 +686,12 @@
           padding-right 1.5rem
           box-sizing border-box
 
-      &__body
-        width: 70%
-
     &__gutter
-      padding-top 4rem
-      padding-bottom 4rem
+      margin-top 4rem
+      padding-top 63px
+      max-width var(--content-max-width)
+      margin-inline auto
+      border-top 1px solid var(--semi-transparent-color-2)
 
     &__footer
       padding-left 4rem
@@ -719,6 +724,7 @@
       display none
 
     &__main
+      width 100%
       &__navbar
         display block
         padding-left 1.75rem
@@ -748,8 +754,15 @@
 
 @media screen and (max-width: 480px)
   .layout
+    &__sidebar
+      height auto
+
     &__main
+      width 100%
       &__content
+        &__aside 
+          &__container
+            height auto
         &__body
           width 100%
       &__navbar

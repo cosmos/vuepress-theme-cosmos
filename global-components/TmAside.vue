@@ -1,8 +1,6 @@
 <template lang="pug">
   div
     .container
-      .search__container(v-if="$themeConfig.versions")
-        tm-select-version(v-if="$themeConfig.versions")
       .banners.visible(v-if="asideBanners && !$themeConfig.custom" id="banners")
         .banners__item(v-for="banner in asideBanners")
           a(:href="banner.href" target="_blank" rel="noreferrer noopener")
@@ -52,6 +50,9 @@
 
       &:active
         transition none
+
+      img
+        margin-top 0px
 
 .hidden
   visibility hidden

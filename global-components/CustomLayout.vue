@@ -27,7 +27,7 @@
 
         &__footer
             padding-inline 128px
-            max-width 1440px 
+            max-width var(--content-max-width) 
             margin auto
 
             @media screen and (max-width: 480px)
@@ -38,7 +38,6 @@
 
         &__content
             padding-inline 128px
-            max-width 1440px 
             margin auto
 
             @media screen and (max-width: 480px)

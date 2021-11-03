@@ -38,7 +38,6 @@
 .container
   background-color var(--background-color-primary)
   color var(--color-text, black)
-  padding-top 3.5rem
   padding-bottom 3.5rem
 
 .wrapper

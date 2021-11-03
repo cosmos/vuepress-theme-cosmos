@@ -60,6 +60,7 @@
 .sidebar
   padding-right 24px
   overflow-x hidden
+  margin-top 2rem
 
 .version
   margin-top 2rem
@@ -77,7 +78,6 @@
   text-transform uppercase
   letter-spacing 0.2em
   color var(--color-text)
-  margin-top 2rem
   margin-bottom 0.5rem
 
 .footer.footer__compact__true
