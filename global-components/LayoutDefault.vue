@@ -685,7 +685,6 @@
         width: 70%
 
     &__gutter
-      max-width calc(100% - var(--aside-width))
       padding-top 4rem
       padding-bottom 4rem
 
