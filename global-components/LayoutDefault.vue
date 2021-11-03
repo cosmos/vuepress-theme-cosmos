@@ -1,38 +1,22 @@
 <template lang="pug">
-  div
+  custom-layout
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
       .layout__main
-        .mode-switch-container
-          tm-mode-switch
-        .layout__main__navbar
-          tm-top-bar(@sidebar="sidebarVisible = $event" @search="searchPanel = $event")
         .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
           .layout__main__content__body(id="content-scroll")
-            .layout__main__content__body__breadcrumbs(v-if="!($frontmatter.aside === false)")
-              tm-breadcrumbs(@visible="rsidebarVisible = $event")
             .layout__main__content__body__wrapper
               div(style="width: 100%")
-                .search__container
-                  .search(@click="searchPanel = true")
-                    .search__icon
-                      icon-search
-                    .search__text Search
                 .container.content__default
                   slot
                   tm-content-cards(v-if="$frontmatter.cards")
+            .layout__main__gutter(v-if="!($frontmatter.aside === false)")
+              tm-footer-links(:tree="tree")
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
             .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
               client-only
                 tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
-            .layout__main__content__aside__banners(ref="banners" v-if="editLink")
-              a(:href="editLink" target="_blank")
-                card-banner
-        .layout__main__gutter(v-if="!($frontmatter.aside === false)")
-          tm-footer-links(:tree="tree")
-        .layout__main__footer
-          tm-footer(:tree="directoryTree" :full="$page.frontmatter.footer && $page.frontmatter.footer.newsletter === false")
     tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
       tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
     tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
@@ -662,24 +646,9 @@
       z-index 500
 
     &__content
-      display grid
-      grid-template-columns calc(100% - var(--aside-width)) var(--aside-width)
-
-      &__body
-        &__breadcrumbs
-          padding-left 3.25rem
-          padding-right 3.25rem
-          padding-top 6.5rem
-
-        &__wrapper
-          padding-left 4rem
-          padding-right 4rem
+      display flex
 
       &__aside
-        position sticky
-        top 0
-        max-height 100vh
-        overflow-y scroll
 
         &::-webkit-scrollbar
           background rgba(255, 255, 255, 0)
@@ -712,12 +681,13 @@
           padding-right 1.5rem
           box-sizing border-box
 
+      &__body
+        width: 70%
+
     &__gutter
       max-width calc(100% - var(--aside-width))
       padding-top 4rem
       padding-bottom 4rem
-      padding-left 4rem
-      padding-right 4rem
 
     &__footer
       padding-left 4rem
@@ -760,19 +730,6 @@
         &__body
           padding-top 0
 
-          &__breadcrumbs
-            padding-left 1.75rem
-            padding-right 1.75rem
-            padding-top 0
-
-          &__wrapper
-            padding-left 2.5rem
-            padding-right 2.5rem
-
-      &__gutter
-        padding-left 2.5rem
-        padding-right 2.5rem
-
       &__footer
         padding-left 2.5rem
         padding-right 2.5rem
@@ -789,32 +746,16 @@
         padding-left 1.75rem
         padding-right 1.75rem
 
-      &__content
-        &__body
-          &__breadcrumbs
-            padding-left 1.75rem
-            padding-right 1.75rem
 
 @media screen and (max-width: 480px)
   .layout
     &__main
+      &__content
+        &__body
+          width 100%
       &__navbar
         padding-left 0.25rem
         padding-right 0.25rem
-
-      &__content
-        &__body
-          &__breadcrumbs
-            padding-left 0.25rem
-            padding-right 0.25rem
-
-          &__wrapper
-            padding-left 1rem
-            padding-right 1rem
-
-      &__gutter
-        padding-left 1rem
-        padding-right 1rem
 
       &__footer
         padding-left 1rem

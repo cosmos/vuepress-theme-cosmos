@@ -39,7 +39,6 @@
   grid-auto-flow column
   justify-content space-between
   align-items center
-  padding-left .75rem
 
 .crumbs
 

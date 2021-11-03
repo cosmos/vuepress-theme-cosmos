@@ -1,28 +1,28 @@
 <template lang="pug">
   div
     .container
-      .search__container
+      .search__container(v-if="$themeConfig.versions")
         tm-select-version(v-if="$themeConfig.versions")
-        .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")
-          .search__icon
-            icon-search
-          .search__text Search
-      .banners(v-if="asideBanners && !$themeConfig.custom")
+      .banners.visible(v-if="asideBanners && !$themeConfig.custom" id="banners")
         .banners__item(v-for="banner in asideBanners")
           a(:href="banner.href" target="_blank" rel="noreferrer noopener")
             img(:src="`${asideBannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
-      div(v-if="prereq && prereq.length > 0")
-        .aside__title Pre-requisite reading
-        a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
-      div(v-if="$page.headers && $page.headers.length > 0")
-        .aside__title On this page
-        .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
-          a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href {{link.title}}
+      .content
+        div(v-if="prereq && prereq.length > 0")
+          .overline-label Pre-requisite reading
+          a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
+        div(v-if="$page.headers && $page.headers.length > 0")
+          .overline-label On this page
+          .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
+            a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href {{link.title}}
 </template>
 
 <style lang="stylus" scoped>
+.overline-label
+  margin-bottom 16px
+
 .container
-  padding 1rem 1rem 1rem 2rem
+  padding-left 24px
 
 .search__container
   display flex
@@ -31,10 +31,14 @@
   padding-bottom 3.5rem
 
 .banners
-  margin-bottom 3rem
+  margin-bottom 24px
+  transition: all 2s linear;
 
   &__item
-    margin-bottom 0.5rem
+    margin-bottom 12px
+
+    &:last-child
+      margin-bottom 0px
 
     a
       display block
@@ -49,31 +53,18 @@
       &:active
         transition none
 
-.search
-  cursor pointer
-  display flex
-  justify-content flex-end
-  align-items center
-
-  &__icon
-    height 1.5rem
-    width 1.5rem
-    margin-right 0.5rem
-    fill #aaa
-    transition fill .15s ease-out
-
-  &__text
-    color rgba(22, 25, 49, 0.65)
-    transition color .15s ease-out
-
-  &:hover &__icon
-    fill var(--color-text, black)
-
-  &:hover &__text
-    color var(--color-text, black)
+.hidden
+  visibility hidden
+  display none
 
 .selected
-  font-weight 700
+  color var(--color-text-strong)
+
+.content
+  position sticky
+  top 0
+  height 100vh
+  overflow-y scroll
 
 .aside
   &__image
@@ -85,7 +76,6 @@
     font-size 0.75rem
     text-transform uppercase
     letter-spacing 0.2em
-    color var(--color-text, inherit)
     margin-top 3rem
     margin-bottom 0.75rem
 
@@ -134,15 +124,15 @@ export default {
   props: ["selected", "asideBanners", "asideBannersUrl", "prereq"],
   data: function() {
     return {
-      headerCurrent: null,
+      headerCurrent: null
     };
   },
   async mounted() {
-    window.addEventListener("scroll", this.headerActive);
+    window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("hashchange", this.headerActive);
   },
   beforeDestroy() {
-    window.removeEventListener("scroll", this.headerActive);
+    window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("hashchange", this.headerActive);
   },
   computed: {
@@ -155,6 +145,24 @@ export default {
     },
   },
   methods: {
+    handleScroll(e) {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (currentScrollPosition < 0) {
+        return;
+      }
+      // this.toggleBanners(currentScrollPosition > 0);
+      this.headerActive(e);
+    },
+    toggleBanners(toHide) {
+      if (toHide) {
+        document.getElementById('banners').classList.add('hidden');
+        document.getElementById('banners').classList.remove('visible');
+      } else {
+        document.getElementById('banners').classList.add('visible');
+        document.getElementById('banners').classList.remove('hidden');
+      }
+    },
     headerActive(e) {
       const middleY = window.scrollY + 50;
       if (!this.$page.headers) return;

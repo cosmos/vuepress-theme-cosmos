@@ -1,7 +1,7 @@
 <template lang="pug">
     div
         .searchbar__wrapper
-            .searchbar__title Developer portal
+            tm-breadcrumbs.searchbar__title(@visible="rsidebarVisible = $event")
             .search(@click="searchPanel = true")
                 .search__icon
                     icon-search

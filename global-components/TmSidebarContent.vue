@@ -1,13 +1,6 @@
 <template lang="pug">
   div(style="height: 100%; position: relative")
     .container
-      router-link(to="/" v-if="!(compact === true)").logo__container
-        .logo
-          .logo__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
-            img(:src="$themeConfig.logo.src")
-          .logo__img(v-else)
-            component(:is="`logo-${$themeConfig.label || 'sdk'}`")
-          .logo__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
           .title {{item.title}}
@@ -15,10 +8,6 @@
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
         .sidebar.version
           tm-select-version
-      .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
-        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
-          component(:is="`tm-logo-${product.label}`").footer__item__icon
-          .footer__item__title(v-html="md(product.name)")
 </template>
 
 <style lang="stylus" scoped>
@@ -69,8 +58,7 @@
     height 25px
 
 .sidebar
-  padding-left 2rem
-  padding-right 2rem
+  padding-right 24px
   overflow-x hidden
 
 .version
