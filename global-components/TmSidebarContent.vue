@@ -3,7 +3,7 @@
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
-          .title {{item.title}}
+          .overline-label.title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
         .sidebar.version
@@ -74,11 +74,9 @@
     flex-grow 0
 
 .title
-  font-size 0.75rem
-  text-transform uppercase
-  letter-spacing 0.2em
   color var(--color-text)
-  margin-bottom 0.5rem
+  margin-bottom 16px
+  color var(--semi-transparent-color-3)
 
 .footer.footer__compact__true
   padding-bottom 150px
