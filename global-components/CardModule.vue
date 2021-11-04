@@ -9,13 +9,15 @@
                 .module__actions__toggle(v-on:click="toggleContent")
                     .module__actions__toggle__label(v-text="expanded ? 'Hide contents' : 'Show contents'")
                     icon-arrow(type="right" :class="expanded ? 'hide-icon' : 'show-icon'")
-                .module__actions__start Start here
+                a.module__actions__start(:href="this.module.url") Start here
                     icon-arrow(type="right").start-icon
         .module__submodules(v-show="expanded")
             .module__submodules__item(v-for="submodule in this.module.submodules")
-                .module__submodules__item__badge(v-bind:style="{'background': submodule.badge.color}") {{submodule.badge.label}}
+                .module__submodules__item__badge(v-if="submodule.tag && tags[submodule.tag]" v-bind:style="{'background': tags[submodule.tag].color || ''}") {{tags[submodule.tag].label || ''}}
                 .module__submodules__item__content
-                    h5.module__submodules__item__content__title {{submodule.title}}
+                    a(:href="submodule.url")
+                        h5.module__submodules__item__content__title {{submodule.title}}
+                            icon-arrow(type="right").start-icon
                     .module__submodules__item__content__desc {{submodule.description}}
 </template>
 
@@ -24,7 +26,17 @@
         props: ['module'],
         data() {
             return {
-                expanded: false
+                expanded: false,
+                tags: {
+                    'deep-dive': {
+                        color: 'var(--color-secondary)',
+                        label: 'Deep dive'
+                    },
+                    'fast-track': {
+                        color: 'var(--color-primary)',
+                        label: 'Fast track'
+                    }
+                }
             };
         },
         methods: {
@@ -36,6 +48,11 @@
 </script>
 
 <style lang="stylus" scoped>
+    .start-icon
+        margin-left 5px
+        width 15px
+        height 15px
+
     .module
         display flex
         justify-content space-between
@@ -116,9 +133,6 @@
 
                 .start-icon
                     margin-block auto
-                    margin-left 5px
-                    width 15px
-                    height 15px
 
         &__content
             flex-grow 1
