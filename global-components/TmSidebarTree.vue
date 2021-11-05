@@ -56,7 +56,7 @@
         content attr(tag-content)
         border-radius 0.25rem
         max-width 4rem
-        color var(--background-color-secondary)
+        color black
         position absolute
         top -2.4em
         padding 7px 12px
@@ -67,7 +67,6 @@
         line-height 1
         letter-spacing 0
         opacity 0
-        
         background white
 
       &::before

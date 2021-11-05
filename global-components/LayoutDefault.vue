@@ -172,11 +172,10 @@
     transition all 0.25s
 
     &:after
-      transition all 0.25s
       border-radius 0.25rem
       content attr(data-header-anchor-text)
       max-width 4rem
-      color var(--background-color-secondary)
+      color black
       position absolute
       top -2.4em
       padding 7px 12px
@@ -187,13 +186,11 @@
       line-height 1
       letter-spacing 0
       opacity 0
-      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
-      background var(--color-text, black)
+      background white
 
     &:before
-      transition all 0.25s
       content ''
-      background-image url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='rgb(22, 25, 49)' d='M12 21l-12-18h24z'/></svg>")
+      background-image url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='white' d='M12 21l-12-18h24z'/></svg>")
       position absolute
       width 8px
       height 8px
