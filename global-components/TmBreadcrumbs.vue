@@ -114,11 +114,6 @@
   .menu__item
     display block
 
-@media screen and (max-width: 732px)
-  .menu
-    &__item
-      &__modal
-        visibility hidden
 </style>
 
 <script>

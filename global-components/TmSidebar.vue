@@ -35,6 +35,7 @@
 }
 .sidebar {
   position: fixed;
+  z-index: 9999;
   top: 0;
   height: 100vh;
   background: var(--background-color-primary);

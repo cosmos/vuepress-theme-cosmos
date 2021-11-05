@@ -170,6 +170,7 @@
     color var(--semi-transparent-color)
     outline-color var(--color-link, blue)
     transition all 0.25s
+    text-decoration none
 
     &:after
       border-radius 0.25rem
@@ -467,9 +468,12 @@
 
   h1, h2, h3, h4, h5, h6
     a
-      color var(--color-link, blue)
-      outline none
+      font-weight 500
       position relative
+      color var(--color-text-strong)
+      text-decoration underline 
+      position relative
+      line-height: 128.7%
 
     a[target='_blank']
       &:after
@@ -477,21 +481,11 @@
 
   p, ul, ol
     a
-      color var(--color-link, blue)
-      outline-color var(--color-link, blue)
-      border-radius 0.25rem
+      font-weight 500
       position relative
-      transition opacity 0.3s ease-out
-      overflow-wrap break-word
-      word-wrap break-word
-      -ms-word-break break-all
-      word-break break-word
-
-    a[target='_blank']
-      margin-right 0.888em
-
-    a:hover
-      text-decoration underline
+      color var(--color-text-strong)
+      text-decoration underline  
+      line-height: 128.7%  
 
     a:active
       opacity 0.65
@@ -501,13 +495,12 @@
       color inherit
       transition background-color 0.15s ease-out
 
-    a:hover code,
-    a:focus code
-      background-color rgba(59, 66, 125, 0.12)
-
   td
     a
-      color var(--color-link, blue)
+      color var(--color-text-strong)
+      text-decoration underline  
+      font-weight 500
+      line-height: 128.7%
       position relative
       transition opacity 0.3s ease-out
       overflow-wrap break-word
@@ -712,12 +705,18 @@
 
 @media screen and (max-width: 1136px)
   .layout
+    &__sidebar
+      width 30%
     &__main
+      width 70%
       &__content
         display block
 
         &__aside
           display none
+
+          &__container
+            display none
 
           &__banners
             display none
@@ -966,6 +965,24 @@ export default {
         headline.appendChild(tagElement);
         headline.style.setProperty('display', 'flex');
       }
+    },
+    setupHeaderAnchor() {
+      const headerAnchorClick = event => {
+        event.target.setAttribute("data-header-anchor-text", "Copied!");
+        copy(event.target.href);
+        setTimeout(() => {
+          event.target.setAttribute("data-header-anchor-text", "Copy link");
+        }, 4000);
+        event.preventDefault();
+      };
+      document
+        .querySelectorAll("content__default, a.header-anchor")
+        .forEach(node => {
+          if (!node.getAttribute("data-header-anchor-text")) {
+            node.setAttribute("data-header-anchor-text", "Copy link");
+            node.addEventListener("click", headerAnchorClick);
+          }
+        });
     }
   },
   beforeMount() {
@@ -979,26 +996,12 @@ export default {
   },
   mounted() {
     this.emitPrereqLinks();
-    const headerAnchorClick = event => {
-      event.target.setAttribute("data-header-anchor-text", "Copied!");
-      copy(event.target.href);
-      setTimeout(() => {
-        event.target.setAttribute("data-header-anchor-text", "Copy link");
-      }, 4000);
-      event.preventDefault();
-    };
     document
       .querySelectorAll(
         'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
       )
       .forEach(node => {
         node.addEventListener("click", this.prereqToggle);
-      });
-    document
-      .querySelectorAll("content__default, a.header-anchor")
-      .forEach(node => {
-        node.setAttribute("data-header-anchor-text", "Copy link");
-        node.addEventListener("click", headerAnchorClick);
       });
     if (window.location.hash) {
       const elementId = document.querySelector(window.location.hash);
@@ -1039,6 +1042,7 @@ export default {
   updated() {
     this.$nextTick(function () {
       this.drawTag();
+      this.setupHeaderAnchor();
     });
   },
   computed: {
