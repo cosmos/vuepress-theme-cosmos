@@ -13,7 +13,7 @@
                     icon-arrow(type="right").start-icon
         .module__submodules(v-show="expanded")
             .module__submodules__item(v-for="submodule in this.module.submodules")
-                .module__submodules__item__badge(v-if="submodule.tag && tags[submodule.tag]" v-bind:style="{'background': tags[submodule.tag].color || ''}") {{tags[submodule.tag].label || ''}}
+                .module__submodules__item__badge(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                 .module__submodules__item__content
                     a(:href="submodule.url")
                         h5.module__submodules__item__content__title {{submodule.title}}
@@ -26,17 +26,7 @@
         props: ['module'],
         data() {
             return {
-                expanded: false,
-                tags: {
-                    'deep-dive': {
-                        color: 'var(--color-secondary)',
-                        label: 'Deep dive'
-                    },
-                    'fast-track': {
-                        color: 'var(--color-primary)',
-                        label: 'Fast track'
-                    }
-                }
+                expanded: false
             };
         },
         methods: {

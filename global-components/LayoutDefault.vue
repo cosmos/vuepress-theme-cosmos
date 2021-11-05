@@ -147,6 +147,18 @@
       a.header-anchor
         opacity 1
 
+  .tag-element
+    background var(--tag-background-color)
+    font-size 13px
+    line-height 130.7%
+    letter-spacing 0.005em
+    color var(--color-text)
+    border-radius 8px
+    margin-block auto
+    padding 8px
+    margin-left 16px
+    flex-shrink 0
+
   a.header-anchor
     opacity 0
     position absolute
@@ -941,6 +953,22 @@ export default {
         }
       });
       return sorted;
+    },
+    drawTag() {
+      const headline = document.querySelector('h1');
+      const tag = this.$page.frontmatter.tag;
+      const drawnTag = document.getElementById('tag-element');
+
+      if (headline && tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
+        const tagElement = document.createElement("div");
+        const node = document.createTextNode(this.$site.themeConfig.tags[tag].label);
+        tagElement.appendChild(node);
+        tagElement.classList.add('tag-element');
+        tagElement.style.setProperty("--tag-background-color", this.$site.themeConfig.tags[tag].color);
+        tagElement.setAttribute('id', 'tag-element');
+        headline.appendChild(tagElement);
+        headline.style.setProperty('display', 'flex');
+      }
     }
   },
   beforeMount() {
@@ -1010,6 +1038,11 @@ export default {
     });
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
+  },
+  updated() {
+    this.$nextTick(function () {
+      this.drawTag();
+    });
   },
   computed: {
     noAside() {

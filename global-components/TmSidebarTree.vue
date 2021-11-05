@@ -18,7 +18,7 @@
       ).item
         icon-arrow.item__icon(v-if="level < 1" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
         div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
-        div(v-if="level > 0 && item.frontmatter && item.frontmatter.tag" :class="'item__child__tag item__child__tag__'+item.frontmatter.tag")
+        .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
           tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
@@ -44,7 +44,16 @@
       background var(--color-text-strong)
 
     &__tag
+      width 8px
+      height 8px
+      position absolute
+      top 12px
+      right 5px
+      border-radius 4px
+      background var(--tag-background-color)
+
       &::after
+        content attr(tag-content)
         border-radius 0.25rem
         max-width 4rem
         color var(--background-color-secondary)
@@ -78,30 +87,6 @@
 
       &:hover:after
         opacity 1
-
-      &__deep-dive
-        background var(--color-secondary)
-        width 8px
-        height 8px
-        position absolute
-        top 12px
-        right 5px
-        border-radius: 4px
-
-        &:after
-          content 'Deep dive'
-      
-      &__fast-track
-        background var(--color-primary)
-        width 8px
-        height 8px
-        position absolute
-        top 12px
-        right 5px
-        border-radius: 4px
-
-        &:after
-          content 'Fast track'
 
   &:hover, &:focus
     .item__icon.item__icon__outbound,
