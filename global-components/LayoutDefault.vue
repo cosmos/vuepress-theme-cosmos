@@ -960,10 +960,18 @@ export default {
         });
     },
     handleScroll(e) {
-      var currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
-      var isScrollingDown = currentScrollPosition > this.scrollPosition;
+      const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
+      const isScrollingDown = currentScrollPosition > this.scrollPosition;
       document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
       document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition == 0 ? 'block' : 'none'));
+
+      const headerElement =  document.querySelector('.header__search');
+      if (!isScrollingDown && currentScrollPosition != 0) {
+        headerElement?.classList.add('header-compact');
+      } else {
+        headerElement?.classList.remove('header-compact');
+      }
+      
       this.scrollPosition = currentScrollPosition;
     }
   },

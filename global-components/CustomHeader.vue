@@ -18,6 +18,14 @@
 </template>
 
 <style lang="stylus" scoped>
+    .header-compact
+        position fixed
+        top 0
+        left 0
+        z-index 999999
+        width 100%
+        background var(--background-color-primary)
+
     .header
             
         &__nav
@@ -69,6 +77,7 @@
 
         &__search
             padding-inline 128px
+            transition all .25s linear
 
             @media screen and (max-width: 480px)
                 padding-inline 24px
