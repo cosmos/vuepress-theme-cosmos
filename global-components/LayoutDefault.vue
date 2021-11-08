@@ -615,21 +615,7 @@
     transition all 0.25s
 
     &::-webkit-scrollbar
-      background rgba(255, 255, 255, 0)
-      width 6px
-      transition background 0.25s
-
-    &::-webkit-scrollbar-thumb
-      background rgba(255, 255, 255, 0)
-      border-radius 6px
-      transition background 0.25s
-
-    &:hover
-      &::-webkit-scrollbar
-        background rgba(255, 255, 255, 0)
-
-      &::-webkit-scrollbar-thumb
-        background #eee
+      display none
 
   &__main
     position relative
@@ -654,23 +640,6 @@
 
       &__aside
 
-        &::-webkit-scrollbar
-          background rgba(255, 255, 255, 0)
-          width 6px
-          transition background 0.25s
-
-        &::-webkit-scrollbar-thumb
-          background rgba(255, 255, 255, 0)
-          border-radius 6px
-          transition background 0.25s
-
-        &:hover
-          &::-webkit-scrollbar
-            background rgba(255, 255, 255, 0)
-
-          &::-webkit-scrollbar-thumb
-            background #eee
-
         &__container
           position sticky
           top 0
@@ -679,6 +648,9 @@
           width 20%
           height 100vh
           padding-top 2rem
+
+          &::-webkit-scrollbar
+            display none
 
         &__banners
           width 100%
