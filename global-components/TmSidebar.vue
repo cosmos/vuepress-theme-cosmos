@@ -28,7 +28,7 @@
 <style scoped>
 .overlay {
   position: fixed;
-  top: 0;
+  top: 6rem;
   left: 0;
   height: 100vh;
   width: 100vw;
@@ -36,12 +36,17 @@
 .sidebar {
   position: fixed;
   z-index: 9999;
-  top: 0;
+  top: 6rem;
   height: 100vh;
   background: var(--background-color-primary);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   transform: translateX(var(--translate-x-component-internal));
+}
+@media screen and (max-width: 480px) {
+  .sidebar {
+    padding-left: 24px;
+  }
 }
 .overlay-enter-active {
   transition: all .25s ease-in;
@@ -133,8 +138,6 @@ export default {
         "box-shadow": this.boxShadow || "none",
         left: this.side === "right" ? "initial" : "0",
         right: this.side === "right" ? "0" : "initial",
-        width: this.width || "300px",
-        "max-width": this.maxWidth || "75vw",
         "--sidebar-transform-component-internal":
           this.side === "right" ? "100%" : "-100%",
         "--translate-x-component-internal": `${

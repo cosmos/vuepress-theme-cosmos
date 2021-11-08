@@ -1,5 +1,5 @@
 <template lang="pug">
-  custom-layout
+  custom-layout(@sidebar="sidebarVisible = $event")
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")

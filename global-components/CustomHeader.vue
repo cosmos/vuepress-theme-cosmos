@@ -11,7 +11,7 @@
             .header__nav__links
                 a.overline-label Get ATOM
                 icon-arrow(type="right").header__nav__links__icon
-            .header__nav__mobile__menu
+            .header__nav__mobile__menu(@click="toggleSidebar")
                 icon-menu
         .header__search
             search-bar
@@ -93,6 +93,7 @@
 export default {
     data() {
         return {
+            sidebarOpened: false,
             navItems: [
                 {
                     name: 'Learn',
@@ -107,6 +108,12 @@ export default {
                     url: '/'
                 }
             ] 
+        }
+    },
+    methods: {
+        toggleSidebar() {
+            this.sidebarOpened = !this.sidebarOpened;
+            this.$emit('mobileSidebar', this.sidebarOpened);
         }
     }
 }

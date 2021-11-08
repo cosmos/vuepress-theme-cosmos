@@ -3,7 +3,7 @@
         .mode-switch-container
             .mode-switch-container__wrapper
                 tm-mode-switch
-        custom-header
+        custom-header(@mobileSidebar="$emit('sidebar', $event)")
         .custom__layout__content
             slot
 
