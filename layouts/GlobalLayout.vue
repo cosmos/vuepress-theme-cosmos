@@ -5,6 +5,7 @@
     div
       component(:is="layout" :key="$route.path")
         Content
+    script(v-if="shouldIncludeScript" src="https://www.bugherd.com/sidebarv2.js?apikey=ur38l8q2fpx6bfcgubgodw" async="true")
 </template>
 
 <script>
@@ -46,6 +47,9 @@ export default {
         this.$site.locales && Object.entries(this.$site.locales).length > 1
       );
     },
+    shouldIncludeScript() {
+      return window.location.origin.includes("http://preview-5bxuue6kafu5ocp5.b9lab.com/") || window.location.origin.includes("localhost:") || window.location.origin.includes("127.0.0.1");
+    }
   }
 };
 </script>
