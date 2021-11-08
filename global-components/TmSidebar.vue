@@ -28,7 +28,7 @@
 <style scoped>
 .overlay {
   position: fixed;
-  top: 6rem;
+  top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
@@ -36,7 +36,7 @@
 .sidebar {
   position: fixed;
   z-index: 9999;
-  top: 6rem;
+  top: 0;
   height: 100vh;
   background: var(--background-color-primary);
   overflow-y: scroll;

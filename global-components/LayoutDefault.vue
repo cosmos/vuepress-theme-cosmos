@@ -609,7 +609,7 @@
   &__sidebar
     width 20%
     position sticky
-    top 0
+    top 64px
     height 100vh
     overflow-y scroll
     transition all 0.25s
@@ -648,6 +648,7 @@
           width 20%
           height 100vh
           padding-top 2rem
+          transition all 0.25s
 
           &::-webkit-scrollbar
             display none
@@ -961,9 +962,10 @@ export default {
     },
     handleScroll(e) {
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
-      const isScrollingDown = currentScrollPosition > this.scrollPosition;
+      const isScrollingDown = currentScrollPosition >= this.scrollPosition;
       document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
       document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition == 0 ? 'block' : 'none'));
+      document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
 
       const headerElement =  document.querySelector('.header__search');
       if (!isScrollingDown && currentScrollPosition != 0) {
@@ -971,7 +973,7 @@ export default {
       } else {
         headerElement?.classList.remove('header-compact');
       }
-      
+
       this.scrollPosition = currentScrollPosition;
     }
   },
