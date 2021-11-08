@@ -18,6 +18,7 @@
 <style lang="stylus" scoped>
 .overline-label
   margin-bottom 16px
+  color var(--semi-transparent-color-3)
 
 .container
   padding-left 24px
@@ -66,6 +67,10 @@
   top 0
   height 100vh
   overflow-y scroll
+  scrollbar-width none
+  
+  &::-webkit-scrollbar
+    display none
 
 .aside
   &__image
@@ -81,7 +86,7 @@
     margin-bottom 0.75rem
 
   &__link
-    color var(--color-text, inherit)
+    color var(--semi-transparent-color-3)
     padding-top 0.375rem
     padding-bottom 0.375rem
     font-size 0.875rem
@@ -92,8 +97,7 @@
       color var(--color-text, black)
 
     &__active__true
-      color var(--color-text, black)
-      font-weight bold
+      color var(--color-text-strong, black)
 
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)

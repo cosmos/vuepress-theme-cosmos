@@ -74,7 +74,6 @@
     flex-grow 0
 
 .title
-  color var(--color-text)
   margin-bottom 16px
   color var(--semi-transparent-color-3)
 

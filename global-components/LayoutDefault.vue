@@ -612,6 +612,7 @@
     top 0
     height 100vh
     overflow-y scroll
+    transition all 0.25s
 
     &::-webkit-scrollbar
       background rgba(255, 255, 255, 0)
@@ -780,6 +781,7 @@
       &__footer
         padding-left 1rem
         padding-right 1rem
+        margin-top 64px
 
 </style>
 
@@ -835,6 +837,7 @@ export default {
       status: null,
       asideBannersUrl: "https://v1.cosmos.network/aside-banners",
       asideBanners: null,
+      scrollPosition: 0
     };
   },
   methods: {
@@ -983,6 +986,13 @@ export default {
             node.addEventListener("click", headerAnchorClick);
           }
         });
+    },
+    handleScroll(e) {
+      var currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
+      var isScrollingDown = currentScrollPosition > this.scrollPosition;
+      document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
+      document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition == 0 ? 'block' : 'none'));
+      this.scrollPosition = currentScrollPosition;
     }
   },
   beforeMount() {
@@ -1007,7 +1017,7 @@ export default {
       const elementId = document.querySelector(window.location.hash);
       if (elementId) elementId.scrollIntoView();
     }
-    document.addEventListener("scroll", () => {
+    document.addEventListener("scroll", (e) => {
       const banners = this.$refs.asideBanners;
       if (banners) {
         this.heightBanners = banners.offsetHeight;
@@ -1027,6 +1037,7 @@ export default {
           top + aside.getBoundingClientRect().height >
           content.getBoundingClientRect().height - this.heightBanners;
       }
+      this.handleScroll(e);
     });
     hotkeys("/", (event, handler) => {
       event.preventDefault();

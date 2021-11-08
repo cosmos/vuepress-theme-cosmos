@@ -3,10 +3,6 @@
     .wrapper(v-if="$themeConfig.footer")
       .container
         .footer__wrapper
-          .questions(v-if="!full && !$themeConfig.custom")
-            //- .questions__wrapper
-            //-   .questions__h1 Questions?
-            //-   .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
           tm-newsletter-form(v-if="$themeConfig.footer")
           .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
             .links__item.accordion(v-for="(item, index) in $themeConfig.footer.links" @click="onAccordionClick(index)")
@@ -138,6 +134,9 @@
       margin-right 24px
       color var(--color-text-strong)
 
+      &:last-child
+        margin-right 0px
+
   &__image
     display inline-block
     min-height 2rem
@@ -186,6 +185,17 @@
   .questions
     display block
     margin-right 0
+  
+  .logo
+    flex-direction column
+
+    &__item
+      justify-content center
+
+    &__image
+      border-right none
+      padding-right 0px
+      margin-right 0px
 
 @media screen and (max-width: 480px)
   .footer__links
