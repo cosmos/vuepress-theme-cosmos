@@ -700,13 +700,8 @@
 
 @media screen and (max-width: 832px)
   .layout
-    display block
-
-    &__sidebar
-      display none
 
     &__main
-      width 100%
       &__navbar
         display block
         padding-left 1.75rem
@@ -728,7 +723,12 @@
         display block
 
   .layout
+    display block
+    &__sidebar
+        display none
+
     &__main
+      width 100%
       &__navbar
         padding-left 1.75rem
         padding-right 1.75rem
