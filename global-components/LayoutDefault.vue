@@ -13,6 +13,7 @@
                   tm-content-cards(v-if="$frontmatter.cards")
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
+        feedback-box.layout__main__feedback
       .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
         .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
           client-only
@@ -668,6 +669,11 @@
       max-width var(--content-max-width)
       margin-inline auto
       border-top 1px solid var(--semi-transparent-color-2)
+
+    &__feedback
+      margin-top 4rem
+      max-width var(--content-max-width)
+      margin-inline auto
 
     &__footer
       padding-left 4rem
