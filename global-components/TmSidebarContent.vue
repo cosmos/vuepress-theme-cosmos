@@ -204,7 +204,7 @@ export default {
   methods: {
     isVisible(title) {
       if (typeof window !== 'undefined') {
-        const allowedOrigin = window.location.origin.includes("deploy-preview") || window.location.origin.includes("localhost:") || window.location.origin.includes("127.0.0.1");
+        const allowedOrigin = window.location.origin.includes("deploy-preview") || window.location.origin.includes("preview-5bxuue6kafu5ocp5") || window.location.origin.includes("localhost:") || window.location.origin.includes("127.0.0.1");
         return title.includes("B9lab") ? allowedOrigin : !(this.$themeConfig.sidebar.auto == false && title === '');
       } else {
         return true;
