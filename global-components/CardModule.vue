@@ -6,10 +6,10 @@
                 h4.module__content__title {{this.module.title}}
                 .module__content__desc {{this.module.description}}
             .module__actions
-                .module__actions__toggle(v-on:click="toggleContent")
+                .module__actions__toggle
                     .module__actions__toggle__label(v-text="expanded ? 'Hide contents' : 'Show contents'")
                     icon-arrow(type="right" :class="expanded ? 'hide-icon' : 'show-icon'")
-                a.module__actions__start(:href="this.module.url") Start here
+                a.module__actions__start(:href="this.module.url" v-on:click="toggleContent") Start here
                     icon-arrow(type="right").start-icon
         .module__submodules(v-show="expanded")
             .module__submodules__item(v-for="submodule in this.module.submodules")
