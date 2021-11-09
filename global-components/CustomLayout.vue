@@ -1,8 +1,8 @@
 <template lang="pug">
     div.custom__layout
-        .mode-switch-container
-            .mode-switch-container__wrapper
-                tm-mode-switch
+        //- .mode-switch-container
+        //-     .mode-switch-container__wrapper
+        //-         tm-mode-switch
         custom-header(@mobileSidebar="$emit('sidebar', $event)")
         .custom__layout__content
             slot
