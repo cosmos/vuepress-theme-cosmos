@@ -963,15 +963,19 @@ export default {
     handleScroll(e) {
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
-      document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
+      // document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
       document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition == 0 ? 'block' : 'none'));
-      document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
+      document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'));
+      document.querySelector('.layout__sidebar')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
 
-      const headerElement =  document.querySelector('.header__search');
-      if (!isScrollingDown && currentScrollPosition != 0) {
-        headerElement?.classList.add('header-compact');
+      const headerSearchElement = document.querySelector('.header__search');
+      const headerElement = document.querySelector('.header');
+      if (!isScrollingDown && currentScrollPosition > headerSearchElement.offsetHeight) {
+        headerElement?.style.setProperty('margin-bottom', headerSearchElement.offsetHeight + 'px');
+        headerSearchElement?.classList.add('header-compact');
       } else {
-        headerElement?.classList.remove('header-compact');
+        headerElement?.style.setProperty('margin-bottom', '0px');
+        headerSearchElement?.classList.remove('header-compact');
       }
 
       this.scrollPosition = currentScrollPosition;
