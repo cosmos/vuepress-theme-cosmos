@@ -6,8 +6,9 @@
                     component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                     img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .header__nav__actions
-                .header__nav__actions__item(v-for="item in navItems")
-                    a.overline-label(:href="item.url") {{item.name}}
+                h4.header__nav__actions__title Cosmos Academy
+                //- .header__nav__actions__item(v-for="item in navItems")
+                //-     a.overline-label(:href="item.url") {{item.name}}
             .header__nav__links
                 a.overline-label Get ATOM
                 icon-arrow(type="right").header__nav__links__icon
@@ -71,6 +72,9 @@
                 .overline-label
                     text-transform none
                     color var(--color-text-strong)
+
+                &__title
+                    margin-block auto
 
             &__mobile__menu
                 display none
