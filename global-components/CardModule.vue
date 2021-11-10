@@ -1,6 +1,6 @@
 <template lang="pug">
-    .module__wrapper
-        .module(v-on:click="toggleContent")
+    .module__wrapper(v-on:click="toggleContent")
+        .module
             .overline-label module {{this.module.number}}
             .module__content
                 h4.module__content__title {{this.module.title}}
