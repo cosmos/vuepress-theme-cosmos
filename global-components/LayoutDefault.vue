@@ -266,18 +266,18 @@
 
   [synopsis]
     padding 1.5rem 2rem
-    background-color rgba(176, 180, 207, 0.09)
+    background-color var(--background-color-secondary)
     border-radius 0.5rem
     margin-top 3rem
     margin-bottom 3rem
-    color rgba(22, 25, 49, 0.9)
+    color var(--color-text)
     font-size 1rem
     line-height 1.625rem
 
     &:before
       content 'Synopsis'
       display block
-      color rgba(22, 25, 49, 0.65)
+      color color var(--semi-transparent-color-3)
       text-transform uppercase
       font-size 0.75rem
       margin-bottom 0.5rem
