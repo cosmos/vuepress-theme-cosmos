@@ -15,7 +15,7 @@
             a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
                 .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                 .module__submodules__item__content
-                    h5.tm-link.tm-link-disclosure
+                    h5.tm-link.tm-link-disclosure.module__submodules__item__content__title
                         span {{submodule.title}}
                     .module__submodules__item__content__desc {{submodule.description}}
 </template>
@@ -71,6 +71,7 @@
                     border-radius 8px
                     padding 8px
                     flex-shrink 0
+                    height fit-content
 
                 &__content
                     margin-left 32px
@@ -78,9 +79,7 @@
                     flex-direction column
 
                     &__title
-                        display flex
-                        color var(--color-text-strong)
-                        margin-bottom 8px
+                        width fit-content
 
         &__actions
             display flex

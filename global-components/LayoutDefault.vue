@@ -969,6 +969,28 @@ export default {
           }
         });
     },
+    scrollListener(e) {
+      const banners = this.$refs.asideBanners;
+      if (banners) {
+        this.heightBanners = banners.offsetHeight;
+      }
+      const content = document.querySelector("#content-scroll");
+      const aside = document.querySelector("#aside-scroll");
+      const top = window.scrollY;
+      if (aside && aside.getBoundingClientRect().height < window.innerHeight) {
+        this.asideBottom = false;
+      }
+      if (
+        content &&
+        aside &&
+        aside.getBoundingClientRect().height > window.innerHeight
+      ) {
+        this.asideBottom =
+          top + aside.getBoundingClientRect().height >
+          content.getBoundingClientRect().height - this.heightBanners;
+      }
+      this.handleScroll(e);
+    },
     handleScroll(e) {
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
@@ -1012,28 +1034,7 @@ export default {
       const elementId = document.querySelector(window.location.hash);
       if (elementId) elementId.scrollIntoView();
     }
-    document.addEventListener("scroll", (e) => {
-      const banners = this.$refs.asideBanners;
-      if (banners) {
-        this.heightBanners = banners.offsetHeight;
-      }
-      const content = document.querySelector("#content-scroll");
-      const aside = document.querySelector("#aside-scroll");
-      const top = window.scrollY;
-      if (aside && aside.getBoundingClientRect().height < window.innerHeight) {
-        this.asideBottom = false;
-      }
-      if (
-        content &&
-        aside &&
-        aside.getBoundingClientRect().height > window.innerHeight
-      ) {
-        this.asideBottom =
-          top + aside.getBoundingClientRect().height >
-          content.getBoundingClientRect().height - this.heightBanners;
-      }
-      this.handleScroll(e);
-    });
+    document.addEventListener("scroll", this.scrollListener);
     hotkeys("/", (event, handler) => {
       event.preventDefault();
       this.searchPanel = !this.searchPanel;
@@ -1050,6 +1051,9 @@ export default {
       this.drawTag();
       this.setupHeaderAnchor();
     });
+  },
+  destroyed() {
+    document.removeEventListener("scroll", this.scrollListener);
   },
   computed: {
     noAside() {

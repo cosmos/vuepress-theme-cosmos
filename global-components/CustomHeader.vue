@@ -20,6 +20,9 @@
 </template>
 
 <style lang="stylus" scoped>
+    .tm-title
+        margin-block 0px
+        
     .header-compact
         position fixed
         top 0

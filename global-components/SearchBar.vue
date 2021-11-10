@@ -1,7 +1,7 @@
 <template lang="pug">
     div
         .searchbar__wrapper
-            tm-breadcrumbs.searchbar__title(@visible="rsidebarVisible = $event")
+            tm-breadcrumbs.searchbar__title(v-if="$page.path != '/'")
             .search.tm-lh-title.tm-rf-1.tm-medium(@click="searchPanel = true")
                 .search__icon
                     icon-search
@@ -15,11 +15,12 @@
 
         &__wrapper
             display flex
-            justify-content space-between
+            justify-content end
             padding-block var(--spacing-4)
     
         &__title
             color var(--color-text-strong)
+            width 100%
 
     .search
         display flex
@@ -51,6 +52,9 @@
             fill var(--color-text, black)
 
     @media screen and (max-width: 480px)
+        .searchbar__wrapper
+            margin-top: 16px
+            
         .search
 
             &__text
