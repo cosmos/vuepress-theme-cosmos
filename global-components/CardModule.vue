@@ -12,12 +12,11 @@
                 a.module__actions__start(:href="this.module.url" v-on:click="toggleContent") Start here
                     icon-arrow(type="right").start-icon
         .module__submodules(v-show="expanded")
-            .module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)")
+            a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
                 .module__submodules__item__badge(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                 .module__submodules__item__content
-                    a(:href="submodule.url")
-                        h5.module__submodules__item__content__title {{submodule.title}}
-                            icon-arrow(type="right").start-icon
+                    h5.module__submodules__item__content__title {{submodule.title}}
+                        icon-arrow(type="right").start-icon
                     .module__submodules__item__content__desc {{submodule.description}}
 </template>
 
