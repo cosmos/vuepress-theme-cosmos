@@ -3,10 +3,9 @@
         .header__nav
             .header__nav__logo
                 a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                    component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                    img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
+                    img.header__nav__logo__image(:src="$themeConfig.footer.logo")
             .header__nav__actions
-                h4.header__nav__actions__title Cosmos Academy
+                h5.header__nav__actions__title Cosmos Academy
                 //- .header__nav__actions__item(v-for="item in navItems")
                 //-     a.overline-label(:href="item.url") {{item.name}}
             .header__nav__links
@@ -34,7 +33,7 @@
             justify-content space-between
             border-bottom 1px solid var(--semi-transparent-color-2)
             padding-inline 128px
-            padding-block 24px
+            padding-block 16px
 
             @media screen and (max-width: 480px)
                 padding-inline 24px
@@ -44,6 +43,11 @@
 
             &__logo
                 filter var(--img-filter)
+
+                &__image
+                    margin-block 0px
+                    display block
+                    width auto
 
             &__links
                 display flex
@@ -128,6 +132,9 @@ export default {
             this.sidebarOpened = !this.sidebarOpened;
             this.$emit('mobileSidebar', this.sidebarOpened);
         }
+    },
+    mounted() {
+        console.log(this.$themeConfig.footer.logo)
     }
 }
 </script>

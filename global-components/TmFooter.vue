@@ -13,8 +13,7 @@
           .logo
             .logo__item
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
+                img(:src="$themeConfig.footer.logo").logo__item__image
             .logo__item.logo__item__privacy
               a.logo__item__anchor Privacy
               a.logo__item__anchor Trademark
@@ -137,6 +136,9 @@
       &:last-child
         margin-right 0px
 
+    &__image
+      margin-block auto
+
   &__image
     display inline-block
     min-height 2rem
@@ -144,7 +146,6 @@
     max-width 12.5rem
     cursor pointer
     border-right 1px solid var(--semi-transparent-color-2)
-    padding-right 24px
     margin-right 24px
 
     img

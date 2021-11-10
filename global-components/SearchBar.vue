@@ -16,7 +16,7 @@
         &__wrapper
             display flex
             justify-content space-between
-            padding-block 24px
+            padding-block 16px
     
         &__title
             color var(--color-text-strong)
