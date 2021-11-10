@@ -3,7 +3,7 @@
         //- .mode-switch-container
         //-     .mode-switch-container__wrapper
         //-         tm-mode-switch
-        custom-header(@mobileSidebar="$emit('sidebar', $event)")
+        custom-header(@mobileSidebar="$emit('sidebar', $event)" :hideMobileMenu="hideMobileMenu")
         .custom__layout__content
             slot
 
@@ -49,3 +49,10 @@
                 padding-inline 48px
 
 </style>
+
+
+<script>
+    export default {
+        props: ["hideMobileMenu"]
+    }
+</script>

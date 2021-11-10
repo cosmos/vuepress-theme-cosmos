@@ -68,12 +68,12 @@
   &__item
     position relative
     display none
+    padding 14px
 
     &__icon
       cursor pointer
       width 1.5rem
       height 1.5rem
-      padding 0.75rem
       border-radius 0.25rem
       fill var(--color-text)
 

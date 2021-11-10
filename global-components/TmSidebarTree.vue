@@ -17,7 +17,7 @@
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
         icon-arrow.item__icon(v-if="level < 1" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
-        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
+        div(:style="{'padding-left': `${1*level}rem`, 'margin-right': '15px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
         .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")

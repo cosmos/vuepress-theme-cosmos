@@ -13,7 +13,7 @@
                 a.tm-link.tm-rf-1
                     span Get ATOM
                     icon-arrow(type="right").icon-external
-            .header__nav__mobile__menu(@click="toggleSidebar")
+            .header__nav__mobile__menu(@click="toggleSidebar" v-if="!hideMobileMenu")
                 icon-menu
         .header__search
             search-bar
@@ -22,7 +22,7 @@
 <style lang="stylus" scoped>
     .tm-title
         margin-block 0px
-        
+
     .header-compact
         position fixed
         top 0
@@ -88,7 +88,7 @@
                 display none
                 
             &__links
-                display none
+                margin-block auto
 
             &__mobile__menu
                 display flex
@@ -96,6 +96,7 @@
 
 <script>
 export default {
+    props: ["hideMobileMenu"],
     data() {
         return {
             sidebarOpened: false,
@@ -117,8 +118,7 @@ export default {
     },
     methods: {
         toggleSidebar() {
-            this.sidebarOpened = !this.sidebarOpened;
-            this.$emit('mobileSidebar', this.sidebarOpened);
+            this.$emit('mobileSidebar', true);
         }
     }
 }
