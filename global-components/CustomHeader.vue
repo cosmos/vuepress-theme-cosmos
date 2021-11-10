@@ -135,9 +135,6 @@ export default {
             this.sidebarOpened = !this.sidebarOpened;
             this.$emit('mobileSidebar', this.sidebarOpened);
         }
-    },
-    mounted() {
-        console.log(this.$themeConfig.footer.logo)
     }
 }
 </script>

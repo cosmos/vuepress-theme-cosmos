@@ -47,6 +47,9 @@
         display flex
         justify-content space-between
 
+        .overline-label
+            margin-top 10px
+
         &__wrapper
             display flex
             flex-direction column
@@ -132,9 +135,17 @@
                 margin-top 8px
                 font-size 21px
 
+    @media screen and (max-width: 1024px)
+        .module
+            .overline-label
+                margin-top 5px
+
     @media screen and (max-width: 480px)
         .module
             flex-direction column
+
+            .overline-label
+                margin-top 0px
 
             &__wrapper
                 padding 32px
