@@ -1,7 +1,7 @@
 <template lang="pug">
     div
         .searchbar__wrapper
-            tm-breadcrumbs.searchbar__title(@visible="rsidebarVisible = $event")
+            tm-breadcrumbs.searchbar__title(:style="{ visibility: $page.path == '/' ? 'hidden' : 'visible' }")
             .search(@click="searchPanel = true")
                 .search__icon
                     icon-search
