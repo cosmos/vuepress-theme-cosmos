@@ -1,9 +1,11 @@
 <template lang="pug">
   div
     .container
-      .crumbs
-        router-link(to="/").crumbs__item {{$site.title || 'Home'}}
-        router-link(:to="item.path" v-if="item.title" v-for="item in breadcrumbs").crumbs__item {{item.title}}
+      .crumbs.tm-title.tm-lh-title.tm-bold
+        .crumbs__item
+          router-link(to="/").crumbs__link.tm-link {{$site.title || 'Home'}}
+        .crumbs__item(v-for="item in breadcrumbs" v-if="item.title")
+          router-link(:to="item.path").crumbs__link.tm-link {{item.title}}
       .menu
         .menu__item(:style="{visibility: $page.headers && $page.headers.length > 0 ? 'visible' : 'hidden'}")
           svg(:class="[`menu__item__icon__active__${tocShow}`]" width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @click="click").menu__item__icon
@@ -44,13 +46,6 @@
 
   &__item
     display inline-block
-    font-size 0.8125rem
-    outline-color var(--color-primary, blue)
-
-    &:hover:not(:last-child)
-      color var(--color-link, blue)
-      &:after
-        color var(--color-text, black)
 
     &:after
       content '/'
@@ -58,11 +53,14 @@
       padding-right 0.25rem
 
     &:last-child
-      opacity 0.667
-      cursor default
+      pointer-events: none
+      font-weight normal
 
       &:after
         content ''
+
+  &__link
+    outline-color var(--color-primary, blue)
 
 .menu
   height 3rem

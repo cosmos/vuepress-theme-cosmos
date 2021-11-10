@@ -13,10 +13,11 @@
           .logo
             .logo__item
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                img(:src="$themeConfig.footer.logo").logo__item__image
+                component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
+                img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .logo__item.logo__item__privacy
-              a.logo__item__anchor Privacy
-              a.logo__item__anchor Trademark
+              a.logo__item__anchor.tm-link Privacy
+              a.logo__item__anchor.tm-link Trademark
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
@@ -24,9 +25,9 @@
           .smallprint(v-if="$themeConfig.footer")
             //- .smallprint__item.smallprint__item__links
             //-   a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.info-label.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
-            .smallprint__item__desc.info-label.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") Cosmos is a registered trademark of the 
-              a(href="https://interchain.io/") Interchain Foundation.            
+            .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
+            .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") Cosmos is a registered trademark of the 
+              a(href="https://interchain.io/").tm-link Interchain Foundation.            
 </template>
 
 <style lang="stylus" scoped>
@@ -92,10 +93,11 @@
       margin-bottom 0.5rem
       align-self flex-start
       color var(--semi-transparent-color-3, inherit)
+      transition color .2s ease-out
 
       &:hover,
       &:focus
-        color var(--color-link, inherit)
+        color var(--title)
 
     &__links
       display flex
@@ -104,7 +106,8 @@
       justify-content space-between
 
 .accordion__title__icon
-  display none
+  &.icon
+    display none
 
 .footer__wrapper
   margin 0 auto
@@ -115,8 +118,13 @@
   padding-top 24px
   display flex
   justify-content space-between
+  align-items center
 
   filter var(--img-filter)
+
+  svg
+    max-width: 6.140625rem
+    height auto
 
   &__item
     padding 1.5rem 0
@@ -136,17 +144,16 @@
       &:last-child
         margin-right 0px
 
-    &__image
-      margin-block auto
-
   &__image
     display inline-block
-    min-height 2rem
-    max-height 3rem
-    max-width 12.5rem
+    // min-height 2rem
+    // max-height 3rem
+    // max-width 12.5rem
     cursor pointer
     border-right 1px solid var(--semi-transparent-color-2)
+    padding-right 24px
     margin-right 24px
+    font-size 0
 
     img
       max-height 100%
@@ -165,9 +172,6 @@
     color var(--color-text-strong, #ccc)
 
   &__item
-    padding 1rem 0
-    font-weight 600
-
     &__links
       color var(--color-link)
       font-size 0.875rem
@@ -176,11 +180,11 @@
         margin-right 16px
 
         svg
-          transition fill .15s ease-out
+          transition opacity .15s ease-out
 
         &:hover svg,
         &:focus svg
-          fill var(--semi-transparent-color)
+          opacity .75
 
 @media screen and (max-width: 732px)
   .questions
@@ -217,6 +221,8 @@
         margin-block auto
         width 15px
         height 15px
+        &.icon
+          display block
 
         &__opened
           transform: rotate(180deg);

@@ -1,0 +1,100 @@
+/*
+
+   TYPOGRAPHY
+   http://tachyons.io/docs/typography/measure/
+
+   Media Query Extensions:
+     -m-up = medium upwards
+     -m  = medium
+     -l-up = large
+
+*/
+
+/* Overline type style */
+.tm-overline
+  css-lock('letter-spacing', 0, $letter-spacing-wide-base, $letter-spacing-wide-max, 'em')
+  text-transform uppercase
+
+/* Paragraph spacing */
+p + p
+  margin-top 1em
+
+/* Measure is limited to ~66 characters */
+.tm-measure
+  max-width $measure-3
+
+/* Measure is limited to ~80 characters */
+.tm-measure-wide
+  max-width $measure-4
+
+/* Measure is limited to ~54 characters */
+.tm-measure-narrow
+  max-width $measure-2
+
+/* Measure is limited to ~45 characters */
+.tm-measure-narrower
+  max-width $measure-1
+
+@media $breakpoint-medium
+  .tm-measure-m-up
+    max-width $measure-3
+  .tm-measure-wide-m-up
+    max-width $measure-4
+  .tm-measure-narrow-m-up
+    max-width $measure-2
+  .tm-measure-narrower-m-up
+    max-width $measure-1
+
+@media $breakpoint-medium-only
+  .tm-measure-m
+    max-width $measure-3
+  .tm-measure-wide-m
+    max-width $measure-4
+  .tm-measure-narrow-m
+    max-width $measure-2
+  .tm-measure-narrower-m
+    max-width $measure-1
+
+@media $breakpoint-large
+  .tm-measure-l-up
+    max-width $measure-3
+  .tm-measure-wide-l-up
+    max-width $measure-4
+  .tm-measure-narrow-l-up
+    max-width $measure-2
+  .tm-measure-narrower-l-up
+    max-width $measure-1
+
+h1
+  color var(--title)
+  font-weight var(--font-weight-bold-6)
+  font-size var(--font-size-6)
+  line-height var(--letter-spacing-bold-2)
+  letter-spacing var(--letter-spacing-bold-6)
+
+h2
+  color var(--title)
+  font-weight var(--font-weight-bold-4)
+  font-size var(--font-size-4)
+  line-height var(--line-height-title-4)
+
+h3
+  color var(--title)
+  font-weight: var(--font-weight-bold-3)
+  font-size: var(--font-size-3)
+  line-height: var(--line-height-title-3)
+  letter-spacing: var(--letter-spacing-bold-3)
+
+h4
+  color var(--title)
+  font-weight: var(--font-weight-bold-2)
+  font-size: var(--font-size-2)
+  line-height: var(--line-height-title-2)
+  letter-spacing: var(--letter-spacing-bold-2)
+
+h5
+  color: var(--title)
+  font-weight: var(--font-weight-bold-1)
+  font-size: var(--font-size-1)
+  line-height: var(--line-height-title-1)
+  letter-spacing: var(--letter-spacing-bold-1)

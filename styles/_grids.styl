@@ -1,0 +1,32 @@
+/*
+
+   GRIDS
+
+*/
+
+:root
+  --grid-gap-x var(--spacing-5)
+
+.tm-grid-base
+  display grid
+  grid-template-columns repeat(4, 1fr)
+  gap 0 var(--grid-gap-x)
+
+.grid-col-2
+  display grid
+  grid-template-columns repeat(1, 1fr)
+
+@media $breakpoint-small
+  .grid-col-2
+    grid-template-columns repeat(2, 1fr)
+
+@media $breakpoint-medium
+  :root
+    --grid-gap-x var(--spacing-7)
+
+  .tm-grid-base
+    grid-template-columns repeat(8, 1fr)
+
+@media $breakpoint-xl
+  .tm-grid-base
+    grid-template-columns repeat(12, 1fr)
