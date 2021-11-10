@@ -344,11 +344,14 @@
     text-decoration underline
 
   img
-    width 100%
+    max-width 100%
+    width auto
     height auto
     display block
     margin-bottom 2rem
     margin-top 2rem
+    max-height 60vh
+    margin-inline auto
 
   .tooltip
 
