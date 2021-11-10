@@ -12,7 +12,7 @@
                 a.module__actions__start(:href="this.module.url" v-on:click="toggleContent") Start here
                     icon-arrow(type="right").start-icon
         .module__submodules(v-show="expanded")
-            .module__submodules__item(v-for="submodule in this.module.submodules")
+            .module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)")
                 .module__submodules__item__badge(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                 .module__submodules__item__content
                     a(:href="submodule.url")
