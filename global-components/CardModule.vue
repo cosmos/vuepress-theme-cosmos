@@ -22,10 +22,10 @@
 
 <script>
     export default {
-        props: ['module'],
+        props: ['module', 'startExpanded'],
         data() {
             return {
-                expanded: false
+                expanded: this.startExpanded || false
             };
         },
         methods: {
