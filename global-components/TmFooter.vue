@@ -4,12 +4,13 @@
       .container
         .footer__wrapper
           tm-newsletter-form(v-if="$themeConfig.footer")
-          .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
-            .links__item.accordion(v-for="(item, index) in $themeConfig.footer.links" @click="onAccordionClick(index)")
-              .links__item__title.accordion__title {{item.title}}
-                icon-arrow(type="bottom").accordion__title__icon(:class="selectedAccordion == index ? 'accordion__title__icon__opened' : ''")
-              .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
-                a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
+          .links__container(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
+            .links
+              .links__item.accordion(v-for="(item, index) in $themeConfig.footer.links" @click="onAccordionClick(index)")
+                .links__item__title.accordion__title {{item.title}}
+                  icon-arrow(type="bottom").accordion__title__icon(:class="selectedAccordion == index ? 'accordion__title__icon__opened' : ''")
+                .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
+                  a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
             .logo__item
               a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
@@ -72,11 +73,15 @@
   justify-content space-between
   padding-top 96px
   padding-bottom 48px
+  max-width 48.5rem
+  margin auto
 
-  @media screen and (min-width: 481px)
-    border-bottom 1px solid var(--semi-transparent-color-2)
+  &__container
+    @media screen and (min-width: 481px)
+      border-bottom 1px solid var(--semi-transparent-color-2)
 
   &__item
+    // min-width 11rem
 
     &__title
       font-weight 500

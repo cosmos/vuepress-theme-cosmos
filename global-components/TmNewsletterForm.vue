@@ -1,91 +1,348 @@
 <template lang="pug">
-  form(action="https://app.mailerlite.com/webforms/submit/u7o3l7" data-code="u7o3l7" method="POST" target="_blank" rel="noreferrer noopener").newsletter__form__component__internal
-    .newsletter__desc
-      .newsletter__desc__h1
-        h4(for="newsletter-email-input") Get Cosmos updates
-      .info-label Unsubscribe at any time. Privacy Policy
-    .newsletter__input
-      .newsletter__input__input
-        input(type="email" required name="fields[email]" id="newsletter-email-input" placeholder="Enter your email").newsletter__input__input__el
-        button(type="submit").newsletter__input__input__button
-          icon-arrow(type="right").newsletter__input__input__button__icon
-        input(type="hidden" name="ml-submit" value="1")
+  .wizard
+    .wizard__inner
+      transition(name="fade")
+        // Step 0
+        div(v-if='step === 0' ref='step0' key='step0').tm-grid-base
+          .wizard-col
+            h4
+              label(for='field-email') Get Cosmos updates
+            p.mt-3.tm-lh-title.tm-rf-1.tm-medium.tm-muted Unsubscribe at any time.
+              | 
+              a.tm-link.tm-link-external(href='https://v1.cosmos.network/privacy' target="_blank")
+                span Privacy Policy
+
+          .wizard-col
+            .form.tm-center
+              .form__input
+                input#field-email.form__input__input.tm-rf0.tm-lh-copy.tm-title(v-model='email' name='fields[email]' type='email' placeholder='Enter your email' required='required' @keypress.enter='actionGoForwards')
+                button.form__input__button(type='submit' :disabled='emailInvalid' @click.prevent='actionGoForwards')
+                  span.sr-only Next
+                  icon-arrow(type="right").newsletter__input__input__button__icon
+
+        // Step 1
+        div(v-if='step === 1' ref='step1' key='step1').tm-grid-base
+          .wizard-col._top
+            button.tm-link.tm-title.tm-lh-title.tm-medium.tm-rf0(@click.prevent='actionGoBackwards') &larr; Back
+            h4.mt-5 Which product updates would you like to receive?
+            .signup-graphics
+              img(src="/signup-mails.svg")
+          
+          .wizard-col._top
+            .card-checkbox-list
+              label.card-checkbox.mb-5(v-for='(topic, i) in topics' :key='topic.title')
+                input.card-checkbox__input(tabindex="0" v-model='selected' type="checkbox" :value="topic.title" :id="`selected_${i}`")
+                .card-checkbox__icon
+                .card-checkbox__container
+                  .tm-title.tm-rf0.tm-bold.tm-lh-title {{ topic.title }}
+                  .tm-rf-1.tm-lh-copy.mt-3.tm-muted {{ topic.desc }}
+            .btns-group.mt-6
+              button.tm-button.btn(:disabled='!selected.some((t) => t)' @click.prevent='actionSubscribe') Sign up
+
+        // Step 2
+        div(v-if='step === 2' ref='step2' key='step2').tm-grid-base
+          .wizard-col._top
+            h4
+              | Almost there!
+              br
+              | Confirm your email
+            img.success-graphics(src='/success-mails.svg')
+          .wizard-col._top
+            p.tm-rf0.tm-lh-copy.tm-title
+              | You should get a confirmation email for each of your selected
+              | interests. Open it up and click
+              span ‘Confirm your email’
+              | so we can keep you updated.
+            p.tm-rf-1.tm-lh-title.tm-text
+              | Don&rsquo;t see the confirmation email yet?
+            p.tm-rf-1.tm-lh-title.tm-muted
+              | It might be in your spam folder.
+              br
+              | If so, make sure to mark it as &quot;not spam&quot;.
 </template>
 
+<script>
+import { find, without, last } from "lodash";
+import querystring from 'querystring'
+import validateEmail from 'email-validator'
+
+export default {
+  data() {
+    return {
+      step: 0,
+      email: null,
+      selected: [],
+      requestURL: 'https://app.mailerlite.com/webforms/submit/o0t6d7',
+      commonFormData: {
+        'ml-submit': '1',
+        ajax: '1',
+        guid: '6ca22b31-4124-e926-cf4f-272ff9f44ec3',
+      },
+      topics: [
+        {
+          title: 'Ecosystem & Community',
+          desc:
+            'General news and updates from the Cosmos ecosystem and community.',
+          requestURL: 'https://app.mailerlite.com/webforms/submit/o0t6d7',
+          callback: 'jQuery18307296239382192573_1594158619276',
+          _: '1594158625563',
+          groups: '108606610',
+        },
+        {
+          title: 'Tools & Technology',
+          desc:
+            'Engineering and development updates on Cosmos SDK, Tendermint, IBC and more.',
+          requestURL: 'https://app.mailerlite.com/webforms/submit/o0t6d7',
+          callback: 'jQuery18307296239382192573_1594158619276',
+          _: '1594158625563',
+          groups: '108606910',
+        },
+      ],
+    }
+  },
+  computed: {
+    emailInvalid() {
+      return !validateEmail.validate(this.email)
+    },
+  },
+  methods: {
+    actionGoForwards() {
+      this.step += 1
+    },
+    actionGoBackwards() {
+      this.step -= 1
+    },
+    actionSubmitEmail() {
+      if (!this.emailInvalid) {
+        if (this.topics.length <= 0) {
+          this.actionSubscribe()
+          this.step = 2
+        } else {
+          this.actionGoForwards()
+        }
+      }
+    },
+    actionSubscribe() {
+      if (this.topics.length <= 0) {
+        this.subscribe({
+          requestURL: this.requestURL,
+          callback: this.callback,
+          _: this._,
+          'groups[]': this.groups,
+        })
+      } else {
+        this.selected.forEach((topicSelected, i) => {
+          if (topicSelected) {
+            this.subscribe({
+              requestURL: this.topics[i].requestURL,
+              callback: this.topics[i].callback,
+              _: this.topics[i]._,
+              'groups[]': this.topics[i].groups,
+            })
+          }
+        })
+      }
+      this.actionGoForwards()
+    },
+    async subscribe(body) {
+      const options = {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: querystring.stringify({
+          'fields[email]': this.email,
+          ...this.commonFormData,
+          ...body,
+        }),
+      }
+      await fetch(this.requestURL, options)
+    },
+  }
+};
+</script>
+
 <style lang="stylus" scoped>
-.newsletter__form__component__internal
-  display flex
-  align-items center
-  justify-content space-between
-  background-color var(--background-color-primary)
+.fade-enter-active
+  transition all .4s ease-out
+
+.fade-leave-active
+  position absolute
+  top 0
+  left 0
+  width 100%
+  transition all .2s ease-out
+
+.fade-enter
+  opacity 0
+  transform translateY(.5rem)
+
+.fade-enter-to
+  opacity 1
+  transform translateY(0)
+
+.fade-leave
+  opacity 1
+  transform scale(1)
+
+.fade-leave-to
+  opacity 0
+  transform scale(.96)
+
+.wizard
+  position relative
+  margin-top var(--spacing-10)
+  padding-top var(--spacing-9)
+  padding-bottom var(--spacing-9)
   border-bottom 1px solid var(--semi-transparent-color-2)
-  padding-block 36px
-  padding-inline 24px
+  &__inner
+    max-width 48.5rem
+    margin auto
 
-  @media screen and (min-width: 1025px)
-    padding-inline 100px
+.wizard-col
+  position relative
+  z-index 1
+  display flex
+  flex-direction: column
+  justify-content center
+  height 100%
+  grid-column 1/-1
+  @media screen and (min-width: 768px)
+    grid-column span 4
+  @media screen and (min-width: 1200px)
+    grid-column: span 6
+  &._top
+    justify-content flex-start
 
-  @media screen and (max-width: 480px)
-    flex-direction column
-    padding-block 24px
-    margin-inline -24px
+.title-short
+  max-width 42rem
+  @media $breakpoint-xl
+    max-width 45rem
 
+.title
+  max-width 55rem
 
-.newsletter
-
+.form
+  width 100%
+  margin-top var(--spacing-6)
+  @media screen and (min-width: 768px)
+    margin-top 0
+  &__group
+    position relative
   &__input
-    width 50%
-    margin-block 32px
-    padding-left 24px
-
-    &__input
-      background var(--background-color-secondary)
-      padding-inline 16px
-      padding-block 10px
-      border-radius 8px
-      color var(--color-text-strong)
+    display flex
+    position relative
+    align-items center
+    justify-content center
+    &__button
+      position absolute
       display flex
-
-      &__button
-        color var(--color-text-strong)
-        cursor pointer
-        background none
-        border none
-
-        &__icon
-          margin-block auto
-          margin-left 10px
-          width 15px
-          height 15px
-
-      &__el
-        border none
-        width 100%
-        outline none
-        padding .5rem
-        background none
-        color var(--color-text-strong)
-
-  &__desc
-    width 50%
-
-    &__h1
-      margin-bottom 10px
-
-@media screen and (max-width: 480px)
-  .info-label
-    text-align center
-  
-  .newsletter
-
+      align-items center
+      justify-content center
+      right 0
+      width 2.5rem
+      appearance none
+      background none
+      border none
+      padding var(--spacing-5)
+      border-radius .5rem
+      cursor pointer
+      outline none
+      opacity .8
+      transition opacity .15s ease-out, transform .15s ease-out
+      @media screen and (min-width: 768px)
+        width 3.5rem
+      &:hover,
+      &:focus
+        opacity 1
+        transform scale(1.05)
+      &:disabled
+        opacity 0.65
+        pointer-events none
     &__input
+      outline none
       width 100%
-      padding-left 0px
+      height 3rem
+      border none
+      border-radius .5rem
+      padding var(--spacing-3) 4rem var(--spacing-3) var(--spacing-5)
+      transition color 0.15s ease-out, background 0.15s ease-out
+      background var(--background-color-secondary)
+      &::placeholder
+        color var(--semi-transparent-color-2)
+        transition color 0.15s ease-out
+      &:hover
+        &:not(:focus)::placeholder
+          color var(--semi-transparent-color-3)
 
-    &__desc
-      width 100%
+.signup-graphics
+  position relative
+  z-index -1
+  margin-top: -6rem
 
-      &__h1
-        text-align center
-      
+.success-graphics
+  position relative
+  position relative
+  margin-top -2rem
+
+.card-checkbox
+  position relative
+  overflow hidden
+  display block
+  background-color var(--background-color-secondary)
+  border-radius 1.25rem
+  padding 1.95rem
+  padding-right 3.45rem
+  user-select none
+  cursor pointer
+  transform none
+  transition background-color 0.25s, border-color 0.25s,
+    box-shadow 0.15s ease-out, transform 0.15s ease-out
+  box-sizing border-box
+  outline none
+  &:hover
+    transform translateY(-2px)
+  &:hover,
+  &:focus
+    box-shadow 0px 12px 24px rgba(0, 0, 0, 0.07), 0px 4px 8px rgba(0, 0, 0, 0.05), 0px 1px 0px rgba(0, 0, 0, 0.05)
+    .card-checkbox
+      &__icon
+        border-color var(--title)
+  input
+    position absolute
+    right 0
+    top 0
+    width 0
+    height 0
+    opacity 0
+    &:checked
+      opacity .1
+      ~ .card-checkbox
+        &__icon
+          border-color var(--muted)
+          background-color var(--muted)
+          &:after
+            opacity 1
+  &__icon
+    position absolute
+    top 1.95rem
+    right 1.95rem
+    width: 1.5rem
+    height: 1.5rem
+    border 1px solid var(--muted)
+    border-radius 100%
+    transition background-color 0.25s, border-color 0.25s
+    &:after
+      content ''
+      position absolute
+      opacity 0
+      top 0.3rem
+      left 0.25rem
+      width .8rem
+      height .5rem
+      border-left 2px solid var(--background-color-secondary)
+      border-bottom 2px solid var(--background-color-secondary)
+      transition opacity 0.25s
+      transform rotate(-45deg)
 </style>
