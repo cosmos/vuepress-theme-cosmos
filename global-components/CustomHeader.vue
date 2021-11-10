@@ -32,14 +32,17 @@
             display flex
             justify-content space-between
             border-bottom 1px solid var(--semi-transparent-color-2)
-            padding-inline 128px
+            padding-left 112px
+            padding-right 128px
             padding-block 16px
 
             @media screen and (max-width: 480px)
-                padding-inline 24px
+                padding-right 24px
+                padding-left 8px
             
             @media screen and (min-width: 480px) and (max-width: 1024px)
-                padding-inline 48px
+                padding-right 48px
+                padding-left 32px
 
             &__logo
                 filter var(--img-filter)
