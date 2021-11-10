@@ -1,13 +1,18 @@
 <template lang="pug">
   div
-    cookie-banner
-    tm-top-banner(v-bind="{topBanner}")
+    cookie-banner.banner
+    tm-top-banner(v-bind="{topBanner}").banner
     div
       component(:is="layout" :key="$route.path")
         Content
     client-only
       tm-script(src="https://www.bugherd.com/sidebarv2.js?apikey=ur38l8q2fpx6bfcgubgodw" async="true")
 </template>
+
+<style lang="stylus" scoped>
+  .banner
+    color black
+</style>
 
 <script>
 import { CookieBanner } from "@cosmos-ui/vue";
