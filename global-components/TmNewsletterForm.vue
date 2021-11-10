@@ -19,11 +19,11 @@
   justify-content space-between
   background-color var(--background-color-primary)
   border-bottom 1px solid var(--semi-transparent-color-2)
-  padding-block 64px
+  padding-block 36px
   padding-inline 24px
 
   @media screen and (min-width: 1025px)
-    padding-inline 50px
+    padding-inline 100px
 
   @media screen and (max-width: 480px)
     flex-direction column

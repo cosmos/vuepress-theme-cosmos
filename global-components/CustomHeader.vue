@@ -3,14 +3,16 @@
         .header__nav
             .header__nav__logo
                 a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                    img.header__nav__logo__image(:src="$themeConfig.footer.logo")
+                    component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
+                    img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .header__nav__actions
-                h5.header__nav__actions__title Cosmos Academy
+                h4.tm-title.tm-rf2.tm-lh-title.tm-medium Cosmos Academy
                 //- .header__nav__actions__item(v-for="item in navItems")
-                //-     a.overline-label(:href="item.url") {{item.name}}
+                //-     a.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(:href="item.url") {{item.name}}
             .header__nav__links
-                a.overline-label Get ATOM
-                icon-arrow(type="right").header__nav__links__icon
+                a.tm-link.tm-rf-1
+                    span Get ATOM
+                    icon-arrow(type="right").icon-external
             .header__nav__mobile__menu(@click="toggleSidebar")
                 icon-menu
         .header__search
@@ -25,47 +27,34 @@
         z-index 999999
         width 100%
         background var(--background-color-primary)
+    
+    .logo__image
+        svg
+            max-width 6.140625rem
+            height auto
 
     .header
             
         &__nav
             display flex
             justify-content space-between
+            align-items baseline
             border-bottom 1px solid var(--semi-transparent-color-2)
-            padding-left 112px
-            padding-right 128px
-            padding-block 16px
+            padding-inline 128px
+            padding-block 24px
 
             @media screen and (max-width: 480px)
-                padding-right 24px
-                padding-left 8px
+                padding-inline 24px
             
             @media screen and (min-width: 480px) and (max-width: 1024px)
-                padding-right 48px
-                padding-left 32px
+                padding-inline 48px
 
             &__logo
                 filter var(--img-filter)
 
-                &__image
-                    margin-block 0px
-                    display block
-                    width auto
-
             &__links
                 display flex
-                margin-block auto
-
-                &__icon
-                    margin-block auto
-                    margin-left 5px
-                    width 15px
-                    height 15px
-
-                .overline-label
-                    text-transform none
-                    color var(--color-text-strong)
-                    width max-content
+                white-space nowrap
 
             &__actions
                 display flex
@@ -74,13 +63,6 @@
 
                 &__item
                     padding-inline 16px
-                    margin-block auto
-
-                .overline-label
-                    text-transform none
-                    color var(--color-text-strong)
-
-                &__title
                     margin-block auto
 
             &__mobile__menu

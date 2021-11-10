@@ -1,0 +1,30 @@
+_generate-margin-top($size)
+  margin-top 'var(--spacing-%s)' % $size
+
+_generate-margin-bottom($size)
+  margin-bottom 'var(--spacing-%s)' % $size
+
+_generate-margin-x($size)
+  margin-top 'var(--spacing-%s)' % $size
+  margin-bottom 'var(--spacing-%s)' % $size
+
+// margin-top
+:root
+  for $size in 1...13
+    .mt-{$size}
+      _generate-margin-top($size)
+
+// margin-bottom
+:root
+  for $size in 1...13
+    .mb-{$size}
+      _generate-margin-bottom($size)
+
+// margin-top
+// margin-bottom
+:root
+  for $size in 1...13
+    .mx-{$size}
+      _generate-margin-x($size)
+
+// TODO: add my if needed

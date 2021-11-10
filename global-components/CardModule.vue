@@ -1,7 +1,7 @@
 <template lang="pug">
     .module__wrapper(v-on:click="toggleContent")
         .module
-            .overline-label module {{this.module.number}}
+            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2 module {{this.module.number}}
             .module__content
                 h4.module__content__title {{this.module.title}}
                 .module__content__desc {{this.module.description}}
@@ -9,14 +9,14 @@
                 .module__actions__toggle
                     .module__actions__toggle__label(v-text="expanded ? 'Hide contents' : 'Show contents'")
                     icon-arrow(type="right" :class="expanded ? 'hide-icon' : 'show-icon'")
-                a.module__actions__start(:href="this.module.url" v-on:click="toggleContent") Start here
-                    icon-arrow(type="right").start-icon
+                a.tm-link.tm-link-disclosure(:href="this.module.url" v-on:click="toggleContent")
+                    span Start here
         .module__submodules(v-show="expanded")
             a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
-                .module__submodules__item__badge(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
+                .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                 .module__submodules__item__content
-                    h5.module__submodules__item__content__title {{submodule.title}}
-                        icon-arrow(type="right").start-icon
+                    h5.tm-link.tm-link-disclosure
+                        span {{submodule.title}}
                     .module__submodules__item__content__desc {{submodule.description}}
 </template>
 
@@ -46,9 +46,6 @@
         display flex
         justify-content space-between
 
-        .overline-label
-            margin-top 10px
-
         &__wrapper
             display flex
             flex-direction column
@@ -72,7 +69,6 @@
 
                 &__badge
                     border-radius 8px
-                    margin-block auto
                     padding 8px
                     flex-shrink 0
 
@@ -134,17 +130,9 @@
                 margin-top 8px
                 font-size 21px
 
-    @media screen and (max-width: 1024px)
-        .module
-            .overline-label
-                margin-top 5px
-
     @media screen and (max-width: 480px)
         .module
             flex-direction column
-
-            .overline-label
-                margin-top 0px
 
             &__wrapper
                 padding 32px

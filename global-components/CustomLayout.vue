@@ -7,7 +7,7 @@
         .custom__layout__content
             slot
 
-        .custom__layout__footer
+        .custom__layout__footer.mt-10
             tm-footer(full="true")
 </template>
 
@@ -27,8 +27,9 @@
 
         &__footer
             padding-inline 128px
-            max-width var(--content-max-width) 
-            margin auto
+            max-width var(--content-small-max-width) 
+            margin-left auto
+            margin-right auto
 
             @media screen and (max-width: 480px)
                 padding-inline 24px

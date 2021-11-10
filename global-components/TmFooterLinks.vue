@@ -2,14 +2,14 @@
   div
     .links
       .links__wrapper
-        .overline-label(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)") previous
+        .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)") previous
         .links__content(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
           router-link.links__item(:to="$page.frontmatter.prev || linkPrevNext.prev.regularPath")
             .links__item__icon.links__item__icon__previous
               icon-arrow(type="right")
             h5 {{$page.frontmatter.prev || linkPrevNext.prev.title}}
       .links__wrapper
-        .overline-label(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)") up next
+        .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)") up next
         .links__content(v-if="$page.frontmatter.next || (linkPrevNext && linkPrevNext.next && linkPrevNext.next.frontmatter && linkPrevNext.next.frontmatter.order !== false)")
           router-link.links__item(:to="$page.frontmatter.next || linkPrevNext.next.regularPath")
             h5 {{$page.frontmatter.next || linkPrevNext.next.title}}

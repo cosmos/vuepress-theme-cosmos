@@ -1,0 +1,68 @@
+/*
+
+   LINKS
+   Docs: http://tachyons.io/docs/elements/links/
+
+*/
+
+.tm-button
+  display inline-flex
+  align-items center
+  justify-content center
+  height: 4.3125rem
+  padding-left 4rem
+  padding-right 4rem
+  border-radius: .7rem
+  color var(--background-color-primary)
+  cursor pointer
+  text-decoration none
+  transition all .2s $ease-out
+  word-break break-word
+  background-color var(--color-text-strong)
+  font-weight var(--font-weight-medium-1)
+  letter-spacing var(--letter-spacing-bold-1)
+  font-size var(--font-size-1)
+  > *
+    white-space nowrap
+
+.tm-button:hover
+  // color var(--link-hover)
+  opacity 0.8
+  transition all .2s $ease-out, opacity .4s ease-out
+
+.tm-button:active
+  opacity 0.7
+  transition-duration 0s
+
+.tm-definition
+  color inherit
+  border-bottom $px dotted
+  margin-bottom: -($px)
+
+/* Disclosure icons */
+.tm-button-disclosure,
+.tm-button-external
+  position relative
+
+.tm-button-disclosure:after,
+.tm-button-external:after
+  position relative
+  display inline-block
+  padding-left .375em
+  line-height 1
+  transition transform .2s $ease-out
+
+.tm-button-external:after
+  content "\2197"
+  font-size: .75em;
+
+.tm-button-disclosure:after
+  content "\2192"
+
+.tm-button:hover,
+.tm-button:focus
+  &.tm-link-external:after
+    transform translate(10%, -10%)
+
+  &.tm-button-disclosure:after
+    transform translateX(10%)

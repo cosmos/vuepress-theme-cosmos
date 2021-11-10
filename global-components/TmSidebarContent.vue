@@ -3,7 +3,7 @@
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
-          .overline-label.title {{item.title}}
+          .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.title {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
         .sidebar.version

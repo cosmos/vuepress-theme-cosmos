@@ -1,8 +1,8 @@
 <template lang="pug">
     div
         .searchbar__wrapper
-            tm-breadcrumbs.searchbar__title(:style="{ visibility: $page.path == '/' ? 'hidden' : 'visible' }")
-            .search(@click="searchPanel = true")
+            tm-breadcrumbs.searchbar__title(@visible="rsidebarVisible = $event")
+            .search.tm-lh-title.tm-rf-1.tm-medium(@click="searchPanel = true")
                 .search__icon
                     icon-search
                 .search__text Search
@@ -16,7 +16,7 @@
         &__wrapper
             display flex
             justify-content space-between
-            padding-block 16px
+            padding-block var(--spacing-4)
     
         &__title
             color var(--color-text-strong)
@@ -24,12 +24,12 @@
     .search
         display flex
         align-items center
-        color var(--color-text)
+        color var(--link)
         cursor pointer
         transition color .15s ease-out
 
         &:hover
-            color var(--color-text, black)
+            color var(--link-hover)
 
         &__container
             visibility hidden
