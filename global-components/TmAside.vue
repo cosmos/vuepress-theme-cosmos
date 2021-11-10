@@ -82,18 +82,21 @@
     margin-bottom 0.75rem
 
   &__link
-    color var(--semi-transparent-color-3)
     padding-top 0.375rem
     padding-bottom 0.375rem
     font-size 0.875rem
     line-height 1.125rem
     word-break break-word
 
-    &__href:hover
-      color var(--color-text, black)
+    &__href
+      color var(--semi-transparent-color-3)
+
+      &:hover
+        color var(--color-text, black)
 
     &__active__true
-      color var(--color-text-strong, black)
+      .aside__link__href
+        color var(--color-text-strong, black)
 
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
