@@ -14,7 +14,7 @@
         .module__submodules(v-show="expanded")
             a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
                 .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
-                .module__submodules__item__content
+                .module__submodules__item__content(:class="submodule.tag ? 'module__submodules__item__content__margin' : ''")
                     h5.tm-link.tm-link-disclosure.module__submodules__item__content__title
                         span {{submodule.title}}
                     .module__submodules__item__content__desc {{submodule.description}}
@@ -74,9 +74,11 @@
                     height fit-content
 
                 &__content
-                    margin-left 32px
                     display flex
                     flex-direction column
+
+                    &__margin
+                        margin-left 32px
 
                     &__title
                         width fit-content
@@ -141,7 +143,8 @@
                     flex-direction column
 
                     &__content
-                        margin-left 0px
+                        &__margin
+                            margin-left 0px
 
                         &__title
                             margin-block 16px
