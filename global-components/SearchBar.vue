@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-        .searchbar__wrapper
+        .searchbar__wrapper(:class="$page.path == '/' ? 'mx-4' : ''")
             tm-breadcrumbs.searchbar__title(v-if="$page.path != '/'")
             .search.tm-lh-title.tm-rf-1.tm-medium(@click="searchPanel = true")
                 .search__icon
@@ -15,8 +15,7 @@
 
         &__wrapper
             display flex
-            justify-content end
-            padding-block var(--spacing-4)
+            justify-content flex-end
     
         &__title
             color var(--color-text-strong)
