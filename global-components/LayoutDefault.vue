@@ -995,7 +995,7 @@ export default {
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
       // document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
-      document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition == 0 ? 'block' : 'none'));
+      document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition <= 0 ? 'block' : 'none'));
       document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'));
       document.querySelector('.layout__sidebar')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
 
