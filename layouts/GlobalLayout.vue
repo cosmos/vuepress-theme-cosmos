@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     cookie-banner.banner
-    tm-top-banner(v-bind="{topBanner}").banner
+    //- tm-top-banner(v-bind="{topBanner}").banner
     div
       component(:is="layout" :key="$route.path")
         Content
