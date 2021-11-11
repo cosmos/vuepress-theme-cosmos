@@ -180,7 +180,7 @@
       color black
       position absolute
       top -2.4em
-      padding 7px 12px
+      padding 7px 4px
       white-space nowrap
       left 50%
       transform translateX(-50%)
