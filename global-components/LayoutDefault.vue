@@ -617,6 +617,7 @@
     height 100vh
     overflow-y scroll
     transition all 0.25s
+    scrollbar-width none
 
     &::-webkit-scrollbar
       display none
@@ -653,6 +654,7 @@
           height 100vh
           padding-top 2rem
           transition all 0.25s
+          scrollbar-width none
 
           &::-webkit-scrollbar
             display none
