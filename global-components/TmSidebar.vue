@@ -112,10 +112,10 @@ export default {
         const iOS =
           !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const sidebar = this.$refs.sidebar;
-        body.height = "100%"
-        body.overflow="hidden"
-        html.height = "100%"
-        html.overflow="hidden"
+        // body.height = "100%"
+        // body.overflow="hidden"
+        // html.height = "100%"
+        // html.overflow="hidden"
         body.overflowY = "hidden";
         // body.overflowX = "hidden";
         if (sidebar) {
@@ -128,7 +128,6 @@ export default {
         this.visibleLocal = true;
       } else {
         document.querySelector("body").style.overflowY = "";
-        document.querySelector("body").style.position = "";
       }
     }
   },
