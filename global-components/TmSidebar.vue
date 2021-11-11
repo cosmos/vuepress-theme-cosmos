@@ -135,6 +135,8 @@ export default {
   computed: {
     style() {
       return {
+        "width": this.width,
+        "max-width": this.maxWidth,
         "box-shadow": this.boxShadow || "none",
         left: this.side === "right" ? "initial" : "0",
         right: this.side === "right" ? "0" : "initial",
