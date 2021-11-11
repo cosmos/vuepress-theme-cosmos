@@ -273,9 +273,10 @@ span {
   border-radius: 0.25rem;
   position: relative;
   background: var(--background-color-secondary);
+  padding: 0.75rem;
 }
 .icons__item:active .icons__item__icon {
-  fill: var(--color-primary);
+  fill: var(--color-text-strong);
 }
 .icons__item:hover .icons__item__tooltip {
   opacity: 1;
@@ -313,12 +314,10 @@ span {
 }
 .icons__item__icon {
   fill: var(--color-text);
-  padding: 0.75rem;
   display: block;
 }
 .icons__item:hover {
-  fill: var(--color-primary);
-  background: var(--semi-transparent-color);
+  fill: var(--color-text-strong);
 }
 .footer {
   color: var(--color-text);
@@ -346,13 +345,13 @@ span {
   color: var(--color-text);
 }
 .footer__source:visited:hover {
-  color: var(--color-primary);
-  fill: var(--color-primary);
+  color: var(--color-text-strong);
+  fill: var(--color-text-strong);
 }
 .footer__source:hover {
   box-shadow: none;
-  color: var(--color-primary);
-  fill: var(--color-primary);
+  color: var(--color-text-strong);
+  fill: var(--color-text-strong);
 }
 .footer__source:active {
   color: var(--color-text);
