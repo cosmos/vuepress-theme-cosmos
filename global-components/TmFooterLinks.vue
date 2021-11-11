@@ -99,10 +99,11 @@ export default {
             if (index >= 0 && children[index - 1]) {
               result.prev = children[index - 1];
             }
+            const sortedTree = tree.sort((a, b) => a.title.localeCompare(b.title));
             if (index >= 0 && children[index + 1]) {
               result.next = children[index + 1];
-            } else if (index >= 0 && tree[i + 1] && tree[i + 1].children) {
-              result.next = find(tree[i + 1].children, x => {
+            } else if (index >= 0 && sortedTree[i + 1] && sortedTree[i + 1].children) {
+              result.next = find(sortedTree[i + 1].children, x => {
                 return x.frontmatter && x.frontmatter.order !== false;
               });
             }
