@@ -52,6 +52,7 @@
             border-radius 20px
             background-color var(--background-color-secondary)
             padding 48px
+            cursor pointer
 
         &__submodules
             display flex
