@@ -72,6 +72,7 @@
                 display none
 
         &__search
+            padding-block 8px
             padding-inline 128px
             transition all .25s linear
 

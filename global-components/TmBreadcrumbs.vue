@@ -4,7 +4,7 @@
       .crumbs.tm-title.tm-lh-title.tm-bold
         .crumbs__item
           router-link(to="/").crumbs__link.tm-link {{$site.title || 'Home'}}
-        .crumbs__item(v-for="item in breadcrumbs" v-if="item.title")
+        .crumbs__item(v-for="item in breadcrumbs" v-if="item.title && item.path")
           router-link(:to="item.path").crumbs__link.tm-link {{item.title}}
       .menu
         .menu__item(:style="{visibility: $page.headers && $page.headers.length > 0 ? 'visible' : 'hidden'}")
@@ -136,12 +136,18 @@ export default {
           return /\.html$/.test(item) ? item : `${item}/`;
         });
       crumbs = crumbs.map(item => {
+        let path = "";
         const found = find(this.$site.pages, page => {
-          return page.regularPath === item;
+          if (page.regularPath === item) {
+            return true;
+          } else if (page.regularPath === item + '01-index.html' || page.regularPath === item + 'index.html' || page.regularPath === item + '1-welcome/') {
+            path = page.regularPath;
+          }
+          return false;
         });
         const noIndex = {
           title: last(item.split("/").filter(e => e !== "")),
-          path: ""
+          path: path
         };
         return found ? found : noIndex;
       });
