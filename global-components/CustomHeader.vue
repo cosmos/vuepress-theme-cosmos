@@ -2,11 +2,11 @@
     .header
         .header__nav
             .header__nav__logo
-                a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
+                a(href="/" rel="noreferrer noopener" tag="div").logo__image
                     component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                     img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .header__nav__actions
-                h4.tm-title.tm-rf2.tm-lh-title.tm-medium Cosmos Academy
+                h4.tm-title.tm-rf2.tm-lh-title.tm-medium Cosmos Developer Portal
                 //- .header__nav__actions__item(v-for="item in navItems")
                 //-     a.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(:href="item.url") {{item.name}}
             .header__nav__links
