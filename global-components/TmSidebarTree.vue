@@ -295,7 +295,7 @@ export default {
         result = result.reduce((acc, cur) => {
           return find(acc.children || acc, ["title", cur]);
         }, this.tree);
-        return result.children || [];
+        return result?.children || [];
       }
       return [];
     },
