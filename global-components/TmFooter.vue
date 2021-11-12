@@ -27,7 +27,7 @@
             //- .smallprint__item.smallprint__item__links
             //-   a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
             .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
-            .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer && $themeConfig.footer.smallprint") Cosmos is a registered trademark of the 
+            .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer") Cosmos is a registered trademark of the 
               a(href="https://interchain.io/").tm-link Interchain Foundation.            
 </template>
 
