@@ -17,8 +17,8 @@
                 component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                 img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .logo__item.logo__item__privacy
-              a.logo__item__anchor.tm-link Privacy
-              a.logo__item__anchor.tm-link Trademark
+              a(:href="$themeConfig.footer.privacy" target="_blank").logo__item__anchor.tm-link Privacy
+              a(:href="$themeConfig.footer.trademark" target="_blank").logo__item__anchor.tm-link Trademark
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
