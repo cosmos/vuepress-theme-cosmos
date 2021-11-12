@@ -105,6 +105,7 @@ div
                         padding-inline 60px
                         width fit-content
                         margin-inline auto
+                        cursor pointer
 
     @media screen and (max-width: 480px)
         .feedback__form__content__control
