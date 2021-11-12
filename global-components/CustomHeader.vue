@@ -6,7 +6,8 @@
                     component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                     img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
             .header__nav__actions
-                h4.tm-title.tm-rf2.tm-lh-title.tm-medium Cosmos Developer Portal
+                a(href="/b9lab-content/1-welcome/")
+                    h4.tm-title.tm-rf2.tm-lh-title.tm-medium Cosmos Developer Portal
                 //- .header__nav__actions__item(v-for="item in navItems")
                 //-     a.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(:href="item.url") {{item.name}}
             .header__nav__links
@@ -22,6 +23,7 @@
 <style lang="stylus" scoped>
     .tm-title
         margin-block 0px
+        font-size var(--font-size-2)
 
     .header-compact
         position fixed
