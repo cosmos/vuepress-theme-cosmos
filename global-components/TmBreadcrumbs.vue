@@ -4,7 +4,7 @@
       .crumbs.tm-title.tm-lh-title.tm-bold
         .crumbs__item
           router-link(to="/").crumbs__link.tm-link {{$site.title || 'Home'}}
-        .crumbs__item(v-for="item in breadcrumbs" v-if="item.title && item.path")
+        .crumbs__item(v-for="item in breadcrumbs" v-if="item.title")
           router-link(:to="item.path").crumbs__link.tm-link {{item.title}}
       .menu
         .menu__item(:style="{visibility: $page.headers && $page.headers.length > 0 ? 'visible' : 'hidden'}")
