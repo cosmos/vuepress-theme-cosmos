@@ -3,9 +3,7 @@
     img( src="./images/lost_cosmonaut.jpg")
     center
       .h1 Error 404 : You seem lost fellow cosmonaut,
-      .h1 Let us take you back to home
-    center
-      .p #[a(href="/") Click Me]
+      .h1 Let us take you #[a(href="/") Back to Home]
 </template>
 
 <style lang="stylus" scoped>
