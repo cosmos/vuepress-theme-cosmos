@@ -11,9 +11,9 @@
                 //- .header__nav__actions__item(v-for="item in navItems")
                 //-     a.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(:href="item.url") {{item.name}}
             .header__nav__links
-                a.tm-link.tm-rf-1(href="https://cosmos.network/learn/get-atom/" target="_blank")
-                    span Get ATOM
-                    icon-arrow(type="right").icon-external
+                //- a.tm-link.tm-rf-1(href="https://cosmos.network/learn/get-atom/" target="_blank")
+                //-     span Get ATOM
+                //-     icon-arrow(type="right").icon-external
             .header__nav__mobile__menu(@click="toggleSidebar" v-if="!hideMobileMenu")
                 icon-menu
         .header__search
