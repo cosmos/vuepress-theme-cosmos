@@ -1003,11 +1003,12 @@ export default {
       document.querySelector('.layout__sidebar')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
 
       const headerElement = document.querySelector('.header');
+      const contentElement = document.querySelector('.layout__main');
       if (!isScrollingDown && currentScrollPosition > 0) {
-        // headerElement?.style.setProperty('margin-bottom', headerElement.offsetHeight + 'px');
+        contentElement?.style.setProperty('margin-top', headerElement.offsetHeight + 'px');
         headerElement?.classList.add('header-compact');
       } else {
-        // headerElement?.style.setProperty('margin-bottom', '0px');
+        contentElement?.style.setProperty('margin-top', '0px');
         headerElement?.classList.remove('header-compact');
       }
 
