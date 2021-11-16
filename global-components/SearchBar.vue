@@ -1,7 +1,7 @@
 <template lang="pug">
     div
-        .searchbar__wrapper(:class="$page.path == '/' ? 'mx-4' : ''")
-            tm-breadcrumbs.searchbar__title(v-if="$page.path != '/'")
+        .searchbar__wrapper
+            tm-breadcrumbs.searchbar__title
             .search.tm-lh-title.tm-rf-1.tm-medium(@click="searchPanel = true")
                 .search__icon
                     icon-search

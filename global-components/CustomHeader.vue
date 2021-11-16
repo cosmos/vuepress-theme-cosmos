@@ -5,18 +5,12 @@
                 a(href="/" rel="noreferrer noopener" tag="div").logo__image
                     component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
                     img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
-            .header__nav__actions
-                a(href="/b9lab-content/1-welcome/")
-                    h4.tm-title.tm-rf2.tm-lh-title.tm-medium Cosmos Developer Portal
-                //- .header__nav__actions__item(v-for="item in navItems")
-                //-     a.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(:href="item.url") {{item.name}}
+            .header__search
+                search-bar
             .header__nav__links
-                //- a.tm-link.tm-rf-1(href="https://cosmos.network/learn/get-atom/" target="_blank")
-                //-     span Get ATOM
-                //-     icon-arrow(type="right").icon-external
             .header__nav__mobile__menu(@click="toggleSidebar" v-if="!hideMobileMenu")
                 icon-menu
-        .header__search
+        .header__search__mobile
             search-bar
 </template>
 
@@ -34,19 +28,21 @@
         background var(--background-color-primary)
     
     .logo__image
+        margin-block auto
         svg
             max-width 6.140625rem
             height auto
 
     .header
+        display flex
+        transition all .25s linear
             
         &__nav
             display flex
             justify-content space-between
-            align-items baseline
-            border-bottom 1px solid var(--semi-transparent-color-2)
+            align-items center
             padding-inline 128px
-            padding-block 24px
+            width 100%
 
             @media screen and (max-width: 480px)
                 padding-inline 24px
@@ -56,6 +52,9 @@
 
             &__logo
                 filter var(--img-filter)
+                height 100%
+                display flex
+                padding-top 8px
 
             &__links
                 display flex
@@ -74,27 +73,38 @@
                 display none
 
         &__search
+            flex-grow 1
+            margin-left 32px
             padding-block 8px
-            padding-inline 128px
-            transition all .25s linear
 
-            @media screen and (max-width: 480px)
-                padding-inline 24px
-            
-            @media screen and (min-width: 480px) and (max-width: 1024px)
-                padding-inline 48px
+            &__mobile
+                display none
 
     @media screen and (max-width: 480px)
-        .header__nav
+        .header
+            flex-direction column
 
-            &__actions
+            &__nav
+                padding-block 24px
+                border-bottom 1px solid var(--semi-transparent-color-2)
+
+            &__search
                 display none
-                
-            &__links
-                margin-block auto
 
-            &__mobile__menu
-                display flex
+                &__mobile
+                    display block
+                    padding-inline 24px
+        
+            &__nav
+
+                &__actions
+                    display none
+                    
+                &__links
+                    margin-block auto
+
+                &__mobile__menu
+                    display flex
 </style>
 
 <script>

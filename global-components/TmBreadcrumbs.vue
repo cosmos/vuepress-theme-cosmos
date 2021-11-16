@@ -51,13 +51,18 @@
       content '/'
       padding-left 0.25rem
       padding-right 0.25rem
+      color var(--muted)
 
     &:last-child
-      pointer-events: none
-      font-weight normal
+      .crumbs__link
+        color var(--muted)
 
       &:after
         content ''
+
+    &:first-child
+      .crumbs__link
+        color var(--color-text-strong)
 
   &__link
     outline-color var(--color-primary, blue)
@@ -125,32 +130,22 @@ export default {
   },
   computed: {
     breadcrumbs() {
-      let crumbs = this.$page.path
-        .split("/")
-        .filter(item => item !== "")
-        .map((currentValue, index, array) => {
-          let path = array.slice(0, index + 1).join("/");
-          return "/" + path;
-        })
-        .map(item => {
-          return /\.html$/.test(item) ? item : `${item}/`;
+      console.log(this.$themeConfig.sidebar.nav)
+
+      let crumbs = [];
+
+      this.$themeConfig.sidebar.nav
+        .forEach(item => {
+          item.children.forEach(subItem => {
+            if (this.$page.path.includes(subItem.path)) {
+              crumbs.push({
+                title: item.title,
+                path: item.children[0]?.path || ""
+              });
+            }
+          });
         });
-      crumbs = crumbs.map(item => {
-        let path = "";
-        const found = find(this.$site.pages, page => {
-          if (page.regularPath === item) {
-            return true;
-          } else if (page.regularPath === item + '01-index.html' || page.regularPath === item + 'index.html' || page.regularPath === item + '1-welcome/') {
-            path = page.regularPath;
-          }
-          return false;
-        });
-        const noIndex = {
-          title: last(item.split("/").filter(e => e !== "")),
-          path: path
-        };
-        return found ? found : noIndex;
-      });
+
       return crumbs;
     }
   },
