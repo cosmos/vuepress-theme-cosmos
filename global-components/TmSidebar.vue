@@ -116,7 +116,7 @@ export default {
         // body.overflow="hidden"
         // html.height = "100%"
         // html.overflow="hidden"
-        body.overflowY = "hidden";
+        // body.overflowY = "hidden";
         // body.overflowX = "hidden";
         if (sidebar) {
           sidebar.addEventListener("transitionend", () => {
