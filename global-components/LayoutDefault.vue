@@ -994,6 +994,7 @@ export default {
       this.handleScroll(e);
     },
     handleScroll(e) {
+      if (window?.innerWidth < 480) return;
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
       // document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
@@ -1001,14 +1002,13 @@ export default {
       document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'));
       document.querySelector('.layout__sidebar')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
 
-      const headerSearchElement = document.querySelector('.header__search');
       const headerElement = document.querySelector('.header');
-      if (!isScrollingDown && currentScrollPosition > headerSearchElement.offsetHeight) {
-        headerElement?.style.setProperty('margin-bottom', headerSearchElement.offsetHeight + 'px');
-        headerSearchElement?.classList.add('header-compact');
+      if (!isScrollingDown && currentScrollPosition > 0) {
+        // headerElement?.style.setProperty('margin-bottom', headerElement.offsetHeight + 'px');
+        headerElement?.classList.add('header-compact');
       } else {
-        headerElement?.style.setProperty('margin-bottom', '0px');
-        headerSearchElement?.classList.remove('header-compact');
+        // headerElement?.style.setProperty('margin-bottom', '0px');
+        headerElement?.classList.remove('header-compact');
       }
 
       this.scrollPosition = currentScrollPosition;
