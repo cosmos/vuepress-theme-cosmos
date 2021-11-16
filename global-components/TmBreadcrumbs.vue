@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .container
-      .crumbs.tm-title.tm-lh-title.tm-bold
+      .crumbs.tm-title.tm-lh-title
         .crumbs__item
           router-link(to="/").crumbs__link.tm-link {{$site.title || 'Home'}}
         .crumbs__item(v-for="item in breadcrumbs" v-if="item.title")
