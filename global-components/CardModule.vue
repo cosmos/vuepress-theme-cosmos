@@ -7,8 +7,8 @@
                 .module__content__desc {{this.module.description}}
             .module__actions
                 .module__actions__toggle
-                    .module__actions__toggle__label(v-text="expanded ? 'Hide contents' : 'Show contents'")
-                    icon-arrow(type="right" :class="expanded ? 'hide-icon' : 'show-icon'")
+                    .module__actions__toggle__label {{this.module.submodules.length}} pages
+                    icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
                 a.module__actions__start.tm-button(:href="this.module.url" v-on:click="toggleContent")
                     .tm-link.tm-link-disclosure
                         span Start here
@@ -64,9 +64,9 @@
             display flex
             flex-direction column
             margin-top 48px
-            margin-bottom 32px
             margin-left 144px
             border-top 1px solid var(--semi-transparent-color-2)
+            transition: all 0.2s linear;
 
             &__item
                 display flex
@@ -100,8 +100,8 @@
 
                     &__icon
                         display block
-                        width 27px
-                        height 27px
+                        width 24px
+                        height 24px
 
         &__actions
             display flex
@@ -113,28 +113,27 @@
                 display flex
                 height fit-content
                 cursor pointer
+                align-items center
+
+                &__icon
+                    margin-block auto
+                    margin-left 12px
+                    margin-right 32px
+                    width 15px
+                    height 15px
+                    transition: transform 0.2s linear;
+
 
                 .show-icon
-                    margin-block auto
-                    margin-left 5px
-                    margin-right 16px
-                    width 15px
-                    height 15px
-                    transform rotate(90deg)
-                    -webkit-transform rotate(90deg)
-                    -ms-transform rotate(90deg)
-                    transition: transform 0.2s linear;
+                    padding-top 4px
+                    transform rotate(0deg)
+                    -webkit-transform rotate(0deg)
+                    -ms-transform rotate(0deg)
                 
                 .hide-icon
-                    margin-block auto
-                    margin-left 5px
-                    margin-right 16px
-                    width 15px
-                    height 15px
-                    transform rotate(-90deg)
-                    -webkit-transform rotate(-90deg)
-                    -ms-transform rotate(-90deg)
-                    transition: transform 0.2s linear;
+                    transform rotate(180deg)
+                    -webkit-transform rotate(180deg)
+                    -ms-transform rotate(180deg)
 
             &__start
                 border 1px solid var(--color-text-strong)
@@ -166,12 +165,13 @@
 
                     &__content
                         order 2
-                        margin-block 24px
+                        margin-bottom 24px
 
                     &__badge
                         margin-inline 0px
                         order 1
                         width fit-content
+                        margin-bottom 24px
 
                     &__start
                         order 3
@@ -192,12 +192,12 @@
 
             &__actions
                 margin-top 24px
+                flex-direction row-reverse
 
                 &__toggle
-                    .hide-icon
-                        margin-right 8px
-                    .show-icon
-                        margin-right 8px
+                    &__icon
+                        margin-left 8px
+                        margin-right 0px
 
 
 </style>
