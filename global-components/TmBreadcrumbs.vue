@@ -83,35 +83,19 @@
       fill var(--color-text)
 
       &:active
-        fill var(--color-primary)
-        background rgba(102, 161, 255, 0.15)
+        fill var(--color-text-strong)
+      
+      &:hover
+        fill var(--color-text-strong)
 
     &__modal
       position absolute
       width 16rem
       z-index 1000
-      box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
       right 0
-      border-radius 0.25rem
+      border-radius 16px
       background-color var(--background-color-secondary)
 
-      &__title 
-        color var(--color-text)
-        text-transform uppercase
-        letter-spacing 0.2em
-        font-size 0.75rem
-        padding 1.5rem 1.5rem 1rem 1.5rem
-
-      &__item
-        padding 0.625rem 1.5rem
-        font-size 0.875rem
-        outline none
-        cursor pointer
-
-        &:active
-          color var(--color-link)
-          font-weight 600
-          box-shadow inset 2px 0 0 0 var(--color-link)
 
 @media screen and (max-width: 1135px)
   .menu__item
@@ -127,6 +111,12 @@ export default {
     return {
       tocShow: false
     };
+  },
+  created () {
+    window?.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed () {
+    window?.removeEventListener('scroll', this.handleScroll);
   },
   computed: {
     breadcrumbs() {
@@ -153,6 +143,10 @@ export default {
     click(e) {
       this.tocShow = !this.tocShow;
       if (window.innerWidth < 832) this.$emit("visible", true);
+    },
+    handleScroll (event) {
+      if (window?.innerWidth < 480) return;
+      this.tocShow = false;
     }
   }
 };

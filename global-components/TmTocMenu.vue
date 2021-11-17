@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    .menu__item__modal__title On this page
+    .menu__item__modal__title.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted On this page
     .menu__item__modal__item(v-for="item in $page.headers" v-if="!item.title.match(/{hide}/i)" @click="goto(item.slug)" tabindex="0") {{item.title}}
 </template>
 
@@ -33,13 +33,10 @@
       background-color var(--background-color-primary)
 
       &__title
-        color var(--color-text);
-        text-transform uppercase
-        letter-spacing 0.2em
-        font-size .75rem
         padding 1.5rem 1.5rem 1rem 1.5rem
 
       &__item
+        color var(--color-text)
         padding .625rem 1.5rem
         font-size .875rem
         line-height 1.25rem
@@ -47,13 +44,10 @@
         cursor pointer
 
         &:hover
-          background-color rgba(176, 180, 207, 0.087)
-          color var(--color-text, black)
+          color var(--color-text-strong)
 
         &:active
-          color var(--color-link)
-          font-weight 600
-          box-shadow inset 2px 0 0 0 var(--color-link)
+          color var(--color-text-strong)
 
         &:last-child
           margin-bottom 0.5rem
