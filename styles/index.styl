@@ -34,3 +34,10 @@ select
 //   line-height: 130.7%;
 //   letter-spacing: 0.005em;
 //   color: var(--semi-transparent-color-3)
+
+.content-padding
+  padding-inline 128px
+  @media screen and (max-width: 480px)
+    padding-inline 24px
+  @media screen and (min-width: 480px) and (max-width: 1024px)
+    padding-inline 48px

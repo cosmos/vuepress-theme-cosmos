@@ -120,7 +120,6 @@ export default {
   },
   computed: {
     breadcrumbs() {
-      console.log(this.$themeConfig.sidebar.nav)
 
       let crumbs = [];
 

@@ -1,5 +1,5 @@
 <template lang="pug">
-  custom-layout(@sidebar="sidebarVisible = $event" :hideMobileMenu="false")
+  div
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
@@ -825,6 +825,9 @@ export default {
     };
   },
   methods: {
+    setSidebarVisible(value) {
+      this.sidebarVisible = value;
+    },
     emitPrereqLinks() {
       const prereq = [...document.querySelectorAll("[prereq]")].map(item => {
         const link = item.querySelector("[href]");
