@@ -2,17 +2,17 @@
 div
   cookie-banner.banner
   //- tm-top-banner(v-bind="{topBanner}").banner
-  .custom__layout
+  .global__layout
     //- .mode-switch-container
     //-     .mode-switch-container__wrapper
     //-         tm-mode-switch
     custom-header(@mobileSidebar="handleMobileSidebar($event)" :hideMobileMenu="!isContentPage")
 
-    .custom__layout__content.content-padding
+    .global__layout__content.content-padding
       component(:is="layout", :key="$route.path" ref="contentLayout")
         Content
 
-    .custom__layout__footer.mt-10.content-padding
+    .global__layout__footer.mt-10.content-padding
       tm-footer(full="true")
   client-only
     tm-script(
@@ -39,7 +39,7 @@ div
   }
 }
 
-.custom__layout {
+.global__layout {
   &__footer {
     max-width: var(--content-small-max-width);
     margin-left: auto;
