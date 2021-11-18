@@ -1,23 +1,29 @@
 <template lang="pug">
     .module__wrapper(v-on:click="toggleContent")
         .module
-            .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2 module {{this.module.number}}
+            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2 module {{this.module.number}}
             .module__content
                 h4.module__content__title {{this.module.title}}
                 .module__content__desc {{this.module.description}}
             .module__actions
                 .module__actions__toggle
-                    .module__actions__toggle__label(v-text="expanded ? 'Hide contents' : 'Show contents'")
-                    icon-arrow(type="right" :class="expanded ? 'hide-icon' : 'show-icon'")
-                a.tm-link.tm-link-disclosure(:href="this.module.url" v-on:click="toggleContent")
-                    span Start here
+                    .module__actions__toggle__label {{this.module.submodules.length}} pages
+                    icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
+                a.module__actions__start.tm-button(:href="this.module.url" v-on:click="toggleContent")
+                    .tm-link.tm-link-disclosure
+                        span Start here
         .module__submodules(v-show="expanded")
             a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
-                .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
-                .module__submodules__item__content(:class="submodule.tag ? 'module__submodules__item__content__margin' : ''")
-                    h5.tm-link.tm-link-disclosure.module__submodules__item__content__title
+                .module__submodules__item__content
+                    h5.module__submodules__item__content__title
                         span {{submodule.title}}
                     .module__submodules__item__content__desc {{submodule.description}}
+                .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
+                .module__submodules__item__start
+                    .module__submodules__item__start__icon
+                        icon-arrow(type="right")
+                    .module__submodules__item__start__label.tm-link.tm-link-disclosure
+                        span Start here
 </template>
 
 <script>
@@ -49,40 +55,53 @@
         &__wrapper
             display flex
             flex-direction column
-            border-radius 20px
-            background-color var(--background-color-secondary)
-            padding 48px
             cursor pointer
+
+        &__number
+            width 128px
 
         &__submodules
             display flex
             flex-direction column
-            margin-top 16px
+            margin-top 48px
+            margin-left 144px
+            border-top 1px solid var(--semi-transparent-color-2)
+            transition: all 0.2s linear;
 
             &__item
                 display flex
+                justify-content space-between
                 padding-block 32px
                 border-bottom 1px solid var(--semi-transparent-color-2)
-
-                &:last-child
-                    border-bottom none
-                    padding-bottom 0px
 
                 &__badge
                     border-radius 8px
                     padding 8px
                     flex-shrink 0
                     height fit-content
+                    margin-inline 40px
+                    margin-block auto
 
                 &__content
                     display flex
+                    flex-grow 1
                     flex-direction column
 
-                    &__margin
-                        margin-left 32px
-
                     &__title
+                        margin-bottom 4px
                         width fit-content
+
+                &__start
+                    flex-shrink 0
+                    margin-block auto
+
+                    &__label
+                        display none
+
+                    &__icon
+                        display block
+                        width 24px
+                        height 24px
 
         &__actions
             display flex
@@ -94,79 +113,91 @@
                 display flex
                 height fit-content
                 cursor pointer
+                align-items center
+
+                &__icon
+                    margin-block auto
+                    margin-left 12px
+                    margin-right 32px
+                    width 15px
+                    height 15px
+                    transition: transform 0.2s linear;
+
 
                 .show-icon
-                    margin-block auto
-                    margin-left 5px
-                    margin-right 16px
-                    width 15px
-                    height 15px
-                    transform rotate(90deg)
-                    -webkit-transform rotate(90deg)
-                    -ms-transform rotate(90deg)
-                    transition: transform 0.2s linear;
+                    padding-top 4px
+                    transform rotate(0deg)
+                    -webkit-transform rotate(0deg)
+                    -ms-transform rotate(0deg)
                 
                 .hide-icon
-                    margin-block auto
-                    margin-left 5px
-                    margin-right 16px
-                    width 15px
-                    height 15px
-                    transform rotate(-90deg)
-                    -webkit-transform rotate(-90deg)
-                    -ms-transform rotate(-90deg)
-                    transition: transform 0.2s linear;
+                    transform rotate(180deg)
+                    -webkit-transform rotate(180deg)
+                    -ms-transform rotate(180deg)
 
             &__start
-                display flex
-                height fit-content
-
-                .start-icon
-                    margin-block auto
+                border 1px solid var(--color-text-strong)
+                border-radius 6px
+                padding 24px 48px
+                background none
+                color var(--color-text-strong)
 
         &__content
             flex-grow 1
             margin-left 16px
 
             &__desc
-                margin-top 8px
+                margin-top 4px
                 font-size 21px
 
     @media screen and (max-width: 480px)
         .module
             flex-direction column
 
-            &__wrapper
-                padding 32px
+            &__number
+                width 100%
 
             &__submodules
+                margin-left 0px
+
                 &__item
                     flex-direction column
 
                     &__content
-                        &__margin
-                            margin-left 0px
-
-                        &__title
-                            margin-block 16px
+                        order 2
+                        margin-bottom 24px
 
                     &__badge
+                        margin-inline 0px
+                        order 1
                         width fit-content
+                        margin-bottom 24px
+
+                    &__start
+                        order 3
+
+                        &__label
+                            display block
+                            width fit-content
+
+                        &__icon
+                            display none
 
             &__content
                 margin-left 0px
+                margin-top 16px
 
                 &__title
                     margin-block 8px
 
             &__actions
-                margin-top 40px
+                margin-top 24px
+                flex-direction row-reverse
 
                 &__toggle
-                    .hide-icon
-                        margin-right 8px
-                    .show-icon
-                        margin-right 8px
+                    &__icon
+                        margin-left 8px
+                        margin-right 0px
 
 
 </style>
