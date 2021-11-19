@@ -72,30 +72,39 @@ export default {
       step: 0,
       email: null,
       selected: [],
-      requestURL: 'https://app.mailerlite.com/webforms/submit/o0t6d7',
+      requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
       commonFormData: {
         'ml-submit': '1',
         ajax: '1',
-        guid: '6ca22b31-4124-e926-cf4f-272ff9f44ec3',
+        guid: '35feb5b5-09a6-3e6f-0a82-237790847108',
       },
       topics: [
+        {
+          title: 'Engineering and security notices',
+          desc:
+            'General news and updates from the Cosmos ecosystem and community.',
+          requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
+          callback: 'jQuery183002839273588316482_1637310080587',
+          _: '1637316298976',
+          groups: '108996638',
+        },
         {
           title: 'Ecosystem & Community',
           desc:
             'General news and updates from the Cosmos ecosystem and community.',
-          requestURL: 'https://app.mailerlite.com/webforms/submit/o0t6d7',
-          callback: 'jQuery18307296239382192573_1594158619276',
-          _: '1594158625563',
-          groups: '108606610',
+          requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
+          callback: 'jQuery18302227450552275423_1637316400217',
+          _: '1637316404715',
+          groups: '107770117',
         },
         {
           title: 'Tools & Technology',
           desc:
             'Engineering and development updates on Cosmos SDK, Tendermint, IBC and more.',
-          requestURL: 'https://app.mailerlite.com/webforms/submit/o0t6d7',
-          callback: 'jQuery18307296239382192573_1594158619276',
-          _: '1594158625563',
-          groups: '108606910',
+          requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
+          callback: 'jQuery18309441203205317481_1637316437913',
+          _: '1637316444168',
+          groups: '108996944',
         },
       ],
     }
@@ -197,6 +206,7 @@ export default {
   padding-bottom var(--spacing-9)
   border-bottom 1px solid var(--semi-transparent-color-2)
   &__inner
+    position relative
     max-width 48.5rem
     margin auto
 
