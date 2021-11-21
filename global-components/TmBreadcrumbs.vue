@@ -112,11 +112,15 @@ export default {
       tocShow: false
     };
   },
-  created () {
-    window?.addEventListener('scroll', this.handleScroll);
+  mounted() {
+    if (window) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
   },
-  destroyed () {
-    window?.removeEventListener('scroll', this.handleScroll);
+  destroyed() {
+    if (window) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
   },
   computed: {
     breadcrumbs() {
