@@ -10,14 +10,14 @@
         :target="outboundLink(item.path) && '_blank'"
         :rel="outboundLink(item.path) && 'noreferrer noopener'"
         :href="(outboundLink(item.path) || item.static) ? item.path : '#'"
-        :class="[level > 0 && 'item__child',{'item__dir': !item.path}]"
+        :class="[level > 0 && 'item__child',{'item__dir': !item.path}, item.directory && 'item__directory']"
         tag="a"
         :role="!item.path && 'button'"
         @keydown.enter="handleEnter(item)"
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
-        icon-arrow.item__icon(v-if="level < 1" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
-        div(:style="{'padding-left': `${1*level}rem`, 'margin-right': '15px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
+        icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
+        div(:style="{'padding-left': `${1*level}rem`, 'margin-right': '15px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external}" v-html="titleFormatted(titleText(item))")
         .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
@@ -27,13 +27,21 @@
 <style lang="stylus" scoped>
 .item
   position relative
-  padding-left 1.5rem
   display block
   padding-top .375rem
   padding-bottom .375rem
   cursor pointer
   transition color .15s ease-out
   color var(--semi-transparent-color-3)
+
+  &__external
+    color inherit
+
+    &:hover 
+      opacity 1
+
+  &__directory
+    padding-left 1.5rem
 
   &:hover
     color var(--color-text-strong, black)
