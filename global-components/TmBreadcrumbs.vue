@@ -81,7 +81,7 @@
       fill var(--color-text)
 
       &:active
-        fill var(--color-primary)
+        fill var(--color-text-strong)
         background rgba(102, 161, 255, 0.15)
 
     &__modal
