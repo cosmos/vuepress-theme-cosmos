@@ -23,7 +23,7 @@
         position fixed
         top 0
         left 0
-        z-index 999999
+        z-index 99
         width 100%
         background var(--background-color-primary)
     
