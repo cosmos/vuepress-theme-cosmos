@@ -63,6 +63,7 @@
 
         &__submodules
             flex-grow 1
+            width 100%
             display flex
             flex-direction column
             margin-top 48px
