@@ -216,10 +216,6 @@ span {
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--background-color-primary) 100%);
 }
-.codeblock__hasfooter__false.codeblock__expanded__false .expand {
-  /* border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem; */
-}
 .expand__item {
   text-transform: uppercase;
   background-color: var(--color-text);
