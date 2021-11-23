@@ -2,28 +2,29 @@
     .module__wrapper(v-on:click="toggleContent")
         .module
             .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2 module {{this.module.number}}
-            .module__content
-                h4.module__content__title {{this.module.title}}
-                .module__content__desc {{this.module.description}}
-            .module__actions
-                .module__actions__toggle
-                    .module__actions__toggle__label {{this.module.submodules.length}} pages
-                    icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
-                a.module__actions__start.tm-button(:href="this.module.url" v-on:click="toggleContent")
-                    .tm-link.tm-link-disclosure
-                        span Start here
-        .module__submodules(v-show="expanded")
-            a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
-                .module__submodules__item__content
-                    h5.module__submodules__item__content__title
-                        span {{submodule.title}}
-                    .module__submodules__item__content__desc {{submodule.description}}
-                .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
-                .module__submodules__item__start
-                    .module__submodules__item__start__icon
-                        icon-arrow(type="right")
-                    .module__submodules__item__start__label.tm-link.tm-link-disclosure
-                        span Start here
+            .module__content__wrapper
+                .module__content
+                    h4.module__content__title {{this.module.title}}
+                    .module__content__desc {{this.module.description}}
+                .module__actions
+                    .module__actions__toggle
+                        .module__actions__toggle__label {{this.module.submodules.length}} pages
+                        icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
+                    a.module__actions__start.tm-button(:href="this.module.url" v-on:click="toggleContent")
+                        .tm-link.tm-link-disclosure
+                            span Start here
+                .module__submodules(v-show="expanded")
+                    a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
+                        .module__submodules__item__content
+                            h5.module__submodules__item__content__title
+                                span {{submodule.title}}
+                            .module__submodules__item__content__desc {{submodule.description}}
+                        .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
+                        .module__submodules__item__start
+                            .module__submodules__item__start__icon
+                                icon-arrow(type="right")
+                            .module__submodules__item__start__label.tm-link.tm-link-disclosure
+                                span Start here
 </template>
 
 <script>
@@ -58,13 +59,13 @@
             cursor pointer
 
         &__number
-            width 128px
+            flex-shrink 0
 
         &__submodules
+            flex-grow 1
             display flex
             flex-direction column
             margin-top 48px
-            margin-left 144px
             border-top 1px solid var(--semi-transparent-color-2)
             transition: all 0.2s linear;
 
@@ -144,7 +145,15 @@
 
         &__content
             flex-grow 1
-            margin-left 16px
+
+            &__wrapper
+                flex-grow 1
+                margin-left 48px
+                display flex
+                flex-wrap wrap
+
+            &__title
+                margin-top 0px
 
             &__desc
                 margin-top 4px
@@ -184,8 +193,11 @@
                             display none
 
             &__content
-                margin-left 0px
-                margin-top 16px
+
+                &__wrapper
+                    flex-direction column
+                    margin-top 24px
+                    margin-left 0px
 
                 &__title
                     margin-block 8px
@@ -198,6 +210,22 @@
                     &__icon
                         margin-left 8px
                         margin-right 0px
+
+    @media screen and (min-width: 481px) and (max-width: 1024px)
+        .module
+            flex-direction column
+
+            &__content
+                &__wrapper
+                    margin-top 24px
+                    margin-left 0px
+
+            &__actions
+                margin-top 24px
+                flex-grow 1
+
+            &__submodules__item__badge
+                margin-inline 24px
 
 
 </style>
