@@ -14,7 +14,7 @@
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
           tm-footer-links(:tree="tree")
         feedback-box.layout__main__feedback
-      .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
+      .layout__main__content__aside__container(v-if="!($frontmatter.aside === false) && $page.headers && $page.headers.length > 0" :style="{'--height-banners': heightBanners + 'px'}")
         .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
           client-only
             tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
@@ -624,7 +624,8 @@
 
   &__main
     position relative
-    width: 60%
+    width 60%
+    flex-grow 1
     padding-top 2rem
     
     &__navbar
