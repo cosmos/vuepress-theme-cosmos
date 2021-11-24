@@ -17,7 +17,7 @@
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
-        div(:style="{'padding-left': `${1*level}rem`, 'margin-right': '15px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external}" v-html="titleFormatted(titleText(item))")
+        div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external}" v-html="titleFormatted(titleText(item))")
         .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
@@ -33,6 +33,9 @@
   cursor pointer
   transition color .15s ease-out
   color var(--semi-transparent-color-3)
+  font-size var(--font-size--1)
+  line-height 164.5%
+  letter-spacing 0.0005em
 
   &__external
     color inherit
@@ -120,11 +123,14 @@
     background var(--semi-transparent-color)
     position absolute
     top 0
-    left 5px
+    left 6px
     transition background-color .15s ease-out
 
   &__selected
     font-weight 500
+    font-size var(--font-size--1)
+    line-height 130.7%
+    letter-spacing -0.007em
     color var(--color-text-strong, black)
 
     &:before
@@ -134,7 +140,7 @@
       visibility var(--vline)
       position absolute
       top 0
-      left 5px
+      left 6px
       background var(--color-text-strong)
       transition background-color .15s ease-out
 
