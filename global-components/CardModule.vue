@@ -44,11 +44,6 @@
 </script>
 
 <style lang="stylus" scoped>
-    .start-icon
-        margin-left 5px
-        width 15px
-        height 15px
-
     .module
         display flex
         justify-content space-between
@@ -223,10 +218,14 @@
 
             &__actions
                 margin-top 24px
-                flex-grow 1
+                width 100%
 
             &__submodules__item__badge
                 margin-inline 24px
 
+    @media screen and (min-width: 1025px) and (max-width: 1312px)
+        .module__actions
+            margin-top 24px
+            width 100%
 
 </style>
