@@ -61,7 +61,7 @@
             </span>
           </span>
         </span>
-        <span class="expand" v-if="isExpandable">
+        <span :class="['expand', !url ? 'expand__background' : '']" v-if="isExpandable">
           <span
             class="expand__item expand__item__expand"
             @click="expand(true)"
@@ -105,7 +105,8 @@
       </span>
       <span class="footer" v-if="url">
         <span class="footer__filename">
-          {{ filename(url) }}
+          <span class="footer__filename__item" v-for="path in filename(url)" v-bind:key="path"> {{ path }} </span>
+          <!-- {{ filename(url) }} -->
         </span>
         <a
           class="footer__source"
@@ -113,20 +114,7 @@
           target="_blank"
           rel="noreferrer noopener"
         >
-          <span>View source</span>
-          <svg
-            class="footer__source__icon"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-                d="M7.25 0.99998C7.25 0.585766 7.58578 0.24998 8 0.24998C8.41421 0.24998 8.75 0.585766 8.75 0.99998L7.25 0.99998ZM8 14.8333L8.53033 15.3636L8 15.894L7.46967 15.3636L8 14.8333ZM2.46967 10.3636C2.17678 10.0708 2.17678 9.59588 2.46967 9.30298C2.76256 9.01009 3.23744 9.01009 3.53033 9.30298L2.46967 10.3636ZM12.4697 9.30298C12.7626 9.01009 13.2374 9.01009 13.5303 9.30298C13.8232 9.59587 13.8232 10.0707 13.5303 10.3636L12.4697 9.30298ZM8.75 0.99998L8.75 14.8333L7.25 14.8333L7.25 0.99998L8.75 0.99998ZM7.46967 15.3636L2.46967 10.3636L3.53033 9.30298L8.53033 14.303L7.46967 15.3636ZM13.5303 10.3636L8.53033 15.3636L7.46967 14.303L12.4697 9.30298L13.5303 10.3636Z"
-                stroke-width="1.5"
-              stroke-linecap="round"
-              ></path>
-          </svg>
+          <span class="tm-link tm-link-disclosure">View source</span>
         </a>
       </span>
     </span>
@@ -158,7 +146,8 @@ span {
 }
 .container {
   border-radius: 20px;
-  border: 1px solid var(--color-light-gray);
+  border: 1px solid var(--background-color-secondary);
+  background: var(--background-color-secondary);
 }
 .body__container {
   position: relative;
@@ -212,14 +201,14 @@ span {
   font-family: var(--ds-font-family, inherit);
   box-sizing: border-box;
 }
-.codeblock__expanded__false .expand {
+.codeblock__expanded__false .expand__background {
   border-radius: 20px;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--background-color-primary) 100%);
 }
 .expand__item {
   text-transform: uppercase;
   background-color: var(--color-text);
-  color: var(--background-color-primary);
+  color: var(--background-color-secondary);
   display: grid;
   justify-self: center;
   grid-auto-flow: column;
@@ -261,14 +250,14 @@ span {
   padding: 0.5rem;
   opacity: 0;
   display: flex;
-  z-index: 100;
+  z-index: 98;
 }
 .icons__item {
   margin-left: 0.5rem;
   cursor: pointer;
   border-radius: 0.25rem;
   position: relative;
-  background: var(--background-color-secondary);
+  background: var(--color-light-gray);
   padding: 0.75rem;
 }
 .icons__item:active .icons__item__icon {
@@ -326,13 +315,16 @@ span {
   font-family: var(--ds-font-family, inherit);
 }
 .footer__source {
-  color: var(--color-text);
+  color: var(--color-text-strong);
   font-weight: 500;
   fill: var(--color-text);
   align-items: center;
   display: flex;
   box-shadow: none;
   outline: none;
+}
+.tm-link-disclosure:after {
+  bottom: 0px;
 }
 .footer__source:after {
   display: none;
@@ -355,6 +347,20 @@ span {
 .footer__source__icon {
   margin-left: 0.5rem;
   transform: rotate(-90deg);
+}
+.footer__filename {
+  display: flex;
+  font-weight: 500;
+}
+.footer__filename__item:after {
+  content: '/';
+  margin-right: 4px;
+}
+.footer__filename__item:last-child {
+  color: var(--color-text-strong)
+}
+.footer__filename__item:last-child:after {
+  content: '';
 }
 ::v-deep .token.keyword {
   color: #c678dd;
@@ -459,9 +465,9 @@ export default {
           "...",
           tokens.slice(-2)[0],
           tokens.slice(-2)[1],
-        ].join(" / ");
+        ];
       } else {
-        return tokens.join(" / ");
+        return tokens;
       }
     },
     copy(value) {
