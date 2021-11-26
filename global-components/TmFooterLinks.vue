@@ -1,7 +1,7 @@
 <template lang="pug">
   div
     .links
-      .links__wrapper
+      .links__wrapper.links__wrapper__previous
         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)") previous
         .links__content(v-if="$page.frontmatter.prev || (linkPrevNext && linkPrevNext.prev && linkPrevNext.prev.frontmatter && linkPrevNext.prev.frontmatter.order !== false)")
           router-link.links__item(:to="$page.frontmatter.prev || linkPrevNext.prev.regularPath")
@@ -26,10 +26,14 @@
     flex-direction column
     width 100%
     margin-bottom 2rem
+    text-align right
     justify-content space-between
 
     &:first-child
       margin-right 32px
+
+    &__previous 
+      text-align left
 
   &__content
     width 100%

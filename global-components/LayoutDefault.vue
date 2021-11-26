@@ -1017,6 +1017,19 @@ export default {
       }
 
       this.scrollPosition = currentScrollPosition;
+    },
+    scrollToHeader() {
+      if (window.location.hash) {
+        const elementId = document.querySelector(window.location.hash);
+        
+        if (elementId) {
+          if (elementId.parentElement.classList.contains('expansion__content')) {
+            if (elementId.parentElement.classList.contains('visible')) return;
+            elementId.parentElement.classList.add('visible');
+          }
+          elementId.scrollIntoView();
+        }
+      }
     }
   },
   beforeMount() {
@@ -1037,10 +1050,9 @@ export default {
       .forEach(node => {
         node.addEventListener("click", this.prereqToggle);
       });
-    if (window.location.hash) {
-      const elementId = document.querySelector(window.location.hash);
-      if (elementId) elementId.scrollIntoView();
-    }
+    setTimeout(function () { 
+      this.scrollToHeader();
+    }.bind(this), 200)
     document.addEventListener("scroll", this.scrollListener);
     hotkeys("/", (event, handler) => {
       event.preventDefault();
@@ -1057,6 +1069,7 @@ export default {
     this.$nextTick(function () {
       this.drawTag();
       this.setupHeaderAnchor();
+      this.scrollToHeader();
     });
   },
   destroyed() {
