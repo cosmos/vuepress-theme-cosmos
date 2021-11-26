@@ -475,7 +475,8 @@ export default {
         .replace(/&quot;/g, '"')
         .replace(/&lt;/g, "<")
         .replace(/&gt;/g, ">")
-        .replace(/&amp;/g, "&");
+        .replace(/&amp;/g, "&")
+        .replaceAll("$ ", "");
       this.copied = true;
       copy(val);
       setTimeout(() => {
