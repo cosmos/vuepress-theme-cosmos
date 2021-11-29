@@ -14,11 +14,6 @@ div
 
     .global__layout__footer.mt-10.content-padding
       tm-footer(full="true")
-  client-only
-    tm-script(
-      src="https://www.bugherd.com/sidebarv2.js?apikey=ur38l8q2fpx6bfcgubgodw",
-      async="true"
-    )
 </template>
 
 <style lang="stylus" scoped>

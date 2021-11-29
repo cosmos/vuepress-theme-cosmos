@@ -105,19 +105,9 @@ export default {
     };
   },
   watch: {
-    visible(newValue, oldValue) {
+    visible(newValue) {
       if (newValue) {
-        const body = document.querySelector("body").style;
-        const html = document.querySelector("html").style;
-        const iOS =
-          !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const sidebar = this.$refs.sidebar;
-        // body.height = "100%"
-        // body.overflow="hidden"
-        // html.height = "100%"
-        // html.overflow="hidden"
-        // body.overflowY = "hidden";
-        // body.overflowX = "hidden";
         if (sidebar) {
           sidebar.addEventListener("transitionend", () => {
             sidebar.style.transition = "";
@@ -126,8 +116,6 @@ export default {
         this.touchMoveX = null;
         this.touchStartX = null;
         this.visibleLocal = true;
-      } else {
-        document.querySelector("body").style.overflowY = "";
       }
     }
   },

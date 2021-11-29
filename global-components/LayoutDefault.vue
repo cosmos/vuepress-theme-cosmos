@@ -775,16 +775,11 @@ import copy from "clipboard-copy";
 import { SectionSearch } from "@cosmos-ui/vue";
 import {
   find,
-  filter,
-  forEach,
-  remove,
-  last,
   omit,
   omitBy,
   sortBy,
   isString,
   isArray,
-  flattenDeep,
   map,
   findIndex
 } from "lodash";
@@ -817,7 +812,6 @@ export default {
       searchPanel: null,
       asideBottom: null,
       searchQuery: null,
-      prereq: null,
       heightBanners: null,
       status: null,
       asideBannersUrl: "https://v1.cosmos.network/aside-banners",
