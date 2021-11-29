@@ -8,6 +8,10 @@
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
         .sidebar.version
           tm-select-version
+      .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom && !$themeConfig.sidebar.hideProducts")
+        a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
+          component(:is="`tm-logo-${product.label}`").footer__item__icon
+          .footer__item__title(v-html="md(product.name)")
 </template>
 
 <style lang="stylus" scoped>
@@ -93,8 +97,7 @@
   width 100%
   display grid
   grid-auto-flow column
-  padding-left 0.75rem
-  padding-right 0.75rem
+  padding-right 24px
   align-items center
   grid-auto-columns 1fr
 
@@ -105,7 +108,7 @@
     left 0
     right 0
     bottom 100%
-    background linear-gradient(to top, var(--background-color-primary), var(--background-color-primary))
+    background linear-gradient(to top, var(--background-color-primary), transparent)
     pointer-events none
 
   &__item
