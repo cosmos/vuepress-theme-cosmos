@@ -59,7 +59,7 @@
       height 8px
       position absolute
       top 12px
-      right 5px
+      right 15px
       border-radius 4px
       background var(--tag-background-color)
 
