@@ -164,7 +164,7 @@
     opacity 0
     position absolute
     font-weight 400
-    left -1.5em
+    left -1.3em
     width 1.5em
     text-align center
     box-sizing border-box
