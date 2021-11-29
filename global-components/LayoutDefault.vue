@@ -614,7 +614,7 @@
     width 20%
     position sticky
     top 64px
-    height 100vh
+    height calc(100vh - 64px)
     overflow-y scroll
     transition all 0.25s
     scrollbar-width none
@@ -995,10 +995,12 @@ export default {
       if (window?.innerWidth < 480) return;
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
-      // document.querySelector('.layout__sidebar')?.style.setProperty('opacity', (isScrollingDown ? '0' : '1'));
       document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition <= 0 ? 'block' : 'none'));
       document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'));
-      document.querySelector('.layout__sidebar')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
+      
+      const sidebarElement = document.querySelector('.layout__sidebar')
+      sidebarElement?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
+      sidebarElement?.style.setProperty('height', (isScrollingDown ? '100vh' : 'calc(100vh - 64px)'))
 
       const headerElement = document.querySelector('.header');
       const contentElement = document.querySelector('.layout__main');
