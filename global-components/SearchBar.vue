@@ -64,19 +64,7 @@
 <script>
 
 import {
-  find,
-  filter,
-  forEach,
-  remove,
-  last,
-  omit,
-  omitBy,
-  sortBy,
-  isString,
-  isArray,
-  flattenDeep,
-  map,
-  findIndex
+  find
 } from "lodash";
 import { SectionSearch } from "@cosmos-ui/vue";
 
