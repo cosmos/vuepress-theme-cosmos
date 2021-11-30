@@ -995,7 +995,9 @@ export default {
       if (window?.innerWidth < 480) return;
       const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
-      document.getElementById('banners')?.style.setProperty('display', (currentScrollPosition <= 0 ? 'block' : 'none'));
+      const bannersElement = document.getElementById('banners');
+      bannersElement?.classList.add(currentScrollPosition <= 0 ? 'visible' : 'hidden');
+      bannersElement?.classList.remove(currentScrollPosition <= 0 ? 'hidden' : 'visible');
       document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'));
       
       const sidebarElement = document.querySelector('.layout__sidebar')
