@@ -167,6 +167,16 @@ span {
   line-height: 1.25rem;
 }
 
+.body::-webkit-scrollbar {
+  background: var(--semi-transparent-color);
+  height: 6px;
+}
+
+.body::-webkit-scrollbar-thumb {
+  background: var(--semi-transparent-color-2);
+  border-radius: 6px;
+}
+
 .codeblock__is-expandable__true .body {
   max-height: 700px;
 }
