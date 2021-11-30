@@ -27,7 +27,8 @@
 
 .banners
   margin-bottom 24px
-  transition: all 2s linear;
+  transition all 0.25s linear
+  max-width 300px
 
   &__item
     margin-bottom 12px
@@ -53,7 +54,14 @@
 
 .hidden
   visibility hidden
-  display none
+  max-height 0
+  opacity 0
+  margin-bottom 0
+
+.visible
+  visibility visible
+  max-height 500px
+  opacity 1
 
 .selected
   color var(--color-text-strong)
