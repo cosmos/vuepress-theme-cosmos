@@ -8,13 +8,13 @@
                     .module__content__desc {{this.module.description}}
                 .module__actions
                     .module__actions__toggle
-                        .module__actions__toggle__label {{this.module.submodules.length}} pages
+                        .module__actions__toggle__label {{submodules.length}} pages
                         icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
                     a.module__actions__start.tm-button(:href="this.module.url" v-on:click="toggleContent")
                         .tm-link.tm-link-disclosure
                             span Start here
                 .module__submodules(v-show="expanded")
-                    a.module__submodules__item(v-for="submodule in this.module.submodules" v-if="!$page.path.includes(submodule.url)" :href="submodule.url" v-on:click="toggleContent")
+                    a.module__submodules__item(v-for="submodule in submodules" :href="submodule.url" v-on:click="toggleContent")
                         .module__submodules__item__content
                             h5.module__submodules__item__content__title
                                 span {{submodule.title}}
@@ -34,6 +34,11 @@
             return {
                 expanded: this.startExpanded || false
             };
+        },
+        computed: {
+            submodules() {
+                return this.module.submodules.filter(item => item.url != this.$page.path);
+            }
         },
         methods: {
             toggleContent(event) {
