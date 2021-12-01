@@ -56,6 +56,7 @@ div
 
             &__icon
                 width 30px
+                filter var(--img-filter)
 
                 &__box
                     margin 16px
