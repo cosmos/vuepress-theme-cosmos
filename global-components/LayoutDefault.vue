@@ -265,23 +265,25 @@
       transition-duration 0s
 
   [synopsis]
-    padding 1.5rem 2rem
+    padding 24px 32px
     background-color var(--background-color-secondary)
-    border-radius 0.5rem
+    border-radius 8px
     margin-top 3rem
     margin-bottom 3rem
     color var(--color-text)
+    color var(--semi-transparent-color-3)
     font-size 1rem
     line-height 1.625rem
 
     &:before
       content 'Synopsis'
       display block
-      color color var(--semi-transparent-color-3)
+      color var(--color-text-strong)
       text-transform uppercase
-      font-size 0.75rem
-      margin-bottom 0.5rem
-      letter-spacing 0.2em
+      font-size 13px
+      font-weight 500
+      margin-bottom 8px
+      letter-spacing 0.08em
 
   .icon.outbound
     display none
