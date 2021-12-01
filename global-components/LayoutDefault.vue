@@ -499,6 +499,23 @@
       color inherit
       transition background-color 0.15s ease-out
 
+    a[target="_blank"]
+      position relative
+      margin-right 1.2em
+
+      &:after
+        content "\2197"
+        font-size .75em
+        position absolute
+        bottom .166em
+        padding-left .275em
+        line-height 1
+        will-change: transform
+        transition transform .2s ease-out
+
+      &:hover:after
+        transform translate(10%, -10%)
+
   td
     a
       color var(--color-text-strong)
