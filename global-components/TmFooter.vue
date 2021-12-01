@@ -12,23 +12,26 @@
                 .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
                   a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
-            .logo__item
-              a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
-            .logo__item.logo__item__privacy
-              a(:href="$themeConfig.footer.privacy" target="_blank").logo__item__anchor.tm-link Privacy
-              //- a(:href="$themeConfig.footer.trademark" target="_blank").logo__item__anchor.tm-link Trademark
+            a(href="/").logo__container
+              .logo__item__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
+                img(:src="$themeConfig.logo.src")
+              .logo__item__img(v-else)
+                component(:is="`logo-${$themeConfig.label || 'sdk'}`")
+              .logo__item__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
+
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
+            .logo__item.logo__item__switch
+              tm-mode-switch
           .smallprint(v-if="$themeConfig.footer")
             //- .smallprint__item.smallprint__item__links
             //-   a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
             .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
             .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer") Cosmos is a registered trademark of the 
-              a(href="https://interchain.io/").tm-link Interchain Foundation.            
+              a(href="https://interchain.io/").tm-link Interchain Foundation.
+              a(:href="$themeConfig.footer.privacy" target="_blank").smallprint__item__privacy.tm-link Privacy         
 </template>
 
 <style lang="stylus" scoped>
@@ -122,14 +125,18 @@
 .logo
   padding-top 24px
   display flex
-  justify-content space-between
   align-items center
-
-  filter var(--img-filter)
 
   svg
     max-width: 6.140625rem
     height auto
+
+  &__container
+    display flex
+    align-items center
+    border-right 1px solid var(--semi-transparent-color-2)
+    padding-right 24px
+    margin-right 24px
 
   &__item
     padding 1.5rem 0
@@ -137,9 +144,19 @@
     align-items flex-start
     justify-content space-between
 
-    &__privacy
-      flex-grow 1
-      justify-content start
+    &__img
+      width 2.5rem
+      height 2.5rem
+      margin-right 0.75rem
+
+    &__custom
+      width 100%
+      height 2.5rem
+      margin-right 0.75rem
+
+      img
+        max-width 100%
+        max-height 100%
 
     &__anchor
       margin-block auto
@@ -148,6 +165,10 @@
 
       &:last-child
         margin-right 0px
+
+    &__switch
+      flex-grow 1
+      justify-content end
 
   &__image
     display inline-block
@@ -177,12 +198,17 @@
     color var(--color-text-strong, #ccc)
 
   &__item
+
+    &__privacy
+      float right
+
     &__links
       color var(--color-link)
       font-size 0.875rem
 
       &__item
         margin-right 16px
+        filter var(--img-filter)
 
         svg
           transition opacity .15s ease-out
@@ -243,8 +269,14 @@
         display flex
         flex-direction column
 
-  .smallprint__item__desc
-    text-align center
+  .smallprint__item
+    &__desc
+      text-align center
+    &__privacy
+      float none
+      width 100%
+      justify-content center
+      margin-top 24px
 
   .logo
     flex-direction column
