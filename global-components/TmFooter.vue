@@ -277,6 +277,9 @@
       width 100%
       justify-content center
       margin-top 24px
+    &__links__item
+      &:last-child
+        margin-right 0px
 
   .logo
     flex-direction column
@@ -288,6 +291,11 @@
       border-right none
       padding-right 0px
       margin-right 0px
+
+    &__container
+      border-right none
+      margin-right 0px
+      padding-right 0px
 
       
 </style>

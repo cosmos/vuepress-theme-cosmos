@@ -518,6 +518,10 @@
       &:hover:after
         transform translate(10%, -10%)
 
+    .tm-button
+      &:after
+        display none
+
   td
     a
       color var(--color-text-strong)
