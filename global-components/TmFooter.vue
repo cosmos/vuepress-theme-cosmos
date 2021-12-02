@@ -8,7 +8,7 @@
             .links
               .links__item.accordion(v-for="(item, index) in $themeConfig.footer.links" @click="onAccordionClick(index)")
                 .links__item__title.accordion__title {{item.title}}
-                  icon-arrow(type="bottom").accordion__title__icon(:class="selectedAccordion == index ? 'accordion__title__icon__opened' : ''")
+                  icon-arrow(type="bottom" :class="selectedAccordion == index ? 'accordion__title__icon__opened' : ''").accordion__title__icon
                 .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
                   a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
