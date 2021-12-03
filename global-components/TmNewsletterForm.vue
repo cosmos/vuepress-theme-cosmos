@@ -15,32 +15,13 @@
           .wizard-col
             .form.tm-center
               .form__input
-                input#field-email.form__input__input.tm-rf0.tm-lh-copy.tm-title(v-model='email' name='fields[email]' type='email' placeholder='Enter your email' required='required' @keypress.enter='actionGoForwards')
-                button.form__input__button(type='submit' :disabled='emailInvalid' @click.prevent='actionGoForwards')
+                input#field-email.form__input__input.tm-rf0.tm-lh-copy.tm-title(v-model='email' name='fields[email]' type='email' placeholder='Enter your email' required='required' @keypress.enter='actionSubmitEmail')
+                button.form__input__button(type='submit' :disabled='emailInvalid' @click.prevent='actionSubmitEmail')
                   span.sr-only Next
                   icon-arrow(type="right").newsletter__input__input__button__icon
 
         // Step 1
         div(v-if='step === 1' ref='step1' key='step1').tm-grid-base
-          .wizard-col._top
-            button.tm-link.tm-title.tm-lh-title.tm-medium.tm-rf0(@click.prevent='actionGoBackwards') &larr; Back
-            h4.mt-5 Which product updates would you like to receive?
-            .signup-graphics
-              img(src="/signup-mails.svg")
-          
-          .wizard-col._top
-            .card-checkbox-list
-              label.card-checkbox.mb-5(v-for='(topic, i) in topics' :key='topic.title')
-                input.card-checkbox__input(tabindex="0" v-model='selected' type="checkbox" :value="topic.title" :id="`selected_${i}`")
-                .card-checkbox__icon
-                .card-checkbox__container
-                  .tm-title.tm-rf0.tm-bold.tm-lh-title {{ topic.title }}
-                  .tm-rf-1.tm-lh-copy.mt-3.tm-muted {{ topic.desc }}
-            .btns-group.mt-6
-              button.tm-button.btn(:disabled='!selected.some((t) => t)' @click.prevent='actionSubscribe') Sign up
-
-        // Step 2
-        div(v-if='step === 2' ref='step2' key='step2').tm-grid-base
           .wizard-col._top
             h4
               | Almost there!
@@ -51,7 +32,7 @@
             p.tm-rf0.tm-lh-copy.tm-title
               | You should get a confirmation email for each of your selected
               | interests. Open it up and click
-              span ‘Confirm your email’
+              | ‘Confirm your email’
               | so we can keep you updated.
             p.tm-rf-1.tm-lh-title.tm-text
               | Don&rsquo;t see the confirmation email yet?
@@ -62,7 +43,6 @@
 </template>
 
 <script>
-import { find, without, last } from "lodash";
 import querystring from 'querystring'
 import validateEmail from 'email-validator'
 
@@ -71,42 +51,14 @@ export default {
     return {
       step: 0,
       email: null,
-      selected: [],
-      requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
+      requestURL: 'https://app.mailerlite.com/webforms/submit/n7t4w7',
+      callback: 'jQuery18301604647979314595_1638523133802',
+      _: '1638523153680',
       commonFormData: {
         'ml-submit': '1',
         ajax: '1',
         guid: '35feb5b5-09a6-3e6f-0a82-237790847108',
       },
-      topics: [
-        {
-          title: 'Engineering and security notices',
-          desc:
-            'General news and updates from the Cosmos ecosystem and community.',
-          requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
-          callback: 'jQuery183002839273588316482_1637310080587',
-          _: '1637316298976',
-          groups: '108996638',
-        },
-        {
-          title: 'Ecosystem & Community',
-          desc:
-            'General news and updates from the Cosmos ecosystem and community.',
-          requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
-          callback: 'jQuery18302227450552275423_1637316400217',
-          _: '1637316404715',
-          groups: '107770117',
-        },
-        {
-          title: 'Tools & Technology',
-          desc:
-            'Engineering and development updates on Cosmos SDK, Tendermint, IBC and more.',
-          requestURL: 'https://app.mailerlite.com/webforms/submit/a9s2m3',
-          callback: 'jQuery18309441203205317481_1637316437913',
-          _: '1637316444168',
-          groups: '108996944',
-        },
-      ],
     }
   },
   computed: {
@@ -123,34 +75,16 @@ export default {
     },
     actionSubmitEmail() {
       if (!this.emailInvalid) {
-        if (this.topics.length <= 0) {
-          this.actionSubscribe()
-          this.step = 2
-        } else {
-          this.actionGoForwards()
-        }
+        this.actionSubscribe()
+        this.step = 1
       }
     },
-    actionSubscribe() {
-      if (this.topics.length <= 0) {
-        this.subscribe({
-          requestURL: this.requestURL,
-          callback: this.callback,
-          _: this._,
-          'groups[]': this.groups,
-        })
-      } else {
-        this.selected.forEach((topicSelected, i) => {
-          if (topicSelected) {
-            this.subscribe({
-              requestURL: this.topics[i].requestURL,
-              callback: this.topics[i].callback,
-              _: this.topics[i]._,
-              'groups[]': this.topics[i].groups,
-            })
-          }
-        })
-      }
+    async actionSubscribe() {
+      this.subscribe({
+        requestURL: this.requestURL,
+        callback: this.callback,
+        _: '1638523153680',
+      })
       this.actionGoForwards()
     },
     async subscribe(body) {
@@ -162,6 +96,7 @@ export default {
         },
         body: querystring.stringify({
           'fields[email]': this.email,
+          'fields[website]': 'Developer Portal',
           ...this.commonFormData,
           ...body,
         }),
