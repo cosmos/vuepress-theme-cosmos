@@ -83,6 +83,7 @@
                     height fit-content
                     margin-inline 40px
                     margin-block auto
+                    color white
 
                 &__content
                     display flex
