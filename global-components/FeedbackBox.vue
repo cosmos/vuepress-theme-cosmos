@@ -4,13 +4,13 @@ div
         .feedback__title Rate this Page
         .feedback__container(v-show="showFeedbackContainer && !showCaptcha")
             button.feedback__rating(v-on:click="showFeedbackForm('good')")
-                .feedback__rating__icon__box
+                .feedback__rating__icon__box(:class="[rating == 'good' && 'feedback__rating__icon__box__selected']")
                     img.feedback__rating__icon(src="./images/feedback-icon-good.svg" alt="icon smile")
             button.feedback__rating(v-on:click="showFeedbackForm('medium')")
-                .feedback__rating__icon__box
+                .feedback__rating__icon__box(:class="[rating == 'medium' && 'feedback__rating__icon__box__selected']")
                     img.feedback__rating__icon(src="./images/feedback-icon-medium.svg" alt="icon meh")
             button.feedback__rating(v-on:click="showFeedbackForm('bad')")
-                .feedback__rating__icon__box
+                .feedback__rating__icon__box(:class="[rating == 'bad' && 'feedback__rating__icon__box__selected']")
                     img.feedback__rating__icon(src="./images/feedback-icon-bad.svg" alt="icon frown")
 
         .feedback__form(id="feedback_form" v-show="showForm")
@@ -20,7 +20,7 @@ div
                         div Would you like to add a message?
                         textarea.feedback__form__content__control__textarea(name="f_message")
                     .feedback__form__content__control
-                        .feedback__form__content__control__submit(v-on:click="submitFeedbackForm") Submit
+                        .feedback__form__content__control__submit.tm-button.mt-4(v-on:click="submitFeedbackForm") Submit
                     input(type="hidden" name="f_page" :value="page")
                     input(type="hidden" name="f_rating" :value="rating")
                 .feedback__form__captcha(id="g-recaptcha")
@@ -46,7 +46,8 @@ div
         &__container
             display flex
             width 180px
-            margin auto
+            margin-inline auto
+            margin-block 32px
 
         &__rating
             background none
@@ -57,9 +58,18 @@ div
             &__icon
                 width 30px
                 filter var(--img-filter)
+                margin-block 0px
 
                 &__box
-                    margin 16px
+                    padding 16px
+
+                    &__selected
+                        background var(--background-color-secondary)
+                        border-radius 16px
+
+                    &:hover:not(:active)
+                        transform translateY(-2px)
+                        transition-duration 0.1s
 
         &__form
 
@@ -95,18 +105,13 @@ div
                         resize none
                         font-family inherit
 
+                        &:hover:not(:active)
+                            transform translateY(-2px)
+                            transition-duration 0.1s
+
                     &__submit
-                        display flex
-                        font-weight 500
-                        color var(--background-color-primary)
-                        margin-top 16px
-                        background var(--color-text)
-                        border-radius 10px
-                        padding-block 20px
-                        padding-inline 60px
                         width fit-content
                         margin-inline auto
-                        cursor pointer
 
     @media screen and (max-width: 480px)
         .feedback__form__content__control

@@ -153,7 +153,7 @@
     font-size 13px
     line-height 130.7%
     letter-spacing 0.005em
-    color var(--color-text)
+    color white
     border-radius 8px
     margin-block auto
     padding 8px
