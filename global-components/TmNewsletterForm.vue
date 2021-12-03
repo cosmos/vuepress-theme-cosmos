@@ -32,7 +32,7 @@
             p.tm-rf0.tm-lh-copy.tm-title
               | You should get a confirmation email for each of your selected
               | interests. Open it up and click
-              span ‘Confirm your email’
+              | ‘Confirm your email’
               | so we can keep you updated.
             p.tm-rf-1.tm-lh-title.tm-text
               | Don&rsquo;t see the confirmation email yet?
