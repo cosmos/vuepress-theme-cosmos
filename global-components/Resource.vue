@@ -36,6 +36,7 @@ export default {
         flex-direction column
         justify-content space-between
         height 100%
+        flex-grow 1
 
 
     &__icon
