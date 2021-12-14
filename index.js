@@ -1,5 +1,6 @@
-var ghmd = require("./markdown-it-gh.js")
-var fcb = require("./markdown-it-fcb.js")
+var ghmd = require("./markdown-it-gh.js");
+var fcb = require("./markdown-it-fcb.js");
+const optimizeAssets = require("./optimizeAssets");
 
 function replaceUnsafeChar(ch) {
   return HTML_REPLACEMENTS[ch];
@@ -34,6 +35,10 @@ module.exports = (opts, ctx) => {
       md.use(require('markdown-it-attrs'), {
         allowedAttributes: ['prereq', 'hide', 'synopsis']
       })
+    },
+    async ready() {
+      // called on build and dev
+      optimizeAssets(opts.imageBreakpoints || []);
     }
   }
 }
