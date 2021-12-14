@@ -7,7 +7,7 @@ export default {
     props: ['src'],
     computed: {
         resizedSrc() {
-            const slot = window.innerWidth > 1080 ? 'big' : 'small';
+            const slot = (typeof window !== 'undefined' && window.innerWidth > 1080) ? 'big' : 'small';
             return '/resized-images/' + slot + this.src;
         },
         zoomSrc() {

@@ -47,7 +47,6 @@ module.exports = function asciiDiagram(md, options) {
     return escapeHtml(tokens[idx].content);
   };
   md.renderer.rules.image = function(tokens, idx, options, env) {
-    console.log(tokens[idx].attrs.filter(item => item.includes('src'))[0][1])
     const src = tokens[idx].attrs.filter(item => item.includes('src'))[0][1];
     return `<tm-image src="${src}"/>`
   }
