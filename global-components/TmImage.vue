@@ -7,15 +7,12 @@ export default {
     props: ['src'],
     computed: {
         resizedSrc() {
-            if (this.isAbsoluteUrl(this.src)) return this.src;
-
-            const windowWidth = (typeof window !== 'undefined') ? window.innerWidth : null;
-            const breakpoint = this.getBreakpoint(windowWidth);
-            return '/resized-images/' + breakpoint + this.src;
+            const width = this.$parent.$el.clientWidth;
+            return this.getResizedSrc(width);
         },
         zoomSrc() {
-            if (this.isAbsoluteUrl(this.src)) return this.src;
-            return this.src;
+            const width = (typeof window !== 'undefined') ? window.innerWidth : null;
+            return this.getResizedSrc(width);
         }
     },
     methods: {
@@ -36,6 +33,12 @@ export default {
             }
 
             return breakpoint;
+        },
+        getResizedSrc(width) {
+            if (this.isAbsoluteUrl(this.src)) return this.src;
+            
+            const breakpoint = this.getBreakpoint(width);
+            return '/resized-images/' + breakpoint + this.src;
         }
     }
 }
