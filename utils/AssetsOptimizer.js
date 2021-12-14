@@ -68,7 +68,7 @@ class AssetsOptimizer {
     
     generateImages(assetList, breakpoint, basePath) {
         console.log(`Generating images for breakpoint ${breakpoint}`);
-        if (isNaN(breakpoint)) return;
+        if (!breakpoint || isNaN(breakpoint)) return;
 
         for (var asset of assetList) {
             var filename = this.getFilename(asset);

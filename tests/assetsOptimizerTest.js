@@ -41,19 +41,24 @@ describe('Testing assets optimization', () => {
             const breakpoint = defaultBreakpoints[0];
             assetsOptimizer.prepareOutputDir(basePath + breakpoint);
             assetsOptimizer.generateImages(list, breakpoint, basePath);
-            for (var item of list) {
-                assert(fileExist(basePath + `${breakpoint}/` + assetsOptimizer.getFilename(item)));
-            }
+
+            setTimeout(() => {
+                for (var item of list) {
+                    assert(fileExist(basePath + `${breakpoint}/` + assetsOptimizer.getFilename(item)));
+                }
+            }, 1000)
         })
 
         it('Shouldn\'t resize test images with wrong breakpoint', () => {
             const list = assetsOptimizer.getAssetList('./tests', defaultFilter, defaultBlacklist);
             const breakpoint = null;
-            assetsOptimizer.prepareOutputDir(basePath + breakpoint);
             assetsOptimizer.generateImages(list, breakpoint, basePath);
-            for (var item of list) {
-                assert(!fileExist(basePath + `${breakpoint}/` + assetsOptimizer.getFilename(item)));
-            }
+
+            setTimeout(() => {
+                for (var item of list) {
+                    assert(!fileExist(basePath + `${breakpoint}/` + assetsOptimizer.getFilename(item)));
+                }
+            }, 1000)
         })
         
     })
