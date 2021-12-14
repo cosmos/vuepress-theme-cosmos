@@ -38,7 +38,7 @@ module.exports = (opts, ctx) => {
     },
     async ready() {
       // called on build and dev
-      const assetsOptimizer = new AssetsOptimizer(opts.imageBreakpoints || []);
+      const assetsOptimizer = new AssetsOptimizer(opts.assetsOptimization.breakpoints || [], opts.assetsOptimization.blacklist || []);
       assetsOptimizer.optimize();
     }
   }

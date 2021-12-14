@@ -19,7 +19,7 @@ describe('Testing assets optimization', () => {
 
     describe('Asset list tests', () => {
         before(() => {
-            assetsOptimizer = new AssetsOptimizer(defaultBreakpoints);
+            assetsOptimizer = new AssetsOptimizer(defaultBreakpoints, defaultBlacklist);
         })
 
         it('Should list expected assets', () => {

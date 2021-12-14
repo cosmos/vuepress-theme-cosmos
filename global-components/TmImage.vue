@@ -27,8 +27,8 @@ export default {
         getBreakpoint(width) {
             var breakpoint = null;
 
-            if (width && this.$themeConfig?.imageBreakpoints) {
-                for (var item of this.$themeConfig.imageBreakpoints) {
+            if (width && this.$themeConfig?.assetsOptimization?.breakpoints) {
+                for (var item of this.$themeConfig.assetsOptimization.breakpoints) {
                     if (width <= item) {
                         breakpoint = item;
                         break;

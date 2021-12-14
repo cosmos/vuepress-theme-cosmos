@@ -3,8 +3,9 @@ const sharp = require('sharp'),
     fs = require('fs')
 
 class AssetsOptimizer {
-    constructor(breakpoints) {
+    constructor(breakpoints, blacklist) {
         this.breakpoints = breakpoints;
+        this.blacklist = blacklist;
     }
 
     optimize() {
@@ -12,7 +13,6 @@ class AssetsOptimizer {
         console.log("Setup: List assets");
 
         const filter = /^.*\.(jpe?g|png)/;
-        const blacklist = ['node_modules', '.vuepress/dist', '.vuepress/theme', '.vuepress/public/resized-images', '.vuepress/public/h5p'];
         const assetList = this.getAssetList('./', filter, blacklist);
         console.log('LIST: ', assetList)
 
