@@ -5,15 +5,19 @@
 <script>
 export default {
     props: ['src'],
-    computed: {
-        resizedSrc() {
-            const width = this.$parent.$el.clientWidth;
-            return this.getResizedSrc(width);
-        },
-        zoomSrc() {
-            const width = (typeof window !== 'undefined') ? window.innerWidth : null;
-            return this.getResizedSrc(width);
+    data() {
+        const parentWidth = this.$parent.$el?.clientWidth || 0;
+        const windowWidth = (typeof window !== 'undefined') ? window.innerWidth : 0;
+        return {
+            resizedSrc: this.getResizedSrc(parentWidth),
+            zoomSrc: this.getResizedSrc(windowWidth)
         }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.resizedSrc = this.getResizedSrc(this.$parent.$el?.clientWidth || 0);
+            this.zoomSrc = this.getResizedSrc(window?.innerWidth || 0);
+        })
     },
     methods: {
         isAbsoluteUrl(src) {
@@ -21,7 +25,7 @@ export default {
             return absoluteRe.test(src);
         },
         getBreakpoint(width) {
-            var breakpoint = ''; // default
+            var breakpoint = null;
 
             if (width && this.$themeConfig?.imageBreakpoints) {
                 for (var item of this.$themeConfig.imageBreakpoints) {
@@ -36,8 +40,10 @@ export default {
         },
         getResizedSrc(width) {
             if (this.isAbsoluteUrl(this.src)) return this.src;
-            
+
             const breakpoint = this.getBreakpoint(width);
+            if (!breakpoint) return this.src;
+
             return '/resized-images/' + breakpoint + this.src;
         }
     }
