@@ -19,9 +19,10 @@ class AssetsOptimizer {
         console.log("Setup: Completed");
         console.log("Resize: Started resizing images using sharp");
 
+        var basePath = '.vuepress/public/resized-images/';
         for (var breakpoint of this.breakpoints) {
-            this.prepareOutputDir(`.vuepress/public/resized-images/${breakpoint}`);
-            this.generateImages(assetList, breakpoint);
+            this.prepareOutputDir(basePath + breakpoint);
+            this.generateImages(assetList, breakpoint, basePath);
         }
 
         console.log("Resize: Completed");
@@ -65,13 +66,19 @@ class AssetsOptimizer {
         }
     }
     
-    generateImages(assetList, breakpoint) {
+    generateImages(assetList, breakpoint, basePath) {
         console.log(`Generating images for breakpoint ${breakpoint}`);
+        if (isNaN(breakpoint)) return;
+
         for (var asset of assetList) {
-            var filePath = asset.split('/');
-            var filename = filePath[filePath.length - 1];
-            this.resize(asset, breakpoint, `.vuepress/public/resized-images/${breakpoint}/${filename}`);
+            var filename = this.getFilename(asset);
+            this.resize(asset, breakpoint, basePath + `${breakpoint}/${filename}`);
         }
+    }
+
+    getFilename(path) {
+        var filePath = path.split('/');
+        return filePath[filePath.length - 1];
     }
 }
 
