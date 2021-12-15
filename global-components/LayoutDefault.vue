@@ -78,7 +78,7 @@
 .container
   position relative
   width 100%
-  max-width var(--content-max-width)
+  max-width var(--content-max-width-small)
   margin-inline auto
 
 .content
@@ -538,7 +538,7 @@
       &:after
         display none
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
     padding-right 1.75rem
 
@@ -563,11 +563,11 @@
     &__container
       padding-left 2rem
 
-@media screen and (max-width: 1136px) and (min-width: 833px)
+@media screen and (max-width: 1138px) and (min-width: 833px)
   .search__container
     visibility visible
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   >>> h1[id*='requisite'], >>> h2[id*='requisite'], >>> h3[id*='requisite'], >>> h4[id*='requisite'], >>> h5[id*='requisite'], >>> h6[id*='requisite']
     display flex
 
@@ -695,13 +695,13 @@
     &__gutter
       margin-top 4rem
       padding-top 63px
-      max-width var(--content-max-width)
+      max-width var(--content-max-width-medium)
       margin-inline auto
       border-top 1px solid var(--semi-transparent-color-2)
 
     &__feedback
       margin-top 4rem
-      max-width var(--content-max-width)
+      max-width var(--content-max-width-medium)
       margin-inline auto
 
     &__footer
@@ -712,7 +712,7 @@
   .layout
     --sidebar-width 256px
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   .layout
     &__sidebar
       width 30%

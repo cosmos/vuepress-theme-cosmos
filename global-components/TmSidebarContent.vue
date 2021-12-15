@@ -130,7 +130,7 @@
       font-size 0.6875rem
       line-height 0.875rem
 
-@media screen and (max-width: 1135px)
+@media screen and (max-width: 1138px)
   .version
     display block
 </style>
