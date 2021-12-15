@@ -3,6 +3,9 @@
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
+        .layout__sidebar__aside
+          client-only
+            tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
       .layout__main
         .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
           .layout__main__content__body(id="content-scroll")
@@ -574,6 +577,9 @@
   >>> h1[id*='requisite'] + ul, >>> h2[id*='requisite'] + ul, >>> h3[id*='requisite'] + ul, >>> h4[id*='requisite'] + ul, >>> h5[id*='requisite'] + ul, >>> h6[id*='requisite'] + ul
     display block
 
+  .container
+    margin-inline unset
+
 @media screen and (max-width: 480px)
   >>> h1
     font-size 2.5rem
@@ -645,6 +651,9 @@
     &::-webkit-scrollbar
       display none
 
+    &__aside
+      display none
+
   &__main
     position relative
     width 60%
@@ -670,6 +679,7 @@
       &__aside
 
         &__container
+          padding-left 24px
           position sticky
           top 0
           right 0
@@ -716,6 +726,16 @@
   .layout
     &__sidebar
       width 30%
+
+      &__aside
+        display block
+        padding-right 24px
+
+        >>> .hidden
+          visibility visible
+          max-height 500px
+          opacity 1
+
     &__main
       width 70%
       &__content
@@ -759,7 +779,11 @@
 
   .layout
     display block
+
     &__sidebar
+      display none
+
+      &__aside
         display none
 
     &__main

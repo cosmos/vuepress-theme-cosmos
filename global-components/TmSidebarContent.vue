@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(style="height: 100%; position: relative")
+  div(style="position: relative")
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
