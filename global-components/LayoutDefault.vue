@@ -3,7 +3,7 @@
     .layout
       .layout__sidebar
         tm-sidebar-content(:value="tree" :tree="directoryTree")
-        .layout__sidebar__aside
+        .layout__sidebar__aside(v-if="!($frontmatter.aside === false) && $page.headers && $page.headers.length > 0")
           client-only
             tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
       .layout__main
