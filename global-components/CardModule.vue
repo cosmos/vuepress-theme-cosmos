@@ -6,7 +6,7 @@
                 .module__content
                     h4.module__content__title {{this.module.title}}
                     .module__content__desc {{this.module.description}}
-                .module__actions
+                .module__actions(:class="$frontmatter.main && 'module__actions__main'")
                     .module__actions__toggle
                         .module__actions__toggle__label {{submodules.length}} pages
                         icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
@@ -111,6 +111,12 @@
             align-items center
             justify-content space-between
             color var(--color-text-strong)
+            margin-top 24px
+            width 100%
+
+            &__main
+                margin-top auto
+                width auto
 
             &__toggle
                 display flex
@@ -228,10 +234,5 @@
 
             &__submodules__item__badge
                 margin-inline 24px
-
-    @media screen and (min-width: 1025px) and (max-width: 1312px)
-        .module__actions
-            margin-top 24px
-            width 100%
 
 </style>

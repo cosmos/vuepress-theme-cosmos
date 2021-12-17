@@ -16,8 +16,6 @@
 </template>
 
 <style lang="stylus" scoped>
-.container
-  padding-left 24px
 
 .search__container
   display flex

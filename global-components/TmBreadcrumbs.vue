@@ -97,7 +97,7 @@
       background-color var(--background-color-secondary)
 
 
-@media screen and (max-width: 1135px)
+@media screen and (max-width: 732px)
   .menu__item
     display block
 

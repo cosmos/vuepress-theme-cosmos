@@ -41,7 +41,7 @@
             display flex
             justify-content space-between
             align-items center
-            padding-inline 128px
+            padding-inline 64px
             width 100%
 
             @media screen and (max-width: 480px)

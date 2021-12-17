@@ -333,7 +333,7 @@
       height 72px
       width auto
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   .p
     font-size 1.25rem
     line-height 1.75rem

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(style="height: 100%; position: relative")
+  div(style="position: relative")
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
@@ -130,7 +130,7 @@
       font-size 0.6875rem
       line-height 0.875rem
 
-@media screen and (max-width: 1135px)
+@media screen and (max-width: 1138px)
   .version
     display block
 </style>

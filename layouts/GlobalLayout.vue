@@ -36,7 +36,7 @@ div
 
 .global__layout {
   &__footer {
-    max-width: var(--content-small-max-width);
+    max-width: var(--content-max-width-medium);
     margin-left: auto;
     margin-right: auto;
   }
