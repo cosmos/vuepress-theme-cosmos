@@ -13,7 +13,7 @@ class AssetsOptimizer {
         console.log("Setup: List assets");
 
         const filter = /^.*\.(jpe?g|png)/;
-        const assetList = this.getAssetList('./', filter, blacklist);
+        const assetList = this.getAssetList('./', filter, this.blacklist);
         console.log('LIST: ', assetList)
 
         console.log("Setup: Completed");
