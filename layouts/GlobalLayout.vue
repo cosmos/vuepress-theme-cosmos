@@ -35,6 +35,9 @@ div
 }
 
 .global__layout {
+  max-width: var(--content-max-width-big);
+  margin-inline: auto;
+
   &__footer {
     max-width: var(--content-max-width-medium);
     margin-left: auto;
