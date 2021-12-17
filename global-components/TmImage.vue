@@ -26,13 +26,17 @@ export default {
         },
         getBreakpoint(width) {
             var breakpoint = null;
+            var breakpointList = this.$themeConfig?.assetsOptimization?.breakpoints;
 
-            if (width && this.$themeConfig?.assetsOptimization?.breakpoints) {
-                for (var item of this.$themeConfig.assetsOptimization.breakpoints) {
+            if (width && breakpointList) {
+                for (var item of breakpointList) {
                     if (width <= item) {
                         breakpoint = item;
                         break;
                     }
+                }
+                if (!breakpoint) {
+                    breakpoint = breakpointList[breakpointList.length - 1];
                 }
             }
 
