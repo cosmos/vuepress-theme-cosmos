@@ -792,6 +792,9 @@
         padding-left 1.75rem
         padding-right 1.75rem
 
+  .container
+    margin-inline auto
+
 
 @media screen and (max-width: 480px)
   .layout

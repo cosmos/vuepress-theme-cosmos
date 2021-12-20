@@ -26,6 +26,7 @@
 <style lang="stylus" scoped>
 .faq
     &__wrapper
+        cursor pointer
         padding-top 32px
         padding-bottom 16px
         border-bottom 1px solid var(--semi-transparent-color-2)
@@ -50,6 +51,7 @@
     &__icon
         position absolute
         right 0
+        filter var(--img-filter)
 
         img
             margin-block 0px
