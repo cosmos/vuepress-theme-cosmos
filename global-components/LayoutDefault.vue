@@ -11,7 +11,7 @@
           .layout__main__content__body(id="content-scroll")
             .layout__main__content__body__wrapper
               div(style="width: 100%")
-                .container.content__default
+                .container.content__default(:class="[$frontmatter.landingPage ? 'container__lp' : 'container__default']")
                   slot
                   tm-content-cards(v-if="$frontmatter.cards")
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
@@ -81,8 +81,15 @@
 .container
   position relative
   width 100%
-  max-width var(--content-max-width-small)
-  margin-inline auto
+
+  &__default
+    max-width var(--content-max-width-small)
+    margin-inline auto
+
+  &__lp
+    max-width var(--content-max-width-small-2)
+    margin-left auto
+
 
 .content
   padding-right var(--sidebar-width)
@@ -428,7 +435,7 @@
     letter-spacing .01em
 
   p,ul,ol
-    font-size 1.125rem
+    font-size 1.0rem
     line-height 1.8125rem
 
   p
