@@ -401,7 +401,7 @@
     font-style italic
 
   h1
-    font-size 3rem
+    font-size 2.4rem
     margin-top 4rem
     margin-bottom 4rem
     line-height 3.5rem
@@ -411,7 +411,7 @@
       margin-top 0
 
   h2
-    font-size 2rem
+    font-size 1.8rem
     margin-top 3.75rem
     margin-bottom 1.25rem
     line-height 2.5rem
