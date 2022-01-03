@@ -43,6 +43,8 @@
             align-items center
             padding-inline 64px
             width 100%
+            max-width var(--content-max-width-big)
+            margin-inline auto
 
             @media screen and (max-width: 480px)
                 padding-inline 24px
