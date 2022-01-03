@@ -665,7 +665,7 @@
     position relative
     width 60%
     flex-grow 1
-    padding-top 2rem
+    padding-top 64px
     
     &__navbar
       padding-left 2.5rem
@@ -693,7 +693,7 @@
           overflow-y scroll
           width 20%
           height 100vh
-          padding-top 2rem
+          padding-top 64px
           transition all 0.25s
           scrollbar-width none
 

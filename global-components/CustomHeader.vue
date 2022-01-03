@@ -77,7 +77,7 @@
         &__search
             flex-grow 1
             margin-left 32px
-            padding-block 8px
+            padding-block 16px
 
             &__mobile
                 display none
