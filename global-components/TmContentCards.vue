@@ -58,7 +58,7 @@
     margin-top .75rem
     font-size .875rem
     line-height 1.25rem
-    color var(--color-text-dim, black)
+    color var(--color-text, black)
 
   &__icon
     top 1.5rem

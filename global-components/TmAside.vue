@@ -1,28 +1,21 @@
 <template lang="pug">
   div
     .container
-      .search__container
-        tm-select-version(v-if="$themeConfig.versions")
-        .search(@click="$emit('search', true)" v-if="$themeConfig.algolia")
-          .search__icon
-            icon-search
-          .search__text Search
-      .banners(v-if="asideBanners && !$themeConfig.custom")
+      .banners.visible(v-if="asideBanners && !$themeConfig.custom" id="banners")
         .banners__item(v-for="banner in asideBanners")
           a(:href="banner.href" target="_blank" rel="noreferrer noopener")
             img(:src="`${asideBannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
-      div(v-if="prereq && prereq.length > 0")
-        .aside__title Pre-requisite reading
-        a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
-      div(v-if="$page.headers && $page.headers.length > 0")
-        .aside__title On this page
-        .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
-          a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
+      .content
+        div(v-if="prereq && prereq.length > 0")
+          .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mmb-5 Pre-requisite reading
+          a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
+        div(v-if="$page.headers && $page.headers.length > 0")
+          .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mb-5 On this page
+          .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
+            a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href {{link.title}}
 </template>
 
 <style lang="stylus" scoped>
-.container
-  padding 1rem 1rem 1rem 2rem
 
 .search__container
   display flex
@@ -31,10 +24,15 @@
   padding-bottom 3.5rem
 
 .banners
-  margin-bottom 3rem
+  margin-bottom 24px
+  transition all 0.25s linear
+  max-width 300px
 
   &__item
-    margin-bottom 0.5rem
+    margin-bottom 12px
+
+    &:last-child
+      margin-bottom 0px
 
     a
       display block
@@ -49,31 +47,32 @@
       &:active
         transition none
 
-.search
-  cursor pointer
-  display flex
-  justify-content flex-end
-  align-items center
+      img
+        margin-top 0px
 
-  &__icon
-    height 1.5rem
-    width 1.5rem
-    margin-right 0.5rem
-    fill #aaa
-    transition fill .15s ease-out
+.hidden
+  visibility hidden
+  max-height 0
+  opacity 0
+  margin-bottom 0
 
-  &__text
-    color rgba(22, 25, 49, 0.65)
-    transition color .15s ease-out
-
-  &:hover &__icon
-    fill var(--color-text, black)
-
-  &:hover &__text
-    color var(--color-text, black)
+.visible
+  visibility visible
+  max-height 500px
+  opacity 1
 
 .selected
-  font-weight 700
+  color var(--color-text-strong)
+
+.content
+  position sticky
+  top 0
+  height 100vh
+  overflow-y scroll
+  scrollbar-width none
+  
+  &::-webkit-scrollbar
+    display none
 
 .aside
   &__image
@@ -85,24 +84,25 @@
     font-size 0.75rem
     text-transform uppercase
     letter-spacing 0.2em
-    color var(--color-text-dim, inherit)
     margin-top 3rem
     margin-bottom 0.75rem
 
   &__link
-    color var(--color-text-dim, inherit)
     padding-top 0.375rem
     padding-bottom 0.375rem
     font-size 0.875rem
     line-height 1.125rem
     word-break break-word
 
-    &__href:hover
-      color var(--color-text, black)
+    &__href
+      color var(--semi-transparent-color-3)
+
+      &:hover
+        color var(--color-text, black)
 
     &__active__true
-      color var(--color-text, black)
-      font-weight bold
+      .aside__link__href
+        color var(--color-text-strong, black)
 
 .prereq__item
   box-shadow 0px 2px 4px rgba(22, 25, 49, 0.05), 0px 0px 1px rgba(22, 25, 49, 0.2), 0px 0.5px 0px rgba(22, 25, 49, 0.05)
@@ -134,15 +134,15 @@ export default {
   props: ["selected", "asideBanners", "asideBannersUrl", "prereq"],
   data: function() {
     return {
-      headerCurrent: null,
+      headerCurrent: null
     };
   },
   async mounted() {
-    window.addEventListener("scroll", this.headerActive);
+    window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("hashchange", this.headerActive);
   },
   beforeDestroy() {
-    window.removeEventListener("scroll", this.headerActive);
+    window.removeEventListener("scroll", this.handleScroll);
     window.removeEventListener("hashchange", this.headerActive);
   },
   computed: {
@@ -155,6 +155,24 @@ export default {
     },
   },
   methods: {
+    handleScroll(e) {
+      const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (currentScrollPosition < 0) {
+        return;
+      }
+      // this.toggleBanners(currentScrollPosition > 0);
+      this.headerActive(e);
+    },
+    toggleBanners(toHide) {
+      if (toHide) {
+        document.getElementById('banners').classList.add('hidden');
+        document.getElementById('banners').classList.remove('visible');
+      } else {
+        document.getElementById('banners').classList.add('visible');
+        document.getElementById('banners').classList.remove('hidden');
+      }
+    },
     headerActive(e) {
       const middleY = window.scrollY + 50;
       if (!this.$page.headers) return;

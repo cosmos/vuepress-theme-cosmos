@@ -3,7 +3,7 @@
     <transition name="overlay" appear>
       <div class="overlay"
            ref="overlay"
-           :style="{'background-color': backgroundColor || 'rgba(0, 0, 0, 0.35)'}"
+           :style="{'background-color': backgroundColor || 'var(--background-color-primary)'}"
            v-if="visible && visibleLocal"
            @click="close"
            @touchstart="touchstart"
@@ -35,12 +35,18 @@
 }
 .sidebar {
   position: fixed;
+  z-index: 9999;
   top: 0;
   height: 100vh;
-  background: white;
+  background: var(--background-color-primary);
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   transform: translateX(var(--translate-x-component-internal));
+}
+@media screen and (max-width: 480px) {
+  .sidebar {
+    padding-left: 24px;
+  }
 }
 .overlay-enter-active {
   transition: all .25s ease-in;
@@ -99,19 +105,9 @@ export default {
     };
   },
   watch: {
-    visible(newValue, oldValue) {
+    visible(newValue) {
       if (newValue) {
-        const body = document.querySelector("body").style;
-        const html = document.querySelector("html").style;
-        const iOS =
-          !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
         const sidebar = this.$refs.sidebar;
-        body.height = "100%"
-        body.overflow="hidden"
-        html.height = "100%"
-        html.overflow="hidden"
-        body.overflowY = "hidden";
-        // body.overflowX = "hidden";
         if (sidebar) {
           sidebar.addEventListener("transitionend", () => {
             sidebar.style.transition = "";
@@ -120,20 +116,17 @@ export default {
         this.touchMoveX = null;
         this.touchStartX = null;
         this.visibleLocal = true;
-      } else {
-        document.querySelector("body").style.overflowY = "";
-        document.querySelector("body").style.position = "";
       }
     }
   },
   computed: {
     style() {
       return {
+        "width": this.width,
+        "max-width": this.maxWidth,
         "box-shadow": this.boxShadow || "none",
         left: this.side === "right" ? "initial" : "0",
         right: this.side === "right" ? "0" : "initial",
-        width: this.width || "300px",
-        "max-width": this.maxWidth || "75vw",
         "--sidebar-transform-component-internal":
           this.side === "right" ? "100%" : "-100%",
         "--translate-x-component-internal": `${

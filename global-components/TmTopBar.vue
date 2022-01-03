@@ -75,7 +75,7 @@
       margin-right .5rem
 
     &__text
-      color var(--color-text-dim, inherit)
+      color var(--color-text, inherit)
 
 @media screen and (max-width: 752px)
   .menu

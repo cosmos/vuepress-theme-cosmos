@@ -1,20 +1,39 @@
 <template lang="pug">
-  div(style="width: 100%")
-    .search__container
-      .search(@click="$emit('search', true)")
-        .search__icon
-          icon-search
-        .search__text Search
-    .container
-      slot
-      tm-content-cards(v-if="$frontmatter.cards")
+  div
+    .layout
+      .layout__sidebar
+        tm-sidebar-content(:value="tree" :tree="directoryTree")
+        .layout__sidebar__aside(v-if="!($frontmatter.aside === false) && $page.headers && $page.headers.length > 0")
+          client-only
+            tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
+      .layout__main
+        .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
+          .layout__main__content__body(id="content-scroll")
+            .layout__main__content__body__wrapper
+              div(style="width: 100%")
+                .container.content__default(:class="[$frontmatter.landingPage ? 'container__lp' : 'container__default']")
+                  slot
+                  tm-content-cards(v-if="$frontmatter.cards")
+        .layout__main__gutter(v-if="!($frontmatter.aside === false)")
+          tm-footer-links(:tree="tree")
+        feedback-box.layout__main__feedback
+      .layout__main__content__aside__container(v-if="!($frontmatter.aside === false) && $page.headers && $page.headers.length > 0" :style="{'--height-banners': heightBanners + 'px'}")
+        .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
+          client-only
+            tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
+    tm-sidebar(:visible="sidebarVisible" @visible="sidebarVisible = $event").sheet__sidebar
+      tm-sidebar-content(:value="tree" :tree="directoryTree" :compact="true")
+    tm-sidebar(:visible="searchPanel" @visible="searchPanel = $event" max-width="100vw" width="480px" side="right" box-shadow="0 0 50px 10px rgba(0,0,0,.1)" background-color="rgba(0,0,0,0)").sheet__sidebar
+      section-search(@visible="searchPanel = $event" :base="$site.base" @cancel="searchPanel = false" :algoliaConfig="algoliaConfig" @select="searchSelect($event)" :query="searchQuery" @query="searchQuery = $event" :site="$site")
+    tm-sidebar(:visible="rsidebarVisible"  @visible="rsidebarVisible = $event" side="right").sheet__sidebar.sheet__sidebar__toc
+      tm-toc-menu(@visible="rsidebarVisible = $event")
 </template>
 
 <style lang="stylus" scoped>
 .search
   display flex
   align-items center
-  color rgba(22, 25, 49, 0.65)
+  color var(--color-text)
   padding-top 1rem
   width calc(var(--aside-width) - 6rem)
   cursor pointer
@@ -62,7 +81,15 @@
 .container
   position relative
   width 100%
-  max-width 45rem
+
+  &__default
+    max-width var(--content-max-width-small)
+    margin-inline auto
+
+  &__lp
+    max-width var(--content-max-width-small-2)
+    margin-left auto
+
 
 .content
   padding-right var(--sidebar-width)
@@ -131,27 +158,39 @@
       a.header-anchor
         opacity 1
 
+  .tag-element
+    background var(--tag-background-color)
+    font-size 13px
+    line-height 130.7%
+    letter-spacing 0.005em
+    color white
+    border-radius 8px
+    margin-block auto
+    padding 8px
+    margin-left 16px
+    flex-shrink 0
+
   a.header-anchor
     opacity 0
     position absolute
     font-weight 400
-    left -1.5em
+    left -1.3em
     width 1.5em
     text-align center
     box-sizing border-box
-    color rgba(0, 0, 0, 0.4)
+    color var(--semi-transparent-color)
     outline-color var(--color-link, blue)
     transition all 0.25s
+    text-decoration none
 
     &:after
-      transition all 0.25s
       border-radius 0.25rem
       content attr(data-header-anchor-text)
       max-width 4rem
-      color white
+      color black
       position absolute
       top -2.4em
-      padding 7px 12px
+      padding 7px 4px
       white-space nowrap
       left 50%
       transform translateX(-50%)
@@ -159,13 +198,11 @@
       line-height 1
       letter-spacing 0
       opacity 0
-      box-shadow 0px 16px 32px rgba(22, 25, 49, 0.08), 0px 8px 12px rgba(22, 25, 49, 0.06), 0px 1px 0px rgba(22, 25, 49, 0.05)
-      background var(--color-text, black)
+      background white
 
     &:before
-      transition all 0.25s
       content ''
-      background-image url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='rgb(22, 25, 49)' d='M12 21l-12-18h24z'/></svg>")
+      background-image url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='white' d='M12 21l-12-18h24z'/></svg>")
       position absolute
       width 8px
       height 8px
@@ -238,37 +275,25 @@
       transition-duration 0s
 
   [synopsis]
-    padding 1.5rem 2rem
-    background-color rgba(176, 180, 207, 0.09)
-    border-radius 0.5rem
+    padding 24px 32px
+    background-color var(--background-color-secondary)
+    border-radius 8px
     margin-top 3rem
     margin-bottom 3rem
-    color rgba(22, 25, 49, 0.9)
+    color var(--color-text)
+    color var(--semi-transparent-color-3)
     font-size 1rem
     line-height 1.625rem
 
     &:before
       content 'Synopsis'
       display block
-      color rgba(22, 25, 49, 0.65)
+      color var(--color-text-strong)
       text-transform uppercase
-      font-size 0.75rem
-      margin-bottom 0.5rem
-      letter-spacing 0.2em
-
-  a[target='_blank']
-    &:after
-      content '↗'
-      position absolute
-      bottom 0.166em
-      padding-left 0.1875em
-      font-size 0.75em
-      line-height 1
-      word-break none
-      transition transform 0.2s ease-out
-    &:hover:after,
-    &:focus:after
-      transform translate(2px, -2px)
+      font-size 13px
+      font-weight 500
+      margin-bottom 8px
+      letter-spacing 0.08em
 
   .icon.outbound
     display none
@@ -331,11 +356,14 @@
     text-decoration underline
 
   img
-    width 100%
+    max-width 100%
+    width auto
     height auto
     display block
     margin-bottom 2rem
     margin-top 2rem
+    max-height 60vh
+    margin-inline auto
 
   .tooltip
 
@@ -373,7 +401,7 @@
     font-style italic
 
   h1
-    font-size 3rem
+    font-size 2.4rem
     margin-top 4rem
     margin-bottom 4rem
     line-height 3.5rem
@@ -383,11 +411,14 @@
       margin-top 0
 
   h2
-    font-size 2rem
+    font-size 1.8rem
     margin-top 3.75rem
     margin-bottom 1.25rem
     line-height 2.5rem
     letter-spacing -0.01em
+
+    &:first-child
+      margin-top 0
 
   h3
     font-size 1.5rem
@@ -404,7 +435,7 @@
     letter-spacing .01em
 
   p,ul,ol
-    font-size 1.125rem
+    font-size 1.0rem
     line-height 1.8125rem
 
   p
@@ -427,7 +458,7 @@
     padding-left 2rem
     padding-right 2rem
     border-left 0.25rem solid rgba(0,0,0,0.1)
-    color var(--color-text-dim, inherit)
+    color var(--color-text, inherit)
     margin-top 1.75rem
     margin-bottom 1.75rem
 
@@ -453,9 +484,12 @@
 
   h1, h2, h3, h4, h5, h6
     a
-      color var(--color-link, blue)
-      outline none
+      font-weight 500
       position relative
+      color var(--color-text-strong)
+      text-decoration underline 
+      position relative
+      line-height: 128.7%
 
     a[target='_blank']
       &:after
@@ -463,21 +497,11 @@
 
   p, ul, ol
     a
-      color var(--color-link, blue)
-      outline-color var(--color-link, blue)
-      border-radius 0.25rem
+      font-weight 500
       position relative
-      transition opacity 0.3s ease-out
-      overflow-wrap break-word
-      word-wrap break-word
-      -ms-word-break break-all
-      word-break break-word
-
-    a[target='_blank']
-      margin-right 0.888em
-
-    a:hover
-      text-decoration underline
+      color var(--color-text-strong)
+      text-decoration underline  
+      line-height: 128.7%  
 
     a:active
       opacity 0.65
@@ -487,13 +511,33 @@
       color inherit
       transition background-color 0.15s ease-out
 
-    a:hover code,
-    a:focus code
-      background-color rgba(59, 66, 125, 0.12)
+    a[target="_blank"]
+      position relative
+      margin-right 1.2em
+
+      &:after
+        content "\2197"
+        font-size .75em
+        position absolute
+        bottom .166em
+        padding-left .275em
+        line-height 1
+        will-change: transform
+        transition transform .2s ease-out
+
+      &:hover:after
+        transform translate(10%, -10%)
+
+    .tm-button
+      &:after
+        display none
 
   td
     a
-      color var(--color-link, blue)
+      color var(--color-text-strong)
+      text-decoration underline  
+      font-weight 500
+      line-height: 128.7%
       position relative
       transition opacity 0.3s ease-out
       overflow-wrap break-word
@@ -504,7 +548,7 @@
       &:after
         display none
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   >>> h2, >>> h3, >>> h4, >>> h5, >>> h6
     padding-right 1.75rem
 
@@ -529,16 +573,19 @@
     &__container
       padding-left 2rem
 
-@media screen and (max-width: 1136px) and (min-width: 833px)
+@media screen and (max-width: 1138px) and (min-width: 833px)
   .search__container
     visibility visible
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   >>> h1[id*='requisite'], >>> h2[id*='requisite'], >>> h3[id*='requisite'], >>> h4[id*='requisite'], >>> h5[id*='requisite'], >>> h6[id*='requisite']
     display flex
 
   >>> h1[id*='requisite'] + ul, >>> h2[id*='requisite'] + ul, >>> h3[id*='requisite'] + ul, >>> h4[id*='requisite'] + ul, >>> h5[id*='requisite'] + ul, >>> h6[id*='requisite'] + ul
     display block
+
+  .container
+    margin-inline unset
 
 @media screen and (max-width: 480px)
   >>> h1
@@ -573,11 +620,231 @@
     font-size 0.875rem
     line-height 1.25rem
 
+.mode-switch-container
+  position absolute
+  padding-top 1rem
+  top 1rem
+  left 4rem
+
+.sheet
+  &__sidebar
+    z-index 10000
+    position relative
+
+    &__toc
+      display none
+
+
+.layout__main__content.aside__false
+  display block
+
+.layout
+  display flex
+  width 100%
+  margin-left auto
+  margin-right auto
+  position relative
+  background-color  var(--background-color-primary)
+
+  &__sidebar
+    width 20%
+    position sticky
+    top 64px
+    height calc(100vh - 64px)
+    overflow-y scroll
+    transition all 0.25s
+    scrollbar-width none
+
+    &::-webkit-scrollbar
+      display none
+
+    &__aside
+      display none
+
+  &__main
+    position relative
+    width 60%
+    flex-grow 1
+    padding-top 64px
+    
+    &__navbar
+      padding-left 2.5rem
+      padding-right 2.5rem
+      display none
+      position sticky
+      top 0
+      width 100%
+      background var(--background-color-primary)
+      z-index 500
+
+    &__content
+      display flex
+
+      &__body
+        width 100%
+
+      &__aside
+
+        &__container
+          padding-left 24px
+          position sticky
+          top 0
+          right 0
+          overflow-y scroll
+          width 20%
+          height 100vh
+          padding-top 64px
+          transition all 0.25s
+          scrollbar-width none
+
+          &::-webkit-scrollbar
+            display none
+
+        &__banners
+          width 100%
+          position absolute
+          bottom 0
+          right 0
+          padding-left 2rem
+          padding-right 1.5rem
+          box-sizing border-box
+
+    &__gutter
+      margin-top 4rem
+      padding-top 63px
+      max-width var(--content-max-width-medium)
+      margin-inline auto
+      border-top 1px solid var(--semi-transparent-color-2)
+
+    &__feedback
+      margin-top 4rem
+      max-width var(--content-max-width-medium)
+      margin-inline auto
+
+    &__footer
+      padding-left 4rem
+      padding-right 4rem
+
+@media screen and (max-width: 1392px)
+  .layout
+    --sidebar-width 256px
+
+@media screen and (max-width: 1138px)
+  .layout
+    &__sidebar
+      width 30%
+
+      &__aside
+        display block
+        padding-right 24px
+
+        >>> .hidden
+          visibility visible
+          max-height 500px
+          opacity 1
+
+    &__main
+      width 70%
+      &__content
+        display block
+
+        &__aside
+          display none
+
+          &__container
+            display none
+
+          &__banners
+            display none
+
+      &__gutter
+        max-width initial
+
+@media screen and (max-width: 832px)
+  .layout
+
+    &__main
+      &__navbar
+        display block
+        padding-left 1.75rem
+        padding-right 1.75rem
+
+      &__content
+        padding-top 1rem
+        &__body
+          padding-top 0
+
+      &__footer
+        padding-left 2.5rem
+        padding-right 2.5rem
+
+@media screen and (max-width: 732px)
+  .sheet
+    &__sidebar
+      &__toc
+        display block
+
+  .layout
+    display block
+
+    &__sidebar
+      display none
+
+      &__aside
+        display none
+
+    &__main
+      width 100%
+      &__navbar
+        padding-left 1.75rem
+        padding-right 1.75rem
+
+  .container
+    margin-inline auto
+
+
+@media screen and (max-width: 480px)
+  .layout
+    &__sidebar
+      height auto
+
+    &__main
+      width 100%
+      &__content
+        &__aside 
+          &__container
+            height auto
+        &__body
+          width 100%
+      &__navbar
+        padding-left 0.25rem
+        padding-right 0.25rem
+
+      &__footer
+        padding-left 1rem
+        padding-right 1rem
+        margin-top 64px
+
 </style>
 
 <script>
-import { findIndex, sortBy } from "lodash";
 import copy from "clipboard-copy";
+import { SectionSearch } from "@cosmos-ui/vue";
+import {
+  find,
+  omit,
+  omitBy,
+  sortBy,
+  isString,
+  isArray,
+  map,
+  findIndex
+} from "lodash";
+import hotkeys from "hotkeys-js";
+import axios from "axios";
+
+const endingSlashRE = /\/$/;
+const outboundRE = /^[a-z]+:/i;
 
 export default {
   props: {
@@ -585,39 +852,34 @@ export default {
       type: Boolean,
       default: true
     },
-    tree: {
-      type: Array
+    search: {
+      type: Boolean,
+      default: false
     }
   },
-  mounted() {
-    this.emitPrereqLinks();
-    const headerAnchorClick = event => {
-      event.target.setAttribute("data-header-anchor-text", "Copied!");
-      copy(event.target.href);
-      setTimeout(() => {
-        event.target.setAttribute("data-header-anchor-text", "Copy link");
-      }, 4000);
-      event.preventDefault();
+  components: {
+    SectionSearch
+  },
+  data: function() {
+    return {
+      sidebarVisible: null,
+      headerSelected: null,
+      rsidebarVisible: null,
+      prereq: null,
+      searchPanel: null,
+      asideBottom: null,
+      searchQuery: null,
+      heightBanners: null,
+      status: null,
+      asideBannersUrl: "https://v1.cosmos.network/aside-banners",
+      asideBanners: null,
+      scrollPosition: 0
     };
-    document
-      .querySelectorAll(
-        'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
-      )
-      .forEach(node => {
-        node.addEventListener("click", this.prereqToggle);
-      });
-    document
-      .querySelectorAll(".content__default a.header-anchor")
-      .forEach(node => {
-        node.setAttribute("data-header-anchor-text", "Copy link");
-        node.addEventListener("click", headerAnchorClick);
-      });
-    if (window.location.hash) {
-      const elementId = document.querySelector(window.location.hash);
-      if (elementId) elementId.scrollIntoView();
-    }
   },
   methods: {
+    setSidebarVisible(value) {
+      this.sidebarVisible = value;
+    },
     emitPrereqLinks() {
       const prereq = [...document.querySelectorAll("[prereq]")].map(item => {
         const link = item.querySelector("[href]");
@@ -626,7 +888,7 @@ export default {
           text: link.innerText
         };
       });
-      this.$emit("prereq", prereq);
+      this.prereq = prereq;
     },
     prereqToggle(e) {
       if (e.target.classList.contains('header-anchor')) return
@@ -634,7 +896,239 @@ export default {
       document.querySelectorAll("[prereq]").forEach(node => {
         node.classList.toggle("prereqLinkShow");
       });
+    },
+    searchSelect(e) {
+      if (e.id) {
+        const page = find(this.$site.pages, ["key", e.id]);
+        if (page && page.regularPath) {
+          if (this.$page.regularPath != page.regularPath) {
+            this.$router.push(page.regularPath);
+            this.searchPanel = false;
+          }
+        }
+      } else if (e.url) {
+        window.location.assign(e.url);
+      }
+    },
+    createEditLink(repo, docsRepo, docsDir, docsBranch, path) {
+      const bitbucket = /bitbucket.org/;
+      if (bitbucket.test(repo)) {
+        const base = outboundRE.test(docsRepo) ? docsRepo : repo;
+        return (
+          base.replace(endingSlashRE, "") +
+          `/src` +
+          `/${docsBranch}/` +
+          (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+          path +
+          `?mode=edit&spa=0&at=${docsBranch}&fileviewer=file-view-default`
+        );
+      }
+      
+      const rawBase = 'https://raw.githubusercontent.com/' + docsRepo +
+        `/${docsBranch}/` +
+        (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+        path
+
+      // Unable to XHR GitHub URL due to CORS
+      // Use raw.githubusercontent.com instead
+      axios.get(rawBase)
+        .then(response => this.status = response.status)
+        .catch(() => this.status = 404)
+
+      const base = outboundRE.test(docsRepo)
+        ? docsRepo
+        : `https://github.com/${docsRepo}`;
+
+      if (this.status !== 200) {
+        return `https://github.com/${docsRepo}/issues`
+      } else {
+        return (
+          base.replace(endingSlashRE, "") +
+          `/edit` +
+          `/${docsBranch}/` +
+          (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+          path
+        );
+      }
+    },
+
+    searchVisible(bool) {
+      this.searchPanel = bool;
+    },
+    overlayClick(e) {
+      this.sidebarVisible = false;
+      this.rsidebarVisible = false;
+      this.searchPanel = false;
+    },
+    selectHeader(elements) {
+      if (elements.length > 0) {
+        this.headerSelected = elements[0].target.id;
+      }
+    },
+    indexFile(item) {
+      if (!item.children) return false;
+      return find(item.children, page => {
+        const path = page.relativePath;
+        if (!path) return false;
+        return (
+          path.toLowerCase().match(/index.md$/i) ||
+          path.toLowerCase().match(/readme.md$/i)
+        );
+      });
+    },
+    sortedList(val) {
+      if (!isArray(val)) return val;
+      const sorted = sortBy(val, item => {
+        if (item.frontmatter) return item.frontmatter.order;
+        if (item.children) {
+          const index = this.indexFile(item);
+          return (
+            index &&
+            index.frontmatter &&
+            index.frontmatter.parent &&
+            index.frontmatter.parent.order
+          );
+        }
+      });
+      return sorted;
+    },
+    drawTag() {
+      const headline = document.querySelector('h1');
+      const tag = this.$page.frontmatter.tag;
+      const drawnTag = document.getElementById('tag-element');
+
+      if (headline && tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
+        const tagElement = document.createElement("div");
+        const node = document.createTextNode(this.$site.themeConfig.tags[tag].label);
+        tagElement.appendChild(node);
+        tagElement.classList.add('tag-element');
+        tagElement.style.setProperty("--tag-background-color", this.$site.themeConfig.tags[tag].color);
+        tagElement.setAttribute('id', 'tag-element');
+        headline.appendChild(tagElement);
+        headline.style.setProperty('display', 'flex');
+      }
+    },
+    setupHeaderAnchor() {
+      const headerAnchorClick = event => {
+        event.target.setAttribute("data-header-anchor-text", "Copied!");
+        copy(event.target.href);
+        setTimeout(() => {
+          event.target.setAttribute("data-header-anchor-text", "Copy link");
+        }, 4000);
+        event.preventDefault();
+      };
+      document
+        .querySelectorAll("content__default, a.header-anchor")
+        .forEach(node => {
+          if (!node.getAttribute("data-header-anchor-text")) {
+            node.setAttribute("data-header-anchor-text", "Copy link");
+            node.addEventListener("click", headerAnchorClick);
+          }
+        });
+    },
+    scrollListener(e) {
+      const banners = this.$refs.asideBanners;
+      if (banners) {
+        this.heightBanners = banners.offsetHeight;
+      }
+      const content = document.querySelector("#content-scroll");
+      const aside = document.querySelector("#aside-scroll");
+      const top = window.scrollY;
+      if (aside && aside.getBoundingClientRect().height < window.innerHeight) {
+        this.asideBottom = false;
+      }
+      if (
+        content &&
+        aside &&
+        aside.getBoundingClientRect().height > window.innerHeight
+      ) {
+        this.asideBottom =
+          top + aside.getBoundingClientRect().height >
+          content.getBoundingClientRect().height - this.heightBanners;
+      }
+      this.handleScroll(e);
+    },
+    handleScroll(e) {
+      if (window?.innerWidth < 480) return;
+      const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
+      const isScrollingDown = currentScrollPosition >= this.scrollPosition;
+      const bannersElement = document.querySelector('.layout__main__content__aside__container .banners');
+      bannersElement?.classList.add(currentScrollPosition <= 0 ? 'visible' : 'hidden');
+      bannersElement?.classList.remove(currentScrollPosition <= 0 ? 'hidden' : 'visible');
+      document.querySelector('.layout__main__content__aside__container')?.style.setProperty('top', (isScrollingDown ? '0' : '64px'));
+      
+      const sidebarElement = document.querySelector('.layout__sidebar')
+      sidebarElement?.style.setProperty('top', (isScrollingDown ? '0' : '64px'))
+      sidebarElement?.style.setProperty('height', (isScrollingDown ? '100vh' : 'calc(100vh - 64px)'))
+
+      const headerElement = document.querySelector('.header');
+      const contentElement = document.querySelector('.layout__main');
+      if (!isScrollingDown && currentScrollPosition > 0) {
+        contentElement?.style.setProperty('margin-top', headerElement.offsetHeight + 'px');
+        headerElement?.classList.add('header-compact');
+      } else {
+        contentElement?.style.setProperty('margin-top', '0px');
+        headerElement?.classList.remove('header-compact');
+      }
+
+      this.scrollPosition = currentScrollPosition;
+    },
+    scrollToHeader() {
+      if (window.location.hash) {
+        const elementId = document.querySelector(window.location.hash);
+        
+        if (elementId) {
+          if (elementId.parentElement.classList.contains('expansion__content')) {
+            if (elementId.parentElement.classList.contains('visible')) return;
+            elementId.parentElement.classList.add('visible');
+          }
+          elementId.scrollIntoView();
+        }
+      }
     }
+  },
+  beforeMount() {
+    const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
+      .then(response => response.data)
+      .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
+
+    Promise.all([fetchAsideBanner]).then(responses => {
+      this.asideBanners = responses[0]
+    })
+  },
+  mounted() {
+    this.emitPrereqLinks();
+    document
+      .querySelectorAll(
+        'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
+      )
+      .forEach(node => {
+        node.addEventListener("click", this.prereqToggle);
+      });
+    setTimeout(function () { 
+      this.scrollToHeader();
+    }.bind(this), 200)
+    document.addEventListener("scroll", this.scrollListener);
+    hotkeys("/", (event, handler) => {
+      event.preventDefault();
+      this.searchPanel = !this.searchPanel;
+    });
+    hotkeys("escape", (event, handler) => {
+      event.preventDefault();
+      this.searchPanel = false;
+    });
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  },
+  updated() {
+    this.$nextTick(function () {
+      this.drawTag();
+      this.setupHeaderAnchor();
+      this.scrollToHeader();
+    });
+  },
+  destroyed() {
+    document.removeEventListener("scroll", this.scrollListener);
   },
   computed: {
     noAside() {
@@ -660,6 +1154,78 @@ export default {
       };
       search(this.tree);
       return result;
+    },
+    editLink() {
+      if (this.$page.frontmatter.editLink === false) {
+        return;
+      }
+      const {
+        repo,
+        editLinks,
+        docsDir = "",
+        docsBranch = "master",
+        docsRepo = repo
+      } = this.$site.themeConfig;
+      if (docsRepo && editLinks && this.$page.relativePath) {
+        return this.createEditLink(
+          repo,
+          docsRepo,
+          docsDir,
+          docsBranch,
+          this.$page.relativePath
+        );
+      }
+    },
+    algoliaConfig() {
+      const algolia = this.$themeConfig.algolia;
+      return algolia ? algolia : {};
+    },
+    directoryTree() {
+      const files = this.$site.pages;
+      const langDirs = Object.keys(this.$site.locales || {}).map(e =>
+        e.replace(/\//g, "")
+      );
+      const langCurrent = (this.$localeConfig.path || "").replace(/\//g, "");
+      const langOther = langCurrent.length > 0;
+      let tree = {};
+      files.forEach(file => {
+        let location = file.relativePath.split("/");
+        if (location.length === 1) {
+          return (tree[location[0]] = file);
+        }
+        location.reduce((prevDir, currDir, i, filePath) => {
+          if (i === filePath.length - 1) {
+            prevDir[currDir] = file;
+          }
+          if (!prevDir.hasOwnProperty(currDir)) {
+            prevDir[currDir] = {};
+          }
+          return prevDir[currDir];
+        }, tree);
+      });
+      tree = langOther ? tree[langCurrent] : omit(tree, langDirs);
+      tree = omitBy(tree, e => typeof e.key === "string");
+      const toArray = object => {
+        return map(object, (page, title) => {
+          const properties =
+            page.key && isString(page.key)
+              ? page
+              : { children: this.sortedList(toArray(page)) };
+          return {
+            title,
+            ...properties
+          };
+        });
+      };
+      tree = toArray(tree);
+      return this.sortedList(tree);
+    },
+    tree() {
+      const autoSidebar =
+        this.$themeConfig.sidebar.auto == false
+          ? { title: "", children: this.directoryTree } //{}
+          : { title: "", children: this.directoryTree };
+      return [autoSidebar, ...(this.$themeConfig.sidebar.nav || [])];
     }
   }
 };

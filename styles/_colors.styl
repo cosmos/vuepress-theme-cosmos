@@ -1,0 +1,77 @@
+/*
+
+   COLOR VARIABLES
+
+   Colors
+   Utility
+
+*/
+
+
+:root.light-theme
+  --background-color-primary: white
+  --background-color-secondary: #F8F9FC
+  --sidebar-width 19rem
+  --aside-width 280px
+  --topbar-height 100px
+  --color-text #000000D1
+  --color-text-strong #000000
+  --color-link #5064FB
+  --color-primary #5064FB
+  --color-secondary #C01AEA
+  --color-danger #CC0025
+  --color-warning #FFBA31
+  --color-code inherit
+  --sidebar-bg #fff
+  --sidebar-footer-height 100px
+  --layout-width 1540px
+  --element-size: 5rem
+  --semi-transparent-color: rgba(0,0,0,0.18)
+  --semi-transparent-color-2: #00000054
+  --semi-transparent-color-3: #00000080
+  --img-filter: brightness(0)
+  --color-light-gray #33333354
+
+:root
+  --background-color-primary: #000000
+  --background-color-secondary: #171717
+  --sidebar-width 19rem
+  --aside-width 280px
+  --topbar-height 100px
+  --color-text #FFFFFFD1
+  --color-text-strong #FFFFFF
+  --color-link #4251FA
+  --color-primary #4251FA
+  --color-secondary #C01AEA
+  --color-danger #CC0025
+  --color-warning #FFBA31
+  --color-code inherit
+  --sidebar-bg #000000
+  --sidebar-footer-height 100px
+  --layout-width 1540px
+  --element-size: 5rem
+  --semi-transparent-color: rgba(255,255,255,0.18)
+  --semi-transparent-color-2: #FFFFFF54
+  --semi-transparent-color-3: #FFFFFF80
+  --img-filter: brightness(0) invert(1)
+  --color-light-gray #333333
+
+  // functional colors
+  --bg var(--background-color-primary)
+  --fg var(--background-color-secondary)
+  --title var(--color-text-strong)
+  --text var(--color-text)
+  --muted var(--semi-transparent-color-3)
+  --inactive var(--semi-transparent-color-3)
+  --link var(--color-text-strong)
+  --link-hover var(--semi-text)
+
+// color utility classes
+.tm-title
+  color var(--title)
+
+.tm-text
+  color var(--text)
+
+.tm-muted
+  color var(--muted)

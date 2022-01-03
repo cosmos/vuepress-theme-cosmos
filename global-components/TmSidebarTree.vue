@@ -10,17 +10,15 @@
         :target="outboundLink(item.path) && '_blank'"
         :rel="outboundLink(item.path) && 'noreferrer noopener'"
         :href="(outboundLink(item.path) || item.static) ? item.path : '#'"
-        :class="[level > 0 && 'item__child',{'item__dir': !item.path}]"
+        :class="[level > 0 && 'item__child',{'item__dir': !item.path}, item.directory && 'item__directory']"
         tag="a"
         :role="!item.path && 'button'"
         @keydown.enter="handleEnter(item)"
         @click="!outboundLink(item.path) && revealChild(item.title)"
       ).item
-        tm-icon-hex(v-if="iconExpanded(item) && level < 1" style="--icon-color: var(--color-primary, blue)").item__icon.item__icon__expanded
-        tm-icon-hex(v-if="iconCollapsed(item) && level < 1" style="--icon-color: rgba(0,0,0,0.18)").item__icon.item__icon__collapsed
-        tm-icon-hex(v-else-if="!outboundLink(item.path) && level < 1 && !iconExpanded(item)").item__icon.item__icon__internal
-        tm-icon-outbound(v-else-if="outboundLink(item.path) || item.static").item__icon.item__icon__outbound
-        div(:style="{'padding-left': `${1*level}rem`}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item)}" v-html="titleFormatted(titleText(item))")
+        icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
+        div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external}" v-html="titleFormatted(titleText(item))")
+        .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
           tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
@@ -29,28 +27,76 @@
 <style lang="stylus" scoped>
 .item
   position relative
-  padding-left 1.5rem
   display block
   padding-top .375rem
   padding-bottom .375rem
   cursor pointer
-  font-size .875rem
-  line-height 1.25rem
-  outline-color var(--color-primary, blue)
-  color rgba(0,0,0,0.8)
   transition color .15s ease-out
+  color var(--semi-transparent-color-3)
+  font-size var(--font-size--1)
+  line-height 164.5%
+  letter-spacing 0.0005em
 
-  &:hover,
-  &:hover &__icon
-    transition-duration 0s
+  &__external
+    color inherit
 
-  &:hover, &:focus
-    color var(--color-text, black)
+    &:hover 
+      opacity 1
 
-  &__child:not(.router-link-active)
-    &:hover:after,
-    &:focus:after
-      background rgba(0,0,0,0.2)
+  &__directory
+    padding-left 1.5rem
+
+  &:hover
+    color var(--color-text-strong, black)
+
+  &__child
+    &:hover:before,
+    &:focus:before
+      background var(--color-text-strong)
+
+    &__tag
+      width 8px
+      height 8px
+      position absolute
+      top 12px
+      right 15px
+      border-radius 4px
+      background var(--tag-background-color)
+
+      &::after
+        content attr(tag-content)
+        border-radius 0.25rem
+        max-width 4rem
+        color black
+        position absolute
+        top -2.4em
+        padding 7px 4px
+        white-space nowrap
+        left 50%
+        transform translateX(-50%)
+        font-size 0.8125rem
+        line-height 1
+        letter-spacing 0
+        opacity 0
+        background white
+
+      &::before
+        content ''
+        background-image url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='white' d='M12 21l-12-18h24z'/></svg>")
+        position absolute
+        width 8px
+        height 8px
+        top -0.7em
+        left 50%
+        font-size 0.5rem
+        transform translateX(-50%)
+        opacity 0
+
+      &:hover:before
+        opacity 1
+
+      &:hover:after
+        opacity 1
 
   &:hover, &:focus
     .item__icon.item__icon__outbound,
@@ -69,47 +115,53 @@
       visibility unset
       fill var(--color-primary, blue)
 
-  &:after
+  &:before
     content ''
     width 2px
     height 100%
     visibility var(--vline)
-    background var(--vline-color, black)
+    background var(--semi-transparent-color)
     position absolute
     top 0
-    left 5px
+    left 6px
     transition background-color .15s ease-out
 
   &__selected
-    font-weight 600
-    color var(--color-link, blue)
+    font-weight 500
+    font-size var(--font-size--1)
+    line-height 130.7%
+    letter-spacing -0.007em
+    color var(--color-text-strong, black)
 
-    &__dir
-      font-weight 400
-
-    &__alt
-      color initial
-      font-weight 600
-
-  &__dir
-    font-weight 600
+    &:before
+      content ''
+      width 2px
+      height 100%
+      visibility var(--vline)
+      position absolute
+      top 0
+      left 6px
+      background var(--color-text-strong)
+      transition background-color .15s ease-out
 
   &__icon
     position absolute
-    top .65rem
     left 0
-    width 12px
-    height 12px
-    fill var(--icon-color)
-    transition fill .15s ease-out, height .15s ease-out
+    top 8px
+    width 15px
+    height 15px
 
-    &__expanded
-      stroke none
-      fill none
-      background var(--color-primary, blue)
-      height 1px
-      padding-top 1px
-      margin-top 4px
+    &__expanded 
+      transform rotate(180deg)
+      -webkit-transform rotate(180deg)
+      -ms-transform rotate(180deg)
+      transition transform 0.2s linear
+
+    &__collapsed
+      transform rotate(0deg)
+      -webkit-transform rotate(0deg)
+      -ms-transform rotate(0deg)
+      transition transform 0.2s linear
 
     &__internal
       stroke rgba(0,0,0,0.2)
@@ -257,7 +309,7 @@ export default {
         result = result.reduce((acc, cur) => {
           return find(acc.children || acc, ["title", cur]);
         }, this.tree);
-        return result.children || [];
+        return result?.children || [];
       }
       return [];
     },

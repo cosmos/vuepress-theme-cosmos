@@ -1,21 +1,14 @@
 <template lang="pug">
-  div(style="height: 100%; position: relative")
+  div(style="position: relative")
     .container
-      router-link(to="/" v-if="!(compact === true)").logo__container
-        .logo
-          .logo__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
-            img(:src="$themeConfig.logo.src")
-          .logo__img(v-else)
-            component(:is="`logo-${$themeConfig.label || 'sdk'}`")
-          .logo__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
-        div(v-for="item in value" :style="{display: $themeConfig.sidebar.auto == false && item.title === '' ? 'none' : 'block'}").sidebar
-          .title {{item.title}}
+        div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
+          .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.title.mb-4 {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
         .sidebar.version
           tm-select-version
-      .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom")
+      .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom && !$themeConfig.sidebar.hideProducts")
         a(:href="product.url" target="_blank" rel="noreferrer noopener" v-for="product in products" :style="{'--color': product.color}" v-if="$themeConfig.label != product.label").footer__item
           component(:is="`tm-logo-${product.label}`").footer__item__icon
           .footer__item__title(v-html="md(product.name)")
@@ -55,7 +48,7 @@
 .logo__container
   position sticky
   display block
-  background white
+  background var(--background-color-primary)
   z-index 1
   top 0
 
@@ -65,13 +58,13 @@
     top 100%
     left 0
     right 0
-    background linear-gradient(to bottom, white, rgba(255, 255, 255, 0))
+    background linear-gradient(to bottom, var(--background-color-primary), var(--background-color-primary))
     height 25px
 
 .sidebar
-  padding-left 2rem
-  padding-right 2rem
+  padding-right 24px
   overflow-x hidden
+  margin-top 64px
 
 .version
   margin-top 2rem
@@ -85,12 +78,7 @@
     flex-grow 0
 
 .title
-  font-size 0.75rem
-  text-transform uppercase
-  letter-spacing 0.2em
-  color #666
-  margin-top 2rem
-  margin-bottom 0.5rem
+  color var(--semi-transparent-color-3)
 
 .footer.footer__compact__true
   padding-bottom 150px
@@ -109,8 +97,7 @@
   width 100%
   display grid
   grid-auto-flow column
-  padding-left 0.75rem
-  padding-right 0.75rem
+  padding-right 24px
   align-items center
   grid-auto-columns 1fr
 
@@ -121,7 +108,7 @@
     left 0
     right 0
     bottom 100%
-    background linear-gradient(to top, white, rgba(255, 255, 255, 0))
+    background linear-gradient(to top, var(--background-color-primary), transparent)
     pointer-events none
 
   &__item
@@ -129,7 +116,7 @@
     display flex
     align-items center
     flex-direction column
-    fill rgba(51, 54, 74, 0.4)
+    fill var(--color-text)
 
     &__icon
       height 32px
@@ -143,7 +130,7 @@
       font-size 0.6875rem
       line-height 0.875rem
 
-@media screen and (max-width: 1135px)
+@media screen and (max-width: 1138px)
   .version
     display block
 </style>
@@ -214,7 +201,17 @@ export default {
     },
     sidebar() {
       return this.value;
-    },
+    }
   },
+  methods: {
+    isVisible(title) {
+      if (typeof window !== 'undefined') {
+        const allowedOrigin = window.location.origin.includes("deploy-preview") || window.location.origin.includes("preview-5bxuue6kafu5ocp5") || window.location.origin.includes("localhost:") || window.location.origin.includes("127.0.0.1");
+        return title.includes("B9lab") ? allowedOrigin : !(this.$themeConfig.sidebar.auto == false && title === '');
+      } else {
+        return true;
+      }
+    }
+  }
 };
 </script>

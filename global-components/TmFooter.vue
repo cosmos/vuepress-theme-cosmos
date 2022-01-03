@@ -3,35 +3,41 @@
     .wrapper(v-if="$themeConfig.footer")
       .container
         .footer__wrapper
-          .questions(v-if="!full && !$themeConfig.custom")
-            .questions__wrapper
-              .questions__h1 Questions?
-              .questions__p(v-if="$themeConfig.footer && $themeConfig.footer.question.text" v-html="md($themeConfig.footer.question.text)")
-            tm-newsletter-form(v-if="$themeConfig.footer")
-          .links(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
-            .links__item(v-for="item in $themeConfig.footer.links")
-              .links__item__title {{item.title}}
-              a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
+          tm-newsletter-form(v-if="$themeConfig.footer")
+          .links__container(v-if="$themeConfig.footer && $themeConfig.footer.links && full")
+            .links
+              .links__item.accordion(v-for="(item, index) in $themeConfig.footer.links" @click="onAccordionClick(index)")
+                .links__item__title.accordion__title {{item.title}}
+                  icon-arrow(type="bottom" :class="selectedAccordion == index ? 'accordion__title__icon__opened' : ''").accordion__title__icon
+                .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
+                  a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
-            .logo__item
-              a(:href="$themeConfig.footer.textLink.url" target="_blank" rel="noreferrer noopener" tag="div").logo__image
-                component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
+            a(href="/").logo__container
+              .logo__item__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
+                img(:src="$themeConfig.logo.src")
+              .logo__item__img(v-else)
+                component(:is="`logo-${$themeConfig.label || 'sdk'}`")
+              .logo__item__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}
+
             .logo__item.logo__link(v-if="$themeConfig.footer && $themeConfig.footer.services")
               a(v-for="item in $themeConfig.footer.services" :href="item.url" target="_blank" :title="item.service" rel="noreferrer noopener").smallprint__item__links__item
                 svg(width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" fill="#aaa")
                   path(:d="serviceIcon(item.service)")
+            .logo__item.logo__item__switch
+              tm-mode-switch
           .smallprint(v-if="$themeConfig.footer")
-            .smallprint__item.smallprint__item__links
-              a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
-            .smallprint__item__desc.smallprint__item(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
+            //- .smallprint__item.smallprint__item__links
+            //-   a(v-if="$themeConfig.footer && $themeConfig.footer.textLink && $themeConfig.footer.textLink.text && $themeConfig.footer.textLink.url" :href="$themeConfig.footer.textLink.url") {{$themeConfig.footer.textLink.text}}
+            .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer && $themeConfig.footer.smallprint" v-html="md($themeConfig.footer.smallprint)")
+            .smallprint__item__desc.info-label.smallprint__item.mt-8.tm-title.tm-lh-title.tm-rf-1.tm-muted(v-if="$themeConfig.footer") Cosmos is a registered trademark of the 
+              a(href="https://interchain.io/").tm-link Interchain Foundation.
+              a(:href="$themeConfig.footer.privacy" target="_blank").smallprint__item__privacy.tm-link Privacy         
 </template>
 
 <style lang="stylus" scoped>
 .container
-  background-color white
+  background-color var(--background-color-primary)
   color var(--color-text, black)
-  padding-top 3.5rem
   padding-bottom 3.5rem
 
 .wrapper
@@ -61,36 +67,55 @@
 
   &__p
     font-size 0.875rem
-    color rgba(22, 25, 49, 0.9)
+    color var(--color-text)
     line-height 1.25rem
 
 .links
-  display grid
-  grid-template-columns repeat(auto-fit, minmax(250px, 1fr))
+  display flex
+  flex-wrap wrap
+  justify-content space-between
+  padding-top 96px
+  padding-bottom 48px
+  max-width 48.5rem
+  margin auto
+
+  &__container
+    @media screen and (min-width: 481px)
+      border-bottom 1px solid var(--semi-transparent-color-2)
 
   &__item
-    display flex
-    flex-direction column
-    margin 1.5rem 0
+    // min-width 11rem
 
     &__title
-      font-size 0.75rem
-      letter-spacing 0.2em
-      text-transform uppercase
-      font-weight 700
-      margin-bottom 1rem
+      font-weight 500
+      margin-bottom 16px
+      color var(--color-text-strong)
+      line-height 130%
+
+      &__icon
+        display none
 
     &__link
-      font-size 0.875rem
-      line-height 1.25rem
+      line-height 162.5%
       margin-top 0.5rem
       margin-bottom 0.5rem
       align-self flex-start
-      color var(--color-text-dim, inherit)
+      color var(--semi-transparent-color-3, inherit)
+      transition color .2s ease-out
 
       &:hover,
       &:focus
-        color var(--color-link, inherit)
+        color var(--title)
+
+    &__links
+      display flex
+      flex-direction column
+      margin-bottom 48px
+      justify-content space-between
+
+.accordion__title__icon
+  &.icon
+    display none
 
 .footer__wrapper
   margin 0 auto
@@ -98,21 +123,63 @@
   // padding-right 0.5rem
 
 .logo
-  display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+  padding-top 24px
+  display flex
+  align-items center
+
+  svg
+    max-width: 6.140625rem
+    height auto
+
+  &__container
+    display flex
+    align-items center
+    border-right 1px solid var(--semi-transparent-color-2)
+    padding-right 24px
+    margin-right 24px
 
   &__item
     padding 1.5rem 0
     display flex
     align-items flex-start
-    justify-content flex-start
+    justify-content space-between
+
+    &__img
+      width 2.5rem
+      height 2.5rem
+      margin-right 0.75rem
+
+    &__custom
+      width 100%
+      height 2.5rem
+      margin-right 0.75rem
+
+      img
+        max-width 100%
+        max-height 100%
+
+    &__anchor
+      margin-block auto
+      margin-right 24px
+      color var(--color-text-strong)
+
+      &:last-child
+        margin-right 0px
+
+    &__switch
+      flex-grow 1
+      justify-content end
 
   &__image
     display inline-block
-    min-height 2rem
-    max-height 3rem
-    max-width 12.5rem
+    // min-height 2rem
+    // max-height 3rem
+    // max-width 12.5rem
     cursor pointer
+    border-right 1px solid var(--semi-transparent-color-2)
+    padding-right 24px
+    margin-right 24px
+    font-size 0
 
     img
       max-height 100%
@@ -124,48 +191,113 @@
     align-items center
 
 .smallprint
-  display grid
-  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
-  align-items flex-end
+  display flex
+  flex-direction column
 
   & >>> a[href]
-    color var(--color-link, #ccc)
+    color var(--color-text-strong, #ccc)
 
   &__item
-    padding 1rem 0
-    font-weight 600
+
+    &__privacy
+      float right
 
     &__links
       color var(--color-link)
       font-size 0.875rem
 
       &__item
-        margin-right 1rem
+        margin-right 16px
+        filter var(--img-filter)
 
         svg
-          transition fill .15s ease-out
-          fill rgba(0,0,0,0.3)
+          transition opacity .15s ease-out
 
         &:hover svg,
         &:focus svg
-          fill rgba(0,0,0,0.5)
-
-    &__desc
-      grid-column span 2
-      font-size 0.8125rem
-      line-height 1rem
-      font-weight normal
-      color var(--color-text-dim)
+          opacity .75
 
 @media screen and (max-width: 732px)
   .questions
     display block
     margin-right 0
+  
+  .logo
+    flex-direction column
+
+    &__item
+      justify-content center
+
+    &__image
+      border-right none
+      padding-right 0px
+      margin-right 0px
 
 @media screen and (max-width: 480px)
   .footer__links
     margin-left 1.5rem
     margin-right 1.5rem
+  .links
+    flex-direction column
+  .accordion
+    margin-top 32px
+    border-bottom 1px solid var(--semi-transparent-color-2)
+
+    &__title
+      display flex
+      justify-content space-between
+
+      &__icon
+        display block
+        margin-block auto
+        width 15px
+        height 15px
+        &.icon
+          display block
+
+        &__opened
+          transform: rotate(180deg);
+          -webkit-transform: rotate(180deg);
+          -ms-transform: rotate(180deg);
+          transition: transform 0.2s linear;
+
+    &__content
+      margin-bottom 24px
+      display none
+
+      &__visible
+        display flex
+        flex-direction column
+
+  .smallprint__item
+    &__desc
+      text-align center
+    &__privacy
+      float none
+      width 100%
+      justify-content center
+      margin-top 24px
+    &__links__item
+      &:last-child
+        margin-right 0px
+
+  .logo
+    flex-direction column
+
+    &__item
+      justify-content center
+
+    &__image
+      border-right none
+      padding-right 0px
+      margin-right 0px
+
+    &__container
+      border-right none
+      margin-right 0px
+      padding-right 0px
+
+      
 </style>
 
 <script>
@@ -173,7 +305,20 @@ import { find } from "lodash";
 
 export default {
   props: ["tree", "full"],
+  data: function() {
+    return {
+      selectedAccordion: null,
+    };
+  },
   methods: {
+    onAccordionClick(index) {
+      if (this.selectedAccordion == index) {
+        this.selectedAccordion = null;
+      } else {
+        this.selectedAccordion = index;
+      }
+      
+    },
     serviceIcon(service) {
       // icons from https://iconmonstr.com
       const icons = [

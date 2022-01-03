@@ -1,9 +1,11 @@
 <template lang="pug">
   div
     .container
-      .crumbs
-        router-link(to="/").crumbs__item {{$site.title || 'Home'}}
-        router-link(:to="item.path" v-if="item.title" v-for="item in breadcrumbs").crumbs__item {{item.title}}
+      .crumbs.tm-title.tm-lh-title
+        .crumbs__item
+          router-link(to="/").crumbs__link.tm-link {{$site.title || 'Home'}}
+        .crumbs__item(v-for="item in breadcrumbs" v-if="item.title")
+          router-link(:to="item.path").crumbs__link.tm-link {{item.title}}
       .menu
         .menu__item(:style="{visibility: $page.headers && $page.headers.length > 0 ? 'visible' : 'hidden'}")
           svg(:class="[`menu__item__icon__active__${tocShow}`]" width="100%" height="100%" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" @click="click").menu__item__icon
@@ -39,31 +41,31 @@
   grid-auto-flow column
   justify-content space-between
   align-items center
-  padding-left .75rem
 
 .crumbs
 
   &__item
     display inline-block
-    font-size 0.8125rem
-    outline-color var(--color-primary, blue)
-
-    &:hover:not(:last-child)
-      color var(--color-link, blue)
-      &:after
-        color var(--color-text, black)
 
     &:after
       content '/'
       padding-left 0.25rem
       padding-right 0.25rem
+      color var(--muted)
 
     &:last-child
-      opacity 0.667
-      cursor default
+      .crumbs__link
+        color var(--muted)
 
       &:after
         content ''
+
+    &:first-child
+      .crumbs__link
+        color var(--color-text-strong)
+
+  &__link
+    outline-color var(--color-primary, blue)
 
 .menu
   height 3rem
@@ -71,55 +73,34 @@
   &__item
     position relative
     display none
+    padding 14px
 
     &__icon
       cursor pointer
       width 1.5rem
       height 1.5rem
-      padding 0.75rem
       border-radius 0.25rem
-      fill rgba(51, 54, 74, 0.4)
+      fill var(--color-text)
 
       &:active
-        fill #5064FB
-        background rgba(102, 161, 255, 0.15)
+        fill var(--color-text-strong)
+      
+      &:hover
+        fill var(--color-text-strong)
 
     &__modal
       position absolute
       width 16rem
       z-index 1000
-      box-shadow 0px 24px 40px rgba(22, 25, 49, 0.1), 0px 10px 16px rgba(22, 25, 49, 0.08), 0px 1px 0px rgba(22, 25, 49, 0.05)
       right 0
-      border-radius 0.25rem
-      background-color white
+      border-radius 16px
+      background-color var(--background-color-secondary)
 
-      &__title
-        color rgba(22, 25, 49, 0.65)
-        text-transform uppercase
-        letter-spacing 0.2em
-        font-size 0.75rem
-        padding 1.5rem 1.5rem 1rem 1.5rem
 
-      &__item
-        padding 0.625rem 1.5rem
-        font-size 0.875rem
-        outline none
-        cursor pointer
-
-        &:active
-          color var(--color-link)
-          font-weight 600
-          box-shadow inset 2px 0 0 0 var(--color-link)
-
-@media screen and (max-width: 1135px)
+@media screen and (max-width: 732px)
   .menu__item
     display block
 
-@media screen and (max-width: 732px)
-  .menu
-    &__item
-      &__modal
-        visibility hidden
 </style>
 
 <script>
@@ -131,28 +112,33 @@ export default {
       tocShow: false
     };
   },
+  mounted() {
+    if (window) {
+      window.addEventListener('scroll', this.handleScroll);
+    }
+  },
+  destroyed() {
+    if (window) {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+  },
   computed: {
     breadcrumbs() {
-      let crumbs = this.$page.path
-        .split("/")
-        .filter(item => item !== "")
-        .map((currentValue, index, array) => {
-          let path = array.slice(0, index + 1).join("/");
-          return "/" + path;
-        })
-        .map(item => {
-          return /\.html$/.test(item) ? item : `${item}/`;
+
+      let crumbs = [];
+
+      this.$themeConfig.sidebar.nav
+        .forEach(item => {
+          item.children.forEach(subItem => {
+            if (this.$page.path.includes(subItem.path)) {
+              crumbs.push({
+                title: item.title,
+                path: item.children[0]?.path || ""
+              });
+            }
+          });
         });
-      crumbs = crumbs.map(item => {
-        const found = find(this.$site.pages, page => {
-          return page.regularPath === item;
-        });
-        const noIndex = {
-          title: last(item.split("/").filter(e => e !== "")),
-          path: ""
-        };
-        return found ? found : noIndex;
-      });
+
       return crumbs;
     }
   },
@@ -160,6 +146,10 @@ export default {
     click(e) {
       this.tocShow = !this.tocShow;
       if (window.innerWidth < 832) this.$emit("visible", true);
+    },
+    handleScroll (event) {
+      if (window?.innerWidth < 480) return;
+      this.tocShow = false;
     }
   }
 };

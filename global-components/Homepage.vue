@@ -202,7 +202,7 @@
         font-size .75rem
         letter-spacing 0.2em
         text-transform uppercase
-        color var(--color-text-dim, inherit)
+        color var(--color-text, inherit)
         margin-bottom .25rem
 
       &__h1
@@ -215,7 +215,7 @@
         margin-bottom .75rem
 
       &__p
-        color var(--color-text-dim, inherit)
+        color var(--color-text, inherit)
         font-size .875rem
         line-height 1.25rem
 
@@ -261,7 +261,7 @@
     &__desc
       font-size 0.875rem
       line-height 1.25rem
-      color var(--color-text-dim, inherit)
+      color var(--color-text, inherit)
 
 .stack
   display grid
@@ -333,7 +333,7 @@
       height 72px
       width auto
 
-@media screen and (max-width: 1136px)
+@media screen and (max-width: 1138px)
   .p
     font-size 1.25rem
     line-height 1.75rem

@@ -1,0 +1,24 @@
+/*
+  Angled accents (L-shaped)
+
+  nw = north west (default)
+  ne = north east
+  se = south east
+  sw = south west
+*/
+angle-accent(position = nw)
+  display block
+  width 1rem
+  height 1rem
+  if position == ne
+    border-top $px solid
+    border-right $px solid
+  else if position == se
+    border-bottom $px solid
+    border-right $px solid
+  else if position == sw
+    border-bottom $px solid
+    border-left $px solid
+  else
+    border-top $px solid
+    border-left $px solid

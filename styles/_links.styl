@@ -1,0 +1,93 @@
+/*
+
+   LINKS
+   Docs: http://tachyons.io/docs/elements/links/
+
+*/
+
+// a[href],
+.tm-link
+  display inline-flex
+  align-items center
+  color var(--link)
+  cursor pointer
+  text-decoration none
+  transition opacity .2s $ease-out
+  word-break break-word
+  .icon-external
+    margin-left .25rem
+    transition transform .2s $ease-out
+  &.tm-rf-1
+    .icon-external
+      width var(--font-size--1)
+      height var(--font-size--1)
+      margin-left .25rem
+  &.tm-rf1
+    .icon-external
+      width var(--font-size-1)
+      height var(--font-size-1)
+      margin-left .5rem
+
+.tm-link:hover
+  // color var(--link-hover)
+  opacity 0.8
+  transition opacity .4s ease-out
+  &.tm-link-underline-hover
+    text-decoration underline
+
+.tm-link:active
+  opacity 0.7
+  transition-duration 0s
+
+// .tm-link:focus
+//   transition all .2s $ease-out
+//   // outline 1px dotted currentColor // todo: find a more elegant solution
+
+.tm-definition
+  color inherit
+  border-bottom $px dotted
+  margin-bottom: -($px)
+
+/* Disclosure icons */
+.tm-link-disclosure,
+.icon-disclosure:after,
+.tm-link-external
+  position relative
+
+.tm-link-disclosure
+.icon-disclosure
+  margin-right 1em
+
+.tm-link-external
+  margin-right 0.9em
+
+.tm-link-disclosure:after,
+.icon-disclosure:after,
+.tm-link-external:after
+  position absolute
+  bottom .166em
+  left 100%
+  padding-left .375em
+  line-height 1
+  will-change: transform
+  transition transform .2s $ease-out
+
+.tm-link-external:after
+  content "\2197"
+  font-size: .75em;
+
+.tm-link-disclosure:after,
+.icon-disclosure:after
+  content "\2192"
+
+.tm-link:hover,
+.tm-link:focus
+  &.tm-link-external:after
+    transform translate(10%, -10%)
+  
+  .icon-external
+    transform: translateX(25%)
+
+  &.tm-link-disclosure:after,
+  .icon-disclosure:after
+    transform translateX(10%)
