@@ -55,8 +55,6 @@ class AssetsOptimizer {
         sharp(input)
             .resize(size)
             .toFile(output, (err, _) => { if (err) { console.error(err) } });
-    
-        // todo: check and copy if not resized
     }
     
     prepareOutputDir(dir) {

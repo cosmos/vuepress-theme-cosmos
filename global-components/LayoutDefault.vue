@@ -1046,11 +1046,10 @@ export default {
           top + aside.getBoundingClientRect().height >
           content.getBoundingClientRect().height - this.heightBanners;
       }
-      this.handleScroll(e);
+      this.handleScroll(e.srcElement.scrollingElement.scrollTop);
     },
-    handleScroll(e) {
+    handleScroll(currentScrollPosition) {
       if (window?.innerWidth < 480) return;
-      const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
       const bannersElement = document.querySelector('.layout__main__content__aside__container .banners');
       bannersElement?.classList.add(currentScrollPosition <= 0 ? 'visible' : 'hidden');
@@ -1127,7 +1126,8 @@ export default {
       this.scrollToHeader();
     });
   },
-  destroyed() {
+  beforeDestroy() {
+    this.handleScroll(0);
     document.removeEventListener("scroll", this.scrollListener);
   },
   computed: {
