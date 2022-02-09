@@ -1,19 +1,19 @@
 <template lang="pug">
     .module__wrapper(v-on:click="toggleContent")
         .module
-            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2 module {{this.module.number}}
-            .module__content__wrapper
-                .module__content
+            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2(v-if="main") module {{this.module.number}}
+            .module__content__wrapper(:class="[main && 'module__content__wrapper__main']")
+                .module__content(v-if="main")
                     h4.module__content__title {{this.module.title}}
                     .module__content__desc {{this.module.description}}
-                .module__actions(:class="$frontmatter.main && 'module__actions__main'")
+                .module__actions(:class="main && 'module__actions__main'" v-if="main")
                     .module__actions__toggle
                         .module__actions__toggle__label {{submodules.length}} pages
                         icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
                     a.module__actions__start.tm-button(:href="this.module.url" v-on:click="toggleContent")
                         .tm-link.tm-link-disclosure
                             span Start here
-                .module__submodules(v-show="expanded")
+                .module__submodules(v-show="expanded" :class="[main && 'module__submodules__main']")
                     a.module__submodules__item(v-for="submodule in submodules" :href="submodule.url" v-on:click="toggleContent")
                         .module__submodules__item__content
                             h5.module__submodules__item__content__title
@@ -29,20 +29,39 @@
 
 <script>
     export default {
-        props: ['module', 'startExpanded'],
+        props: ['module', 'main'],
         data() {
             return {
-                expanded: this.startExpanded || false
+                expanded: !this.main || false
             };
         },
         computed: {
             submodules() {
-                return this.module.submodules.filter(item => item.url != this.$page.path);
+                if (this.main) {
+                    return this.module.submodules.filter(item => item.url != this.$page.path);
+                } else {
+                    return this.getSubmodules(this.$site.pages, this.$page.path);
+                }
             }
         },
         methods: {
-            toggleContent(event) {
+            toggleContent() {
                 this.expanded = !this.expanded;
+            },
+            getSubmodules(sitePages, pagePath) {
+                const path = pagePath.split("/").filter(item => item !== "")[1];
+                const submodules = sitePages
+                    .filter(page => page.path.includes(path) && (page.path != pagePath))
+                    .sort((a, b) => a.frontmatter.order - b.frontmatter.order)
+                    .map((item) => {
+                        return {
+                            url: item.path,
+                            title: item.frontmatter.title,
+                            description: item.frontmatter.description,
+                            tag: item.frontmatter.tag
+                        }
+                    });
+                return submodules;
             }
         }
     }
@@ -66,15 +85,24 @@
             width 100%
             display flex
             flex-direction column
-            margin-top 48px
-            border-top 1px solid var(--semi-transparent-color-2)
-            transition: all 0.2s linear;
+            transition all 0.2s linear
+
+            &__main
+                margin-top 48px
+                border-top 1px solid var(--semi-transparent-color-2)
 
             &__item
                 display flex
                 justify-content space-between
                 padding-block 32px
                 border-bottom 1px solid var(--semi-transparent-color-2)
+
+                &:last-child
+                    border-bottom none
+
+                &__main
+                    &:last-child
+                        border-bottom 1px solid var(--semi-transparent-color-2)
 
                 &__badge
                     border-radius 8px
@@ -156,9 +184,11 @@
 
             &__wrapper
                 flex-grow 1
-                margin-left 48px
                 display flex
                 flex-wrap wrap
+
+                &__main
+                    margin-left 48px
 
             &__title
                 margin-top 0px

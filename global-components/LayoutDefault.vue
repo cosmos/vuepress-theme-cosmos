@@ -11,7 +11,7 @@
           .layout__main__content__body(id="content-scroll")
             .layout__main__content__body__wrapper
               div(style="width: 100%")
-                .container.content__default(:class="[$frontmatter.landingPage ? 'container__lp' : 'container__default']")
+                .container.content__default
                   slot
                   tm-content-cards(v-if="$frontmatter.cards")
         .layout__main__gutter(v-if="!($frontmatter.aside === false)")
@@ -81,15 +81,8 @@
 .container
   position relative
   width 100%
-
-  &__default
-    max-width var(--content-max-width-small)
-    margin-inline auto
-
-  &__lp
-    max-width var(--content-max-width-small-2)
-    margin-left auto
-
+  max-width var(--content-max-width-small)
+  margin-inline auto
 
 .content
   padding-right var(--sidebar-width)
@@ -1046,11 +1039,10 @@ export default {
           top + aside.getBoundingClientRect().height >
           content.getBoundingClientRect().height - this.heightBanners;
       }
-      this.handleScroll(e);
+      this.handleScroll(e.srcElement.scrollingElement.scrollTop);
     },
-    handleScroll(e) {
+    handleScroll(currentScrollPosition) {
       if (window?.innerWidth < 480) return;
-      const currentScrollPosition = e.srcElement.scrollingElement.scrollTop;
       const isScrollingDown = currentScrollPosition >= this.scrollPosition;
       const bannersElement = document.querySelector('.layout__main__content__aside__container .banners');
       bannersElement?.classList.add(currentScrollPosition <= 0 ? 'visible' : 'hidden');
@@ -1127,7 +1119,8 @@ export default {
       this.scrollToHeader();
     });
   },
-  destroyed() {
+  beforeDestroy() {
+    this.handleScroll(0);
     document.removeEventListener("scroll", this.scrollListener);
   },
   computed: {
