@@ -14,7 +14,6 @@ class AssetsOptimizer {
 
         const filter = /^.*\.(jpe?g|png)/;
         const assetList = this.getAssetList('./', filter, this.blacklist);
-        console.log('LIST: ', assetList)
 
         console.log("Setup: Completed");
         console.log("Resize: Started resizing images using sharp");
@@ -43,7 +42,7 @@ class AssetsOptimizer {
                     assets = assets.concat(this.getAssetList(filename, filter, blacklist)); // recursively search assets
                 } else if (filter.test(filename)) {
                     assets.push(filename);
-                } else if (filename.includes('png')) console.log(filename);
+                }
             }
         }
     
@@ -51,14 +50,12 @@ class AssetsOptimizer {
     }
     
     resize(input, size, output) {
-        console.log(`Resize: Started processing ${input} for size ${size}`);
         sharp(input)
             .resize(size)
             .toFile(output, (err, _) => { if (err) { console.error(err) } });
     }
     
     prepareOutputDir(dir) {
-        console.log(`Preparing output dir ${dir}`);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
@@ -69,9 +66,17 @@ class AssetsOptimizer {
         if (!breakpoint || isNaN(breakpoint)) return;
 
         for (var asset of assetList) {
-            var filename = this.getFilename(asset);
-            this.resize(asset, breakpoint, basePath + `${breakpoint}/${filename}`);
+            let filename = this.getFilename(asset);
+            const filePath = asset.replace(filename, '');
+
+            if (!filePath.includes('.vuepress/public')) {
+                this.prepareOutputDir(`${basePath}${breakpoint}/${filePath}`);
+                filename = asset;
+            }
+            
+            this.resize(asset, breakpoint, `${basePath}${breakpoint}/${filename}`);
         }
+        console.log(`Generated ${assetList.length} images`);
     }
 
     getFilename(path) {
