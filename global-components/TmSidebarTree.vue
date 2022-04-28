@@ -14,10 +14,10 @@
         tag="a"
         :role="!item.path && 'button'"
         @keydown.enter="handleEnter(item)"
-        @click="!outboundLink(item.path) && revealChild(item.title)"
+        @click.native="onClick(item)"
       ).item
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
-        div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external}" v-html="titleFormatted(titleText(item))")
+        div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external, 'item__divider': item.frontmatter && item.frontmatter.divider }" v-html="titleFormatted(titleText(item))")
         .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
@@ -125,6 +125,18 @@
     top 0
     left 6px
     transition background-color .15s ease-out
+
+  &__divider
+    margin-block: 30px
+    &:after
+      content ''
+      width 80%
+      height 2px
+      visibility var(--vline)
+      background var(--color-text)
+      position absolute
+      bottom 15px
+      transition background-color .15s ease-out
 
   &__selected
     font-weight 500
@@ -313,6 +325,18 @@ export default {
       }
       return [];
     },
+    onClick(item) {
+      if (!this.outboundLink(item.path)) {
+        this.revealChild(item.title);
+      } 
+      if (this.isInternalLink(item) && typeof this.$gtm !== 'undefined') {
+        this.$gtm.trackEvent({
+          category: 'navigation',
+          action: item.path,
+          label: item.path
+        });
+      }
+    }
   },
 };
 </script>
