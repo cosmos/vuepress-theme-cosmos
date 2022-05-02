@@ -90,6 +90,15 @@ export default {
         str.length > 20 ? str.slice(0, 20).join(" ") + "..." : str.join(" ");
       return this.md(str);
     },
+    isFileSystemBased() {
+      let fileSystemBased = true;
+      if (typeof window !== 'undefined') {
+        this.$themeConfig.allowedIDAOrigins.forEach(origin => {
+          if (window.location.origin.includes(origin)) fileSystemBased = false;
+        });
+      }
+      return fileSystemBased;
+    },
     findNotConsecutiveLinks(window, list, i) {
       if (!window.prev) {
         const prevItem = list[i - 1];
@@ -116,7 +125,7 @@ export default {
         for (let i = 0; i < list.length; i++) {
           if (list[i].children) {
             let window = this.getPrevNextFromConfig(list[i].children);
-            if (window) {
+            if (window?.current) {
               return this.findNotConsecutiveLinks(window, list, i);
             }
           }
@@ -132,7 +141,7 @@ export default {
   },
   computed: {
     linkPrevNext() {
-      if (this.$themeConfig.sidebar.fileSystemBased === false) {
+      if (this.isFileSystemBased() === false) {
         return this.getPrevNextFromConfig(this.$themeConfig.sidebar.nav);
       }
       if (!this.tree) return;
