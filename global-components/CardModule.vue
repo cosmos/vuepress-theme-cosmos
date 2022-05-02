@@ -1,7 +1,7 @@
 <template lang="pug">
     .module__wrapper(v-on:click="toggleContent")
         .module
-            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2(v-if="main") module {{this.module.number}}
+            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2(v-if="main") {{this.weekly === true ? "week" : "module"}} {{this.module.number}}
             .module__content__wrapper(:class="[main && 'module__content__wrapper__main']")
                 .module__content(v-if="main")
                     h4.module__content__title {{this.module.title}}
@@ -29,7 +29,7 @@
 
 <script>
     export default {
-        props: ['module', 'main'],
+        props: ['module', 'main', 'weekly'],
         data() {
             return {
                 expanded: !this.main || false
