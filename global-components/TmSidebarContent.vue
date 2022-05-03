@@ -145,6 +145,7 @@ import {
   find,
   omit,
 } from "lodash";
+import { isIDAMode } from "../utils/helpers";
 
 export default {
   props: ["value", "tree", "compact"],
@@ -207,12 +208,7 @@ export default {
       if (typeof window !== 'undefined') {
         
         if (title.toLowerCase().includes("academy")) {
-          let isAllowed = false;
-
-          this.$themeConfig.allowedIDAOrigins.forEach(origin => {
-            if (window.location.origin.includes(origin)) isAllowed = true;
-          });
-
+          let isAllowed = isIDAMode(this.$themeConfig.allowedIDAOrigins);
           return title.toLowerCase().includes("ida") ? isAllowed : !isAllowed;
         }
 

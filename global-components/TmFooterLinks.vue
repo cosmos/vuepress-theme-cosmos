@@ -80,6 +80,7 @@
 
 <script>
 import { findIndex, find } from "lodash";
+import { isIDAMode } from "../utils/helpers";
 
 export default {
   props: ["tree"],
@@ -89,15 +90,6 @@ export default {
       str =
         str.length > 20 ? str.slice(0, 20).join(" ") + "..." : str.join(" ");
       return this.md(str);
-    },
-    isFileSystemBased() {
-      let fileSystemBased = true;
-      if (typeof window !== 'undefined') {
-        this.$themeConfig.allowedIDAOrigins.forEach(origin => {
-          if (window.location.origin.includes(origin)) fileSystemBased = false;
-        });
-      }
-      return fileSystemBased;
     },
     findNotConsecutiveLinks(window, list, i) {
       if (!window.prev) {
@@ -141,7 +133,7 @@ export default {
   },
   computed: {
     linkPrevNext() {
-      if (this.isFileSystemBased() === false) {
+      if (isIDAMode(this.$themeConfig.allowedIDAOrigins) === true) {
         return this.getPrevNextFromConfig(this.$themeConfig.sidebar.nav);
       }
       if (!this.tree) return;
