@@ -835,6 +835,7 @@ import {
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import axios from "axios";
+import { isIDAMode } from "../utils/helpers";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
@@ -986,6 +987,7 @@ export default {
       return sorted;
     },
     drawTag() {
+      if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) return;
       const headline = document.querySelector('h1');
       const tag = this.$page.frontmatter.tag;
       const drawnTag = document.getElementById('tag-element');

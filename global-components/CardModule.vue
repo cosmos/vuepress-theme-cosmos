@@ -19,7 +19,7 @@
                             h5.module__submodules__item__content__title
                                 span {{submodule.title}}
                             .module__submodules__item__content__desc {{submodule.description}}
-                        .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
+                        .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag] && isBadgeVisible()" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                         .module__submodules__item__start
                             .module__submodules__item__start__icon
                                 icon-arrow(type="right")
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+    import { isIDAMode } from "../utils/helpers";
     export default {
         props: ['module', 'main', 'weekly'],
         data() {
@@ -45,6 +46,9 @@
             }
         },
         methods: {
+            isBadgeVisible() {
+                return !isIDAMode(this.$themeConfig.allowedIDAOrigins);
+            },
             toggleContent() {
                 this.expanded = !this.expanded;
             },
