@@ -63,7 +63,6 @@
 
 .sidebar
   padding-right 24px
-  overflow-x hidden
   margin-top 64px
 
 .version
