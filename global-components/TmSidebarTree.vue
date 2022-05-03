@@ -210,7 +210,7 @@ export default {
     };
   },
   mounted() {
-    const active = find(this.value, ["key", this.$page.key]);
+    const active = find(this.value, ["path", this.$page.path]);
     if (active) {
       this.$emit("active", this.title);
     }
@@ -265,7 +265,6 @@ export default {
       return (item.path && this.outboundLink(item.path)) || item.static;
     },
     handleEnter(item) {
-      console.log("enter");
       this.revealChild(item.title);
     },
     componentName(item) {
