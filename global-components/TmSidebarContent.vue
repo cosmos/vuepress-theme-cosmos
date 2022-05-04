@@ -211,7 +211,7 @@ export default {
         if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
           visible = title.toLowerCase().includes("ida");
         } else {
-          visible = !(this.$themeConfig.sidebar.auto == false && title === '');
+          visible = !(this.$themeConfig.sidebar.auto == false && title === '') && !title.toLowerCase().includes("ida");
         }
       }
 
