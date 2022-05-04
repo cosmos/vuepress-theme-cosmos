@@ -117,7 +117,7 @@ export default {
     data() {
         return {
             sidebarOpened: false,
-            showIDALogo: isIDAMode(this.$themeConfig.allowedIDAOrigins),
+            showIDALogo: isIDAMode(this.$themeConfig?.allowedIDAOrigins || []),
             navItems: [
                 {
                     name: 'Learn',
@@ -134,8 +134,11 @@ export default {
             ] 
         }
     },
+    beforeMount() {
+        this.showIDALogo = isIDAMode(this.$themeConfig?.allowedIDAOrigins || []);
+    },
     mounted() {
-        this.showIDALogo = isIDAMode(this.$themeConfig.allowedIDAOrigins);
+        this.showIDALogo = isIDAMode(this.$themeConfig?.allowedIDAOrigins || []);
     },
     methods: {
         toggleSidebar() {
