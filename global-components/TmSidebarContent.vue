@@ -205,17 +205,17 @@ export default {
   },
   methods: {
     isVisible(title) {
-      if (typeof window !== 'undefined') {
-        
-        if (title.toLowerCase().includes("academy")) {
-          let isAllowed = isIDAMode(this.$themeConfig.allowedIDAOrigins);
-          return title.toLowerCase().includes("ida") ? isAllowed : !isAllowed;
-        }
+      let visible = true;
 
-        return !(this.$themeConfig.sidebar.auto == false && title === '');
-      } else {
-        return true;
+      if (typeof window !== 'undefined') {
+        if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
+          visible = title.toLowerCase().includes("ida");
+        } else {
+          visible = !(this.$themeConfig.sidebar.auto == false && title === '');
+        }
       }
+
+      return visible;
     }
   }
 };
