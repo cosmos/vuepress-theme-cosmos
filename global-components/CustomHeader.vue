@@ -134,11 +134,8 @@ export default {
             ] 
         }
     },
-    beforeMount() {
-        this.showIDALogo = isIDAMode(this.$themeConfig?.allowedIDAOrigins || []);
-    },
     mounted() {
-        this.showIDALogo = isIDAMode(this.$themeConfig?.allowedIDAOrigins || []);
+        this.showIDALogo = isIDAMode(this.$themeConfig.allowedIDAOrigins);
     },
     methods: {
         toggleSidebar() {
