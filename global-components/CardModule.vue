@@ -147,7 +147,7 @@
             width 100%
 
             &__main
-                margin-top auto
+                margin-block auto
                 width auto
 
             &__toggle
@@ -185,11 +185,13 @@
 
         &__content
             flex-grow 1
+            max-width 60%
 
             &__wrapper
                 flex-grow 1
                 display flex
                 flex-wrap wrap
+                justify-content space-between
 
                 &__main
                     margin-left 48px
@@ -235,6 +237,7 @@
                             display none
 
             &__content
+                max-width 100%
 
                 &__wrapper
                     flex-direction column
@@ -258,6 +261,7 @@
             flex-direction column
 
             &__content
+                max-width 100%
                 &__wrapper
                     margin-top 24px
                     margin-left 0px

@@ -835,7 +835,7 @@ import {
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import axios from "axios";
-import { isIDAMode } from "../utils/helpers";
+import { isIDAMode, scrollToHeader } from "../utils/helpers";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
@@ -1066,19 +1066,6 @@ export default {
       }
 
       this.scrollPosition = currentScrollPosition;
-    },
-    scrollToHeader() {
-      if (window.location.hash) {
-        const elementId = document.querySelector(window.location.hash);
-        
-        if (elementId) {
-          if (elementId.parentElement.classList.contains('expansion__content')) {
-            if (elementId.parentElement.classList.contains('visible')) return;
-            elementId.parentElement.classList.add('visible');
-          }
-          elementId.scrollIntoView();
-        }
-      }
     }
   },
   beforeMount() {
@@ -1100,7 +1087,7 @@ export default {
         node.addEventListener("click", this.prereqToggle);
       });
     setTimeout(function () { 
-      this.scrollToHeader();
+      scrollToHeader();
     }.bind(this), 200)
     document.addEventListener("scroll", this.scrollListener);
     hotkeys("/", (event, handler) => {
@@ -1118,7 +1105,7 @@ export default {
     this.$nextTick(function () {
       this.drawTag();
       this.setupHeaderAnchor();
-      this.scrollToHeader();
+      scrollToHeader();
     });
   },
   beforeDestroy() {
