@@ -1069,13 +1069,23 @@ export default {
     }
   },
   beforeMount() {
-    const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
-      .then(response => response.data)
-      .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
+    if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
+      this.asideBanners = [
+        {
+          alt: "Join our discord channels",
+          href: "https://discord.gg/cosmosnetwork",
+          src: "cwu.jpg"
+        }
+      ];
+    } else {
+      const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
+        .then(response => response.data)
+        .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
 
-    Promise.all([fetchAsideBanner]).then(responses => {
-      this.asideBanners = responses[0]
-    })
+      Promise.all([fetchAsideBanner]).then(responses => {
+        this.asideBanners = responses[0]
+      })
+    }
   },
   mounted() {
     this.emitPrereqLinks();
