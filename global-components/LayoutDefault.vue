@@ -835,6 +835,7 @@ import {
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import axios from "axios";
+import { isIDAMode, scrollToHeader } from "../utils/helpers";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
@@ -986,6 +987,7 @@ export default {
       return sorted;
     },
     drawTag() {
+      if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) return;
       const headline = document.querySelector('h1');
       const tag = this.$page.frontmatter.tag;
       const drawnTag = document.getElementById('tag-element');
@@ -1064,29 +1066,26 @@ export default {
       }
 
       this.scrollPosition = currentScrollPosition;
-    },
-    scrollToHeader() {
-      if (window.location.hash) {
-        const elementId = document.querySelector(window.location.hash);
-        
-        if (elementId) {
-          if (elementId.parentElement.classList.contains('expansion__content')) {
-            if (elementId.parentElement.classList.contains('visible')) return;
-            elementId.parentElement.classList.add('visible');
-          }
-          elementId.scrollIntoView();
-        }
-      }
     }
   },
   beforeMount() {
-    const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
-      .then(response => response.data)
-      .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
+    if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
+      this.asideBanners = [
+        {
+          alt: "Join our discord channels",
+          href: "https://discord.gg/cosmosnetwork",
+          src: "cwu.jpg"
+        }
+      ];
+    } else {
+      const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
+        .then(response => response.data)
+        .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
 
-    Promise.all([fetchAsideBanner]).then(responses => {
-      this.asideBanners = responses[0]
-    })
+      Promise.all([fetchAsideBanner]).then(responses => {
+        this.asideBanners = responses[0]
+      })
+    }
   },
   mounted() {
     this.emitPrereqLinks();
@@ -1098,7 +1097,7 @@ export default {
         node.addEventListener("click", this.prereqToggle);
       });
     setTimeout(function () { 
-      this.scrollToHeader();
+      scrollToHeader();
     }.bind(this), 200)
     document.addEventListener("scroll", this.scrollListener);
     hotkeys("/", (event, handler) => {
@@ -1116,7 +1115,7 @@ export default {
     this.$nextTick(function () {
       this.drawTag();
       this.setupHeaderAnchor();
-      this.scrollToHeader();
+      scrollToHeader();
     });
   },
   beforeDestroy() {

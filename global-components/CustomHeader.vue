@@ -3,8 +3,9 @@
         .header__nav
             .header__nav__logo
                 a(href="/" rel="noreferrer noopener" tag="div").logo__image
-                    component(:is="`logo-${$themeConfig.label}-text`" v-if="$themeConfig.label" fill="black")
-                    img(:src="$themeConfig.footer.logo" v-else-if="$themeConfig.custom")
+                    img(src="./images/ida-logo.svg" v-if="showIDALogo")
+                    component(:is="`logo-${$themeConfig.label}-text`" v-else-if="$themeConfig.label" fill="black")
+                    img(:src="logoSrc" v-else-if="$themeConfig.custom")
             .header__search
                 search-bar
             .header__nav__links
@@ -110,11 +111,13 @@
 </style>
 
 <script>
+import { isIDAMode } from "../utils/helpers";
 export default {
     props: ["hideMobileMenu"],
     data() {
         return {
             sidebarOpened: false,
+            showIDALogo: isIDAMode(this.$themeConfig?.allowedIDAOrigins || []),
             navItems: [
                 {
                     name: 'Learn',
@@ -130,6 +133,9 @@ export default {
                 }
             ] 
         }
+    },
+    mounted() {
+        this.showIDALogo = isIDAMode(this.$themeConfig.allowedIDAOrigins);
     },
     methods: {
         toggleSidebar() {

@@ -15,6 +15,7 @@
         :role="!item.path && 'button'"
         @keydown.enter="handleEnter(item)"
         @click.native="onClick(item)"
+        @click="onClick(item)"
       ).item
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
         div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external, 'item__divider': item.frontmatter && item.frontmatter.divider }" v-html="titleFormatted(titleText(item))")
@@ -209,7 +210,7 @@ export default {
     };
   },
   mounted() {
-    const active = find(this.value, ["key", this.$page.key]);
+    const active = find(this.value, ["path", this.$page.path]);
     if (active) {
       this.$emit("active", this.title);
     }
@@ -264,7 +265,6 @@ export default {
       return (item.path && this.outboundLink(item.path)) || item.static;
     },
     handleEnter(item) {
-      console.log("enter");
       this.revealChild(item.title);
     },
     componentName(item) {

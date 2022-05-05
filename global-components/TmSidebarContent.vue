@@ -2,10 +2,10 @@
   div(style="position: relative")
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
-        div(v-for="item in value" :style="{display: isVisible(item.title) ? 'block' : 'none'}").sidebar
+        div(v-for="item in value" v-if="isVisible(item.title)").sidebar
           .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.title.mb-4 {{item.title}}
           client-only
-            tm-sidebar-tree(:value="item.children" v-if="item.children" :tree="tree" :level="0").section
+            tm-sidebar-tree(:value="item.children.sort((a, b) => a.order - b.order)" v-if="item.children" :tree="tree" :level="0").section
         .sidebar.version
           tm-select-version
       .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom && !$themeConfig.sidebar.hideProducts")
@@ -63,7 +63,6 @@
 
 .sidebar
   padding-right 24px
-  overflow-x hidden
   margin-top 64px
 
 .version
@@ -146,6 +145,7 @@ import {
   find,
   omit,
 } from "lodash";
+import { isIDAMode } from "../utils/helpers";
 
 export default {
   props: ["value", "tree", "compact"],
@@ -205,12 +205,17 @@ export default {
   },
   methods: {
     isVisible(title) {
+      let visible = true;
+
       if (typeof window !== 'undefined') {
-        const allowedOrigin = window.location.origin.includes("deploy-preview") || window.location.origin.includes("preview-5bxuue6kafu5ocp5") || window.location.origin.includes("localhost:") || window.location.origin.includes("127.0.0.1");
-        return title.includes("B9lab") ? allowedOrigin : !(this.$themeConfig.sidebar.auto == false && title === '');
-      } else {
-        return true;
+        if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
+          visible = title.toLowerCase().includes("ida");
+        } else {
+          visible = !(this.$themeConfig.sidebar.auto == false && title === '') && !title.toLowerCase().includes("ida");
+        }
       }
+
+      return visible;
     }
   }
 };

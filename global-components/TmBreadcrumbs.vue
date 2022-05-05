@@ -129,7 +129,7 @@ export default {
 
       this.$themeConfig.sidebar.nav
         .forEach(item => {
-          item.children.forEach(subItem => {
+          item.children.sort((a, b) => a.order - b.order).forEach(subItem => {
             if (this.$page.path.includes(subItem.path)) {
               crumbs.push({
                 title: item.title,

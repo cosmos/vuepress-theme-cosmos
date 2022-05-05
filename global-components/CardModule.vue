@@ -1,7 +1,7 @@
 <template lang="pug">
     .module__wrapper(v-on:click="toggleContent")
         .module
-            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2(v-if="main") module {{this.module.number}}
+            .module__number.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mt-2(v-if="main") {{this.weekly === true ? "week" : "module"}} {{this.module.number}}
             .module__content__wrapper(:class="[main && 'module__content__wrapper__main']")
                 .module__content(v-if="main")
                     h4.module__content__title {{this.module.title}}
@@ -19,7 +19,7 @@
                             h5.module__submodules__item__content__title
                                 span {{submodule.title}}
                             .module__submodules__item__content__desc {{submodule.description}}
-                        .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag]" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
+                        .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag] && isBadgeVisible()" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
                         .module__submodules__item__start
                             .module__submodules__item__start__icon
                                 icon-arrow(type="right")
@@ -28,8 +28,9 @@
 </template>
 
 <script>
+    import { isIDAMode } from "../utils/helpers";
     export default {
-        props: ['module', 'main'],
+        props: ['module', 'main', 'weekly'],
         data() {
             return {
                 expanded: !this.main || false
@@ -45,6 +46,9 @@
             }
         },
         methods: {
+            isBadgeVisible() {
+                return !isIDAMode(this.$themeConfig.allowedIDAOrigins);
+            },
             toggleContent() {
                 this.expanded = !this.expanded;
             },
@@ -143,7 +147,7 @@
             width 100%
 
             &__main
-                margin-top auto
+                margin-block auto
                 width auto
 
             &__toggle
@@ -181,11 +185,13 @@
 
         &__content
             flex-grow 1
+            max-width 60%
 
             &__wrapper
                 flex-grow 1
                 display flex
                 flex-wrap wrap
+                justify-content space-between
 
                 &__main
                     margin-left 48px
@@ -231,6 +237,7 @@
                             display none
 
             &__content
+                max-width 100%
 
                 &__wrapper
                     flex-direction column
@@ -254,6 +261,7 @@
             flex-direction column
 
             &__content
+                max-width 100%
                 &__wrapper
                     margin-top 24px
                     margin-left 0px
