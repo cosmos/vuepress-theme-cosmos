@@ -20,9 +20,10 @@ export default {
         })
     },
     methods: {
-        isAbsoluteUrl(src) {
+        noResizeNeeded(src) {
             var absoluteRe = /^https?:\/\//i;
-            return absoluteRe.test(src);
+            var svgRe = /^.*\.(svg)$/i;
+            return (absoluteRe.test(src) || svgRe.test(src));
         },
         getBreakpoint(width) {
             var breakpoint = null;
@@ -43,7 +44,7 @@ export default {
             return breakpoint;
         },
         getResizedSrc(width) {
-            if (this.isAbsoluteUrl(this.src)) return this.src;
+            if (this.noResizeNeeded(this.src)) return this.src;
 
             const breakpoint = this.getBreakpoint(width);
             if (!breakpoint) return this.src;
