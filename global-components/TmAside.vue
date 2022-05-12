@@ -4,7 +4,7 @@
       .banners.visible(v-if="asideBanners && !$themeConfig.custom" id="banners")
         .banners__item(v-for="banner in asideBanners")
           a(:href="banner.href" target="_blank" rel="noreferrer noopener")
-            img(:src="`${asideBannersUrl}/${banner.src}`" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
+            img(:src="asideBannersUrl ? `${asideBannersUrl}/${banner.src}` : banner.src" :alt="banner.alt" @error="$emit('bannerError', true)").aside__image
       .content
         div(v-if="prereq && prereq.length > 0")
           .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mmb-5 Pre-requisite reading
@@ -138,6 +138,7 @@ export default {
     };
   },
   async mounted() {
+    console.log(this.asideBanners)
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("hashchange", this.headerActive);
   },

@@ -1073,10 +1073,11 @@ export default {
       this.asideBanners = [
         {
           alt: "Join our discord channels",
-          href: "https://discord.gg/cosmosnetwork",
-          src: "cwu.jpg"
+          href: "/course-ida/discord-info.html",
+          src: "/discord-support.png"
         }
       ];
+      this.asideBannersUrl = null;
     } else {
       const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
         .then(response => response.data)
