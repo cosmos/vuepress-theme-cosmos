@@ -132,7 +132,7 @@
     &:after
       content ''
       width 80%
-      height 2px
+      height 1px
       visibility var(--vline)
       background var(--color-text)
       position absolute
