@@ -138,7 +138,6 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.asideBanners)
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("hashchange", this.headerActive);
   },
