@@ -11,6 +11,9 @@
 </template>
 
 <style lang="stylus" scoped>
+    .sheet__sidebar
+        color black
+        
     .searchbar
 
         &__wrapper
