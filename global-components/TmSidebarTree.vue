@@ -65,13 +65,19 @@
       position absolute
       top 12px
       right 15px
+      display flex
+      flex-wrap wrap
+      height fit-content
+      flex-shrink 1
 
       &__item
+        margin-block auto
+        margin-left 4px
 
         &__dot
           width 8px
           height 8px
-          margin-top 4px
+          margin-block auto
           border-radius 4px
           background var(--tag-background-color)
 
