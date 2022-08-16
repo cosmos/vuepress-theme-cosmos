@@ -19,7 +19,8 @@
                             h5.module__submodules__item__content__title
                                 span {{submodule.title}}
                             .module__submodules__item__content__desc {{submodule.description}}
-                        .module__submodules__item__badge.mb-4(v-if="submodule.tag && $themeConfig.tags[submodule.tag] && isBadgeVisible()" v-bind:style="{'background': $themeConfig.tags[submodule.tag].color || ''}") {{$themeConfig.tags[submodule.tag].label || ''}}
+                        .module__submodules__item__badges.mb-4(v-if="submodule.tags && isBadgeVisible()" v-for="tag in submodule.tags")
+                            .module__submodules__item__badges__item(v-if="$themeConfig.tags[tag]" v-bind:style="{'background': $themeConfig.tags[tag].color || ''}") {{$themeConfig.tags[tag].label || ''}}
                         .module__submodules__item__start
                             .module__submodules__item__start__icon
                                 icon-arrow(type="right")
@@ -108,14 +109,19 @@
                     &:last-child
                         border-bottom 1px solid var(--semi-transparent-color-2)
 
-                &__badge
-                    border-radius 8px
-                    padding 8px
-                    flex-shrink 0
-                    height fit-content
-                    margin-inline 40px
+                &__badges
+                    display flex
                     margin-block auto
-                    color white
+                    margin-right 16px
+                    flex-shrink 0
+
+                    &__item
+                        border-radius 8px
+                        padding 8px
+                        flex-shrink 0
+                        height fit-content
+                        
+                        color white
 
                 &__content
                     display flex
