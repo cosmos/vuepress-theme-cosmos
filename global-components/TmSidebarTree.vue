@@ -19,10 +19,10 @@
       ).item
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
         div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external, 'item__divider': item.frontmatter && item.frontmatter.divider || item.divider }" v-html="titleFormatted(titleText(item))")
-        .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tag && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tag]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tag].color}" :tag-content="$themeConfig.tags[item.frontmatter.tag].label")
+        .item__child__tag(v-if="level > 0 && item.frontmatter && item.frontmatter.tags && item.frontmatter.tags[0] && $themeConfig.tags && $themeConfig.tags[item.frontmatter.tags[0]]" :style="{'--tag-background-color': $themeConfig.tags[item.frontmatter.tags[0]].color}" :tag-content="$themeConfig.tags[item.frontmatter.tags[0]].label")
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
-          tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)")
+          tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)" :filterTags="filterTags")
 </template>
 
 <style lang="stylus" scoped>
@@ -203,7 +203,7 @@ import MarkdownIt from "markdown-it";
 
 export default {
   name: "tm-sidebar-tree",
-  props: ["value", "title", "tree", "level"],
+  props: ["value", "title", "tree", "level", "filterTags"],
   data: function() {
     return {
       show: null,
@@ -225,6 +225,15 @@ export default {
   },
   methods: {
     hide(item) {
+      var tagPresent = this.filterTags ? this.filterTags?.length == 0 : true;
+
+      for (var tag of this.filterTags || []) {
+        if (!item.frontmatter || item.frontmatter?.tags?.includes(tag)) {
+          tagPresent = true;
+          break;
+        }
+      }
+
       const index = this.indexFile(item);
       const fileHide = item.frontmatter && item.frontmatter.order === false;
       const dirHide =
@@ -232,7 +241,8 @@ export default {
         index.frontmatter &&
         index.frontmatter.parent &&
         index.frontmatter.parent.order === false;
-      return dirHide || fileHide;
+
+      return (dirHide || fileHide) === true ? true : !tagPresent;
     },
     iconCollapsed(item) {
       if (item.directory && !this.iconExpanded(item)) return true;

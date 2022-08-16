@@ -989,7 +989,7 @@ export default {
     drawTag() {
       if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) return;
       const headline = document.querySelector('h1');
-      const tag = this.$page.frontmatter.tag;
+      const tag = this.$page.frontmatter.tags ? this.$page.frontmatter.tags[0] : null;
       const drawnTag = document.getElementById('tag-element');
 
       if (headline && tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
