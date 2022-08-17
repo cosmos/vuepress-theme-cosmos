@@ -28,6 +28,7 @@
 .tags-filter
   display flex
   margin-top 40px
+  flex-wrap wrap
 
   .tag-item
     border-radius 8px
@@ -36,6 +37,7 @@
     height fit-content
     margin-right 8px
     margin-block auto
+    margin-bottom 8px
     border 1px solid var(--semi-transparent-color-3)
     background none
     color var(--semi-transparent-color-3)

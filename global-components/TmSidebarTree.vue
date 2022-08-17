@@ -241,23 +241,41 @@ export default {
     },
   },
   methods: {
-    hide(item) {
-      var tagPresent = this.filterTags ? this.filterTags?.length == 0 : true;
+    isTagPresent(item) {
+      let tagPresent = this.filterTags ? this.filterTags?.length == 0 : true;
+      let page = item;
 
+      if (item.directory == false) {
+        let result = item.path && item.path.split("/").filter((i) => i != "");
+        result = result.reduce((previous, current) => {
+          return find(previous.children || previous, ["title", current]);
+        }, this.tree);
+        page = find(result.children || result, ["path", item.path]) || item;
+      }
       for (var tag of this.filterTags || []) {
-        if (!item.frontmatter || item.frontmatter?.tags?.includes(tag)) {
+        if (!page.frontmatter || page.frontmatter?.tags?.includes(tag)) {
           tagPresent = true;
           break;
         }
       }
 
+      return tagPresent;
+    },
+    hide(item) {
+      const tagPresent = this.isTagPresent(item);
       const index = this.indexFile(item);
       const fileHide = item.frontmatter && item.frontmatter.order === false;
-      const dirHide =
+      let dirHide =
         index &&
         index.frontmatter &&
         index.frontmatter.parent &&
         index.frontmatter.parent.order === false;
+
+      if (item.directory) {
+        let directoryChildren = item.children || this.directoryChildren(item);
+        directoryChildren = directoryChildren.filter(child => this.isTagPresent(child));
+        if (directoryChildren.length === 0) dirHide = true;
+      }
 
       return (dirHide || fileHide) === true ? true : !tagPresent;
     },
