@@ -2,7 +2,7 @@
     .card__wrapper
         tm-image.card__image(:src="image")
         h4.card__title(v-if="title") {{title}}
-        .card__description(v-if="description") {{description}}
+        .card__description(v-if="description" v-html="description")
         .card__link(v-for="item of items" v-if="items && items.length > 0")
             ul
                 li
