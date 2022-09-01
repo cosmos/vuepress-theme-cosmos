@@ -95,10 +95,21 @@
 </script>
 
 <style lang="stylus" scoped>
-    .card__single:hover,
-    .card__single:focus
-        .tm-link-disclosure:after
-            transform translateX(10%)
+    .card__single
+        &:hover,
+        &:focus
+            .tm-link-disclosure:after
+                transform translateX(10%)
+
+        .card
+            &__body__description
+                flex-wrap nowrap
+                max-width none
+                width 100%
+                margin-right 0
+            
+            &__header__title
+                max-width 70%
 
     .card
 
@@ -143,14 +154,18 @@
             justify-content space-between
             align-items center
             padding-block 1rem
+            flex-direction row
             
             &__description
                 margin-right 1rem
+                max-width 25%
 
             &__links
                 padding-block 0.5rem
 
                 &__wrapper
+                    max-width 70%
+                    flex-grow 1
                     display flex
                     flex-direction column
                     padding-block 1rem
@@ -170,4 +185,18 @@
     .tm-link-disclosure
         width fit-content
         padding-right 0
+
+    @media screen and (max-width: 832px)
+        .card
+            &__body
+                flex-direction column
+                
+                &__description
+                    max-width none
+                    width 100%
+                    margin-right 0
+
+                &__links__wrapper
+                    max-width none
+                    width 100%
 </style>
