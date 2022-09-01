@@ -1,12 +1,18 @@
 <template lang="pug">
-    .card__wrapper
-        tm-image.card__image(:src="image")
-        h4.card__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
-        .card__description(v-if="descriptionText" v-html="descriptionText")
-        .card__link(v-for="item of items" v-if="items && items.length > 1")
-            ul
-                li
-                    a.card__link__title(:href="item.url" v-if="item.title && item.url") {{item.title}}
+    a.card__wrapper(:href="singleLink" :class="{'card__single': singleState}")
+        .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${image})`} : {}")
+            .card__header__overline
+                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted Getting started
+                .card__header__overline__tag(v-if="badge" v-bind:style="{'background': badge.color || ''}") {{badge.label || ''}}
+            h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
+        .card__body
+            .card__body__description(v-if="descriptionText" v-html="descriptionText")
+            .card__body__links__wrapper
+                .card__body__links(v-for="item of items" v-if="items && items.length > 1")
+                    a.card__body__links__item(:href="item.url" v-if="item.title && item.url") {{item.title}}
+        .card__footer(v-if="!singleStateEnabled()")
+            .tm-link.tm-link-disclosure Learn more
+
 </template>
 
 <script>
@@ -16,16 +22,18 @@
      * @param {string} image image url to display at the top
      * @param {string} title
      * @param {string} description
+     * @param {string} tag
      * @param {array(string | Object)} links list of internal or external links
      * * each item should be an url (String) or an object (containing title, description, path) 
      * * If only one item is provided the component's layout switches to "single" (title, description)
      */
     export default {
-        props: ['image', 'title', 'description', 'links'],
+        props: ['image', 'title', 'description', 'tag', 'links'],
         data() {
             return {
                 titleText: this.title,
                 descriptionText: this.description,
+                singleLink: null,
                 singleState: false
             }
         },
@@ -33,7 +41,7 @@
             items() {
                 let items = [];
 
-                if (this.links && this.links.length > 1) {
+                if (this.links && !this.singleStateEnabled()) {
                     for (var link of this.links) {
                         let item = link;
                         if (typeof link != 'Object') {
@@ -47,6 +55,9 @@
                 }
 
                 return items;
+            },
+            badge() {
+                return this.tag ? this.$themeConfig.tags[this.tag] : null;
             }
         },
         methods: {
@@ -71,30 +82,91 @@
 
                 item = this.formatData(item);
 
-                this.titleText = item.title;
-                this.descriptionText = item.description;
+                this.titleText = this.title ? this.title : item.title;
+                this.descriptionText = this.description ? this.description : item.description;
+                this.singleLink = item.url;
                 this.singleState = true;
+            },
+            singleStateEnabled() {
+                return this.links?.length == 1;
             }
         }
     }
 </script>
 
 <style lang="stylus" scoped>
+    .card__single:hover,
+    .card__single:focus
+        .tm-link-disclosure:after
+            transform translateX(10%)
+
     .card
 
         &__wrapper
             display flex
+            flex-grow 1
             flex-direction column
+            padding 2.5rem
+            border-radius 20px
+            margin-block 2rem
+            background var(--background-color-secondary)
+                
+
+        &__header
+            background-repeat no-repeat
+            background-position right
+            background-size auto 120%
+
+            &__overline
+                display flex
+                align-items center
+                justify-content space-between
+                margin-bottom 1rem
+
+                &__tag
+                    border-radius 8px
+                    padding 8px
+                    flex-shrink 0
+                    height fit-content
+                    margin-left 1rem
+                    margin-block auto
+                    color white
+            
+            &__title
+                margin-block 2.5rem
+                flex-grow 1
+                max-width 50%
+
+        &__body
+            display flex
+            flex-wrap wrap
+            justify-content space-between
+            align-items center
+            padding-block 1rem
+            
+            &__description
+                margin-right 1rem
+
+            &__links
+                padding-block 0.5rem
+
+                &__wrapper
+                    display flex
+                    flex-direction column
+                    padding-block 1rem
+
+                &__item
+                    color var(--semi-transparent-color-3)
+                    transition color .2s ease-out
+
+                    &:hover,
+                    &:focus
+                        color var(--title)
+
+        &__footer
+            border-top 1px solid var(--semi-transparent-color-2)
+            padding-top 1rem
         
-        &__image
-            max-height 30vh
-            width fit-content
-            margin-bottom 0
-            margin-inline auto
-        
-        &__title
-            margin-bottom 1rem
-    
     .tm-link-disclosure
         width fit-content
         padding-right 0
