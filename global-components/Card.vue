@@ -52,9 +52,12 @@ export default {
                 &__small
                     padding-bottom 0px
 
-    @media screen and (min-width: 480px) and (max-width: 1024px)
+    @media screen and (min-width: 481px) and (max-width: 1024px)
         .card
             background-size auto 100%
 
 
+    @media screen and (min-width: 481px) and (max-width: 732px)
+        .card
+            background-size auto 50%
 </style>

@@ -119,14 +119,17 @@
             flex-direction column
             padding 2.5rem
             border-radius 20px
-            margin-block 2rem
             background var(--background-color-secondary)
                 
 
         &__header
             background-repeat no-repeat
             background-position right
-            background-size auto 120%
+            background-size auto 100%
+
+            @media screen and (min-width: 481px)
+                margin-block -3rem
+                padding-block 3rem
 
             &__overline
                 display flex
@@ -161,14 +164,13 @@
                 max-width 25%
 
             &__links
-                padding-block 0.5rem
+                padding-bottom 1rem
 
                 &__wrapper
                     max-width 70%
                     flex-grow 1
                     display flex
                     flex-direction column
-                    padding-block 1rem
 
                 &__item
                     color var(--semi-transparent-color-3)
@@ -188,6 +190,7 @@
 
     @media screen and (max-width: 832px)
         .card
+            
             &__body
                 flex-direction column
                 
@@ -199,4 +202,13 @@
                 &__links__wrapper
                     max-width none
                     width 100%
+                    padding-block 1rem
+
+        .card__single
+            .card
+                &__header__title
+                    max-width none
+
+    
+            
 </style>
