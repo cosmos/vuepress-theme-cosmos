@@ -1,11 +1,21 @@
 <template lang="pug">
   div(style="position: relative")
+    .tags-filter
+      .tag-item(
+        v-if="$themeConfig.tags" 
+        v-for="(tag, key) in $themeConfig.tags" 
+        v-bind:key="key" 
+        v-bind:style="isTagActive(key) ? {'background': tag.color || ''} : {}"
+        v-on:click="onTagClick(key)"
+        v-bind:class="isTagActive(key) ? 'tag-item__active' : ''"
+      ) {{tag.label || ''}}
+
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
         div(v-for="item in value" v-if="isVisible(item.title)").sidebar
           .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.title.mb-4 {{item.title}}
           client-only
-            tm-sidebar-tree(:value="item.children.sort((a, b) => a.order - b.order)" v-if="item.children" :tree="tree" :level="0").section
+            tm-sidebar-tree(:value="item.children.sort((a, b) => a.order - b.order)" v-if="item.children" :tree="tree" :level="0" :filterTags="filterTags").section
         .sidebar.version
           tm-select-version
       .footer(:class="[`footer__compact__${!!(compact === true)}`]" v-if="!$themeConfig.custom && !$themeConfig.sidebar.hideProducts")
@@ -15,6 +25,34 @@
 </template>
 
 <style lang="stylus" scoped>
+.tags-filter
+  display flex
+  margin-top 40px
+  flex-wrap wrap
+
+  .tag-item
+    border-radius 8px
+    padding 8px
+    flex-shrink 0
+    height fit-content
+    margin-right 8px
+    margin-block auto
+    margin-bottom 8px
+    border 1px solid var(--semi-transparent-color-3)
+    background none
+    color var(--semi-transparent-color-3)
+    font-size var(--font-size--1)
+    cursor pointer
+
+    &__active
+      border none !important
+      color white !important
+
+    &:hover
+      border 1px solid var(--color-text-strong)
+      color var(--color-text-strong, black)
+
+
 .container
   display flex
   flex-direction column
@@ -180,6 +218,7 @@ export default {
           color: "#00BB00",
         },
       ],
+      filterTags: []
     };
   },
   computed: {
@@ -208,14 +247,21 @@ export default {
       let visible = true;
 
       if (typeof window !== 'undefined') {
-        if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
-          visible = title.toLowerCase().includes("ida");
-        } else {
-          visible = !(this.$themeConfig.sidebar.auto == false && title === '') && !title.toLowerCase().includes("ida");
-        }
+        visible = !(this.$themeConfig.sidebar.auto == false && title === '');
       }
 
       return visible;
+    },
+    isTagActive(key) {
+      return this.filterTags.includes(key);
+    },
+    onTagClick(key) {
+      if (this.isTagActive(key)) {
+        const index = this.filterTags.indexOf(key)
+        if (index !== -1) this.filterTags.splice(index, 1);
+      } else {
+        this.filterTags.push(key);
+      }
     }
   }
 };

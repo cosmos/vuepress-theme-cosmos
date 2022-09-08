@@ -151,6 +151,14 @@
       a.header-anchor
         opacity 1
 
+  .tags-wrapper
+    margin-left 16px
+    display flex
+    flex-wrap wrap
+    height fit-content
+    flex-shrink 1
+    margin-block auto
+
   .tag-element
     background var(--tag-background-color)
     font-size 13px
@@ -158,9 +166,9 @@
     letter-spacing 0.005em
     color white
     border-radius 8px
-    margin-block auto
     padding 8px
-    margin-left 16px
+    margin-block 8px
+    margin-right 8px
     flex-shrink 0
 
   a.header-anchor
@@ -987,21 +995,33 @@ export default {
       return sorted;
     },
     drawTag() {
-      if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) return;
+      if (isIDAMode(this.$themeConfig.allowedIDAOrigins) || !this.$page.frontmatter.tags) return;
       const headline = document.querySelector('h1');
-      const tag = this.$page.frontmatter.tag;
-      const drawnTag = document.getElementById('tag-element');
 
-      if (headline && tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
-        const tagElement = document.createElement("div");
-        const node = document.createTextNode(this.$site.themeConfig.tags[tag].label);
-        tagElement.appendChild(node);
-        tagElement.classList.add('tag-element');
-        tagElement.style.setProperty("--tag-background-color", this.$site.themeConfig.tags[tag].color);
-        tagElement.setAttribute('id', 'tag-element');
-        headline.appendChild(tagElement);
-        headline.style.setProperty('display', 'flex');
+      let tagsWrapper = document.getElementById('tags-wrapper');
+      if (this.$page.frontmatter.tags.length > 0 && !tagsWrapper) {
+        tagsWrapper = document.createElement("div");
+        tagsWrapper.classList.add('tags-wrapper');
+        tagsWrapper.setAttribute('id', 'tags-wrapper');
       }
+
+      for (let tag of this.$page.frontmatter.tags) {
+        const tagId = `tag-element-${tag}`;
+        const drawnTag = document.getElementById(tagId);
+
+        if (headline && tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
+          const tagElement = document.createElement("div");
+          const node = document.createTextNode(this.$site.themeConfig.tags[tag].label);
+          tagElement.appendChild(node);
+          tagElement.classList.add('tag-element');
+          tagElement.style.setProperty("--tag-background-color", this.$site.themeConfig.tags[tag].color);
+          tagElement.setAttribute('id', tagId);
+          tagsWrapper.appendChild(tagElement);
+          headline.appendChild(tagsWrapper);
+          headline.style.setProperty('display', 'flex');
+        }
+      }
+      
     },
     setupHeaderAnchor() {
       const headerAnchorClick = event => {
