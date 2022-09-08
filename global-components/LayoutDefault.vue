@@ -844,6 +844,7 @@ import {
 import hotkeys from "hotkeys-js";
 import axios from "axios";
 import { isIDAMode, scrollToHeader } from "../utils/helpers";
+import clockIcon from "./images/icon-clock.svg";
 
 const endingSlashRE = /\/$/;
 const outboundRE = /^[a-z]+:/i;
@@ -1023,6 +1024,35 @@ export default {
       }
       
     },
+    addReadingTime() {
+      if (this.$page.readingTime?.text) {
+        const displayTime = this.$page.readingTime.text;
+        const headline = document.querySelector('h1');
+        let readingTimeWrapper = document.getElementById('reading-time-wrapper');
+
+        if (!readingTimeWrapper && headline) {
+          readingTimeWrapper = document.createElement('div');
+          readingTimeWrapper.setAttribute('id', 'reading-time-wrapper');
+          readingTimeWrapper.style.display = 'flex';
+          readingTimeWrapper.style.alignItems = 'center';
+          readingTimeWrapper.style.marginBottom = '2rem';
+          readingTimeWrapper.classList.add("tm-overline", "tm-rf-1", "tm-lh-title", "tm-muted");
+
+          const icon = document.createElement('div');
+          icon.style.width = '20px';
+          icon.style.height = '20px';
+          icon.style.backgroundImage = `url(${clockIcon})`;
+          icon.style.marginRight = '12px';
+          icon.style.filter = 'var(--img-filter)';
+          readingTimeWrapper.appendChild(icon);
+
+          const text = document.createTextNode(displayTime);
+          readingTimeWrapper.appendChild(text);
+
+          headline.parentNode?.insertBefore(readingTimeWrapper, headline.nextSibling);
+        }
+      }
+    },
     setupHeaderAnchor() {
       const headerAnchorClick = event => {
         event.target.setAttribute("data-header-anchor-text", "Copied!");
@@ -1135,6 +1165,7 @@ export default {
   updated() {
     this.$nextTick(function () {
       this.drawTag();
+      this.addReadingTime();
       this.setupHeaderAnchor();
       scrollToHeader();
     });
