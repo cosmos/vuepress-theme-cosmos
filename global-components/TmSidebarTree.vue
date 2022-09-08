@@ -328,12 +328,11 @@ export default {
     onClick(item) {
       if (!this.outboundLink(item.path)) {
         this.revealChild(item.title);
-      } 
-      if (this.isInternalLink(item) && typeof this.$gtm !== 'undefined') {
-        this.$gtm.trackEvent({
-          category: 'navigation',
-          action: item.path,
-          label: item.path
+      }
+      if (this.isInternalLink(item) && typeof gtag !== 'undefined') {
+        gtag('event', item.path, {
+          'event_category': 'navigation',
+          'event_label': item.path
         });
       }
     }
