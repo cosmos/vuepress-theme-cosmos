@@ -1123,7 +1123,7 @@ export default {
       this.asideBanners = [
         {
           alt: "Join our discord channels",
-          href: "/course-ida/discord-info.html",
+          href: "/ida-course/discord-info.html",
           src: "/discord-support.png"
         }
       ];
