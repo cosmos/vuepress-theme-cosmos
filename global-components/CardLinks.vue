@@ -11,7 +11,7 @@
                 .card__body__links(v-for="item of items" v-if="items && items.length > 1")
                     a.card__body__links__item(:href="item.url" v-if="item.title && item.url") {{item.title}}
         .card__footer(v-if="!singleStateEnabled()")
-            .tm-link.tm-link-disclosure Learn more
+            a.tm-link.tm-link-disclosure(:href="href") Learn more
 
 </template>
 
@@ -23,12 +23,13 @@
      * @param {string} title
      * @param {string} description
      * @param {string} tag
+     * @param {string} href
      * @param {array(string | Object)} links list of internal or external links
      * * each item should be an url (String) or an object (containing title, description, path) 
-     * * If only one item is provided the component's layout switches to "single" (title, description)
+     * * If not provided or empty the component's layout switches to "single" (title, description)
      */
     export default {
-        props: ['image', 'title', 'description', 'tag', 'links'],
+        props: ['image', 'title', 'description', 'tag', 'href', 'links'],
         data() {
             return {
                 titleText: this.title,
@@ -51,7 +52,7 @@
                         if (item) items.push(this.formatData(item));
                     }
                 } else {
-                    this.handleSingleState(this.links[0] || null);
+                    this.handleSingleState(this.href || null);
                 }
 
                 return items;
@@ -88,7 +89,7 @@
                 this.singleState = true;
             },
             singleStateEnabled() {
-                return this.links?.length == 1;
+                return !this.links || this.links?.length == 0;
             }
         }
     }
@@ -157,20 +158,22 @@
             justify-content space-between
             align-items center
             padding-block 1rem
-            flex-direction row
+            flex-direction column
             
             &__description
-                margin-right 1rem
-                max-width 25%
+                max-width none
+                width 100%
 
             &__links
                 padding-bottom 1rem
 
                 &__wrapper
-                    max-width 70%
                     flex-grow 1
                     display flex
                     flex-direction column
+                    max-width none
+                    width 100%
+                    padding-block 1rem
 
                 &__item
                     color var(--semi-transparent-color-3)
@@ -189,21 +192,6 @@
         padding-right 0
 
     @media screen and (max-width: 832px)
-        .card
-            
-            &__body
-                flex-direction column
-                
-                &__description
-                    max-width none
-                    width 100%
-                    margin-right 0
-
-                &__links__wrapper
-                    max-width none
-                    width 100%
-                    padding-block 1rem
-
         .card__single
             .card
                 &__header__title
