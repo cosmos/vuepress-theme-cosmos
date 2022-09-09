@@ -45,7 +45,7 @@
                 if (this.links && !this.singleStateEnabled()) {
                     for (var link of this.links) {
                         let item = link;
-                        if (typeof link != 'Object') {
+                        if (typeof link == 'string') {
                             item = this.getPageData(link);
                         }
 
