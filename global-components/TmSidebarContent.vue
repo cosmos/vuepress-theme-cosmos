@@ -1,6 +1,6 @@
 <template lang="pug">
   div(style="position: relative")
-    .tags-filter(v-if="$themeConfig.filterByTagEnabled")
+    .tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled")
       .tag-item(
         v-if="$themeConfig.tags" 
         v-for="(tag, key) in $themeConfig.tags" 
