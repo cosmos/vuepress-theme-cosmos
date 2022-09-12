@@ -248,12 +248,12 @@ export default {
       if (item.directory == false) {
         let result = item.path && item.path.split("/").filter((i) => i != "");
         result = result.reduce((previous, current) => {
-          return find(previous.children || previous, ["title", current]);
+          return find(previous?.children || previous, ["title", current]);
         }, this.tree);
-        page = find(result.children || result, ["path", item.path]) || item;
+        page = find(result?.children || result, ["path", item.path]) || item;
       }
       for (var tag of this.filterTags || []) {
-        if (!page.frontmatter || page.frontmatter?.tags?.includes(tag)) {
+        if (!page?.frontmatter || page.frontmatter?.tags?.includes(tag)) {
           tagPresent = true;
           break;
         }
