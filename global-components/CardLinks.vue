@@ -3,8 +3,8 @@
         .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${image})`} : {}")
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
-                .card__header__overline__tags__wrapper(v-if="badges" v-for="badge of badges")
-                    .card__header__overline__tag(v-bind:style="{'background': badge.color || ''}") {{badge.label || ''}}
+                .card__header__overline__tags__wrapper(v-if="badges")
+                    .card__header__overline__tag( v-for="badge of badges" v-bind:style="{'background': badge.color || ''}") {{badge.label || ''}}
             h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")
@@ -152,6 +152,7 @@
 
                 &__tags__wrapper
                     display flex
+                    justify-content flex-end
             
             &__title
                 margin-block 2.5rem
