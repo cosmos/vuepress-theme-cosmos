@@ -1,9 +1,10 @@
 <template lang="pug">
-    a.card__wrapper(:href="singleLink" :class="{'card__single': singleState}")
+    a.card__wrapper(v-if="href || links" :href="singleLink" :class="{'card__single': singleState}")
         .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${image})`} : {}")
             .card__header__overline
-                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted Getting started
-                .card__header__overline__tag(v-if="badge" v-bind:style="{'background': badge.color || ''}") {{badge.label || ''}}
+                .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
+                .card__header__overline__tags__wrapper(v-if="badges" v-for="badge of badges")
+                    .card__header__overline__tag(v-bind:style="{'background': badge.color || ''}") {{badge.label || ''}}
             h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")
@@ -22,14 +23,15 @@
      * @param {string} image image url to display at the top
      * @param {string} title
      * @param {string} description
-     * @param {string} tag
+     * @param {string} tags
      * @param {string} href
+     * @param {string} overline
      * @param {array(string | Object)} links list of internal or external links
      * * each item should be an url (String) or an object (containing title, description, path) 
      * * If not provided or empty the component's layout switches to "single" (title, description)
      */
     export default {
-        props: ['image', 'title', 'description', 'tag', 'href', 'links'],
+        props: ['image', 'title', 'description', 'tags', 'href', 'overline', 'links'],
         data() {
             return {
                 titleText: this.title,
@@ -57,8 +59,8 @@
 
                 return items;
             },
-            badge() {
-                return this.tag ? this.$themeConfig.tags[this.tag] : null;
+            badges() {
+                return this.tags ? this.tags.map(tag => this.$themeConfig.tags[tag]) : null;
             }
         },
         methods: {
@@ -67,9 +69,9 @@
             },
             formatData(item) {
                 return {
-                    title: item.frontmatter?.title || item.title, 
-                    description: item.frontmatter?.description || item.description,
-                    url: item.path
+                    title: item?.frontmatter?.title || item?.title, 
+                    description: item?.frontmatter?.description || item?.description,
+                    url: item?.path
                 }
             },
             handleSingleState(link) {
@@ -117,6 +119,7 @@
         &__wrapper
             display flex
             flex-grow 1
+            height 100%
             flex-direction column
             padding 2.5rem
             border-radius 20px
@@ -146,6 +149,9 @@
                     margin-left 1rem
                     margin-block auto
                     color white
+
+                &__tags__wrapper
+                    display flex
             
             &__title
                 margin-block 2.5rem
@@ -155,6 +161,7 @@
         &__body
             display flex
             flex-wrap wrap
+            flex-grow 1
             justify-content space-between
             align-items center
             padding-block 1rem
