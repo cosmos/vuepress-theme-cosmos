@@ -363,7 +363,7 @@ export default {
     directoryChildren(item) {
       if (item.directory === true) {
         let result = item.path && item.path.split("/").filter((i) => i != "");
-        result = result.reduce((acc, cur) => {
+        result = result?.reduce((acc, cur) => {
           return find(acc.children || acc, ["title", cur]);
         }, this.tree);
         return result?.children || [];
