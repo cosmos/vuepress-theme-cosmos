@@ -133,7 +133,7 @@ export default {
   },
   computed: {
     linkPrevNext() {
-      if (isIDAMode(this.$themeConfig.allowedIDAOrigins) === true) {
+      if (this.$themeConfig.isIDAMode === true) {
         return this.getPrevNextFromConfig(this.$themeConfig.sidebar.nav);
       }
       if (!this.tree) return;

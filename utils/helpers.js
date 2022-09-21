@@ -1,13 +1,6 @@
 function isIDAMode(allowedOrigins) {
-    let idaMode = false;
-
-    if (typeof window !== 'undefined') {
-        allowedOrigins.forEach(origin => {
-            if (window.location.origin.includes(origin)) idaMode = true;
-        });
-    }
-
-    return idaMode;
+    return true;
+    //return this.$themeConfig.isIDAMode;
 }
 
 function scrollToHeader() {

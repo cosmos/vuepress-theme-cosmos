@@ -996,7 +996,7 @@ export default {
       return sorted;
     },
     drawTag() {
-      if (isIDAMode(this.$themeConfig.allowedIDAOrigins) || !this.$page.frontmatter.tags) return;
+      if (this.$themeConfig.isIDAMode || !this.$page.frontmatter.tags) return;
       const headline = document.querySelector('h1');
 
       let tagsWrapper = document.getElementById('tags-wrapper');
@@ -1119,7 +1119,7 @@ export default {
     }
   },
   beforeMount() {
-    if (isIDAMode(this.$themeConfig.allowedIDAOrigins)) {
+    if (this.$themeConfig.isIDAMode) {
       this.asideBanners = [
         {
           alt: "Join our discord channels",

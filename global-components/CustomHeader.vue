@@ -111,13 +111,12 @@
 </style>
 
 <script>
-import { isIDAMode } from "../utils/helpers";
 export default {
     props: ["hideMobileMenu"],
     data() {
         return {
             sidebarOpened: false,
-            showIDALogo: isIDAMode(this.$themeConfig?.allowedIDAOrigins || []),
+            showIDALogo: false,
             navItems: [
                 {
                     name: 'Learn',
@@ -135,11 +134,14 @@ export default {
         }
     },
     mounted() {
-        this.showIDALogo = isIDAMode(this.$themeConfig.allowedIDAOrigins);
+        this.showIDALogo = this.getIsIDAMode()
     },
     methods: {
         toggleSidebar() {
             this.$emit('mobileSidebar', true);
+        },
+        getIsIDAMode() {
+            return this.$themeConfig.isIDAMode;
         }
     }
 }

@@ -48,7 +48,7 @@
         },
         methods: {
             isBadgeVisible() {
-                return !isIDAMode(this.$themeConfig.allowedIDAOrigins);
+                return !this.$themeConfig.isIDAMode;
             },
             toggleContent() {
                 this.expanded = !this.expanded;
