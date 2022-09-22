@@ -1,6 +1,5 @@
 function isIDAMode(allowedOrigins) {
     return true;
-    //return this.$themeConfig.isIDAMode;
 }
 
 function scrollToHeader() {
