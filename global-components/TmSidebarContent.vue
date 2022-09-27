@@ -242,6 +242,12 @@ export default {
       return this.value;
     }
   },
+  mounted() {
+    const storedTags = JSON.parse(localStorage?.getItem("vuepress-theme-cosmos-sidebar-filter-tags"));
+    if (storedTags) {
+      this.filterTags = storedTags;
+    }
+  },
   methods: {
     isVisible(title) {
       let visible = true;
@@ -262,6 +268,7 @@ export default {
       } else {
         this.filterTags.push(key);
       }
+      localStorage?.setItem("vuepress-theme-cosmos-sidebar-filter-tags", JSON.stringify(this.filterTags));
     }
   }
 };

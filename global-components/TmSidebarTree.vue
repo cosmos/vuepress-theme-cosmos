@@ -245,12 +245,8 @@ export default {
       let tagPresent = this.filterTags ? this.filterTags?.length == 0 : true;
       let page = item;
 
-      if (item.directory == false) {
-        let result = item.path && item.path.split("/").filter((i) => i != "");
-        result = result.reduce((previous, current) => {
-          return find(previous?.children || previous, ["title", current]);
-        }, this.tree);
-        page = find(result?.children || result, ["path", item.path]) || item;
+      if (item.directory != true) {
+        page = find(this.$site.pages, ["path", item.path]) || item;
       }
       for (var tag of this.filterTags || []) {
         if (!page?.frontmatter || page.frontmatter?.tags?.includes(tag)) {
