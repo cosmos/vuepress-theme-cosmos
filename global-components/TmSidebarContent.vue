@@ -5,7 +5,7 @@
         v-if="$themeConfig.tags" 
         v-for="(tag, key) in $themeConfig.tags" 
         v-bind:key="key" 
-        v-bind:style="isTagActive(key) ? {'background': tag.color || ''} : {}"
+        v-bind:style="isTagActive(key) ? {'background': tag.color || '', 'border-color': tag.color} : {}"
         v-on:click="onTagClick(key)"
         v-bind:class="isTagActive(key) ? 'tag-item__active' : ''"
       ) {{tag.label || ''}}
@@ -45,7 +45,6 @@
     cursor pointer
 
     &__active
-      border none !important
       color white !important
 
     &:hover
