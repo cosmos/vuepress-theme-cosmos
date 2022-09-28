@@ -404,7 +404,7 @@
   h1
     font-size 2.4rem
     margin-top 4rem
-    margin-bottom 4rem
+    margin-bottom var(--spacing-6)
     line-height 3.5rem
     letter-spacing -0.02em
 

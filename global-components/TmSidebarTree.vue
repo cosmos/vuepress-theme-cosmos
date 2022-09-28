@@ -19,8 +19,8 @@
       ).item
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
         div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external, 'item__divider': item.frontmatter && item.frontmatter.divider || item.divider }" v-html="titleFormatted(titleText(item))")
-        .item__child__tags(v-if="level > 0 && item.frontmatter && item.frontmatter.tags && $themeConfig.tags")
-          .item__child__tags__item(v-for="tag in item.frontmatter.tags")
+        .item__child__tags(v-if="level > 0 && tags(item) && $themeConfig.tags")
+          .item__child__tags__item(v-for="tag in tags(item)")
             .item__child__tags__item__dot(
               v-if="tag && $themeConfig.tags[tag]" 
               :style="{'--tag-background-color': $themeConfig.tags[tag].color}" 
@@ -376,6 +376,15 @@ export default {
           'event_label': item.path
         });
       }
+    },
+    tags(item) {
+      var page = item;
+
+      if (!item?.frontmatter?.tags) {
+        page = find(this.$site.pages, ["path", item.path]);
+      }
+
+      return page?.frontmatter?.tags || [];
     }
   },
 };
