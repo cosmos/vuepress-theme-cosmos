@@ -1,5 +1,5 @@
 <template lang="pug">
-    a.card__wrapper(v-if="href || links" :href="singleLink" :class="{'card__single': singleState}")
+    a.card__wrapper(v-if="(!singleState && items && items.length > 0) || (singleState && href && filterByTags(this))" :href="singleLink" :class="{'card__single': singleState}")
         .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${image})`} : {}")
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
@@ -9,8 +9,16 @@
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")
             .card__body__links__wrapper
-                .card__body__links(v-for="item of items" v-if="items && items.length > 1")
-                    a.card__body__links__item(:href="item.url" v-if="item.title && item.url") {{item.title}}
+                .card__body__links(v-for="item of items" v-if="items && items.length > 0")
+                    a.card__body__links__item(:href="item.url" v-if="item.title && item.url") 
+                        .card__body__links__item__tags(v-if="$themeConfig.tags && item.tags")
+                            .card__body__links__item__tags__item(v-for="tag in item.tags")
+                                .card__body__links__item__tags__item__dot(
+                                    v-if="tag && $themeConfig.tags[tag]" 
+                                    :style="{'--tag-background-color': $themeConfig.tags[tag].color}" 
+                                    :tag-content="$themeConfig.tags[tag].label"
+                                )
+                        .card__body__links__item__text {{item.title}}
         .card__footer(v-if="!singleStateEnabled()")
             a.tm-link.tm-link-disclosure(:href="href") Learn more
 
@@ -31,7 +39,7 @@
      * * If not provided or empty the component's layout switches to "single" (title, description)
      */
     export default {
-        props: ['image', 'title', 'description', 'tags', 'href', 'overline', 'links'],
+        props: ['image', 'title', 'description', 'tags', 'href', 'overline', 'links', 'filterTags'],
         data() {
             return {
                 titleText: this.title,
@@ -57,7 +65,7 @@
                     this.handleSingleState(this.href || null);
                 }
 
-                return items;
+                return items.filter(this.filterByTags);
             },
             badges() {
                 return this.tags ? this.tags.map(tag => this.$themeConfig.tags[tag]) : null;
@@ -71,6 +79,7 @@
                 return {
                     title: item?.frontmatter?.title || item?.title, 
                     description: item?.frontmatter?.description || item?.description,
+                    tags: item?.frontmatter?.tags || item?.tags,
                     url: item?.path
                 }
             },
@@ -92,6 +101,22 @@
             },
             singleStateEnabled() {
                 return !this.links || this.links?.length == 0;
+            },
+            filterByTags(item) {
+                var tagPresent = true;
+
+                if (this.filterTags && this.filterTags.length > 0) {
+                    tagPresent = false;
+
+                    for (var tag of this.filterTags) {
+                        if (item.tags && item.tags.includes(tag)) {
+                            tagPresent = true;
+                            break;
+                        }
+                    }
+                }
+                
+                return tagPresent;
             }
         }
     }
@@ -186,10 +211,46 @@
                 &__item
                     color var(--semi-transparent-color-3)
                     transition color .2s ease-out
+                    display flex
 
                     &:hover,
                     &:focus
                         color var(--title)
+
+                    &__text
+                        width 90%
+
+                    &__tags
+                        width 10%
+                        display flex
+                        justify-content flex-end
+                        margin-block auto
+                        padding-right var(--spacing-4)
+
+                        &__item__dot
+                            width 8px
+                            height 8px
+                            margin-block auto
+                            border-radius 4px
+                            background var(--tag-background-color)
+                            margin-right var(--spacing-2)
+
+                            &::after
+                                content attr(tag-content)
+                                border-radius 0.25rem
+                                max-width 4rem
+                                color black
+                                position absolute
+                                top -2.4em
+                                padding 7px 4px
+                                white-space nowrap
+                                left 50%
+                                transform translateX(-50%)
+                                font-size 0.8125rem
+                                line-height 1
+                                letter-spacing 0
+                                opacity 0
+                                background white
 
         &__footer
             border-top 1px solid var(--semi-transparent-color-2)
