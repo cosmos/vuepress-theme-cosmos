@@ -115,7 +115,7 @@
                     tagPresent = false;
 
                     for (var tag of this.filterTags) {
-                        if (item.tags && item.tags.includes(tag)) {
+                        if ((item.tags && item.tags.includes(tag)) || (item.displayedTags && item.displayedTags.includes(tag))) {
                             tagPresent = true;
                             break;
                         }
