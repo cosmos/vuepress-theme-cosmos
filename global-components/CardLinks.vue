@@ -98,6 +98,7 @@
                 this.descriptionText = this.description ? this.description : item.description;
                 this.singleLink = item.url;
                 this.singleState = true;
+                this.tags = this.tags ? this.tags : item.tags;
             },
             singleStateEnabled() {
                 return !this.links || this.links?.length == 0;
