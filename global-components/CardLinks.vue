@@ -45,60 +45,65 @@
                 titleText: this.title,
                 descriptionText: this.description,
                 singleLink: null,
-                singleState: false
+                singleState: false,
+                displayedTags: this.tags
             }
         },
         computed: {
             items() {
                 let items = [];
 
-                if (this.links && !this.singleStateEnabled()) {
+                if (!this.singleStateEnabled()) {
                     for (var link of this.links) {
-                        let item = link;
-                        if (typeof link == 'string') {
-                            item = this.getPageData(link);
-                        }
-
-                        if (item) items.push(this.formatData(item));
+                        let item = this.getPageData(link.title, link.description, link.tags, link.path);
+                        if (item) items.push(item);
                     }
                 } else {
-                    this.handleSingleState(this.href || null);
+                    this.handleSingleState();
                 }
 
                 return items.filter(this.filterByTags);
             },
             badges() {
-                return this.tags ? this.tags.map(tag => this.$themeConfig.tags[tag]) : null;
+                return this.displayedTags ? this.displayedTags.map(tag => this.$themeConfig.tags[tag]) : null;
             }
         },
         methods: {
-            getPageData(path) {
-                return this.$site.pages.find(item => item.path === path || item.regularPath === path || item.relativePath === path) || null;
+            getPageData(title, description, tags, path) {
+                let page;
+
+                if (!title || !description || !tags) {
+                    page = this.$site.pages.find(
+                        item => item.path === path || item.regularPath === path || item.relativePath === path
+                    ) || null;
+                }
+
+                if (!page) page = {};
+
+                if (title) page.title = title;
+                if (description) page.description = description;
+                if (tags) page.tags = tags;
+
+                return this.formatData(page);
             },
             formatData(item) {
                 return {
-                    title: item?.frontmatter?.title || item?.title, 
-                    description: item?.frontmatter?.description || item?.description,
-                    tags: item?.frontmatter?.tags || item?.tags,
+                    title: item?.title || item?.frontmatter?.title, 
+                    description: item?.description || item?.frontmatter?.description,
+                    tags: item?.tags || item?.frontmatter?.tags,
                     url: item?.path
                 }
             },
-            handleSingleState(link) {
-                if (!link) return;
+            handleSingleState() {
+                if (!this.href) return;
 
-                let item = link;
+                let item = this.getPageData(this.title, this.description, this.tags, this.href);
 
-                if (typeof link != 'Object') {
-                    item = this.getPageData(link);
-                }
-
-                item = this.formatData(item);
-
-                this.titleText = this.title ? this.title : item.title;
-                this.descriptionText = this.description ? this.description : item.description;
+                this.titleText = item.title;
+                this.descriptionText = item.description;
                 this.singleLink = item.url;
                 this.singleState = true;
-                this.tags = this.tags ? this.tags : item.tags;
+                this.displayedTags = item.tags;
             },
             singleStateEnabled() {
                 return !this.links || this.links?.length == 0;
