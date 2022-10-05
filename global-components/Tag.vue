@@ -1,12 +1,12 @@
 <template lang="pug">
     .tag__wrapper(:style="{'--tag-color': color}")
-        .tag__large(v-if="!compact" :class="{'tag__large__active': active}") {{label}}
+        .tag__large(v-if="!compact" :class="{'tag__large__active': active, 'tag__large__active__bright': (active && bright)}") {{label}}
         .tag__compact(v-if="compact" :tag-content="label")
 </template>
 
 <script>
     export default {
-        props: ['label', 'color', 'active', 'compact']
+        props: ['label', 'color', 'active', 'compact', 'bright']
     }
 </script>
 
@@ -35,6 +35,9 @@
                 background var(--tag-color)
                 border-color var(--tag-color)
                 color white !important
+
+                &__bright
+                    color black !important
 
         &__compact
             width 8px
