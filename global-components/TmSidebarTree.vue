@@ -20,12 +20,12 @@
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
         div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external, 'item__divider': item.frontmatter && item.frontmatter.divider || item.divider }" v-html="titleFormatted(titleText(item))")
         .item__child__tags(v-if="level > 0 && tags(item) && $themeConfig.tags")
-          .item__child__tags__item(v-for="tag in tags(item)")
-            .item__child__tags__item__dot(
-              v-if="tag && $themeConfig.tags[tag]" 
-              :style="{'--tag-background-color': $themeConfig.tags[tag].color}" 
-              :tag-content="$themeConfig.tags[tag].label"
-            )
+          tag.item__child__tags__dot(
+            v-for="tag in tags(item)"
+            :color="$themeConfig.tags[tag].color"
+            :label="$themeConfig.tags[tag].label"
+            :compact="true"
+          )
       div(v-if="item.children || directoryChildren(item) || []")
         transition(name="reveal" v-on:enter="setHeight" v-on:leave="setHeight")
           tm-sidebar-tree(:level="level+1" :value="item.children || directoryChildren(item) || []" v-show="item.title == show" v-if="!hide(item)" :title="item.title" @active="revealParent($event)" :filterTags="filterTags")
@@ -70,51 +70,13 @@
       height fit-content
       flex-shrink 1
 
-      &__item
-        margin-block auto
-        margin-left 4px
+      &:hover
+        .item__child__tags__dot
+            margin-left var(--spacing-2)
 
-        &__dot
-          width 8px
-          height 8px
-          margin-block auto
-          border-radius 4px
-          background var(--tag-background-color)
-
-          &::after
-            content attr(tag-content)
-            border-radius 0.25rem
-            max-width 4rem
-            color black
-            position absolute
-            top -2.4em
-            padding 7px 4px
-            white-space nowrap
-            left 50%
-            transform translateX(-50%)
-            font-size 0.8125rem
-            line-height 1
-            letter-spacing 0
-            opacity 0
-            background white
-
-          &::before
-            content ''
-            background-image url("data:image/svg+xml,  <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 24 24'><path fill='white' d='M12 21l-12-18h24z'/></svg>")
-            position absolute
-            width 8px
-            height 8px
-            top -0.7em
-            left 50%
-            font-size 0.5rem
-            transform translateX(-50%)
-            opacity 0
-
-          &:hover:before
-            opacity 1
-
-          &:hover:after
-            opacity 1
+      &__dot
+        margin-left -5px
+        transition: all .2s;
 
   &:hover, &:focus
     .item__icon.item__icon__outbound,

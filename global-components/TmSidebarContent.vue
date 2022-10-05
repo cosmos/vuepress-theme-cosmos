@@ -3,12 +3,15 @@
     .tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled")
       .tag-item(
         v-if="$themeConfig.tags" 
-        v-for="(tag, key) in $themeConfig.tags" 
-        v-bind:key="key" 
-        v-bind:style="isTagActive(key) ? {'background': tag.color || '', 'border-color': tag.color} : {}"
+        v-for="(tag, key) in $themeConfig.tags"
+        v-bind:key="key"
         v-on:click="onTagClick(key)"
-        v-bind:class="isTagActive(key) ? 'tag-item__active' : ''"
-      ) {{tag.label || ''}}
+      )
+        tag(
+          :color="tag.color"
+          :label="tag.label"
+          :active="isTagActive(key)"
+        )
 
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
@@ -31,26 +34,10 @@
   flex-wrap wrap
 
   .tag-item
-    border-radius 8px
-    padding 8px
-    flex-shrink 0
-    height fit-content
     margin-right 8px
     margin-block auto
     margin-bottom 8px
-    border 1px solid var(--semi-transparent-color-3)
-    background none
-    color var(--semi-transparent-color-3)
-    font-size var(--font-size--1)
     cursor pointer
-
-    &__active
-      color white !important
-
-    &:hover
-      border 1px solid var(--color-text-strong)
-      color var(--color-text-strong, black)
-
 
 .container
   display flex

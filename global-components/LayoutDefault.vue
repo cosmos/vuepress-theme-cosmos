@@ -161,7 +161,8 @@
 
   .tag-element
     background var(--tag-background-color)
-    font-size 13px
+    font-size var(--font-size--1)
+    font-weight 400
     line-height 130.7%
     letter-spacing 0.005em
     color white
@@ -170,6 +171,7 @@
     margin-block 8px
     margin-right 8px
     flex-shrink 0
+    border: 1px solid var(--tag-background-color);
 
   a.header-anchor
     opacity 0

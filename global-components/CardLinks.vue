@@ -4,7 +4,7 @@
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
                 .card__header__overline__tags__wrapper(v-if="badges")
-                    .card__header__overline__tag( v-for="badge of badges" v-bind:style="{'background': badge.color || ''}") {{badge.label || ''}}
+                    tag(v-for="badge of badges" :label="badge.label" :color="badge.color" :active="true")
             h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")
@@ -13,10 +13,11 @@
                     a.card__body__links__item(:href="item.url" v-if="item.title && item.url") 
                         .card__body__links__item__tags(v-if="$themeConfig.tags && item.tags")
                             .card__body__links__item__tags__item(v-for="tag in item.tags")
-                                .card__body__links__item__tags__item__dot(
+                                tag.card__body__links__item__tags__item__dot(
                                     v-if="tag && $themeConfig.tags[tag]" 
-                                    :style="{'--tag-background-color': $themeConfig.tags[tag].color}" 
-                                    :tag-content="$themeConfig.tags[tag].label"
+                                    :color="$themeConfig.tags[tag].color" 
+                                    :label="$themeConfig.tags[tag].label"
+                                    :compact="true"
                                 )
                         .card__body__links__item__text {{item.title}}
         .card__footer(v-if="!singleStateEnabled()")
@@ -172,15 +173,6 @@
                 justify-content space-between
                 margin-bottom 1rem
 
-                &__tag
-                    border-radius 8px
-                    padding 8px
-                    flex-shrink 0
-                    height fit-content
-                    margin-left 1rem
-                    margin-block auto
-                    color white
-
                 &__tags__wrapper
                     display flex
                     justify-content flex-end
@@ -227,36 +219,19 @@
                         width 90%
 
                     &__tags
-                        width 10%
                         display flex
                         justify-content flex-end
                         margin-block auto
                         padding-right var(--spacing-4)
+                        position relative
+
+                        &:hover
+                            .card__body__links__item__tags__item__dot
+                                margin-right var(--spacing-2)
 
                         &__item__dot
-                            width 8px
-                            height 8px
-                            margin-block auto
-                            border-radius 4px
-                            background var(--tag-background-color)
-                            margin-right var(--spacing-2)
-
-                            &::after
-                                content attr(tag-content)
-                                border-radius 0.25rem
-                                max-width 4rem
-                                color black
-                                position absolute
-                                top -2.4em
-                                padding 7px 4px
-                                white-space nowrap
-                                left 50%
-                                transform translateX(-50%)
-                                font-size 0.8125rem
-                                line-height 1
-                                letter-spacing 0
-                                opacity 0
-                                background white
+                            margin-right -5px
+                            transition: all .2s;
 
         &__footer
             border-top 1px solid var(--semi-transparent-color-2)
