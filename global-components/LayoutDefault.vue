@@ -845,7 +845,7 @@ import {
 } from "lodash";
 import hotkeys from "hotkeys-js";
 import axios from "axios";
-import { isIDAMode, scrollToHeader } from "../utils/helpers";
+import { scrollToHeader } from "../utils/helpers";
 import clockIcon from "./images/icon-clock.svg";
 
 const endingSlashRE = /\/$/;
@@ -997,47 +997,60 @@ export default {
       });
       return sorted;
     },
-    drawTag() {
-      if (this.$themeConfig.isIDAMode || !this.$page.frontmatter.tags) return;
+    drawSubHeadline() {
+      // note: top headline must be an <h1>
+      let subHeadlineWrapper = document.getElementById('sub-headline-wrapper');
       const headline = document.querySelector('h1');
+      if (!subHeadlineWrapper) {
+        subHeadlineWrapper = document.createElement('div');
+        subHeadlineWrapper.setAttribute('id', 'sub-headline-wrapper');
+        subHeadlineWrapper.style.display = 'flex';
+        subHeadlineWrapper.style.marginBottom = '2rem';
+        subHeadlineWrapper.style.justifyContent = 'space-between';
+        subHeadlineWrapper.appendChild(this.getReadingTimeElement());
+        subHeadlineWrapper.appendChild(this.getTagElement());
 
-      let tagsWrapper = document.getElementById('tags-wrapper');
-      if (this.$page.frontmatter.tags.length > 0 && !tagsWrapper) {
-        tagsWrapper = document.createElement("div");
-        tagsWrapper.classList.add('tags-wrapper');
-        tagsWrapper.setAttribute('id', 'tags-wrapper');
+        headline.parentNode?.insertBefore(subHeadlineWrapper, headline.nextSibling);
       }
+    },
+    getTagElement() {
+      let tagsWrapper = document.getElementById('tags-wrapper') || null;
+      if (!this.$themeConfig.isIDAMode && this.$page.frontmatter.tags) {
+        if (this.$page.frontmatter.tags.length > 0 && !tagsWrapper) {
+          tagsWrapper = document.createElement("div");
+          tagsWrapper.classList.add('tags-wrapper');
+          tagsWrapper.setAttribute('id', 'tags-wrapper');
+        }
 
-      for (let tag of this.$page.frontmatter.tags) {
-        const tagId = `tag-element-${tag}`;
-        const drawnTag = document.getElementById(tagId);
+        for (let tag of this.$page.frontmatter.tags) {
+          const tagId = `tag-element-${tag}`;
+          const drawnTag = document.getElementById(tagId);
 
-        if (headline && tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
-          const tagElement = document.createElement("div");
-          const node = document.createTextNode(this.$site.themeConfig.tags[tag].label);
-          tagElement.appendChild(node);
-          tagElement.classList.add('tag-element');
-          tagElement.style.setProperty("--tag-background-color", this.$site.themeConfig.tags[tag].color);
-          tagElement.setAttribute('id', tagId);
-          tagsWrapper.appendChild(tagElement);
-          headline.appendChild(tagsWrapper);
-          headline.style.setProperty('display', 'flex');
+          if (tag && this.$site.themeConfig.tags[tag] && !drawnTag) {
+            const tagElement = document.createElement("div");
+            const node = document.createTextNode(this.$site.themeConfig.tags[tag].label);
+            tagElement.appendChild(node);
+            tagElement.classList.add('tag-element');
+            tagElement.style.setProperty("--tag-background-color", this.$site.themeConfig.tags[tag].color);
+            if (this.$site.themeConfig.tags[tag].isBright) tagElement.style.color = "black";
+            tagElement.setAttribute('id', tagId);
+            tagsWrapper.appendChild(tagElement);
+          }
         }
       }
-      
+
+      return tagsWrapper;
     },
-    addReadingTime() {
+    getReadingTimeElement() {
+      let readingTimeWrapper = document.getElementById('reading-time-wrapper') || null;
       if (this.$page.readingTime?.text) {
         const displayTime = this.$page.readingTime.text;
-        const headline = document.querySelector('h1');
-        let readingTimeWrapper = document.getElementById('reading-time-wrapper');
 
-        if (!readingTimeWrapper && headline) {
+        if (!readingTimeWrapper) {
           readingTimeWrapper = document.createElement('div');
           readingTimeWrapper.setAttribute('id', 'reading-time-wrapper');
           readingTimeWrapper.style.display = 'flex';
           readingTimeWrapper.style.alignItems = 'center';
-          readingTimeWrapper.style.marginBottom = '2rem';
           readingTimeWrapper.classList.add("tm-overline", "tm-rf-1", "tm-lh-title", "tm-muted");
 
           const icon = document.createElement('div');
@@ -1050,10 +1063,9 @@ export default {
 
           const text = document.createTextNode(displayTime);
           readingTimeWrapper.appendChild(text);
-
-          headline.parentNode?.insertBefore(readingTimeWrapper, headline.nextSibling);
         }
       }
+      return readingTimeWrapper;
     },
     setupHeaderAnchor() {
       const headerAnchorClick = event => {
@@ -1166,8 +1178,7 @@ export default {
   },
   updated() {
     this.$nextTick(function () {
-      this.drawTag();
-      this.addReadingTime();
+      this.drawSubHeadline();
       this.setupHeaderAnchor();
       scrollToHeader();
     });

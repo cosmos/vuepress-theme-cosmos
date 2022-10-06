@@ -5,7 +5,7 @@
         .tags-filter__select(@click="onFilterSelectClick")
           icon-arrow.tags-filter__select__arrow(type="bottom" :style="{'--fill-color': showFilters ? 'var(--color-text-strong)' : 'var(--semi-transparent-color-3)'}" :fill="'var(--fill-color)'" :class="showFilters ? 'tags-filter__select__arrow__expanded' : 'tags-filter__select__arrow__collapsed'")
           .tags-filter__select__label(:class="showFilters ? 'tags-filter__select__label__expanded' : 'tags-filter__select__label__collapsed'") {{ filterTags.length || ''}} {{ filterTags.length == 1 ? 'Filter' : 'Filters'}}
-        .tags-filter__clear(v-if="showFilters" @click="onFilterClearClick") clear
+        .tags-filter__clear(v-if="showFilters && filterTags.length > 0" @click="onFilterClearClick") clear
 
       .tags-filter__wrapper(v-if="$themeConfig.tags && showFilters")
         .tag-item(
