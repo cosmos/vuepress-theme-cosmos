@@ -1,17 +1,23 @@
 <template lang="pug">
   div(style="position: relative")
     .tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled")
-      .tag-item(
-        v-if="$themeConfig.tags" 
-        v-for="(tag, key) in $themeConfig.tags"
-        v-bind:key="key"
-        v-on:click="onTagClick(key)"
-      )
-        tag(
-          :color="tag.color"
-          :label="tag.label"
-          :active="isTagActive(key)"
+      .tags-filter__header
+        .tags-filter__select(@click="onFilterSelectClick")
+          icon-arrow.tags-filter__select__arrow(type="bottom" :style="{'--fill-color': showFilters ? 'var(--color-text-strong)' : 'var(--semi-transparent-color-3)'}" :fill="'var(--fill-color)'" :class="showFilters ? 'tags-filter__select__arrow__expanded' : 'tags-filter__select__arrow__collapsed'")
+          .tags-filter__select__label(:class="showFilters ? 'tags-filter__select__label__expanded' : 'tags-filter__select__label__collapsed'") {{ filterTags.length || ''}} {{ filterTags.length == 1 ? 'Filter' : 'Filters'}}
+        .tags-filter__clear(v-if="showFilters" @click="onFilterClearClick") clear
+
+      .tags-filter__wrapper(v-if="$themeConfig.tags && showFilters")
+        .tag-item(
+          v-for="(tag, key) in $themeConfig.tags"
+          v-bind:key="key"
+          v-on:click="onTagClick(key)"
         )
+          tag(
+            :color="tag.color"
+            :label="tag.label"
+            :active="isTagActive(key)"
+          )
 
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
@@ -29,9 +35,58 @@
 
 <style lang="stylus" scoped>
 .tags-filter
-  display flex
   margin-top 40px
-  flex-wrap wrap
+  padding-right 24px
+
+  &__clear
+    cursor pointer
+    color var(--semi-transparent-color-3)
+    &:hover
+      color var(--color-text-strong)
+
+  &__header
+    display flex
+    justify-content space-between
+    flex-grow 1
+
+  &__wrapper
+    display flex
+    flex-wrap wrap
+    margin-top var(--spacing-6)
+
+  &__select
+    cursor pointer
+    display flex
+    flex-grow 1
+
+    &:hover
+      .tags-filter__select__label
+        color var(--color-text-strong)
+
+    &__label
+      &__expanded
+        color var(--color-text-strong)
+      &__collapsed
+        color var(--semi-transparent-color-3)
+
+
+    &__arrow
+      width 15px
+      height 15px
+      margin-block auto
+      margin-right var(--spacing-4)
+
+      &__expanded 
+        transform rotate(180deg)
+        -webkit-transform rotate(180deg)
+        -ms-transform rotate(180deg)
+        transition transform 0.2s linear
+
+      &__collapsed
+        transform rotate(0deg)
+        -webkit-transform rotate(0deg)
+        -ms-transform rotate(0deg)
+        transition transform 0.2s linear
 
   .tag-item
     margin-right 8px
@@ -159,18 +214,6 @@
 </style>
 
 <script>
-import {
-  includes,
-  isString,
-  isPlainObject,
-  isArray,
-  sortBy,
-  last,
-  find,
-  omit,
-} from "lodash";
-import { isIDAMode } from "../utils/helpers";
-
 export default {
   props: ["value", "tree", "compact"],
   data: function() {
@@ -204,7 +247,8 @@ export default {
           color: "#00BB00",
         },
       ],
-      filterTags: []
+      filterTags: [],
+      showFilters: false
     };
   },
   computed: {
@@ -247,6 +291,9 @@ export default {
     isTagActive(key) {
       return this.filterTags.includes(key);
     },
+    updateFilterTags() {
+      localStorage?.setItem("vuepress-theme-cosmos-sidebar-filter-tags", JSON.stringify(this.filterTags));
+    },
     onTagClick(key) {
       if (this.isTagActive(key)) {
         const index = this.filterTags.indexOf(key)
@@ -254,7 +301,14 @@ export default {
       } else {
         this.filterTags.push(key);
       }
-      localStorage?.setItem("vuepress-theme-cosmos-sidebar-filter-tags", JSON.stringify(this.filterTags));
+      this.updateFilterTags();
+    },
+    onFilterSelectClick() {
+      this.showFilters = !this.showFilters;
+    },
+    onFilterClearClick() {
+      this.filterTags = [];
+      this.updateFilterTags();
     }
   }
 };
