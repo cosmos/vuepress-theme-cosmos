@@ -158,6 +158,7 @@
     height fit-content
     flex-shrink 1
     margin-block auto
+    justify-content flex-end
 
   .tag-element
     background var(--tag-background-color)
@@ -169,7 +170,7 @@
     border-radius 8px
     padding 8px
     margin-block 8px
-    margin-right 8px
+    margin-left 8px
     flex-shrink 0
     border: 1px solid var(--tag-background-color);
 
@@ -1057,6 +1058,7 @@ export default {
           icon.style.width = '20px';
           icon.style.height = '20px';
           icon.style.backgroundImage = `url(${clockIcon})`;
+          icon.style.backgroundRepeat = 'no-repeat';
           icon.style.marginRight = '12px';
           icon.style.filter = 'var(--img-filter)';
           readingTimeWrapper.appendChild(icon);
