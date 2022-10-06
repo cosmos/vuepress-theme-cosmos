@@ -4,7 +4,7 @@
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
                 .card__header__overline__tags__wrapper(v-if="badges")
-                    tag(v-for="badge of badges" :label="badge.label" :color="badge.color" :active="true" :bright="badge.isBright")
+                    tag.card__header__overline__tags__item(v-for="badge of badges" :label="badge.label" :color="badge.color" :active="true" :bright="badge.isBright")
             h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")
@@ -173,9 +173,14 @@
                 justify-content space-between
                 margin-bottom 1rem
 
-                &__tags__wrapper
-                    display flex
-                    justify-content flex-end
+                &__tags
+
+                    &__wrapper
+                        display flex
+                        justify-content flex-end
+                    
+                    &__item
+                        margin-right var(--spacing-2)
             
             &__title
                 margin-block 2.5rem
