@@ -4,7 +4,7 @@
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
                 .card__header__overline__tags__wrapper(v-if="badges")
-                    tag(v-for="badge of badges" :label="badge.label" :color="badge.color" :active="true")
+                    tag(v-for="badge of badges" :label="badge.label" :color="badge.color" :active="true" :bright="badge.isBright")
             h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")

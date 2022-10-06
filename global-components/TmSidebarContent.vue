@@ -17,6 +17,7 @@
             :color="tag.color"
             :label="tag.label"
             :active="isTagActive(key)"
+            :bright="tag.isBright"
           )
 
     .container
