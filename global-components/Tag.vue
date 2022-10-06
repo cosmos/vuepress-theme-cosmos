@@ -28,6 +28,7 @@
             cursor pointer
             border 1px solid var(--tag-color)
             color var(--tag-color)
+            width max-content
 
             &__active
                 background var(--tag-color)

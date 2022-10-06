@@ -79,7 +79,9 @@
                     ) || null;
                 }
 
-                if (!page) page = {};
+                if (!page) page = {
+                    path
+                };
 
                 if (title) page.title = title;
                 if (description) page.description = description;
