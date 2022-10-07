@@ -63,12 +63,15 @@
 
     &__tags
       position absolute
-      top 12px
+      top 6px
       right 15px
       display flex
       flex-wrap wrap
       height fit-content
       flex-shrink 1
+      background-image radial-gradient(var(--background-color-primary) 10%, rgba(255,0,0,0))
+      padding-block var(--spacing-2)
+      padding-left var(--spacing-2)
 
       &:hover
         .item__child__tags__dot

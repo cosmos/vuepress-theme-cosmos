@@ -1002,14 +1002,16 @@ export default {
       // note: top headline must be an <h1>
       let subHeadlineWrapper = document.getElementById('sub-headline-wrapper');
       const headline = document.querySelector('h1');
-      if (!subHeadlineWrapper) {
+      if (!subHeadlineWrapper && headline) {
         subHeadlineWrapper = document.createElement('div');
         subHeadlineWrapper.setAttribute('id', 'sub-headline-wrapper');
         subHeadlineWrapper.style.display = 'flex';
         subHeadlineWrapper.style.marginBottom = '2rem';
         subHeadlineWrapper.style.justifyContent = 'space-between';
-        subHeadlineWrapper.appendChild(this.getReadingTimeElement());
-        subHeadlineWrapper.appendChild(this.getTagElement());
+        const readingElement = this.getReadingTimeElement();
+        if (readingElement) subHeadlineWrapper.appendChild(readingElement);
+        const tagElement = this.getTagElement();
+        if (tagElement) subHeadlineWrapper.appendChild(tagElement);
 
         headline.parentNode?.insertBefore(subHeadlineWrapper, headline.nextSibling);
       }

@@ -128,7 +128,11 @@ export default {
       this.$themeConfig.sidebar.nav
         .forEach(item => {
           item.children.sort((a, b) => a.order - b.order).forEach(subItem => {
-            if (this.$page.path.includes(subItem.path) && !crumbs.find(crumbItem => crumbItem.path == item.children[0]?.path)) {
+            if (
+              this.$page.path.includes(subItem.path) && 
+              (subItem.path != "/" && this.$page.path != "/")  && 
+              !crumbs.find(crumbItem => crumbItem.path == item.children[0]?.path)
+            ) {
               crumbs.push({
                 title: item.title,
                 path: item.children[0]?.path || ""
