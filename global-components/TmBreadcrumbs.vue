@@ -123,25 +123,18 @@ export default {
   computed: {
     breadcrumbs() {
 
-      let crumbs = [];
+      let crumb;
 
-      this.$themeConfig.sidebar.nav
-        .forEach(item => {
-          item.children.sort((a, b) => a.order - b.order).forEach(subItem => {
-            if (
-              this.$page.path.includes(subItem.path) && 
-              (subItem.path != "/" && this.$page.path != "/")  && 
-              !crumbs.find(crumbItem => crumbItem.path == item.children[0]?.path)
-            ) {
-              crumbs.push({
-                title: item.title,
-                path: item.children[0]?.path || ""
-              });
-            }
-          });
-        });
+      for (let section of this.$themeConfig.sidebar.nav) {
+        if (this.checkChildrenPath(section.children)) {
+          crumb = {
+            title: section.title,
+            path: section.children[0]?.path || ""
+          }
+        }
+      }
 
-      return crumbs;
+      return crumb ? [crumb] : [];
     }
   },
   methods: {
@@ -152,7 +145,23 @@ export default {
     handleScroll (event) {
       if (window?.innerWidth < 480) return;
       this.tocShow = false;
-    }
+    },
+    checkChildrenPath(children) {
+      let present = false;
+
+      if (children && children.length) {
+        for (let child of children) {
+          if (this.$page.path.includes(child.path)) {
+            present = true;
+          } else if (child.children) {
+            present = this.checkChildrenPath(child.children);
+          }
+          if (present) break;
+        }
+      }
+
+      return present;
+    },
   }
 };
 </script>
