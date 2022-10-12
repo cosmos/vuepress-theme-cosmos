@@ -22,7 +22,7 @@
 
     .container
       .items(:class="[`footer__compact__${!!(compact === true)}`]")
-        div(v-for="item in value" v-if="isVisible(item.title)").sidebar
+        div(v-for="item in value.sort((a, b) => a.order - b.order)" v-if="isVisible(item.title)").sidebar
           .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.title.mb-4 {{item.title}}
           client-only
             tm-sidebar-tree(:value="item.children.sort((a, b) => a.order - b.order)" v-if="item.children" :tree="tree" :level="0" :filterTags="filterTags").section
