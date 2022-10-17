@@ -513,8 +513,21 @@ export default {
         this.copied = false;
       }, 2000);
     },
+    getPrismSyntax(lang) {
+      let syntax;
+      const langRegex = /^diff-([\w-]+)/i;
+      const match = langRegex.exec(lang);
+
+      if (match) {
+        syntax = {...Prism.languages['diff'], ...Prism.languages['ts']};
+      } else {
+        syntax = Prism.languages[lang];
+      }
+
+      return syntax;
+    },
     highlighted(source) {
-      const supportedSyntax = Prism.languages[this.language];
+      const supportedSyntax = this.getPrismSyntax(this.language);
       if (supportedSyntax) {
         return Prism.highlight(
           source
@@ -522,7 +535,8 @@ export default {
             .replace(/&lt;/g, "<")
             .replace(/&gt;/g, ">")
             .replace(/&amp;/g, "&"),
-          supportedSyntax
+          supportedSyntax,
+          this.language
         );
       } else {
         return source;

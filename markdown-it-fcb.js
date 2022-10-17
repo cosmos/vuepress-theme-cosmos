@@ -26,7 +26,7 @@ module.exports = (md) => {
       token.content = fs.readFileSync(token.src, "utf8");
     }
     const base64 = Buffer.from(escapeHtml(token.content)).toString("base64");
-    const lang = token.info.match(/([a-z0-9]+)/)?.pop();
+    const lang = token.info.match(/([a-z0-9-]+)/)?.pop();
     const filename = token.info.match(/\[(.*)\]/)?.pop();
 
     var args = `class="codeblock" language="${lang}" base64="${base64}"`;
