@@ -122,6 +122,23 @@
 </template>
 
 <style scoped>
+::v-deep .token.deleted:not(.prefix),
+::v-deep .token.deleted:not(.prefix) {
+	background-color: rgba(255, 0, 0, .1);
+	color: inherit;
+	display: block;
+  padding-left: 8px;
+  border-radius: 8px;
+}
+
+::v-deep .token.inserted:not(.prefix),
+::v-deep .token.inserted:not(.prefix) {
+	background-color: rgba(0, 255, 128, .1);
+	color: inherit;
+	display: block;
+  padding-left: 8px;
+  border-radius: 8px;
+}
 a {
   text-decoration: none;
 }
@@ -192,6 +209,7 @@ span {
   font-size: 0.8125rem;
   display: inline-block;
   line-height: 1.25rem;
+  width: 100%;
 }
 .body.body__hasfooter__true {
   border-bottom-left-radius: 0;
@@ -406,6 +424,8 @@ import "prismjs/components/prism-protobuf.min.js";
 import "prismjs/components/prism-solidity.min.js";
 import "prismjs/components/prism-python.min.js";
 import "prismjs/components/prism-typescript.min.js";
+import "prismjs/components/prism-diff.min.js";
+import "prismjs/plugins/diff-highlight/prism-diff-highlight.min.js";
 import copy from "clipboard-copy";
 import { Base64 } from "js-base64";
 
