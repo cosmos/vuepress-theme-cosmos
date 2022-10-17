@@ -127,7 +127,7 @@
 	background-color: rgba(255, 0, 0, .1);
 	color: inherit;
 	display: block;
-  padding-left: 8px;
+  padding-inline: 8px;
   border-radius: 8px;
 }
 
@@ -136,7 +136,7 @@
 	background-color: rgba(0, 255, 128, .1);
 	color: inherit;
 	display: block;
-  padding-left: 8px;
+  padding-inline: 8px;
   border-radius: 8px;
 }
 a {
@@ -209,7 +209,7 @@ span {
   font-size: 0.8125rem;
   display: inline-block;
   line-height: 1.25rem;
-  width: 100%;
+  width: max-content;
 }
 .body.body__hasfooter__true {
   border-bottom-left-radius: 0;
