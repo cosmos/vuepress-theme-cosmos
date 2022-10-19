@@ -22,8 +22,8 @@
         .item__child__tags(v-if="level > 0 && tags(item) && $themeConfig.tags")
           tag.item__child__tags__dot(
             v-for="tag in tags(item)"
-            :color="$themeConfig.tags[tag].color"
-            :label="$themeConfig.tags[tag].label"
+            :color="$themeConfig.tags[tag] ? $themeConfig.tags[tag].color : ''"
+            :label="$themeConfig.tags[tag] ? $themeConfig.tags[tag].label : ''"
             :compact="true"
           )
       div(v-if="item.children || directoryChildren(item) || []")
