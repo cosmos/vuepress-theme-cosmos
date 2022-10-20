@@ -11,6 +11,12 @@
 </script>
 
 <style lang="stylus" scoped>
+    .light-theme
+        .tag
+
+            &__large
+                color black 
+
     .tag
         &__wrapper
             position relative
@@ -23,7 +29,6 @@
             margin-block auto
             border 1px solid var(--semi-transparent-color-3)
             background none
-            color var(--semi-transparent-color-3)
             font-size var(--font-size--1)
             cursor pointer
             border 1px solid var(--tag-color)
