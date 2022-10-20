@@ -143,7 +143,7 @@
 
 .sidebar
   padding-right 24px
-  margin-top 64px
+  margin-top 32px
 
 .version
   margin-top 2rem
