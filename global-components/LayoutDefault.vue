@@ -785,6 +785,9 @@
 @media screen and (max-width: 732px)
   .sheet
     &__sidebar
+      ::v-deep .sidebar
+        width 100%
+
       &__toc
         display block
 
