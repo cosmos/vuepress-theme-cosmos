@@ -22,7 +22,7 @@
   "license": "Apache 2.0",
   "dependencies": {
     "@cosmos-ui/vue": "^0.35.0",
-    "@vuepress/plugin-google-analytics": "1.8.2",
+    "@vuepress/plugin-google-analytics": "1.9.7",
     "algoliasearch": "^4.2.0",
     "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.3",
@@ -37,7 +37,7 @@
     "prismjs": "^1.22.0",
     "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
-    "stylus": "^0.56.0",
+    "stylus": "^0.59.0",
     "stylus-loader": "^3.0.2",
     "tiny-cookie": "^2.3.2",
     "v-runtime-template": "^1.10.0",
