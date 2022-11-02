@@ -506,6 +506,7 @@
       color var(--color-text-strong)
       text-decoration underline  
       line-height: 128.7%  
+      word-break break-word
 
     a:active
       opacity 0.65
