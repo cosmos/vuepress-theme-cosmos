@@ -379,6 +379,10 @@ span {
 .footer__filename {
   display: flex;
   font-weight: 500;
+  flex-wrap: wrap;
+}
+.footer__filename__item {
+  margin-block: var(--spacing-2);
 }
 .footer__filename__item:after {
   content: '/';
@@ -410,6 +414,14 @@ span {
 }
 ::v-deep .token.boolean {
   color: #d19a66;
+}
+@media screen and (max-width: 480px) {
+  .footer {
+    flex-direction: column;
+  }
+  .footer__source {
+    margin-top: var(--spacing-6);
+  }
 }
 </style>
 

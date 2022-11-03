@@ -12,7 +12,7 @@
             .card__body__links__wrapper
                 .card__body__links(v-for="item of items" v-if="items && items.length > 0")
                     a.card__body__links__item(:href="item.url" v-if="item.title && item.url") 
-                        .card__body__links__item__tags(v-if="$themeConfig.tags && item.tags")
+                        .card__body__links__item__tags(v-if="$themeConfig.tags && item.tags" v-on:click.prevent)
                             .card__body__links__item__tags__item(v-for="tag in item.tags")
                                 tag.card__body__links__item__tags__item__dot(
                                     v-if="tag && $themeConfig.tags[tag]" 
@@ -205,6 +205,7 @@
 
             &__links
                 padding-bottom 1rem
+                -webkit-tap-highlight-color: transparent;
 
                 &__wrapper
                     flex-grow 1
@@ -255,6 +256,11 @@
                 &__header__title
                     max-width none
 
+        .card 
+            &__body__links__item__tags
+                margin-bottom auto
+                margin-top var(--spacing-5)
+                padding-right var(--spacing-6)
     
             
 </style>

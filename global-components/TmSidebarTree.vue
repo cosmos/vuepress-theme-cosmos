@@ -19,7 +19,7 @@
       ).item
         icon-arrow.item__icon(v-if="level < 1 && item.directory" type="bottom" :fill="iconCollapsed(item) ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="iconCollapsed(item) ? 'item__icon__collapsed' : 'item__icon__expanded'")
         div(:style="{'padding-left': `${32*level}px`, 'margin-right': level > 0 ? '32px' : '0px'}" :class="{'item__selected': iconActive(item) || iconExpanded(item), 'item__selected__dir': iconCollapsed(item), 'item__selected__alt': iconExpanded(item), 'tm-link tm-link-external item__external': item.external, 'item__divider': item.frontmatter && item.frontmatter.divider || item.divider }" v-html="titleFormatted(titleText(item))")
-        .item__child__tags(v-if="level > 0 && tags(item) && $themeConfig.tags")
+        .item__child__tags(v-if="level > 0 && tags(item) && $themeConfig.tags" v-on:click.prevent)
           tag.item__child__tags__dot(
             v-for="tag in tags(item)"
             :color="$themeConfig.tags[tag] ? $themeConfig.tags[tag].color : ''"
@@ -57,6 +57,8 @@
     color var(--color-text-strong, black)
 
   &__child
+    -webkit-tap-highlight-color transparent
+    
     &:hover:before,
     &:focus:before
       background var(--color-text-strong)
@@ -72,6 +74,9 @@
       background-image radial-gradient(var(--background-color-primary) 10%, rgba(255,0,0,0))
       padding-block var(--spacing-2)
       padding-left var(--spacing-2)
+
+      @media screen and (max-width: 480px)
+        margin-top var(--spacing-2)
 
       &:hover
         .item__child__tags__dot
