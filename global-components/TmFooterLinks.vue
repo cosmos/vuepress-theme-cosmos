@@ -79,7 +79,7 @@
 </style>
 
 <script>
-import { findIndex, find } from "lodash";
+import { findIndex, find, cloneDeep } from "lodash";
 import { isIDAMode } from "../utils/helpers";
 
 export default {
@@ -91,51 +91,65 @@ export default {
         str.length > 20 ? str.slice(0, 20).join(" ") + "..." : str.join(" ");
       return this.md(str);
     },
-    findNotConsecutiveLinks(window, list, i) {
-      if (!window.prev) {
-        const prevItem = list[i - 1];
-        if (prevItem?.children) {
-          window.prev = prevItem.children[prevItem.children.length - 1];
-        } else if (prevItem?.path) {
-          window.prev = prevItem;
-        }
-      }
-      if (!window.next) {
-        const nextItem = list[i + 1];
-        if (nextItem?.children) {
-          window.next = nextItem.children[0];
-        } else if (nextItem?.path) {
-          window.next = nextItem;
-        }
-      }
-      return window;
-    },
-    getPrevNextFromConfig(list) {
-      let index = findIndex(list, ["path", this.$page.path]);
+    findChildrenFromTree(path) {
+      let list = [];
 
-      if (index < 0) { // not found yet
-        for (let i = 0; i < list.length; i++) {
-          if (list[i].children) {
-            let window = this.getPrevNextFromConfig(list[i].children);
-            if (window?.current) {
-              return this.findNotConsecutiveLinks(window, list, i);
+      const search = tree => {
+        return tree.forEach((item, i) => {
+          const children = item.children;
+          if (children) {
+            const index = findIndex(children, ["regularPath", path]);
+            if (index >= 0) list = children;
+            return search(children);
+          }
+        });
+      };
+
+      if (this.tree) search(this.tree);
+
+      return list;
+    },
+    getPrevNextFromConfig(list, current, prev, next) {
+      let currentItem = current;
+      let prevItem = prev;
+      let nextItem = next;
+
+      if (list?.length) {
+        let item = null;
+        for (let index in list) {
+          item = list[index];
+
+          if (item?.path === this.$page.path) {
+            currentItem = item;
+          } else {
+            if (!currentItem && !item?.children && item) {
+              prevItem = item;
+              }
+            if (currentItem) nextItem = (item?.children?.length > 0) ? item.children[0] : item;
+          }
+
+          if (item?.children) {
+            const subWindow = this.getPrevNextFromConfig(item.children, currentItem, prevItem, nextItem);
+            if (subWindow?.current) {
+              currentItem = subWindow.current;
+            }
+            if (subWindow?.next && currentItem) nextItem = subWindow.next;
+            if (subWindow?.prev) {
+              prevItem = subWindow.prev;
             }
           }
+
+          if (currentItem && nextItem) break;
         }
       }
-
+      
       return {
-        prev: list[index - 1] || null,
-        current: list[index],
-        next: list[index + 1] || null
+        current: currentItem,
+        prev: prevItem,
+        next: nextItem
       }
     },
-  },
-  computed: {
-    linkPrevNext() {
-      if (this.$themeConfig.isIDAMode === true) {
-        return this.getPrevNextFromConfig(this.$themeConfig.sidebar.nav);
-      }
+    getPrevNextFromTree() {
       if (!this.tree) return;
       let result = {};
       const search = tree => {
@@ -160,6 +174,28 @@ export default {
       };
       search(this.tree);
       return result;
+    },
+
+  },
+  computed: {
+    linkPrevNext() {
+      const childrenMap = item => {
+        const clone = cloneDeep(item);
+        if (clone.children) {
+          clone.children = clone.children.map(childrenMap);
+        } else if (clone.directory == true) {
+          clone.children = this.findChildrenFromTree(clone.path);
+        }
+        return clone;
+      }
+
+      const checkedList = this.$themeConfig.sidebar.nav.slice().map(childrenMap);
+
+      let currentItem = null;
+      let prevItem = null;
+      let nextItem = null;
+
+      return this.getPrevNextFromConfig(checkedList, currentItem, prevItem, nextItem);
     }
   }
 };
