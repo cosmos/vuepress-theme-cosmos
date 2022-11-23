@@ -30,7 +30,7 @@
     "entities": "4.4.0",
     "esm": "^3.2.25",
     "gray-matter": "^4.0.2",
-    "hotkeys-js": "3.10.0",
+    "hotkeys-js": "3.10.1",
     "jsonp": "^0.2.1",
     "markdown-it": "^13.0.1",
     "markdown-it-attrs": "^4.0.0",
