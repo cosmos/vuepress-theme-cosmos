@@ -2,6 +2,7 @@
     div
         .searchbar__wrapper
             tm-breadcrumbs.searchbar__title
+            version-switch(:versions="['master', '1.0.0']")
             .search.tm-lh-title.tm-rf-1.tm-medium(@click="searchPanel = true")
                 .search__icon
                     icon-search
