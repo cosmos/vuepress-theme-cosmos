@@ -19,6 +19,9 @@
         },
         mounted() {
             this.currentVersion = this.getCurrentVersion();
+            this.$nextTick(function () {
+                this.currentVersion = this.getCurrentVersion();
+            });
         },
         methods: {
             toggleContent() {
@@ -31,6 +34,7 @@
             },
             getCurrentVersion() {
                 const path = this.$route.path?.split('/') || null;
+                console.log(path)
 
                 let version = "master";
 
@@ -49,7 +53,7 @@
     .versions
         &__wrapper
             margin auto
-            margin-inline var(--spacing-4)
+            margin-inline var(--spacing-8)
             position relative
             padding var(--spacing-2)
             border-radius 16px
@@ -57,6 +61,7 @@
         &__item
             cursor pointer
             margin-right var(--spacing-2)
+            width max-content
 
         &__content
             padding var(--spacing-2)
