@@ -55,6 +55,7 @@
             border-radius 16px
 
         &__item
+            cursor pointer
             margin-right var(--spacing-2)
 
         &__content
