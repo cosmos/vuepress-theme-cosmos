@@ -1,10 +1,10 @@
 <template lang="pug">
-    .versions__wrapper(v-if="versions")
+    .versions__wrapper(v-if="versions && versions.length > 0")
         .versions__header(@click="toggleContent()")
             icon-arrow.versions__header__icon(type="bottom" :fill="!showContent ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="showContent ? 'versions__header__icon__collapsed' : 'versions__header__icon__expanded'")
             .versions__header__label {{currentVersion}}
         .versions__content(v-if="showContent")
-            .versions__item(v-for="version in versions")
+            .versions__item(v-for="version in versionsItems")
                 .versions__item__link(@click="changeVersion(version)") {{version}}
 </template>
 
@@ -23,6 +23,11 @@
                 this.currentVersion = this.getCurrentVersion();
             });
         },
+        computed: {
+            versionsItems() {
+                return ["master", ...this.versions];
+            }
+        },
         methods: {
             toggleContent() {
                 this.showContent = !this.showContent;
@@ -34,7 +39,6 @@
             },
             getCurrentVersion() {
                 const path = this.$route.path?.split('/') || null;
-                console.log(path)
 
                 let version = "master";
 
@@ -55,30 +59,39 @@
             margin auto
             margin-inline var(--spacing-8)
             position relative
-            padding var(--spacing-2)
-            border-radius 16px
+            padding-inline var(--spacing-4)
+            padding-block var(--spacing-2)
 
         &__item
             cursor pointer
             margin-right var(--spacing-2)
             width max-content
 
+            &__link
+                &:hover
+                    color var(--color-text-strong)
+
         &__content
-            padding var(--spacing-2)
+            padding-inline var(--spacing-4)
+            padding-block var(--spacing-2)
             position absolute
             z-index 9999
             top 0
-            left 20px
+            left calc(15px+var(--spacing-4))
             background-color var(--background-color-primary)
+            border-radius 8px
 
         &__header
             display flex
+
+            &__label
+                width max-content
 
             &__icon
                 width 15px
                 height 15px
                 margin auto
-                margin-right var(--spacing-2)
+                margin-right var(--spacing-4)
 
                 &__expanded 
                     transform rotate(180deg)
