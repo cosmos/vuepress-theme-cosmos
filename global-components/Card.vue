@@ -1,5 +1,5 @@
 <template lang="pug">
-    .card(v-bind:style="this.imageUrl ? {'background-image': `url(${this.imageUrl})`} : {}" :class="bigCard && '_big-card'")
+    .card(v-bind:style="this.imageUrl ? {'background-image': `url(${$withBase(this.imageUrl)})`} : {}" :class="bigCard && '_big-card'")
         .card__content(:class="!this.imageUrl ? 'card__content__small' : ''")
             slot
 </template>

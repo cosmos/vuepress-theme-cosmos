@@ -14,7 +14,7 @@
           .logo
             a(:href="$withBase('/')").logo__container
               .logo__item__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
-                img(:src="$themeConfig.logo.src")
+                img(:src="$withBase($themeConfig.logo.src)")
               .logo__item__img(v-else)
                 component(:is="`logo-${$themeConfig.label || 'sdk'}`")
               .logo__item__text(v-if="!$themeConfig.logo") {{$site.title || 'Documentation'}}

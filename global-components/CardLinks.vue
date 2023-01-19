@@ -1,6 +1,6 @@
 <template lang="pug">
     a.card__wrapper(v-if="(!singleState && items && items.length > 0) || (singleState && href && filterByTags(this))" :href="$withBase(singleLink)" :class="{'card__single': singleState}")
-        .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${image})`} : {}")
+        .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${$withBase(image)})`} : {}")
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
                 .card__header__overline__tags__wrapper(v-if="badges")

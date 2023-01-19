@@ -1,7 +1,7 @@
 <template lang="pug">
     .resource__container(:class="[large && 'large']")
         .resource__icon
-            img(:src="image" :alt="title")
+            img(:src="$withBase(image)" :alt="title")
         .resource__content
             h5.resource__title {{title}}
             .resource__description {{description}}
