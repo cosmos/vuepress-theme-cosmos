@@ -53,6 +53,14 @@
     }
 </script>
 
+<style lang="stylus">
+    /* global styles */
+
+    @media screen and (max-width: 480px)
+        .global__layout__content
+            margin-top var(--spacing-12)
+</style>
+
 <style lang="stylus" scoped>
     .versions
         margin auto
@@ -132,7 +140,7 @@
             &__banner
                 top 10rem
                 right 24px
-                width 70%
+                width 60%
                 left auto
                 transform none
 
