@@ -1,12 +1,12 @@
 <template lang="pug">
     .resource__container(:class="[large && 'large']")
         .resource__icon
-            img(:src="$withBase(image)" :alt="title")
+            img(:src="image && $withBase(image)" :alt="title")
         .resource__content
             h5.resource__title {{title}}
             .resource__description {{description}}
             .resource__links
-                a(v-for="link in links" :href="$withBase(link.url)" target="_blank").tm-link.tm-link-external.tm-medium
+                a(v-for="link in links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
                     span {{link.name}}
 </template>
 

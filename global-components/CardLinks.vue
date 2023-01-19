@@ -1,11 +1,11 @@
 <template lang="pug">
-    a.card__wrapper(v-if="(!singleState && items && items.length > 0) || (singleState && href && filterByTags(this))" :href="$withBase(singleLink)" :class="{'card__single': singleState}")
-        .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${$withBase(image)})`} : {}")
+    a.card__wrapper(v-if="(!singleState && items && items.length > 0) || (singleState && href && filterByTags(this))" :href="singleLink && $withBase(singleLink)" :class="{'card__single': singleState}")
+        .card__header(v-bind:style="image && !singleStateEnabled() ? {'background-image': `url(${image})`} : {}")
             .card__header__overline
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{ overline || "Getting started"}}
                 .card__header__overline__tags__wrapper(v-if="badges")
                     tag.card__header__overline__tags__item(v-for="badge of badges" :label="badge.label" :color="badge.color" :active="true" :bright="badge.isBright")
-            a(:href="$withBase(href)")
+            a(:href="href && $withBase(href)")
                 h3.card__header__title(v-if="titleText" :class="{'tm-link': singleState, 'tm-link-disclosure': singleState}") {{titleText}}
         .card__body
             .card__body__description(v-if="descriptionText" v-html="descriptionText")
@@ -22,7 +22,7 @@
                                 )
                         .card__body__links__item__text {{item.title}}
         .card__footer(v-if="!singleStateEnabled()")
-            a.tm-link.tm-link-disclosure(:href="$withBase(href)") Learn more
+            a.tm-link.tm-link-disclosure(:href="href && $withBase(href)") Learn more
 
 </template>
 

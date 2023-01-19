@@ -10,11 +10,11 @@
                     .module__actions__toggle
                         .module__actions__toggle__label {{submodules.length}} pages
                         icon-arrow(type="bottom" :class="expanded ? 'hide-icon' : 'show-icon'").module__actions__toggle__icon
-                    a.module__actions__start.tm-button(:href="$withBase(this.module.url)" v-on:click="toggleContent")
+                    a.module__actions__start.tm-button(:href="this.module.url && $withBase(this.module.url)" v-on:click="toggleContent")
                         .tm-link.tm-link-disclosure
                             span Start here
                 .module__submodules(v-show="expanded" :class="[main && 'module__submodules__main']")
-                    a.module__submodules__item(v-for="submodule in submodules" :href="$withBase(submodule.url)" v-on:click="toggleContent")
+                    a.module__submodules__item(v-for="submodule in submodules" :href="submodule.url && $withBase(submodule.url)" v-on:click="toggleContent")
                         .module__submodules__item__content
                             h5.module__submodules__item__content__title
                                 span {{submodule.title}}

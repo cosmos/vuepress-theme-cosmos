@@ -110,7 +110,7 @@
         </span>
         <a
           class="footer__source"
-          :href="$withBase(url)"
+          :href="url && $withBase(url)"
           target="_blank"
           rel="noreferrer noopener"
         >
