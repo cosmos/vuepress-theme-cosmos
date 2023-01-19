@@ -1,4 +1,5 @@
 <template lang="pug">
+.versions
     .versions__wrapper(v-if="versions && versions.length > 0")
         .versions__header(@click="toggleContent()")
             icon-arrow.versions__header__icon(type="bottom" :fill="!showContent ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="showContent ? 'versions__header__icon__collapsed' : 'versions__header__icon__expanded'")
@@ -6,6 +7,7 @@
         .versions__content(v-if="showContent")
             .versions__item(v-for="version in versionsItems")
                 .versions__item__link(@click="changeVersion(version)") {{version}}
+    .versions__banner.tm-rf-1(v-if="currentVersion != 'master'" @click="changeVersion('master')") You are viewing an older version of the content, click here to switch to the current version
 </template>
 
 <script>
@@ -38,12 +40,10 @@
                 window.location.href = window.location.origin + versionPart + pathPart;
             },
             getCurrentVersion() {
-                const path = this.$route.path?.split('/') || null;
-
                 let version = "master";
 
-                if (path && path.length > 0) {
-                    const matched = this.versions.find(item => item === path[1]) || null;
+                if (this.$site?.base) {
+                    const matched = this.versions.find(item => `/${item}/` === this.$site.base) || null;
                     if (matched) version = matched;
                 }
 
@@ -55,12 +55,28 @@
 
 <style lang="stylus" scoped>
     .versions
+        margin auto
+
         &__wrapper
+            cursor pointer
             margin auto
             margin-inline var(--spacing-8)
             position relative
             padding-inline var(--spacing-4)
             padding-block var(--spacing-2)
+
+        &__banner
+            position absolute
+            top 4rem
+            left 50%
+            transform translateX(-50%)
+            text-align center
+            border-radius 16px
+            background-color var(--background-color-secondary)
+            padding-inline var(--spacing-4)
+            padding-block var(--spacing-2)
+            cursor pointer
+            z-index 99
 
         &__item
             cursor pointer
@@ -104,4 +120,20 @@
                     -webkit-transform rotate(0deg)
                     -ms-transform rotate(0deg)
                     transition transform 0.2s linear
+
+    @media screen and (max-width: 480px)
+        .versions
+            &__wrapper
+                position absolute
+                z-index 9999
+                top 10rem
+                left 0
+
+            &__banner
+                top 10rem
+                right 24px
+                width 70%
+                left auto
+                transform none
+
 </style>
