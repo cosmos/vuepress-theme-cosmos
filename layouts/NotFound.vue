@@ -2,7 +2,7 @@
   div
     .h1 Page Not Found
     .p The page you visited either does not exist or has been moved. We're sorry for the inconvenience.
-    .p #[a(href="/") Back to home]
+    .p #[a(:href="$withBase('/')") Back to home]
 </template>
 
 <style lang="stylus" scoped>

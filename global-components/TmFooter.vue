@@ -12,7 +12,7 @@
                 .links__item__links.accordion__content(:class="selectedAccordion == index ? 'accordion__content__visible' : ''")
                   a(v-for="link in item.children" v-if="link.title && link.url" :href="link.url" rel="noreferrer noopener" target="_blank").links__item__link {{link.title}}
           .logo
-            a(href="/").logo__container
+            a(:href="$withBase('/')").logo__container
               .logo__item__img__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
                 img(:src="$themeConfig.logo.src")
               .logo__item__img(v-else)

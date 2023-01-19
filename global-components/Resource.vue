@@ -6,7 +6,7 @@
             h5.resource__title {{title}}
             .resource__description {{description}}
             .resource__links
-                a(v-for="link in links" :href="link.url" target="_blank").tm-link.tm-link-external.tm-medium
+                a(v-for="link in links" :href="$withBase(link.url)" target="_blank").tm-link.tm-link-external.tm-medium
                     span {{link.name}}
 </template>
 

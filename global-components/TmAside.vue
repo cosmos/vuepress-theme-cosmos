@@ -8,11 +8,11 @@
       .content
         div(v-if="prereq && prereq.length > 0")
           .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mmb-5 Pre-requisite reading
-          a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
+          a(v-for="item in prereq" :href="$withBase(item.href)").prereq__item {{item.text}}
         div(v-if="$page.headers && $page.headers.length > 0")
           .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.mb-5 On this page
           .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
-            a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href {{link.title}}
+            a(:href="$withBase(`#${link.slug}`)" :class="{selected: link.slug == selected}").aside__link__href {{link.title}}
 </template>
 
 <style lang="stylus" scoped>

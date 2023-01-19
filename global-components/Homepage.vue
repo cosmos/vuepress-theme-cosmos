@@ -40,7 +40,7 @@
     .h2 Explore the Stack
     .p__alt Check out the docs for the various parts of the Cosmos stack.
     .stack
-      a.stack__item(:href="item.url" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
+      a.stack__item(:href="$withBase(item.url)" v-for="item in $frontmatter.stack" :style="{'--accent': item.color, '--opacity': '5%'}")
         .stack__item__wrapper
           component(:is="`tm-logo-${item.label}`" :color="item.color" height="100px").stack__item__logo
           svg(width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg").stack__item__icon

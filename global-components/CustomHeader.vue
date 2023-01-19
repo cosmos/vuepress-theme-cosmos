@@ -2,7 +2,7 @@
     .header
         .header__nav
             .header__nav__logo
-                a(href="/" rel="noreferrer noopener" tag="div").logo__image
+                a(:href="$withBase('/')" rel="noreferrer noopener" tag="div").logo__image
                     img(src="./images/ida-logo.svg" v-if="showIDALogo")
                     component(:is="`logo-${$themeConfig.label}-text`" v-else-if="$themeConfig.label" fill="black")
                     img(:src="logoSrc" v-else-if="$themeConfig.custom")
