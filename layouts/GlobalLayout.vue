@@ -75,14 +75,11 @@ export default {
   },
   computed: {
     layout() {
-      if (this.$page.path) {
-        if (this.$frontmatter.layout) {
-          // You can also check whether layout exists first as the default global layout does.
-          return this.$frontmatter.layout;
-        }
-        return "LayoutDefault";
+      if (this.$frontmatter.layout) {
+        // You can also check whether layout exists first as the default global layout does.
+        return this.$frontmatter.layout;
       }
-      return "NotFound";
+      return "LayoutDefault";
     },
     hasLocales() {
       return (
@@ -90,7 +87,7 @@ export default {
       );
     },
     isContentPage() {
-      return this.$page.path && (!this.$frontmatter.layout || this.$frontmatter.layout == "LayoutDefault")
+      return !this.$frontmatter.layout || this.$frontmatter.layout == "LayoutDefault";
     }
   },
   methods: {
