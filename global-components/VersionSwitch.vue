@@ -4,12 +4,14 @@
         .versions__header(@click="toggleContent()")
             icon-arrow.versions__header__icon(type="bottom" :fill="!showContent ? 'var(--semi-transparent-color-3)' : 'var(--color-text-strong)'" :class="showContent ? 'versions__header__icon__collapsed' : 'versions__header__icon__expanded'")
             .versions__header__label {{currentVersion}}
-            .versions__header__question(@click.stop="navigateToVersionsPage")
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M96 96c-17.7 0-32 14.3-32 32s-14.3 32-32 32s-32-14.3-32-32C0 75 43 32 96 32h97c70.1 0 127 56.9 127 127c0 52.4-32.2 99.4-81 118.4l-63 24.5 0 18.1c0 17.7-14.3 32-32 32s-32-14.3-32-32V301.9c0-26.4 16.2-50.1 40.8-59.6l63-24.5C240 208.3 256 185 256 159c0-34.8-28.2-63-63-63H96zm48 384c-22.1 0-40-17.9-40-40s17.9-40 40-40s40 17.9 40 40s-17.9 40-40 40z"/></svg>
+            .versions__header__question(@click.stop="navigateToVersionsPage") ?
+                
         .versions__content(v-if="showContent")
             .versions__item(v-for="version in versionsItems")
                 .versions__item__link(@click="changeVersion(version)") {{version}}
-    .versions__banner.tm-rf-1(v-if="currentVersion != 'master'" @click="changeVersion('master')") You are viewing an older version of the content, click here to switch to the current version
+    .versions__banner.tm-rf-1(v-if="currentVersion == 'master'" @click="changeVersion('master')")
+        img.icon-image.no-zoom(v-bind:src="$withBase('/hi-warn-icon.svg')")
+        .versions__banner__text You are viewing an older version of the content, click here to switch to the current version
 </template>
 
 <script>
@@ -90,6 +92,15 @@
             padding-block var(--spacing-2)
             cursor pointer
             z-index 99
+            display flex
+            align-items center
+            min-height 40px
+            background linear-gradient(78.06deg, #f46800 1.14%, #f24cf4 98.88%)
+            color #e3e3e3
+
+            &__text
+                padding-left 10px
+            
 
         &__item
             cursor pointer
