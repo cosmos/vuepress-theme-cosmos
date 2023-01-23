@@ -6,7 +6,9 @@
         .layout__sidebar__aside(v-if="!($frontmatter.aside === false) && $page.headers && $page.headers.length > 0")
           client-only
             tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
-      .layout__main
+      .layout__not-found.layout__main(v-if="!$page.path")
+        not-found
+      .layout__main(v-if="$page.path")
         .layout__main__content(:class="[`aside__${!($frontmatter.aside === false)}`]")
           .layout__main__content__body(id="content-scroll")
             .layout__main__content__body__wrapper
