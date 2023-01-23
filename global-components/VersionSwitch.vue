@@ -9,7 +9,7 @@
         .versions__content(v-if="showContent")
             .versions__item(v-for="version in versionsItems")
                 .versions__item__link(@click="changeVersion(version)") {{version}}
-    .versions__banner.tm-rf-1(v-if="currentVersion == 'master'" @click="changeVersion('master')")
+    .versions__banner.tm-rf-1(v-if="currentVersion != 'master'" @click="changeVersion('master')")
         img.icon-image.no-zoom(v-bind:src="$withBase('/hi-warn-icon.svg')")
         .versions__banner__text You are viewing an older version of the content, click here to switch to the current version
 </template>
