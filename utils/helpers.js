@@ -1,5 +1,5 @@
 function isIDAMode(allowedOrigins) {
-    return true;
+    return false;
 }
 
 function scrollToHeader() {
