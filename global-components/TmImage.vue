@@ -1,5 +1,5 @@
 <template lang="pug">
-    img(:src="resizedSrc" :data-zoom-src="zoomSrc")
+    img(:src="$withBase(resizedSrc)" :data-zoom-src="$withBase(zoomSrc)")
 </template>
 
 <script>

@@ -7,7 +7,7 @@
       .logo
         router-link(to="/" tag="div").logo__wrapper
           .logo__image__custom(v-if="$themeConfig.logo && $themeConfig.logo.src")
-            img(:src="$themeConfig.logo.src").logo__image__custom__img
+            img(:src="$withBase($themeConfig.logo.src)").logo__image__custom__img
           .logo__image(v-else)
             component(:is="`tm-logo-${$themeConfig.label || 'sdk'}`")
           .logo__text(v-if="!$themeConfig.logo") {{$site.title}}
