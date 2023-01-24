@@ -65,7 +65,7 @@
 
     @media screen and (max-width: 480px)
         .global__layout__content
-            margin-top var(--spacing-12)
+            margin-top 10rem
 </style>
 
 <style lang="stylus" scoped>
@@ -162,15 +162,14 @@
         .versions
             &__wrapper
                 position absolute
-                z-index 9999
+                z-index 100
                 top 10rem
                 left 0
 
             &__banner
-                top 10rem
+                top 13rem
                 right 24px
-                width 60%
-                left auto
+                left 24px
                 transform none
 
 </style>
