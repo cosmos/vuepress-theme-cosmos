@@ -94,7 +94,7 @@
                 return {
                     title: item?.title || item?.frontmatter?.title, 
                     description: item?.description || item?.frontmatter?.description,
-                    tags: item?.tags || item?.frontmatter?.tags,
+                    tags: item?.tags || item?.frontmatter?.tags || [item?.frontmatter?.tag],
                     url: item?.path
                 }
             },

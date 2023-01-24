@@ -1024,14 +1024,15 @@ export default {
     },
     getTagElement() {
       let tagsWrapper = document.getElementById('tags-wrapper') || null;
-      if (!this.$themeConfig.isIDAMode && this.$page.frontmatter.tags) {
-        if (this.$page.frontmatter.tags.length > 0 && !tagsWrapper) {
+      const tags = this.$page.frontmatter?.tags || [this.$page.frontmatter?.tag] || null
+      if (!this.$themeConfig.isIDAMode && tags) {
+        if (tags.length > 0 && !tagsWrapper) {
           tagsWrapper = document.createElement("div");
           tagsWrapper.classList.add('tags-wrapper');
           tagsWrapper.setAttribute('id', 'tags-wrapper');
         }
 
-        for (let tag of this.$page.frontmatter.tags) {
+        for (let tag of tags) {
           const tagId = `tag-element-${tag}`;
           const drawnTag = document.getElementById(tagId);
 

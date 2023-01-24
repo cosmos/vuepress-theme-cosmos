@@ -219,7 +219,7 @@ export default {
         page = find(this.$site.pages, ["path", item.path]) || item;
       }
       for (var tag of this.filterTags || []) {
-        if (!page?.frontmatter || page.frontmatter?.tags?.includes(tag)) {
+        if (!page?.frontmatter || page.frontmatter?.tags?.includes(tag) || page.frontmatter?.tag === tag) {
           tagPresent = true;
           break;
         }
@@ -350,11 +350,11 @@ export default {
     tags(item) {
       var page = item;
 
-      if (!item?.frontmatter?.tags) {
+      if (!item?.frontmatter?.tags && !item?.frontmatter?.tag) {
         page = find(this.$site.pages, ["path", item.path]);
       }
 
-      return page?.frontmatter?.tags || [];
+      return page?.frontmatter?.tags || [page?.frontmatter?.tag] || [];
     }
   },
 };

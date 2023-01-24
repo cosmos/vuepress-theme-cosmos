@@ -19,7 +19,7 @@
                             h5.module__submodules__item__content__title
                                 span {{submodule.title}}
                             .module__submodules__item__content__desc {{submodule.description}}
-                        .module__submodules__item__badges.mb-4(v-if="submodule.tags && isBadgeVisible()" v-for="tag in submodule.tags")
+                        .module__submodules__item__badges.mb-4(v-if="(submodule.tags || submodule.tag) && isBadgeVisible()" v-for="tag in submodule.tags || [submodule.tag]")
                             .module__submodules__item__badges__item(v-if="$themeConfig.tags[tag]" v-bind:style="{'background': $themeConfig.tags[tag].color || ''}") {{$themeConfig.tags[tag].label || ''}}
                         .module__submodules__item__start
                             .module__submodules__item__start__icon
