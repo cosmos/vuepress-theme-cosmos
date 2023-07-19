@@ -16,7 +16,7 @@
               component(:is="layout" :key="$route.path" @search="searchPanel = $event" @prereq="prereq = $event")
                 Content
           .layout__main__content__aside__container(v-if="!($frontmatter.aside === false)" :style="{'--height-banners': heightBanners + 'px'}")
-            .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`]")
+            .layout__main__content__aside(:class="[`aside__bottom__${!!asideBottom}`, editLink && 'aside__padding__bottom']")
               client-only
                 tm-aside(id="aside-scroll" @search="searchPanel = $event" @bannerError="asideBanners = null" v-bind="{asideBanners, asideBannersUrl, prereq}")
             .layout__main__content__aside__banners(ref="banners" v-if="editLink")
@@ -51,6 +51,8 @@
   max-height initial
   top initial
   height initial
+  &.aside__padding__bottom
+    padding-bottom 0
 
 .layout__main__content.aside__false
   display block
@@ -119,6 +121,8 @@
         max-height 100vh
         overflow-y scroll
         scrollbar-color #eee white
+        &.aside__padding__bottom
+          padding-bottom 11rem
 
         &::-webkit-scrollbar
           background rgba(255, 255, 255, 0)
