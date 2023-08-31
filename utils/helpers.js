@@ -1,7 +1,3 @@
-function isIDAMode(allowedOrigins) {
-    return false;
-}
-
 function scrollToHeader() {
     if (typeof window === 'undefined') return;
 

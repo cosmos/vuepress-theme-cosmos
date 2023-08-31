@@ -49,7 +49,7 @@
             getCurrentVersion() {
                 let version = "master";
 
-                if (this.$site?.base) {
+                if (this.$site?.base && typeof this.versions !== 'undefined') {
                     const matched = this.versions.find(item => `/${item}/` === this.$site.base) || null;
                     if (matched) version = matched;
                 }

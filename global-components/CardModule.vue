@@ -29,7 +29,6 @@
 </template>
 
 <script>
-    import { isIDAMode } from "../utils/helpers";
     export default {
         props: ['module', 'main', 'weekly'],
         data() {

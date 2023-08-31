@@ -80,7 +80,6 @@
 
 <script>
 import { findIndex, find, cloneDeep } from "lodash";
-import { isIDAMode } from "../utils/helpers";
 
 export default {
   props: ["tree"],
