@@ -9,7 +9,7 @@
         .versions__content(v-if="showContent")
             .versions__item(v-for="version in versionsItems")
                 .versions__item__link(@click="changeVersion(version)") {{version}}
-    .versions__banner.tm-rf-1(v-if="currentVersion != 'master'" @click="changeVersion('master')")
+    .versions__banner.tm-rf-1(v-if="currentVersion != 'main'" @click="changeVersion('main')")
         img.icon-image.no-zoom(v-bind:src="$withBase('/hi-warn-icon.svg')")
         .versions__banner__text You are viewing an older version of the content, click here to switch to the current version
 </template>
@@ -31,7 +31,7 @@
         },
         computed: {
             versionsItems() {
-                return ["master", ...this.versions];
+                return ["main", ...this.versions];
             }
         },
         methods: {
@@ -39,7 +39,7 @@
                 this.showContent = !this.showContent;
             },
             changeVersion(version) {
-                const versionPart = version === "master" ? "" : `/${version}`;
+                const versionPart = version === "main" ? "" : `/${version}`;
                 const pathPart = this.$route.path?.replace(`/${this.currentVersion}`, "");
                 window.location.href = window.location.origin + versionPart + pathPart;
             },
@@ -47,7 +47,7 @@
                 window.location.href = window.location.origin + "/versions.html";
             },
             getCurrentVersion() {
-                let version = "master";
+                let version = "main";
 
                 if (this.$site?.base && typeof this.versions !== 'undefined') {
                     const matched = this.versions.find(item => `/${item}/` === this.$site.base) || null;
