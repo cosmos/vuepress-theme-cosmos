@@ -13,5 +13,4 @@ function scrollToHeader() {
     }
 }
 
-module.exports.isIDAMode = isIDAMode;
 module.exports.scrollToHeader = scrollToHeader;
